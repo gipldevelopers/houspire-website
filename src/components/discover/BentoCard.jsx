@@ -33,6 +33,7 @@ export function BentoCard({ design, index, onClick, isFocused = false, layout = 
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      onContextMenu={(e) => e.preventDefault()}
       role="button"
       tabIndex={0}
       aria-label={`View ${design.design_title}`}
@@ -48,7 +49,12 @@ export function BentoCard({ design, index, onClick, isFocused = false, layout = 
               <img src={houspireWatermark} alt="" className="w-12 opacity-10" />
             </div>
           )}
-          
+
+          {/* Watermark overlay */}
+          <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
+            <img src={houspireWatermark} alt="" className="w-24 md:w-28 opacity-15" draggable={false} />
+          </div>
+           
           {design.cloudinary_public_id ? (
             <CloudinaryImage
               src={design.cloudinary_public_id}
@@ -58,6 +64,9 @@ export function BentoCard({ design, index, onClick, isFocused = false, layout = 
                 imageLoaded ? 'opacity-100' : 'opacity-0'
               }`}
               objectFit="cover"
+              draggable={false}
+              onDragStart={(e) => e.preventDefault()}
+              onContextMenu={(e) => e.preventDefault()}
               onLoad={() => setImageLoaded(true)}
             />
           ) : (
@@ -66,6 +75,8 @@ export function BentoCard({ design, index, onClick, isFocused = false, layout = 
               alt={design.design_title}
               loading="lazy"
               draggable={false}
+              onContextMenu={(e) => e.preventDefault()}
+              onDragStart={(e) => e.preventDefault()}
               onLoad={() => setImageLoaded(true)}
               className={`w-full h-auto transition-all duration-700 group-hover:scale-105 ${
                 imageLoaded ? 'opacity-100' : 'opacity-0'
@@ -143,4 +154,3 @@ export function BentoCard({ design, index, onClick, isFocused = false, layout = 
     </motion.div>
   )
 }
-
