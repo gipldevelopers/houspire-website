@@ -1,0 +1,102 @@
+export const ROOM_TYPES = [
+  { value: 'master_bedroom', label: 'Master Bedroom' },
+  { value: 'kids_bedroom', label: 'Kids Bedroom' },
+  { value: 'guest_bedroom', label: 'Guest Bedroom' },
+  { value: 'nursery', label: 'Nursery' },
+  { value: 'living_room', label: 'Living Room' },
+  { value: 'dining_room', label: 'Dining Room' },
+  { value: 'kitchen', label: 'Kitchen' },
+  { value: 'pantry', label: 'Pantry' },
+  { value: 'home_office', label: 'Home Office' },
+  { value: 'bathroom', label: 'Bathroom' },
+  { value: 'pooja_room', label: 'Pooja Room' },
+  { value: 'balcony', label: 'Balcony/Terrace' },
+  { value: 'entryway', label: 'Entryway/Foyer' },
+  { value: 'home_theatre', label: 'Home Theatre' },
+  { value: 'gym', label: 'Home Gym' },
+  { value: 'walk_in_wardrobe', label: 'Walk-in Wardrobe' },
+  { value: 'laundry', label: 'Laundry Room' },
+  { value: 'bar', label: 'Bar/Wine Room' },
+  { value: 'library', label: 'Library/Study' },
+  { value: 'terrace', label: 'Terrace/Outdoor' },
+];
+
+export const DESIGN_STYLES = [
+  { value: 'modern_minimalist', label: 'Modern Minimalist', persona: 'priya' },
+  { value: 'contemporary_indian', label: 'Contemporary Indian', persona: 'meera' },
+  { value: 'traditional_indian', label: 'Traditional Indian', persona: 'arjun' },
+  { value: 'scandinavian', label: 'Scandinavian', persona: 'priya' },
+  { value: 'bohemian', label: 'Bohemian', persona: 'meera' },
+  { value: 'industrial', label: 'Industrial', persona: 'priya' },
+  { value: 'mid_century', label: 'Mid-Century Modern', persona: 'priya' },
+  { value: 'coastal', label: 'Coastal/Beach', persona: 'meera' },
+  { value: 'rustic', label: 'Rustic Farmhouse', persona: 'arjun' },
+  { value: 'art_deco', label: 'Art Deco', persona: 'meera' },
+  { value: 'japanese_zen', label: 'Japanese Zen', persona: 'priya' },
+  { value: 'maximalist', label: 'Maximalist', persona: 'meera' },
+  { value: 'transitional', label: 'Transitional', persona: 'arjun' },
+  { value: 'eclectic', label: 'Eclectic Fusion', persona: 'meera' },
+  { value: 'luxury_traditional', label: 'Luxury Traditional', persona: 'arjun' },
+  { value: 'natural_organic', label: 'Natural Organic', persona: 'ananya' },
+];
+
+export const BUDGET_RANGES = [
+  { value: 'budget_friendly', label: 'Budget-Friendly', min: 50000, max: 150000 },
+  { value: 'mid_range', label: 'Mid-Range', min: 150000, max: 350000 },
+  { value: 'premium', label: 'Premium', min: 350000, max: 800000 },
+];
+
+export const DESIGNER_PERSONAS = [
+  // MODERN MINIMALIST SPECIALISTS
+  {
+    id: 'priya',
+    name: 'Priya',
+    title: 'Modern Minimalist Specialist',
+    bio: 'Clean lines, functional spaces, and timeless elegance',
+    specialties: ['modern_minimalist', 'scandinavian', 'japanese_zen'],
+    personality: 'analytical',
+    style: 'minimalist',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=priya',
+    rating: 4.9,
+    projects_completed: 340,
+  },
+  // CONTEMPORARY INDIAN SPECIALISTS
+  {
+    id: 'meera',
+    name: 'Meera',
+    title: 'Contemporary Fusion Specialist',
+    bio: 'Bold colors, eclectic mixes, and vibrant energy',
+    specialties: ['contemporary_indian', 'bohemian', 'maximalist'],
+    personality: 'creative',
+    style: 'eclectic',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=meera',
+    rating: 4.9,
+    projects_completed: 380,
+  },
+  // TRADITIONAL INDIAN SPECIALISTS
+  {
+    id: 'arjun',
+    name: 'Arjun',
+    title: 'Traditional Heritage Specialist',
+    bio: 'Classic elegance, cultural richness, and refined luxury',
+    specialties: ['traditional_indian', 'luxury_traditional', 'transitional'],
+    personality: 'traditional',
+    style: 'classic',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=arjun',
+    rating: 4.9,
+    projects_completed: 425,
+  },
+  // NATURAL ORGANIC SPECIALISTS
+  {
+    id: 'ananya',
+    name: 'Ananya',
+    title: 'Natural Organic Specialist',
+    bio: 'Sustainable materials, biophilic design, and earth tones',
+    specialties: ['natural_organic', 'rustic', 'coastal'],
+    personality: 'natural',
+    style: 'organic',
+    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=ananya',
+    rating: 4.9,
+    projects_completed: 180,
+  },
+];

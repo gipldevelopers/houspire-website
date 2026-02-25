@@ -1,0 +1,255 @@
+/* ============================================
+   MOBILE UX STYLES
+   ============================================ */
+
+/* Safe Area Support */
+.safe-area-top {
+  padding-top: env(safe-area-inset-top);
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.safe-area-left {
+  padding-left: env(safe-area-inset-left);
+}
+
+.safe-area-right {
+  padding-right: env(safe-area-inset-right);
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+  /* Add bottom padding for mobile nav */
+  main {
+    padding-bottom: calc(64px + env(safe-area-inset-bottom));
+  }
+
+  /* Optimize touch targets */
+  button,
+  a,
+  input[type="checkbox"],
+  input[type="radio"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Prevent zoom on input focus */
+  input,
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+
+  /* Optimize scrolling */
+  .scroll-container {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* Hide scrollbar on mobile */
+  .hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+/* Pull to refresh styles */
+@media (max-width: 768px) {
+  body {
+    overscroll-behavior-y: contain;
+  }
+}
+
+/* Swipe gesture feedback */
+.swipe-feedback {
+  touch-action: pan-y;
+  user-select: none;
+}
+
+/* Mobile modal fullscreen */
+@media (max-width: 768px) {
+  .mobile-fullscreen-modal {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 0;
+    margin: 0;
+  }
+}
+
+/* Haptic feedback simulation */
+@keyframes haptic-pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.98);
+  }
+}
+
+.haptic-feedback:active {
+  animation: haptic-pulse 0.1s ease-in-out;
+}
+
+/* Mobile sticky header */
+.mobile-sticky-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  backdrop-filter: blur(10px);
+  background-color: hsl(var(--background) / 0.9);
+}
+
+/* Mobile card swipe actions */
+.swipe-action-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.swipe-actions {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0 1rem;
+}
+
+/* Mobile image optimization */
+@media (max-width: 768px) {
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Lazy load placeholder */
+  .lazy-image {
+    background: linear-gradient(90deg, hsl(var(--muted)) 25%, hsl(var(--muted-foreground) / 0.1) 50%, hsl(var(--muted)) 75%);
+    background-size: 200% 100%;
+    animation: loading 1.5s infinite;
+  }
+
+  @keyframes loading {
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+}
+
+/* Mobile bottom sheet */
+.bottom-sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: hsl(var(--background));
+  border-radius: 1.5rem 1.5rem 0 0;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 -4px 24px hsl(var(--foreground) / 0.1);
+  z-index: 50;
+}
+
+.bottom-sheet-handle {
+  width: 40px;
+  height: 4px;
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 2px;
+  margin: 12px auto;
+}
+
+/* Improve mobile form experience */
+@media (max-width: 768px) {
+  /* Stack form labels */
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* Full-width mobile inputs */
+  input,
+  select,
+  textarea {
+    width: 100%;
+  }
+
+  /* Larger touch-friendly buttons */
+  .btn-mobile {
+    height: 48px;
+    font-size: 16px;
+  }
+}
+
+/* Mobile navigation transitions */
+@media (max-width: 768px) {
+  .page-transition-enter {
+    transform: translateX(100%);
+  }
+
+  .page-transition-enter-active {
+    transform: translateX(0);
+    transition: transform 0.3s ease-out;
+  }
+
+  .page-transition-exit {
+    transform: translateX(0);
+  }
+
+  .page-transition-exit-active {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in;
+  }
+}
+
+/* Mobile fab button positioning */
+@media (max-width: 768px) {
+  .mobile-fab {
+    position: fixed;
+    bottom: calc(80px + env(safe-area-inset-bottom));
+    right: 1rem;
+    z-index: 30;
+  }
+}
+
+/* Mobile list optimization */
+@media (max-width: 768px) {
+  .mobile-list-item {
+    padding: 1rem;
+    border-bottom: 1px solid hsl(var(--border));
+  }
+
+  .mobile-list-item:active {
+    background-color: hsl(var(--muted));
+  }
+}
+
+/* iOS standalone mode adjustments */
+.ios-standalone {
+  /* Account for status bar in standalone mode */
+  padding-top: env(safe-area-inset-top);
+}
+
+/* Mobile device specific adjustments */
+.mobile-device {
+  /* Disable text selection on interactive elements */
+  button,
+  a {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+}

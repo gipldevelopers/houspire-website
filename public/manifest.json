@@ -1,0 +1,64 @@
+{
+  "name": "Houspire - AI Interior Design",
+  "short_name": "Houspire",
+  "description": "Transform your space with AI-powered interior design in 7 days",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#E8662E",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/icons/favicon-96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["lifestyle", "utilities"],
+  "shortcuts": [
+    {
+      "name": "Start New Project",
+      "short_name": "New Project",
+      "description": "Begin interior design",
+      "url": "/style-quiz",
+      "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Dashboard",
+      "short_name": "Dashboard",
+      "description": "View your projects",
+      "url": "/dashboard",
+      "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Favorites",
+      "short_name": "Favorites",
+      "description": "View saved designs",
+      "url": "/favorites",
+      "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
+    }
+  ],
+  "prefer_related_applications": false
+}

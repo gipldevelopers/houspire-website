@@ -1,0 +1,5 @@
+export { FAQChatbot } from './FAQChatbot.jsx'
+export { FAQItem } from './FAQItem.jsx'
+export { FAQSearch, highlightText } from './FAQSearch.jsx'
+export { FAQSidebar, FAQCategoryPills } from './FAQSidebar.jsx'
+export { FAQVoting } from './FAQVoting.jsx'
