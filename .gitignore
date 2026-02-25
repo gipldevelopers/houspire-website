@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+.next/cache/webpack/client-production/0.pack
+.next/cache/webpack/client-production/index.pack
+.next/cache/webpack/server-production/index.pack
+.next/cache/webpack/server-production/0.pack
+.next/diagnostics/build-diagnostics.json
