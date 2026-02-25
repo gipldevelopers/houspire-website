@@ -26,12 +26,14 @@ export const CLOUDINARY_TRANSFORMS = {
     // Card images
     card: 'c_fill,w_800,h_600,q_auto,f_auto',
     cardWide: 'c_fill,w_800,h_450,q_auto,f_auto',
+    cardWatermarked: 'c_fill,w_800,h_600,q_auto,f_auto/l_text:Arial_56:Houspire,co_rgb:f97316,o_22/fl_layer_apply,g_center',
     // Hero and banner images
     hero: 'c_fill,w_1920,h_1080,q_auto,f_auto',
     heroBanner: 'c_fill,w_1920,h_600,q_auto,f_auto',
     // Gallery and portfolio
     gallery: 'c_limit,w_1200,q_auto,f_auto',
     galleryFull: 'c_limit,w_1920,q_auto,f_auto',
+    galleryFullWatermarked: 'c_limit,w_1920,q_auto,f_auto/l_text:Arial_72:Houspire,co_rgb:f97316,o_18/fl_layer_apply,g_center',
     // Avatars and profiles
     avatar: 'c_fill,w_200,h_200,r_max,q_auto,f_auto',
     avatarLarge: 'c_fill,w_400,h_400,r_max,q_auto,f_auto',

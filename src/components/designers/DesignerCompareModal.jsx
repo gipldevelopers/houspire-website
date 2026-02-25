@@ -1,6 +1,8 @@
+'use client';
+
 import { motion } from 'framer-motion';
 import { Star, Check, ArrowRight } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
@@ -78,7 +80,7 @@ export function DesignerCompareModal({ isOpen, onClose, selectedIds }) {
               
               {/* CTA */}
               <Button asChild className="w-full rounded-full">
-                <Link to={`/designer/${designer.id}`}>
+                <Link href={`/designer/${designer.id}`}>
                   View Full Portfolio
                   <ArrowRight className="w-4 h-4 ml-2"/>
                 </Link>

@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -5,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Heart, FolderHeart, ChevronDown, ChevronUp, ExternalLink } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { getInspirationBoards } from '@/lib/inspiration-service';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 export function AttachInspirations({ selectedBoardIds, onSelectionChange }) {
@@ -109,7 +111,7 @@ export function AttachInspirations({ selectedBoardIds, onSelectionChange }) {
                     </div>
                   </div>))}
 
-                <Link to="/dashboard/inspiration" target="_blank" className="flex items-center gap-2 text-sm text-pink-600 hover:text-pink-700 mt-4">
+                <Link href="/dashboard/inspiration" target="_blank" className="flex items-center gap-2 text-sm text-pink-600 hover:text-pink-700 mt-4">
                   <ExternalLink className="h-4 w-4"/>
                   Manage your boards
                 </Link>
@@ -118,11 +120,9 @@ export function AttachInspirations({ selectedBoardIds, onSelectionChange }) {
                 <p className="text-neutral-600 mb-4">
                   You haven't saved any inspirations yet
                 </p>
-                <Link to="/discover">
-                  <Button variant="outline" className="rounded-xl">
-                    Browse Design Gallery
-                  </Button>
-                </Link>
+                <Button asChild variant="outline" className="rounded-xl">
+                  <Link href="/discover">Browse Design Gallery</Link>
+                </Button>
               </div>)}
           </div>
         </CollapsibleContent>

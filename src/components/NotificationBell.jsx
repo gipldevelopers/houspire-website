@@ -1,5 +1,7 @@
+'use client';
+
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -7,7 +9,7 @@ import { supabase } from '@/integrations/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 import { Bell, CheckCircle, AlertCircle, Info, AlertTriangle, Zap, X, Check, } from 'lucide-react';
 export function NotificationBell() {
-    const navigate = useNavigate();
+    const router = useRouter();
     const { user } = useAuth();
     const [notifications, setNotifications] = useState([]);
     const [unreadCount, setUnreadCount] = useState(0);
@@ -103,7 +105,7 @@ export function NotificationBell() {
             markAsRead(notification.id);
         }
         if (notification.action_url) {
-            navigate(notification.action_url);
+            router.push(notification.action_url);
             setIsOpen(false);
         }
     };

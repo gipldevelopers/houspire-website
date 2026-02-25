@@ -1,5 +1,7 @@
+'use client';
+
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -12,7 +14,7 @@ import { Search, MoreVertical, Eye, Send, Upload, Phone, Mail, Trash, CheckCircl
 import { ROOM_TYPES, DESIGNER_PERSONAS } from '@/lib/constants';
 import { useToast } from '@/hooks/use-toast';
 export function AdminProjectsTab({ projects, onRefresh }) {
-    const navigate = useNavigate();
+    const router = useRouter();
     const { toast } = useToast();
     const [searchQuery, setSearchQuery] = useState('');
     const [filterPhase, setFilterPhase] = useState(null);
@@ -196,7 +198,7 @@ export function AdminProjectsTab({ projects, onRefresh }) {
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuItem onClick={() => navigate(`/admin/project/${project.id}`)}>
+                      <DropdownMenuItem onClick={() => router.push(`/admin/project/${project.id}`)}>
                         <Eye className="h-4 w-4 mr-2"/>
                         View Details
                       </DropdownMenuItem>

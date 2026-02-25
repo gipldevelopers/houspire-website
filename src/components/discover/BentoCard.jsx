@@ -52,14 +52,16 @@ export function BentoCard({ design, index, onClick, isFocused = false, layout = 
 
           {/* Watermark overlay */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-            <img src={houspireWatermark} alt="" className="w-24 md:w-28 opacity-15" draggable={false} />
+            <span className="text-4xl md:text-5xl font-semibold tracking-tight text-transparent select-none [text-shadow:0_1px_12px_rgba(0,0,0,0.12)] [-webkit-text-stroke:2px_rgba(249,115,22,0.28)]">
+              Houspire
+            </span>
           </div>
            
           {design.cloudinary_public_id ? (
             <CloudinaryImage
               src={design.cloudinary_public_id}
               alt={design.design_title}
-              transform="card"
+              transform="cardWatermarked"
               className={`w-full transition-all duration-700 group-hover:scale-105 ${
                 imageLoaded ? 'opacity-100' : 'opacity-0'
               }`}

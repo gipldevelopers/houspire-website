@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter, } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
@@ -7,11 +9,11 @@ import { Separator } from '@/components/ui/separator';
 import { ADD_ONS, BASE_PACKAGE, FREE_ADDON_OPTIONS } from '@/lib/pricing';
 import { Gift, ShoppingCart } from 'lucide-react';
 import { useCartStore } from '@/stores/cartStore';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 export function PackageBuilderModal({ open, onOpenChange }) {
     const [selectedAddons, setSelectedAddons] = useState([]);
     const [freeAddon, setFreeAddon] = useState('');
-    const navigate = useNavigate();
+    const router = useRouter();
     const addItem = useCartStore((state) => state.addItem);
     const toggleAddon = (id) => {
         setSelectedAddons(prev => prev.includes(id) ? prev.filter(i => i !== id) : [...prev, id]);
@@ -44,7 +46,7 @@ export function PackageBuilderModal({ open, onOpenChange }) {
             }
         });
         onOpenChange(false);
-        navigate('/checkout');
+        router.push('/checkout');
     };
     const addonsByCategory = {
         visual: ADD_ONS.filter(a => a.category === 'visual'),

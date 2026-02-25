@@ -1,37 +1,39 @@
-import { useLocation } from 'react-router-dom'
+'use client'
+
+import { usePathname } from 'next/navigation'
 
 export function useWhatsAppMessage() {
-  const location = useLocation()
+  const pathname = usePathname()
 
-  if (location.pathname.includes('/select-package')) {
+  if (pathname.includes('/select-package')) {
     return 'Hi! I need help choosing the right design package for my home.'
   }
 
-  if (location.pathname.includes('/checkout')) {
+  if (pathname.includes('/checkout')) {
     return 'Hi! I have questions about the payment process.'
   }
 
-  if (location.pathname.includes('/dashboard')) {
+  if (pathname.includes('/dashboard')) {
     return 'Hi! I need help with my ongoing project.'
   }
 
-  if (location.pathname.includes('/reviews')) {
+  if (pathname.includes('/reviews')) {
     return 'Hi! I want to know more about customer experiences with Houspire.'
   }
 
-  if (location.pathname.includes('/designers')) {
+  if (pathname.includes('/designers')) {
     return 'Hi! Can I request a specific designer for my project?'
   }
 
-  if (location.pathname.includes('/style-quiz')) {
+  if (pathname.includes('/style-quiz')) {
     return 'Hi! I need help with the style quiz and finding my design preferences.'
   }
 
-  if (location.pathname.includes('/referrals')) {
+  if (pathname.includes('/referrals')) {
     return 'Hi! I have questions about the referral program.'
   }
 
-  if (location.pathname.includes('/vip')) {
+  if (pathname.includes('/vip')) {
     return 'Hi! I want to know more about VIP membership benefits.'
   }
 

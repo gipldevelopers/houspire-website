@@ -1,3 +1,5 @@
+'use client';
+
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -5,10 +7,10 @@ import { Badge } from '@/components/ui/badge';
 import { Check, Wand2 } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { PackageBuilderModal } from './PackageBuilderModal';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 export function PricingSection() {
     const [builderOpen, setBuilderOpen] = useState(false);
-    const navigate = useNavigate();
+    const router = useRouter();
     const features = [
         'Professional 3D renders (multiple angles)',
         'Complete shopping list with vendor details',
@@ -63,7 +65,7 @@ export function PricingSection() {
                 </div>))}
             </div>
 
-            <Button className="w-full h-14 text-base font-semibold bg-purple-600 hover:bg-purple-700 text-white rounded-xl" onClick={() => navigate('/style-quiz')}>
+            <Button className="w-full h-14 text-base font-semibold bg-purple-600 hover:bg-purple-700 text-white rounded-xl" onClick={() => router.push('/style-quiz')}>
               Get Started Now
             </Button>
 

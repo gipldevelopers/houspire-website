@@ -1,4 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+'use client';
+
+import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -7,7 +9,6 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
 import { AlertTriangle, ArrowRight, Phone, Mail, CheckCircle, FileText, Users, Wand2, Plus, Upload, Send, Download, Eye, } from 'lucide-react';
 export function AdminOverviewTab({ stats, projects, onRefresh }) {
-    const navigate = useNavigate();
     // Get urgent projects (no update in 24+ hours)
     const urgentProjects = projects.filter((p) => {
         const hoursSinceUpdate = (Date.now() - new Date(p.updated_at).getTime()) / (1000 * 60 * 60);
@@ -112,7 +113,7 @@ export function AdminOverviewTab({ stats, projects, onRefresh }) {
     </div>);
 }
 function UrgentProjectCard({ project }) {
-    const navigate = useNavigate();
+    const router = useRouter();
     const hoursSinceUpdate = Math.floor((Date.now() - new Date(project.updated_at).getTime()) / (1000 * 60 * 60));
     return (<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="flex items-center justify-between p-4 rounded-xl bg-destructive/5 border border-destructive/20">
       <div>
@@ -124,7 +125,7 @@ function UrgentProjectCard({ project }) {
         </p>
       </div>
       <div className="flex items-center gap-2">
-        <Button size="sm" onClick={() => navigate(`/admin/project/${project.id}`)}>
+        <Button size="sm" onClick={() => router.push(`/admin/project/${project.id}`)}>
           <Eye className="h-4 w-4 mr-1"/>
           View
         </Button>
@@ -138,7 +139,7 @@ function UrgentProjectCard({ project }) {
     </motion.div>);
 }
 function ActivityItem({ project }) {
-    const navigate = useNavigate();
+    const router = useRouter();
     const activities = [
         { icon: CheckCircle, text: 'Payment received', color: 'text-emerald-600' },
         { icon: FileText, text: 'Intake submitted', color: 'text-blue-600' },
@@ -146,7 +147,7 @@ function ActivityItem({ project }) {
         { icon: Wand2, text: 'Concepts uploaded', color: 'text-amber-600' },
     ];
     const activity = activities[project.current_phase % activities.length];
-    return (<div className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted/50 cursor-pointer transition-colors" onClick={() => navigate(`/admin/project/${project.id}`)}>
+    return (<div className="flex items-center gap-3 p-3 rounded-lg hover:bg-muted/50 cursor-pointer transition-colors" onClick={() => router.push(`/admin/project/${project.id}`)}>
       <div className={`p-2 rounded-lg bg-muted`}>
         <activity.icon className={`h-4 w-4 ${activity.color}`}/>
       </div>

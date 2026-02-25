@@ -1,10 +1,12 @@
+'use client'
+
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useRouter } from 'next/navigation'
 import { supabase } from '@/integrations/supabase/client'
 import { useToast } from '@/hooks/use-toast'
 
 export function useProjectArchive() {
-  const navigate = useNavigate()
+  const router = useRouter()
   const { toast } = useToast()
   const [archiving, setArchiving] = useState(false)
 
@@ -26,7 +28,7 @@ export function useProjectArchive() {
       })
 
       if (redirectToDashboard) {
-        navigate('/dashboard')
+        router.push('/dashboard')
       }
 
       return true

@@ -1,5 +1,7 @@
+'use client';
+
 import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';
 import { Star, Briefcase, Clock, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -59,7 +61,7 @@ export function DesignerGrid({ designers, viewMode, selectedDesigners, onToggleS
             </div>
             
             <Button asChild variant="ghost" size="sm">
-              <Link to={`/designers/${designer.id}`}>
+              <Link href={`/designers/${designer.id}`}>
                 View Portfolio
                 <ArrowRight className="w-4 h-4 ml-1"/>
               </Link>
@@ -128,7 +130,7 @@ export function DesignerGrid({ designers, viewMode, selectedDesigners, onToggleS
           {/* Footer */}
           <div className="px-6 pb-6">
             <Button asChild className="w-full rounded-full" variant="outline">
-              <Link to={`/designers/${designer.id}`}>
+              <Link href={`/designers/${designer.id}`}>
                 View Portfolio
                 <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform"/>
               </Link>

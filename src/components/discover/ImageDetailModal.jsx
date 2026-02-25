@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
-import houspireWatermark from '@/assets/houspire-watermark.png'
 import { X, ChevronLeft, ChevronRight, Share2, Check, Keyboard, Maximize2, Heart } from 'lucide-react'
 import { formatText } from './types'
 import { cn } from '@/lib/utils'
@@ -197,12 +196,9 @@ export function ImageDetailModal({
 
                 {/* Center Watermark */}
                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <img 
-                    src={houspireWatermark} 
-                    alt="" 
-                    className="w-1/4 max-w-[120px] opacity-20"
-                    draggable={false}
-                  />
+                  <span className="text-5xl md:text-7xl font-semibold tracking-tight text-transparent select-none [text-shadow:0_1px_20px_rgba(0,0,0,0.35)] [-webkit-text-stroke:3px_rgba(249,115,22,0.32)]">
+                    Houspire
+                  </span>
                 </div>
 
                 {/* Navigation Arrows */}
@@ -471,4 +467,3 @@ export function ImageDetailModal({
     </AnimatePresence>
   )
 }
-

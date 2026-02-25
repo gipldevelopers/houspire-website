@@ -123,6 +123,7 @@ export function RelatedDesigns({ currentDesign, onDesignClick }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05 }}
             onClick={() => onDesignClick(design)}
+            onContextMenu={(e) => e.preventDefault()}
             onKeyDown={(e) => {
               if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault()
@@ -138,8 +139,18 @@ export function RelatedDesigns({ currentDesign, onDesignClick }) {
               alt={design.design_title}
               className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
               loading="lazy"
+              draggable={false}
+              onDragStart={(e) => e.preventDefault()}
+              onContextMenu={(e) => e.preventDefault()}
             />
-            
+
+            {/* Center Watermark */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+              <span className="text-xl font-semibold tracking-tight text-transparent select-none [-webkit-text-stroke:2px_rgba(249,115,22,0.26)]">
+                Houspire
+              </span>
+            </div>
+             
             {/* Overlay */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <div className="absolute bottom-0 left-0 right-0 p-2">
@@ -170,4 +181,3 @@ export function RelatedDesigns({ currentDesign, onDesignClick }) {
     </div>
   )
 }
-

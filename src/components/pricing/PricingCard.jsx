@@ -1,12 +1,14 @@
+'use client';
+
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Check, Star } from 'lucide-react';
 import { motion } from 'framer-motion';
 import { useCartStore } from '@/stores/cartStore';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 export function PricingCard({ bundle, index }) {
-    const navigate = useNavigate();
+    const router = useRouter();
     const addItem = useCartStore((state) => state.addItem);
     const handleSelect = () => {
         addItem({
@@ -15,7 +17,7 @@ export function PricingCard({ bundle, index }) {
             price: bundle.price,
             type: 'bundle'
         });
-        navigate('/checkout');
+        router.push('/checkout');
     };
     return (<motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: index * 0.1, duration: 0.5 }} className="h-full">
       <Card className={`relative h-full p-6 flex flex-col card-premium ${bundle.popular

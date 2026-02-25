@@ -34,6 +34,7 @@ export function TestimonialsSectionHome() {
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
+  const autoPlayTimeoutRef = useRef(null);
 
   const minSwipeDistance = 50;
 
@@ -41,19 +42,22 @@ export function TestimonialsSectionHome() {
     setCurrentIndex(index);
     setIsAutoPlaying(false);
     // Resume auto-play after 8 seconds
-    setTimeout(() => setIsAutoPlaying(true), 8000);
+    if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
+    autoPlayTimeoutRef.current = setTimeout(() => setIsAutoPlaying(true), 8000);
   }, []);
 
   const goToPrevious = useCallback(() => {
     setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
     setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 8000);
+    if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
+    autoPlayTimeoutRef.current = setTimeout(() => setIsAutoPlaying(true), 8000);
   }, []);
 
   const goToNext = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % testimonials.length);
     setIsAutoPlaying(false);
-    setTimeout(() => setIsAutoPlaying(true), 8000);
+    if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
+    autoPlayTimeoutRef.current = setTimeout(() => setIsAutoPlaying(true), 8000);
   }, []);
 
   // Auto-play slider
@@ -77,7 +81,8 @@ export function TestimonialsSectionHome() {
 
   const onTouchEnd = () => {
     if (!touchStart || !touchEnd) {
-      setTimeout(() => setIsAutoPlaying(true), 5000);
+      if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
+      autoPlayTimeoutRef.current = setTimeout(() => setIsAutoPlaying(true), 5000);
       return;
     }
     const distance = touchStart - touchEnd;
@@ -91,18 +96,30 @@ export function TestimonialsSectionHome() {
       goToPrevious();
     }
     if (!isLeftSwipe && !isRightSwipe) {
-      setTimeout(() => setIsAutoPlaying(true), 5000);
+      if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
+      autoPlayTimeoutRef.current = setTimeout(() => setIsAutoPlaying(true), 5000);
     }
   };
 
+  useEffect(() => {
+    return () => {
+      if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
+    };
+  }, []);
+
   return (
-    <section ref={ref} className="bg-white py-[40px] md:py-[60px]">
-      <div className="max-w-[1200px] mx-auto px-6">
+    <section ref={ref} className="relative overflow-hidden bg-white py-12 md:py-20">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute -left-40 top-16 h-[420px] w-[420px] rounded-full bg-primary/8 blur-3xl" />
+        <div className="absolute -right-40 bottom-10 h-[420px] w-[420px] rounded-full bg-primary/6 blur-3xl" />
+      </div>
+
+      <div className="container mx-auto px-6 relative">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease }}
-          className="text-center mb-12"
+          className="text-center mb-6"
         >
           <p className="text-[13px] font-semibold tracking-[0.06em] uppercase text-[#6E6E73] mb-3">
             What Homeowners Say
@@ -110,28 +127,32 @@ export function TestimonialsSectionHome() {
           <h2 className="text-[clamp(32px,5vw,48px)] font-bold tracking-[-0.025em] leading-[1.07] text-[#1D1D1F]">
             200+ homes transformed.
           </h2>
+          <p className="mt-3 text-sm md:text-base text-[#6E6E73] max-w-2xl mx-auto">
+            Real reviews from homeowners who used Houspire to plan, budget, and execute their interiors.
+          </p>
         </motion.div>
 
         {/* Desktop Grid */}
-        <div className="hidden md:grid md:grid-cols-3 gap-4 max-w-[1060px] mx-auto">
+        <div className="hidden md:grid md:grid-cols-3 gap-5 max-w-6xl mx-auto">
           {testimonials.map((t, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, ease, delay: i * 0.1 }}
-              className="bg-white rounded-2xl p-8 flex flex-col"
-              style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}
+              className="bg-white rounded-3xl p-8 flex flex-col border border-black/5 shadow-[0_12px_40px_rgba(16,24,40,0.08)] hover:shadow-[0_18px_60px_rgba(16,24,40,0.12)] transition-shadow"
             >
               <div className="flex gap-0.5 mb-4">
                 {Array.from({ length: t.stars }).map((_, j) => (
                   <Star key={j} className="w-4 h-4 fill-[#F5A623] text-[#F5A623]" />
                 ))}
               </div>
-              <p className="text-[16px] text-[#1D1D1F] leading-[1.6] italic flex-1">
-                "{t.quote}"
+              <p className="text-[16px] text-[#1D1D1F] leading-[1.65] flex-1">
+                <span className="text-[#6E6E73]">“</span>
+                {t.quote}
+                <span className="text-[#6E6E73]">”</span>
               </p>
-              <div className="border-t border-[#E5E5E5] pt-4 mt-5">
+              <div className="border-t border-[#E5E5E5] pt-4 mt-6 flex items-start justify-between gap-4">
                 <p className="text-[15px] font-semibold text-[#1D1D1F]">{t.name}</p>
                 <p className="text-[14px] text-[#6E6E73]">{t.location}</p>
               </div>
@@ -140,9 +161,9 @@ export function TestimonialsSectionHome() {
         </div>
 
         {/* Mobile Slider */}
-        <div className="md:hidden relative px-12">
+        <div className="md:hidden relative">
           <div
-            className="overflow-hidden relative rounded-2xl"
+            className="overflow-hidden relative rounded-3xl"
             onTouchStart={onTouchStart}
             onTouchMove={onTouchMove}
             onTouchEnd={onTouchEnd}
@@ -154,18 +175,19 @@ export function TestimonialsSectionHome() {
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -50 }}
                 transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-                className="bg-white rounded-2xl p-8 flex flex-col"
-                style={{ boxShadow: '0 2px 12px rgba(0,0,0,0.06)' }}
+                className="bg-white rounded-3xl p-7 flex flex-col border border-black/5 shadow-[0_12px_40px_rgba(16,24,40,0.08)]"
               >
                 <div className="flex gap-0.5 mb-4">
                   {Array.from({ length: testimonials[currentIndex].stars }).map((_, j) => (
                     <Star key={j} className="w-4 h-4 fill-[#F5A623] text-[#F5A623]" />
                   ))}
                 </div>
-                <p className="text-[16px] text-[#1D1D1F] leading-[1.6] italic flex-1">
-                  "{testimonials[currentIndex].quote}"
+                <p className="text-[16px] text-[#1D1D1F] leading-[1.65] flex-1">
+                  <span className="text-[#6E6E73]">“</span>
+                  {testimonials[currentIndex].quote}
+                  <span className="text-[#6E6E73]">”</span>
                 </p>
-                <div className="border-t border-[#E5E5E5] pt-4 mt-5">
+                <div className="border-t border-[#E5E5E5] pt-4 mt-6">
                   <p className="text-[15px] font-semibold text-[#1D1D1F]">{testimonials[currentIndex].name}</p>
                   <p className="text-[14px] text-[#6E6E73]">{testimonials[currentIndex].location}</p>
                 </div>
@@ -174,20 +196,7 @@ export function TestimonialsSectionHome() {
           </div>
 
           {/* Navigation Arrows */}
-          <button
-            onClick={goToPrevious}
-            className="absolute left-0 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 shadow-lg rounded-full w-10 h-10 z-10 flex items-center justify-center transition-all duration-200 active:scale-95"
-            aria-label="Previous testimonial"
-          >
-            <ChevronLeft className="h-5 w-5 text-[#1D1D1F]" />
-          </button>
-          <button
-            onClick={goToNext}
-            className="absolute right-0 top-1/2 -translate-y-1/2 bg-white hover:bg-gray-50 shadow-lg rounded-full w-10 h-10 z-10 flex items-center justify-center transition-all duration-200 active:scale-95"
-            aria-label="Next testimonial"
-          >
-            <ChevronRight className="h-5 w-5 text-[#1D1D1F]" />
-          </button>
+          
 
           {/* Dots Indicator */}
           <div className="flex justify-center gap-2 mt-6">

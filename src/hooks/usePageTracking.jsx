@@ -1,21 +1,26 @@
+'use client'
+
 import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { analytics } from '@/lib/analytics'
 
 /**
  * Hook to track page views automatically
  */
 export function usePageTracking() {
-  const location = useLocation()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
 
   useEffect(() => {
-    const pageName = getPageName(location.pathname)
+    const search = searchParams?.toString() ? `?${searchParams.toString()}` : ''
+    const hash = typeof window !== 'undefined' ? window.location.hash : ''
+    const pageName = getPageName(pathname)
     analytics.page(pageName, {
-      path: location.pathname,
-      search: location.search,
-      hash: location.hash,
+      path: pathname,
+      search,
+      hash,
     })
-  }, [location])
+  }, [pathname, searchParams])
 }
 
 function getPageName(pathname) {

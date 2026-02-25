@@ -384,7 +384,7 @@ export default function Discover() {
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.3 }}
-              className="pt-8"
+              
             >
               <Link href="/boards">
                 <div className="group relative inline-flex items-center gap-4 bg-white border border-secondary/50 rounded-[2rem] p-4 pr-10 shadow-sm hover:shadow-xl hover:border-primary/20 transition-all duration-500 overflow-hidden">

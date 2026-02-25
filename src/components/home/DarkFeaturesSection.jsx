@@ -52,13 +52,13 @@ export function DarkFeaturesSection() {
 
   return (
     <section id="features" className="bg-[#F5F5F7] py-[40px] md:py-[60px]">
-      <div className="max-w-[1200px] mx-auto px-6">
+      <div className="mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease }}
           viewport={{ once: true, amount: 0.2 }}
-          className="text-center mb-16"
+          className="text-center mb-6"
         >
           <p className="text-sm font-semibold tracking-[0.04em] uppercase text-[#6E6E73] mb-3">What you get</p>
           <h2 className="text-[clamp(36px,5vw,56px)] font-bold tracking-[-0.025em] leading-[1.07] text-[#1D1D1F]">
@@ -67,7 +67,7 @@ export function DarkFeaturesSection() {
           <p className="text-[21px] text-[#6E6E73] leading-[1.38] mt-2">Nothing you don't.</p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {cards.map((card, i) => (
             <motion.div
               key={card.title}

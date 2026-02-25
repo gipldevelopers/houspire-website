@@ -1,10 +1,13 @@
 import { HeroSection } from '@/components/home/HeroSection';
 import { DarkTrustBar } from '@/components/home/DarkTrustBar';
 import { DarkFeaturesSection } from '@/components/home/DarkFeaturesSection';
+import { GalleryPreviewSection } from '@/components/home/GalleryPreviewSection';
 import { DarkTransformationSection } from '@/components/home/DarkTransformationSection';
 import { TestimonialsSectionHome } from '@/components/home/TestimonialsSectionHome';
 import { DarkHowItWorksSection } from '@/components/home/DarkHowItWorksSection';
+import { HeadacheReliefSection } from '@/components/home/HeadacheReliefSection';
 import { DarkPricingSection } from '@/components/home/DarkPricingSection';
+import { VerifiedContractorsSection } from '@/components/home/VerifiedContractorsSection';
 import { BudgetEstimatorSection } from '@/components/home/BudgetEstimatorSection';
 import { FAQSection } from '@/components/home/FAQSection';
 import { DarkFinalCTA } from '@/components/home/DarkFinalCTA';
@@ -47,10 +50,13 @@ export default function HomePage() {
       <HeroSection />
       <DarkTrustBar />
       <DarkFeaturesSection />
+      <GalleryPreviewSection />
       <DarkTransformationSection />
       <TestimonialsSectionHome />
       <DarkHowItWorksSection />
+      <HeadacheReliefSection />
       <DarkPricingSection />
+      <VerifiedContractorsSection />
       <BudgetEstimatorSection />
       <FAQSection />
       <DarkFinalCTA />
