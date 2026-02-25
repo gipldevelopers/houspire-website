@@ -26,6 +26,7 @@ export function CloudinaryImage({ src, alt, transform = 'default', width, height
     const [isLoading, setIsLoading] = useState(true);
     const [hasError, setHasError] = useState(false);
     const [currentSrc, setCurrentSrc] = useState('');
+    const { onLoad: userOnLoad, onError: userOnError, ...imgProps } = props;
     // Determine if this is a Cloudinary image and get the public_id
     const imageConfig = useMemo(() => {
         // If Cloudinary isn't configured, use original URL
@@ -69,10 +70,12 @@ export function CloudinaryImage({ src, alt, transform = 'default', width, height
             img.src = imageConfig.url;
         }
     }, [priority, imageConfig.url]);
-    const handleLoad = () => {
+    const handleLoad = (event) => {
         setIsLoading(false);
+        userOnLoad?.(event);
     };
-    const handleError = () => {
+    const handleError = (event) => {
+        userOnError?.(event);
         // Try fallback URL if available
         if (fallbackUrl && currentSrc !== fallbackUrl) {
             setCurrentSrc(fallbackUrl);
@@ -99,7 +102,7 @@ export function CloudinaryImage({ src, alt, transform = 'default', width, height
       {isLoading && !imageConfig.blur && (<div className="absolute inset-0 animate-pulse bg-gradient-to-r from-muted via-muted-foreground/10 to-muted"/>)}
 
       {/* Main Image */}
-      {!hasError ? (<img src={currentSrc} alt={alt} srcSet={imageConfig.srcset || undefined} sizes={imageConfig.srcset ? sizes : undefined} loading={priority ? 'eager' : 'lazy'} decoding={priority ? 'sync' : 'async'} onLoad={handleLoad} onError={handleError} className={cn('w-full h-full transition-opacity duration-300', isLoading ? 'opacity-0' : 'opacity-100', objectFit === 'cover' && 'object-cover', objectFit === 'contain' && 'object-contain', objectFit === 'fill' && 'object-fill', objectFit === 'none' && 'object-none', objectFit === 'scale-down' && 'object-scale-down')} {...props}/>) : (<div className="absolute inset-0 flex items-center justify-center bg-muted">
+      {!hasError ? (<img src={currentSrc} alt={alt} srcSet={imageConfig.srcset || undefined} sizes={imageConfig.srcset ? sizes : undefined} loading={priority ? 'eager' : 'lazy'} decoding={priority ? 'sync' : 'async'} onLoad={handleLoad} onError={handleError} className={cn('w-full h-full transition-opacity duration-300', isLoading ? 'opacity-0' : 'opacity-100', objectFit === 'cover' && 'object-cover', objectFit === 'contain' && 'object-contain', objectFit === 'fill' && 'object-fill', objectFit === 'none' && 'object-none', objectFit === 'scale-down' && 'object-scale-down')} {...imgProps}/>) : (<div className="absolute inset-0 flex items-center justify-center bg-muted">
           <div className="text-center text-muted-foreground">
             <ImageOff className="h-8 w-8 mx-auto mb-2"/>
             <p className="text-sm">Failed to load</p>

@@ -61,16 +61,7 @@ function GalleryCtaBanner() {
 }
 
 const MOCK_DESIGNS = [
-  {
-    id: 'mock-1',
-    design_title: 'Minimalist Scandinavian Living Room',
-    cover_image_url: 'https://images.unsplash.com/photo-1616489953149-75bd1104e1eb?auto=format&fit=crop&w=800&q=80',
-    room_type: 'living_room',
-    style_primary: 'scandinavian',
-    view_count: 1240,
-    save_count: 450,
-    is_featured: true,
-  },
+  
   {
     id: 'mock-2',
     design_title: 'Modern Industrial Master Bedroom',
@@ -121,16 +112,7 @@ const MOCK_DESIGNS = [
     save_count: 890,
     is_featured: true,
   },
-  {
-    id: 'mock-7',
-    design_title: 'Rustic Farmhouse Bathroom',
-    cover_image_url: 'https://images.unsplash.com/photo-1513519247388-19345420d517?auto=format&fit=crop&w=800&q=80',
-    room_type: 'bathroom',
-    style_primary: 'rustic_farmhouse',
-    view_count: 980,
-    save_count: 210,
-    is_featured: false,
-  },
+  
   {
     id: 'mock-8',
     design_title: 'Industrial Style Library',
