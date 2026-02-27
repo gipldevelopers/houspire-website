@@ -1,38 +1,38 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
 import { useRouter } from 'next/navigation';
+import { ArrowRight, Image as ImageIcon, IndianRupee, ShoppingBag, Users } from 'lucide-react';
 
 const ease = [0.25, 0.46, 0.45, 0.94];
 
 const cards = [
   {
+    icon: ImageIcon,
     title: '4K Room Designs',
     subtitle: 'Your rooms. Your style. Photorealistic.',
     image: '/styles/japanese-zen/portfolio-4-dining-room.png',
-    dark: false,
     scrollTo: 'transformation',
   },
   {
+    icon: IndianRupee,
     title: 'Budget Breakdown',
     subtitle: 'Good. Better. Best. Every item itemized.',
     image: '/styles/japanese-zen/portfolio-5-bathroom.png',
-    dark: false,
     scrollTo: 'budget-estimator',
   },
   {
+    icon: ShoppingBag,
     title: 'Shopping Lists',
     subtitle: 'Direct purchase links for every piece.',
     image: '/styles/traditional-indian/portfolio-7-kids-bedroom.png',
-    dark: true,
     scrollTo: 'pricing',
   },
   {
+    icon: Users,
     title: 'Verified Contractors',
     subtitle: 'Trusted local professionals in your city.',
     image: '/styles/japanese-zen/portfolio-6-home-office.png',
-    dark: false,
     scrollTo: 'pricing',
   },
 ];
@@ -51,59 +51,73 @@ export function DarkFeaturesSection() {
   };
 
   return (
-    <section id="features" className="bg-[#F5F5F7] py-[40px] md:py-[60px]">
-      <div className="mx-auto px-6">
+    <section
+      id="features"
+      className="relative overflow-hidden bg-gradient-to-b from-[#F5F5F7] to-white py-14 md:py-6"
+    >
+      <div className="pointer-events-none absolute inset-0 -z-10">
+        <div className="absolute -top-20 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" />
+        <div className="absolute -bottom-24 right-[-140px] h-[520px] w-[520px] rounded-full bg-accent/10 blur-3xl" />
+      </div>
+
+      <div className="mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 22 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease }}
           viewport={{ once: true, amount: 0.2 }}
-          className="text-center mb-6"
+          className="mx-auto mb-8 max-w-3xl text-center md:mb-10"
         >
-          <p className="text-sm font-semibold tracking-[0.04em] uppercase text-[#6E6E73] mb-3">What you get</p>
-          <h2 className="text-[clamp(36px,5vw,56px)] font-bold tracking-[-0.025em] leading-[1.07] text-[#1D1D1F]">
-            <TextGenerateEffect words="Everything you need." />
+          <div className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-white/70 backdrop-blur px-3 py-1 text-xs font-semibold tracking-[0.08em] uppercase text-muted-foreground">
+            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+            What you get
+          </div>
+
+          <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.05] text-[#1D1D1F]">
+            Everything you need.
+            <span className="block text-[#6E6E73] font-medium">Nothing you don't.</span>
           </h2>
-          <p className="text-[21px] text-[#6E6E73] leading-[1.38] mt-2">Nothing you don't.</p>
+
+          <p className="mt-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
+            A clean, transparent package to design and execute your home with confidence.
+          </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
           {cards.map((card, i) => (
             <motion.div
               key={card.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 22 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, ease, delay: i * 0.1 }}
+              transition={{ duration: 0.8, ease, delay: i * 0.08 }}
               viewport={{ once: true, amount: 0.2 }}
               onClick={() => handleCardRedirect(card)}
-              className={`rounded-2xl overflow-hidden flex flex-col ${
-                card.dark ? 'bg-black' : 'bg-white'
-              } cursor-pointer`}
+              className="group relative cursor-pointer overflow-hidden rounded-3xl border border-black/5 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/5"
             >
-              <div className="px-6 pt-7 pb-3 text-center">
-                <h3 className={`text-2xl font-bold tracking-[-0.02em] ${card.dark ? 'text-white' : 'text-[#1D1D1F]'}`}>
-                  {card.title}
-                </h3>
-                <p className={`text-[15px] mt-2 ${card.dark ? 'text-white/70' : 'text-[#6E6E73]'}`}>
-                  {card.subtitle}
-                </p>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    handleCardRedirect(card);
-                  }}
-                  className={`mt-3 text-[15px] font-medium ${card.dark ? 'text-white hover:underline' : 'text-[#E8662E] hover:underline'}`}
-                >
-                  Get started
-                </button>
-              </div>
-              <div className="overflow-hidden" style={{ height: '240px' }}>
+              <div className="absolute inset-0">
                 <img
                   src={card.image}
                   alt={card.title}
-                  className="w-full h-full object-cover hover:scale-[1.02] transition-transform duration-700"
+                  className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
                   loading="lazy"
                 />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+              </div>
+
+              <div className="relative flex min-h-[320px] flex-col justify-between p-6">
+                <div>
+                  <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur px-3 py-1 text-xs font-medium text-white/90">
+                    <card.icon className="h-4 w-4" />
+                    Included
+                  </div>
+                  <h3 className="mt-4 text-xl font-semibold tracking-tight text-white">{card.title}</h3>
+                  <p className="mt-2 text-sm leading-relaxed text-white/80">{card.subtitle}</p>
+                </div>
+
+                <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-white">
+                  Get started
+                  <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                </div>
               </div>
             </motion.div>
           ))}

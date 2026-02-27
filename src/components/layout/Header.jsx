@@ -69,6 +69,7 @@ export function Header() {
   };
 
   const navLinks = [
+    { name: 'About', path: '/aboutus' },
     { name: 'Gallery', path: '/discover' },
     { name: 'Styles', path: '/styles' },
     { name: 'How it works', path: '/how-it-works' },

@@ -1,15 +1,13 @@
 'use client';
 
-import { useRef, useState, useEffect, useCallback } from 'react';
-import { motion, useInView, AnimatePresence } from 'framer-motion';
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react';
-
-const ease = [0.25, 0.46, 0.45, 0.94];
+import { useRef } from 'react';
+import { motion } from 'framer-motion';
+import { Star } from 'lucide-react';
 
 const testimonials = [
   {
     stars: 5,
-    quote: 'We were about to sign with a designer who quoted ₹3.5 lakhs. Got Houspire\'s report for ₹6,999 and realized we were being overcharged on almost every line item. Saved us over ₹1.2 lakhs.',
+    quote: "We were about to sign with a designer who quoted ₹3.5 lakhs. Got Houspire's report for ₹6,999 and realized we were being overcharged on almost every line item. Saved us over ₹1.2 lakhs.",
     name: 'Priya & Arjun M.',
     location: '3BHK, Whitefield, Bangalore',
   },
@@ -25,195 +23,133 @@ const testimonials = [
     name: 'Vikram T.',
     location: '1BHK, Andheri West, Mumbai',
   },
+  {
+    stars: 5,
+    quote: 'We loved the clear shopping links and budget options. It made decisions much faster and avoided costly confusion.',
+    name: 'Ritika S.',
+    location: '2BHK, Kharadi, Pune',
+  },
+  {
+    stars: 5,
+    quote: 'The plan felt practical from day one. We knew exactly what to buy, what to prioritize, and what to skip.',
+    name: 'Naveen K.',
+    location: '3BHK, Velachery, Chennai',
+  },
+  {
+    stars: 5,
+    quote: 'Best part was the transparency. We compared options quickly and completed execution without stressful back-and-forth.',
+    name: 'Farah N.',
+    location: '2BHK, Dwarka, Delhi',
+  },
 ];
 
-export function TestimonialsSectionHome() {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, amount: 0.2 });
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [touchStart, setTouchStart] = useState(null);
-  const [touchEnd, setTouchEnd] = useState(null);
-  const [isAutoPlaying, setIsAutoPlaying] = useState(true);
-  const autoPlayTimeoutRef = useRef(null);
+const singleRow = testimonials.slice(0, 6);
 
-  const minSwipeDistance = 50;
-
-  const goToSlide = useCallback((index) => {
-    setCurrentIndex(index);
-    setIsAutoPlaying(false);
-    // Resume auto-play after 8 seconds
-    if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
-    autoPlayTimeoutRef.current = setTimeout(() => setIsAutoPlaying(true), 8000);
-  }, []);
-
-  const goToPrevious = useCallback(() => {
-    setCurrentIndex((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-    setIsAutoPlaying(false);
-    if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
-    autoPlayTimeoutRef.current = setTimeout(() => setIsAutoPlaying(true), 8000);
-  }, []);
-
-  const goToNext = useCallback(() => {
-    setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    setIsAutoPlaying(false);
-    if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
-    autoPlayTimeoutRef.current = setTimeout(() => setIsAutoPlaying(true), 8000);
-  }, []);
-
-  // Auto-play slider
-  useEffect(() => {
-    if (!isAutoPlaying) return;
-    const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % testimonials.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [isAutoPlaying]);
-
-  const onTouchStart = (e) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
-    setIsAutoPlaying(false);
-  };
-
-  const onTouchMove = (e) => {
-    setTouchEnd(e.targetTouches[0].clientX);
-  };
-
-  const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) {
-      if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
-      autoPlayTimeoutRef.current = setTimeout(() => setIsAutoPlaying(true), 5000);
-      return;
-    }
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > minSwipeDistance;
-    const isRightSwipe = distance < -minSwipeDistance;
-
-    if (isLeftSwipe) {
-      goToNext();
-    }
-    if (isRightSwipe) {
-      goToPrevious();
-    }
-    if (!isLeftSwipe && !isRightSwipe) {
-      if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
-      autoPlayTimeoutRef.current = setTimeout(() => setIsAutoPlaying(true), 5000);
-    }
-  };
-
-  useEffect(() => {
-    return () => {
-      if (autoPlayTimeoutRef.current) clearTimeout(autoPlayTimeoutRef.current);
-    };
-  }, []);
+function ReviewCard({ item }) {
+  const initials = item.name
+    .split(' ')
+    .map((n) => n[0])
+    .join('')
+    .slice(0, 2)
+    .toUpperCase();
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-white py-12 md:py-20">
+    <article className="w-[290px] shrink-0 rounded-2xl border border-border/60 bg-card p-4 shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-transform duration-300 hover:-translate-y-1 md:w-[320px]">
+      <div className="mb-3 flex gap-1">
+        {Array.from({ length: item.stars }).map((_, i) => (
+          <Star key={i} className="h-4 w-4 fill-primary text-primary" />
+        ))}
+      </div>
+      <p className="line-clamp-4 min-h-[92px] text-[15px] leading-[1.55] text-foreground">"{item.quote}"</p>
+      <div className="mt-4 flex items-center gap-3">
+        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-xs font-semibold text-white">
+          {initials}
+        </div>
+        <div>
+          <p className="text-sm font-medium text-foreground">{item.name}</p>
+          <p className="text-xs text-muted-foreground">{item.location}</p>
+        </div>
+      </div>
+    </article>
+  );
+}
+
+export function TestimonialsSectionHome() {
+  const scrollRef = useRef(null);
+  const dragState = useRef({ isDown: false, startX: 0, scrollLeft: 0 });
+
+  const onMouseDown = (e) => {
+    if (!scrollRef.current) return;
+    dragState.current.isDown = true;
+    dragState.current.startX = e.pageX - scrollRef.current.offsetLeft;
+    dragState.current.scrollLeft = scrollRef.current.scrollLeft;
+  };
+
+  const onMouseLeave = () => {
+    dragState.current.isDown = false;
+  };
+
+  const onMouseUp = () => {
+    dragState.current.isDown = false;
+  };
+
+  const onMouseMove = (e) => {
+    if (!dragState.current.isDown || !scrollRef.current) return;
+    e.preventDefault();
+    const x = e.pageX - scrollRef.current.offsetLeft;
+    const walk = (x - dragState.current.startX) * 1.2;
+    scrollRef.current.scrollLeft = dragState.current.scrollLeft - walk;
+  };
+
+  return (
+    <section className="relative overflow-hidden bg-gradient-to-b from-primary/10 via-primary/5 to-background py-8 md:py-10">
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-40 top-16 h-[420px] w-[420px] rounded-full bg-primary/8 blur-3xl" />
-        <div className="absolute -right-40 bottom-10 h-[420px] w-[420px] rounded-full bg-primary/6 blur-3xl" />
+        <div className="absolute -left-32 top-16 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
+        <div className="absolute left-1/2 top-1/3 h-80 w-80 -translate-x-1/2 rounded-full bg-accent/10 blur-3xl" />
+        <div className="absolute -right-24 bottom-12 h-72 w-72 rounded-full bg-primary/12 blur-3xl" />
       </div>
 
-      <div className="container mx-auto px-6 relative">
+      <div className="relative mx-auto max-w-[1400px] px-6 md:px-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8, ease }}
-          className="text-center mb-6"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className="mb-5 text-center md:mb-6"
         >
-          <p className="text-[13px] font-semibold tracking-[0.06em] uppercase text-[#6E6E73] mb-3">
-            What Homeowners Say
-          </p>
-          <h2 className="text-[clamp(32px,5vw,48px)] font-bold tracking-[-0.025em] leading-[1.07] text-[#1D1D1F]">
-            200+ homes transformed.
-          </h2>
-          <p className="mt-3 text-sm md:text-base text-[#6E6E73] max-w-2xl mx-auto">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">What Homeowners Say</p>
+          <h2 className="text-2xl font-semibold tracking-tight text-foreground md:text-4xl">200+ homes transformed.</h2>
+          <p className="mx-auto mt-2 max-w-2xl text-xs text-muted-foreground md:text-sm">
             Real reviews from homeowners who used Houspire to plan, budget, and execute their interiors.
           </p>
         </motion.div>
 
-        {/* Desktop Grid */}
-        <div className="hidden md:grid md:grid-cols-3 gap-5 max-w-6xl mx-auto">
-          {testimonials.map((t, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.8, ease, delay: i * 0.1 }}
-              className="bg-white rounded-3xl p-8 flex flex-col border border-black/5 shadow-[0_12px_40px_rgba(16,24,40,0.08)] hover:shadow-[0_18px_60px_rgba(16,24,40,0.12)] transition-shadow"
-            >
-              <div className="flex gap-0.5 mb-4">
-                {Array.from({ length: t.stars }).map((_, j) => (
-                  <Star key={j} className="w-4 h-4 fill-[#F5A623] text-[#F5A623]" />
-                ))}
-              </div>
-              <p className="text-[16px] text-[#1D1D1F] leading-[1.65] flex-1">
-                <span className="text-[#6E6E73]">“</span>
-                {t.quote}
-                <span className="text-[#6E6E73]">”</span>
-              </p>
-              <div className="border-t border-[#E5E5E5] pt-4 mt-6 flex items-start justify-between gap-4">
-                <p className="text-[15px] font-semibold text-[#1D1D1F]">{t.name}</p>
-                <p className="text-[14px] text-[#6E6E73]">{t.location}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Mobile Slider */}
-        <div className="md:hidden relative">
-          <div
-            className="overflow-hidden relative rounded-3xl"
-            onTouchStart={onTouchStart}
-            onTouchMove={onTouchMove}
-            onTouchEnd={onTouchEnd}
-          >
-            <AnimatePresence mode="wait">
+        <motion.div
+          ref={scrollRef}
+          onMouseDown={onMouseDown}
+          onMouseLeave={onMouseLeave}
+          onMouseUp={onMouseUp}
+          onMouseMove={onMouseMove}
+          className="overflow-x-auto overflow-y-hidden scrollbar-hide pb-2 cursor-grab active:cursor-grabbing select-none"
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ duration: 0.7, ease: 'easeOut' }}
+        >
+          <div className="flex w-max gap-4">
+            {singleRow.map((item, idx) => (
               <motion.div
-                key={currentIndex}
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -50 }}
-                transition={{ duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-                className="bg-white rounded-3xl p-7 flex flex-col border border-black/5 shadow-[0_12px_40px_rgba(16,24,40,0.08)]"
+                key={`row-${idx}`}
+                initial={{ opacity: 0, y: 18 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 0.5, ease: 'easeOut', delay: idx * 0.05 }}
               >
-                <div className="flex gap-0.5 mb-4">
-                  {Array.from({ length: testimonials[currentIndex].stars }).map((_, j) => (
-                    <Star key={j} className="w-4 h-4 fill-[#F5A623] text-[#F5A623]" />
-                  ))}
-                </div>
-                <p className="text-[16px] text-[#1D1D1F] leading-[1.65] flex-1">
-                  <span className="text-[#6E6E73]">“</span>
-                  {testimonials[currentIndex].quote}
-                  <span className="text-[#6E6E73]">”</span>
-                </p>
-                <div className="border-t border-[#E5E5E5] pt-4 mt-6">
-                  <p className="text-[15px] font-semibold text-[#1D1D1F]">{testimonials[currentIndex].name}</p>
-                  <p className="text-[14px] text-[#6E6E73]">{testimonials[currentIndex].location}</p>
-                </div>
+                <ReviewCard item={item} />
               </motion.div>
-            </AnimatePresence>
-          </div>
-
-          {/* Navigation Arrows */}
-          
-
-          {/* Dots Indicator */}
-          <div className="flex justify-center gap-2 mt-6">
-            {testimonials.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => goToSlide(i)}
-                className={`transition-all duration-300 rounded-full ${
-                  i === currentIndex
-                    ? 'w-4 h-2 bg-[#E8662E]'
-                    : 'w-2 h-2 bg-[#E5E5E5] hover:bg-[#D0D0D0]'
-                }`}
-                aria-label={`Go to testimonial ${i + 1}`}
-              />
             ))}
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

@@ -21,7 +21,7 @@ export function VerifiedContractorsSection() {
 
   return (
     <section id="contractors" className="bg-[#F5F5F7] py-[40px] md:py-[60px]">
-      <div className="max-w-[1200px] mx-auto px-6">
+      <div className="max-w-[1400px] mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           whileInView={{ opacity: 1, y: 0 }}

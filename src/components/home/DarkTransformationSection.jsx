@@ -27,12 +27,22 @@ export function DarkTransformationSection() {
   const handleTouchMove = (event) => { updatePosition(event.touches[0].clientX); };
 
   return (
-    <section id="transformation" className="bg-black py-12 md:py-24 overflow-hidden">
+    <section 
+      id="transformation" 
+      className="py-6 md:py-12 overflow-hidden"
+      // Light orange background - you can adjust the shade by changing the color code
+      style={{ backgroundColor: '#fff4e6' }} // Very light peach/orange
+      // Alternative orange shades:
+      // '#fff0e0' - lighter peach
+      // '#ffe8d9' - slightly deeper peach
+      // '#ffead2' - light apricot
+      // '#fff1e0' - soft orange cream
+    >
       <div className="container mx-auto px-6">
         
-        {/* Top Label */}
+        {/* Top Label - Warm gray for better contrast on light orange */}
         <div className="text-center mb-2 md:mb-12">
-          <p className="text-sm font-semibold tracking-[0.18em] uppercase text-[#9CA3AF]">
+          <p className="text-sm font-semibold tracking-[0.18em] uppercase text-[#6B4F3F]">
             Transformation
           </p>
         </div>
@@ -41,24 +51,25 @@ export function DarkTransformationSection() {
           {/* Main Layout Grid: [From this] [Image Slider] [To this] */}
           <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12">
             
-            {/* LEFT SIDE: "From this." */}
+            {/* LEFT SIDE: "From this." - Black text */}
             <motion.div 
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               className="lg:w-1/6 text-left"
             >
-              <h2 className="text-[clamp(30px,3vw,48px)] font-bold tracking-[-0.03em] text-white whitespace-nowrap">
+              <h2 className="text-[clamp(30px,3vw,48px)] font-bold tracking-[-0.03em] text-black">
                 From this.
               </h2>
             </motion.div>
 
             {/* CENTER: The Image Slider */}
             <div className="relative w-full lg:w-4/6 max-w-4xl">
-              <div className="absolute -inset-6 rounded-[32px] bg-gradient-to-b from-white/10 via-white/5 to-transparent blur-2xl" />
+              {/* Orange-tinted gradient overlay */}
+              <div className="absolute -inset-6 rounded-[32px] bg-gradient-to-b from-[#ff8c42]/10 via-transparent to-transparent blur-2xl" />
               
               <div
                 ref={containerRef}
-                className="relative w-full aspect-video rounded-[24px] overflow-hidden cursor-ew-resize select-none border border-white/10 bg-black"
+                className="relative w-full aspect-video rounded-[24px] overflow-hidden cursor-ew-resize select-none border border-black/10 bg-white shadow-lg shadow-[#ff8c42]/10"
                 onMouseDown={handlePointerDown}
                 onMouseUp={handlePointerUp}
                 onMouseLeave={handlePointerUp}
@@ -77,24 +88,26 @@ export function DarkTransformationSection() {
                   />
                 </div>
 
-                {/* Slider Handle & Line */}
-                <div className="absolute top-0 bottom-0 w-[2px] bg-white/90 z-10" style={{ left: `${position}%`, transform: 'translateX(-50%)' }} />
+                {/* Slider Handle & Line - Updated to orange to match theme */}
+                <div className="absolute top-0 bottom-0 w-[2px] bg-[#ff8c42] z-10" style={{ left: `${position}%`, transform: 'translateX(-50%)' }} />
                 <div 
-                  className="absolute top-1/2 z-20 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-xl"
+                  className="absolute top-1/2 z-20 w-10 h-10 bg-[#ff8c42] rounded-full flex items-center justify-center shadow-xl shadow-[#ff8c42]/30"
                   style={{ left: `${position}%`, transform: 'translateX(-50%) translateY(-50%)' }}
                 >
-                  <svg width="16" height="16" viewBox="0 0 20 20" fill="none"><path d="M6 10L2 10M2 10L4.5 7.5M2 10L4.5 12.5M14 10L18 10M18 10L15.5 7.5M18 10L15.5 12.5" stroke="#111827" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
+                  <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+                    <path d="M6 10L2 10M2 10L4.5 7.5M2 10L4.5 12.5M14 10L18 10M18 10L15.5 7.5M18 10L15.5 12.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
                 </div>
               </div>
             </div>
 
-            {/* RIGHT SIDE: "To this." */}
+            {/* RIGHT SIDE: "To this." - Black text */}
             <motion.div 
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               className="lg:w-1/6 text-right"
             >
-              <h2 className="text-[clamp(30px,3vw,48px)] font-bold tracking-[-0.03em] text-white whitespace-nowrap">
+              <h2 className="text-[clamp(30px,3vw,48px)] font-bold tracking-[-0.03em] text-black">
                 To this.
               </h2>
             </motion.div>
@@ -102,13 +115,19 @@ export function DarkTransformationSection() {
           </div>
         </div>
 
-        {/* Bottom Navigation */}
+        {/* Bottom Navigation - Updated with orange accents */}
         <div className="mt-6 text-center">
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <button onClick={() => router.push('/style-quiz')} className="px-8 py-4 bg-white text-black font-medium rounded-full hover:bg-white/90 transition-colors">
+            <button 
+              onClick={() => router.push('/style-quiz')} 
+              className="px-8 py-4 bg-[#ff8c42] text-white font-medium rounded-full hover:bg-[#ff6b1a] transition-colors shadow-md shadow-[#ff8c42]/30"
+            >
               Start with One Room →
             </button>
-            <button onClick={() => router.push('/discover')} className="px-8 py-4 border border-white/20 text-white font-medium rounded-full hover:bg-white/5 transition-colors">
+            <button 
+              onClick={() => router.push('/discover')} 
+              className="px-8 py-4 border-2 border-[#ff8c42] text-[#ff8c42] font-medium rounded-full hover:bg-[#ff8c42] hover:text-white transition-colors"
+            >
               Explore Gallery
             </button>
           </div>
