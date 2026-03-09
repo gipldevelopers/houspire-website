@@ -106,9 +106,9 @@ export function ContactForm() {
   }
 
   return (
-    <Card className="p-6 md:p-8 border-border/50">
+    <Card className="p-6 md:p-8 border-border/60 bg-gradient-to-br from-background via-amber-50/30 to-orange-50/40 shadow-sm">
       <div className="flex items-center gap-3 mb-8">
-        <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center">
+        <div className="w-12 h-12 rounded-2xl bg-orange-100 flex items-center justify-center">
           <MessageSquare className="h-6 w-6 text-accent" />
         </div>
         <div>
@@ -244,7 +244,7 @@ export function ContactForm() {
               <MessageSquare className="h-3.5 w-3.5 text-muted-foreground" />
               Your Message
             </Label>
-            <span className={`text-xs ${messageLength >= 20 ? 'text-green-600' : 'text-muted-foreground'}`}>
+            <span className={`text-xs ${messageLength >= 20 ? 'text-emerald-600' : 'text-muted-foreground'}`}>
               {messageLength}/2000
             </span>
           </div>
@@ -280,7 +280,7 @@ export function ContactForm() {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full h-14 bg-foreground hover:bg-foreground/90 text-background rounded-xl text-base font-medium"
+          className="w-full h-14 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white rounded-xl text-base font-semibold shadow-lg shadow-orange-500/20"
         >
           {isSubmitting ? (
             <>

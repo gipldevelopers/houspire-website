@@ -74,6 +74,7 @@ export function Header() {
     { name: 'Styles', path: '/styles' },
     { name: 'How it works', path: '/how-it-works' },
     { name: 'Tools', path: '/tools' },
+    { name: 'Contact', path: '/contact' },
     { name: 'Refer & Earn', path: '/referrals' },
   ];
 

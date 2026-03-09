@@ -13,7 +13,14 @@ function getToken() {
   return localStorage.getItem('token');
 }
 
-import { MOCK_USER, MOCK_PROJECTS, MOCK_ORDERS, MOCK_NOTIFICATIONS, MOCK_REFERRAL } from './mock-data';
+import {
+  MOCK_USER,
+  MOCK_PROJECTS,
+  MOCK_ORDERS,
+  MOCK_NOTIFICATIONS,
+  MOCK_REFERRAL,
+  MOCK_REFERRAL_CREDITS,
+} from './mock-data';
 import { FALLBACK_GALLERY_DESIGNS } from './fallback-gallery';
 import { FALLBACK_DESIGN_STYLES } from './fallback-design-styles';
 
@@ -41,6 +48,7 @@ function getMockResponseForEndpoint(endpoint) {
   if (path.includes('/api/projects')) return { projects: MOCK_PROJECTS, project: MOCK_PROJECTS[0] };
   if (path.includes('/api/notifications')) return { notifications: MOCK_NOTIFICATIONS };
   if (path.includes('/api/profile')) return { user: MOCK_USER };
+  if (path.includes('/api/referrals/credits')) return { credits: MOCK_REFERRAL_CREDITS };
   if (path.includes('/api/referrals')) return MOCK_REFERRAL;
   
   // Misc

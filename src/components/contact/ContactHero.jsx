@@ -7,11 +7,11 @@ import { MessageSquare, Sparkles } from 'lucide-react';
 
 export function ContactHero() {
   return (
-    <section className="relative py-20 md:py-28 overflow-hidden">
+    <section className="relative py-14 md:py-18 overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-accent/5 via-background to-purple-500/5" />
+      <div className="absolute inset-0 bg-gradient-to-br from-amber-500/10 via-background to-sky-500/10" />
       <div className="absolute top-10 right-10 w-72 h-72 bg-accent/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-10 left-10 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl" />
+      <div className="absolute bottom-10 left-10 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl" />
       
       <Container className="relative z-10">
         <motion.div
@@ -27,7 +27,7 @@ export function ContactHero() {
           
           <h1 className="text-4xl md:text-6xl font-semibold text-foreground tracking-tight mb-6 leading-[1.1]">
             Let's Start a
-            <span className="block bg-gradient-to-r from-accent to-purple-500 bg-clip-text text-transparent">
+            <span className="block bg-gradient-to-r from-accent to-amber-500 bg-clip-text text-transparent">
               Conversation
             </span>
           </h1>

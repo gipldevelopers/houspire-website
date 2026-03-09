@@ -81,7 +81,7 @@ export default function OurJourney() {
 
           {/* Scrolling Dot */}
           <motion.div 
-            className="absolute left-[50%] -translate-x-1/2 w-3 h-3 rounded-full bg-primary-orange border-[2px] border-white shadow-md z-30 hidden md:block"
+            className="absolute left-[50%] -translate-x-1/2 w-3 h-3 rounded-full bg-primary border-[2px] border-white shadow-md z-30 hidden md:block"
             style={{ top: dotTop }}
           />
 

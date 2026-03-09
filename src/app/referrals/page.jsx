@@ -26,7 +26,7 @@ import {
 } from 'lucide-react';
 
 export default function Referrals() {
-  const { user } = useAuth();
+  const { user, loading: authLoading } = useAuth();
   const router = useRouter();
   const { toast } = useToast();
   const [stats, setStats] = useState(null);
@@ -62,11 +62,18 @@ export default function Referrals() {
   };
 
   useEffect(() => {
+    if (authLoading) return;
+
     if (user) {
       fetchReferralData();
+      return;
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user]);
+
+    setLoading(false);
+    setStats(null);
+    setReferrals([]);
+    setCredits([]);
+  }, [user, authLoading]);
 
   const copyReferralLink = async () => {
     if (!stats?.shareUrl) return;
@@ -112,17 +119,59 @@ export default function Referrals() {
 
   if (!user) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Card className="p-8 text-center max-w-md">
-          <Gift className="h-12 w-12 text-primary mx-auto mb-4" />
-          <h2 className="text-2xl font-heading font-bold mb-2">Join to Earn Rewards</h2>
-          <p className="text-muted-foreground mb-4">
-            Sign in to get your unique referral code and start earning ₹500 for every friend you refer!
-          </p>
-          <Button onClick={() => router.push('/login')}>
-            Sign In
-          </Button>
-        </Card>
+      <div className="min-h-screen bg-muted/30 pt-20 pb-8">
+        <SEOHead
+          title="Refer & Earn | Houspire"
+          description="Invite friends to Houspire and both of you get rewards. Learn how the referral program works."
+        />
+        <div className="container mx-auto px-4">
+          <div className="max-w-4xl mx-auto space-y-6">
+            <Card className="p-8 text-center">
+              <Gift className="h-12 w-12 text-primary mx-auto mb-4" />
+              <h1 className="text-3xl font-heading font-bold mb-2">Refer Friends, Earn Rewards</h1>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Share Houspire with friends. They get a discount on their first project and you earn referral credits when they complete payment.
+              </p>
+            </Card>
+
+            <div className="grid md:grid-cols-3 gap-4">
+              <Card className="p-5">
+                <IndianRupee className="h-8 w-8 text-primary mb-3" />
+                <h2 className="font-semibold mb-1">You Earn Rs500</h2>
+                <p className="text-sm text-muted-foreground">
+                  Get referral credit for each successful referral.
+                </p>
+              </Card>
+              <Card className="p-5">
+                <Users className="h-8 w-8 text-primary mb-3" />
+                <h2 className="font-semibold mb-1">Friends Save Rs500</h2>
+                <p className="text-sm text-muted-foreground">
+                  Your friend gets an instant discount using your code.
+                </p>
+              </Card>
+              <Card className="p-5">
+                <Award className="h-8 w-8 text-primary mb-3" />
+                <h2 className="font-semibold mb-1">Grow Your Tier</h2>
+                <p className="text-sm text-muted-foreground">
+                  More referrals unlock better rewards and bonuses.
+                </p>
+              </Card>
+            </div>
+
+            <Card className="p-6">
+              <h2 className="font-semibold mb-4">How it works</h2>
+              <div className="grid md:grid-cols-3 gap-3 text-sm text-muted-foreground">
+                <p>1. Sign in and get your unique referral link.</p>
+                <p>2. Share it on WhatsApp, email, or social media.</p>
+                <p>3. Earn credits after your friend completes payment.</p>
+              </div>
+              <div className="mt-5 flex flex-wrap gap-3">
+                <Button onClick={() => router.push('/login')}>Sign In to Start Referring</Button>
+                <Button variant="outline" onClick={() => router.push('/signup')}>Create Account</Button>
+              </div>
+            </Card>
+          </div>
+        </div>
       </div>
     );
   }

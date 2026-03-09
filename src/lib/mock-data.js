@@ -78,9 +78,65 @@ export const MOCK_NOTIFICATIONS = [
 
 export const MOCK_REFERRAL = {
   code: 'HOUSPIRE500',
+  shareUrl: 'http://localhost:3001/signup?ref=HOUSPIRE500',
+  successfulReferrals: 2,
+  pendingReferrals: 1,
+  totalEarnings: 1000,
+  referrals: [
+    {
+      id: 'ref-1',
+      status: 'completed',
+      rewardAmount: 500,
+      createdAt: new Date(Date.now() - 8 * 24 * 60 * 60 * 1000).toISOString(),
+      user: {
+        id: 'ref-user-1',
+        name: 'Aarav Sharma',
+        email: 'aarav@example.com',
+      },
+    },
+    {
+      id: 'ref-2',
+      status: 'completed',
+      rewardAmount: 500,
+      createdAt: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000).toISOString(),
+      user: {
+        id: 'ref-user-2',
+        name: 'Nisha Mehta',
+        email: 'nisha@example.com',
+      },
+    },
+    {
+      id: 'ref-3',
+      status: 'pending',
+      rewardAmount: 500,
+      createdAt: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
+      user: {
+        id: 'ref-user-3',
+        name: 'Kabir Rao',
+        email: 'kabir@example.com',
+      },
+    },
+  ],
   stats: {
     totalReferrals: 3,
     earnedRewards: 1500,
     pendingRewards: 500
   }
 };
+
+export const MOCK_REFERRAL_CREDITS = [
+  {
+    id: 'credit-1',
+    amount: 500,
+    source: 'referral',
+    description: 'Referral bonus for Aarav Sharma',
+    createdAt: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
+  },
+  {
+    id: 'credit-2',
+    amount: 500,
+    source: 'referral',
+    description: 'Referral bonus for Nisha Mehta',
+    createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
+  },
+];
