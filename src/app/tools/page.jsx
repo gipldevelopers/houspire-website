@@ -7,7 +7,8 @@ import {
   FileText, 
   Layers, 
   Clock, 
-  Compass
+  Compass,
+  Download
 } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
 import { SEOHead } from '@/components/SEOHead';
@@ -60,6 +61,27 @@ const tools = [
   },
 ];
 
+const downloads = [
+  {
+    id: 'planning-checklist',
+    title: 'Planning Checklist',
+    description: 'Room-by-room checklist to prep before meeting your designer',
+    href: '/downloads/planning-checklist.txt',
+  },
+  {
+    id: 'budget-template',
+    title: 'Budget Template',
+    description: 'Simple budget sheet to map costs and priorities',
+    href: '/downloads/budget-template.txt',
+  },
+  {
+    id: 'timeline-planner',
+    title: 'Timeline Planner',
+    description: 'Milestone tracker for your design and execution phases',
+    href: '/downloads/timeline-planner.txt',
+  },
+];
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -92,7 +114,7 @@ export default function Tools() {
       
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
-        <section className="py-16 md:py-24 bg-gradient-to-b from-muted/50 to-background">
+        <section className="py-20 md:py-24 bg-gradient-to-b from-muted/50 to-background">
           <div className="container mx-auto px-4 text-center">
             <motion.h1 
               className="text-4xl md:text-6xl font-bold tracking-tight mb-4"
@@ -114,7 +136,7 @@ export default function Tools() {
         </section>
 
         {/* Tools Grid */}
-        <section className="py-12 md:py-20">
+        <section className="py-6 md:py-12">
           <div className="container mx-auto px-4">
             <motion.div 
               className="grid gap-6 md:grid-cols-2 lg:grid-cols-3 max-w-5xl mx-auto"
@@ -149,8 +171,59 @@ export default function Tools() {
           </div>
         </section>
 
+        {/* Download Section */}
+        <section className="py-6 md:py-10 bg-muted/30">
+          <div className="container mx-auto px-4">
+            <div className="max-w-5xl mx-auto">
+              <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
+                <div>
+                  <p className="text-xs uppercase tracking-[0.3em] text-primary font-semibold">
+                    Downloads
+                  </p>
+                  <h2 className="text-2xl md:text-3xl font-bold mt-2">
+                    Grab free planning resources
+                  </h2>
+                  <p className="text-muted-foreground mt-2 max-w-xl">
+                    Quick templates to speed up your planning, budgeting, and project timeline.
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid gap-6 md:grid-cols-3">
+                {downloads.map((item) => (
+                  <Card
+                    key={item.id}
+                    className="h-full border-border/50 bg-background/80 hover:shadow-lg transition-all duration-300"
+                  >
+                    <CardContent className="p-6 flex flex-col h-full">
+                      <div className="flex items-start gap-4">
+                        <div className="p-3 rounded-2xl bg-primary/10">
+                          <Download className="h-6 w-6 text-primary" />
+                        </div>
+                        <div>
+                          <h3 className="font-semibold text-lg">{item.title}</h3>
+                          <p className="text-sm text-muted-foreground mt-1">
+                            {item.description}
+                          </p>
+                        </div>
+                      </div>
+                      <a
+                        href={item.href}
+                        download
+                        className="mt-6 inline-flex items-center justify-center h-10 px-4 rounded-full bg-foreground text-background text-sm font-medium hover:bg-foreground/90 transition-all"
+                      >
+                        Download
+                      </a>
+                    </CardContent>
+                  </Card>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+{/*  */}
         {/* CTA Section */}
-        <section className="py-16 md:py-24 bg-muted/30">
+        <section className="py-6 md:py-12 bg-muted/30">
           <div className="container mx-auto px-4 text-center">
             <h2 className="text-2xl md:text-3xl font-bold mb-4">
               Ready to start your project?

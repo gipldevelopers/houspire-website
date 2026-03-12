@@ -71,9 +71,21 @@ export function Header() {
   const navLinks = [
     { name: 'About', path: '/aboutus' },
     { name: 'Gallery', path: '/discover' },
+    { name: 'Blog', path: '/blog' },
     { name: 'Styles', path: '/styles' },
     { name: 'How it works', path: '/how-it-works' },
-    { name: 'Tools', path: '/tools' },
+    { 
+      name: 'Tools', 
+      path: '/tools',
+      activeMatch: [
+        '/tools',
+        '/style-quiz',
+        '/budget-calculator',
+        '/boq-viewer',
+        '/material-guide',
+        '/timeline-estimator',
+      ],
+    },
     { name: 'Contact', path: '/contact' },
     { name: 'Refer & Earn', path: '/referrals' },
   ];
@@ -120,7 +132,10 @@ export function Header() {
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center gap-6">
               {navLinks.map((link) => {
-                const isActive = pathname === link.path || pathname?.startsWith(link.path + '/');
+                const matchList = link.activeMatch || [link.path];
+                const isActive = matchList.some((matchPath) =>
+                  pathname === matchPath || pathname?.startsWith(matchPath + '/')
+                );
                 return (
                   <Link
                     key={link.path}
