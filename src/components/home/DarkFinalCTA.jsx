@@ -1,14 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
 import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
+import { redirectToHouspireHome } from '@/lib/external-links';
 
 const ease = [0.25, 0.46, 0.45, 0.94];
 
 export function DarkFinalCTA() {
-  const router = useRouter();
-
   return (
     <section className="bg-[#1D1D1F] py-[40px]">
       <motion.div
@@ -25,7 +23,7 @@ export function DarkFinalCTA() {
           See your complete home — designed, budgeted, and execution-ready.
         </p>
         <button
-          onClick={() => router.push('/style-quiz')}
+          onClick={redirectToHouspireHome}
           className="mt-10 px-6 py-3 text-[17px] text-white border-[1.5px] border-white hover:bg-white/10 rounded-full transition-all duration-300"
         >
           Start Your Free Style Quiz →

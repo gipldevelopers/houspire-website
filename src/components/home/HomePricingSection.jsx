@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useRef, useEffect, useState } from 'react';
 import { dataGet } from '@/lib/frontend-data';
 import { Badge } from '@/components/ui/badge';
+import { redirectToHouspireHome } from '@/lib/external-links';
 
 const HIGHLIGHTED_SLUGS = ['starter', 'home-design', 'complete-home'];
 
@@ -68,7 +69,7 @@ export function HomePricingSection() {
         >
           Not sure yet? Take our free{' '}
           <button
-            onClick={() => router.push('/style-quiz')}
+            onClick={redirectToHouspireHome}
             className="text-accent hover:underline font-medium"
           >
             Style Quiz
@@ -151,7 +152,7 @@ export function HomePricingSection() {
                 <div className="mt-auto">
                   <Button
                     variant={pkg.is_popular ? 'default' : 'outline'}
-                    onClick={() => router.push(`/select-package?package=${pkg.slug}`)}
+                    onClick={redirectToHouspireHome}
                     className="w-full group"
                   >
                     {pkg.slug === 'starter' ? 'Start with One Room' :
@@ -179,7 +180,7 @@ export function HomePricingSection() {
           >
             Designing 8+ rooms? Our{' '}
             <button
-              onClick={() => router.push(`/select-package?package=premium`)}
+              onClick={redirectToHouspireHome}
               className="text-accent hover:underline font-medium"
             >
               Premium plan (₹{formatPrice(premiumPkg.price)})

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
+import { redirectToHouspireHome, redirectToHouspireSignIn } from '@/lib/external-links';
 import { Menu, X, Shield, Settings, MessageCircle, Heart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logoImg from '@/assets/logo.png';
@@ -214,13 +215,13 @@ export function Header() {
                 <>
                   <Button
                     variant="ghost"
-                    onClick={() => router.push('/login')}
+                    onClick={redirectToHouspireSignIn}
                     className="text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-transparent transition-all duration-300"
                   >
                     Sign in
                   </Button>
                   <Button
-                    onClick={() => router.push('/style-quiz')}
+                    onClick={redirectToHouspireHome}
                     className="h-9 px-5 text-sm font-medium bg-foreground text-background hover:bg-foreground/90 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-foreground/10 active:scale-[0.98]"
                   >
                     Get started
@@ -374,7 +375,7 @@ export function Header() {
                     <Button
                       size="lg"
                       onClick={() => {
-                        router.push('/style-quiz');
+                        redirectToHouspireHome();
                         setIsMobileMenuOpen(false);
                       }}
                       className="w-full h-14 text-lg bg-foreground hover:bg-foreground/90 text-background rounded-full transition-all duration-300"
@@ -385,7 +386,7 @@ export function Header() {
                       variant="outline"
                       size="lg"
                       onClick={() => {
-                        router.push('/login');
+                        redirectToHouspireSignIn();
                         setIsMobileMenuOpen(false);
                       }}
                       className="w-full h-14 text-lg rounded-full border-2 transition-all duration-300"

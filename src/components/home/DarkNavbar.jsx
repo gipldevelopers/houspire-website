@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
+import { redirectToHouspireHome } from '@/lib/external-links';
 import { Menu, X } from 'lucide-react';
 import { AnimatePresence, motion } from 'framer-motion';
 import logoImg from '@/assets/logo.png';
@@ -76,7 +77,7 @@ export function DarkNavbar() {
               </>
             ) : (
               <button
-                onClick={() => router.push('/style-quiz')}
+                onClick={redirectToHouspireHome}
                 className="px-[22px] py-2 text-[14px] font-medium text-white bg-[#E8662E] hover:bg-[#D45A1F] rounded-[980px] transition-all duration-300"
               >
                 Get Started
@@ -130,7 +131,7 @@ export function DarkNavbar() {
                   </>
                 ) : (
                   <button
-                    onClick={() => { router.push('/style-quiz'); setIsMobileOpen(false); }}
+                    onClick={() => { redirectToHouspireHome(); setIsMobileOpen(false); }}
                     className="w-full py-4 text-lg font-medium text-white bg-[#E8662E] rounded-[980px]"
                   >
                     Get Started

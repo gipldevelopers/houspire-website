@@ -67,6 +67,11 @@
     overflow-x: hidden;
   }
 
+  img {
+    -webkit-user-drag: none;
+    user-select: none;
+  }
+
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
     font-weight: 600;

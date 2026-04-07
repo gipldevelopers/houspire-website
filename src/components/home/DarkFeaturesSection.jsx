@@ -1,8 +1,8 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useRouter } from 'next/navigation';
 import { ArrowRight, Image as ImageIcon, IndianRupee, ShoppingBag, Users } from 'lucide-react';
+import { redirectToHouspireHome } from '@/lib/external-links';
 
 const ease = [0.25, 0.46, 0.45, 0.94];
 
@@ -38,16 +38,8 @@ const cards = [
 ];
 
 export function DarkFeaturesSection() {
-  const router = useRouter();
-
-  const handleCardRedirect = (card) => {
-    const params = new URLSearchParams({
-      source: 'home-feature-card',
-      featureTitle: card.title,
-      featureSubtitle: card.subtitle,
-      autostart: 'true',
-    });
-    router.push(`/style-quiz?${params.toString()}`);
+  const handleCardRedirect = () => {
+    redirectToHouspireHome();
   };
 
   return (

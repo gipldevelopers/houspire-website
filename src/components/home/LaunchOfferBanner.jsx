@@ -4,10 +4,9 @@ import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Gift, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { useRouter } from 'next/navigation';
+import { redirectToHouspireHome } from '@/lib/external-links';
 
 export function LaunchOfferBanner() {
-  const router = useRouter();
   const [isVisible, setIsVisible] = useState(true);
   const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
 
@@ -104,7 +103,7 @@ export function LaunchOfferBanner() {
             <Button
               size="sm"
               variant="secondary"
-              onClick={() => router.push('/style-quiz')}
+              onClick={redirectToHouspireHome}
               className="bg-background text-foreground hover:bg-background/90 font-semibold h-8 px-4 rounded-full shadow-sm"
             >
               Claim Now

@@ -4,6 +4,7 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { ChevronDown, Instagram, Linkedin, Twitter, Youtube } from 'lucide-react';
 import CookiePreferencesDialog from '@/components/CookiePreferencesDialog';
+import { HOUSPIRE_HOME_URL } from '@/lib/external-links';
 
 const LOGO_SRC = '/icons/logo%20(1).webp';
 
@@ -53,7 +54,7 @@ export function Footer() {
     { name: 'How it works', path: '/how-it-works' },
     { name: 'Pricing', path: '/select-package' },
     { name: 'Gallery', path: '/discover' },
-    { name: 'Style Quiz', path: '/style-quiz' },
+    { name: 'Style Quiz', path: HOUSPIRE_HOME_URL },
   ];
 
   const companyLinks = [
@@ -116,12 +117,12 @@ export function Footer() {
             <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">
               Get Started
             </h4>
-            <Link
-              href="/style-quiz"
+            <a
+              href={HOUSPIRE_HOME_URL}
               className="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 rounded-full shadow-lg shadow-primary/20 transition-all duration-300"
             >
               Take Style Quiz
-            </Link>
+            </a>
             <p className="mt-4 text-xs text-muted-foreground">Free • 2 minutes • No signup required</p>
           </div>
 

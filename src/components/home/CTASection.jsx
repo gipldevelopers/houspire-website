@@ -3,11 +3,10 @@
 import { Button } from '@/components/ui/button';
 import { ArrowRight } from 'lucide-react';
 import { motion, useInView } from 'framer-motion';
-import { useRouter } from 'next/navigation';
 import { useRef, forwardRef } from 'react';
+import { redirectToHouspireHome } from '@/lib/external-links';
 
 export const CTASection = forwardRef(function CTASection(_, forwardedRef) {
-  const router = useRouter();
   const internalRef = useRef(null);
   const ref = forwardedRef || internalRef;
   const isInView = useInView(internalRef, { once: true, margin: "-100px" });
@@ -45,7 +44,7 @@ export const CTASection = forwardRef(function CTASection(_, forwardedRef) {
           >
             <Button
               size="lg"
-              onClick={() => router.push('/style-quiz')}
+              onClick={redirectToHouspireHome}
               className="h-14 px-10 text-lg font-medium bg-background text-foreground hover:bg-background/90 rounded-full transition-all duration-300 group shadow-xl shadow-background/20 hover:shadow-2xl hover:shadow-background/30 active:scale-[0.98]"
             >
               Take the Free Style Quiz

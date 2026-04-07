@@ -6,6 +6,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2, Clock, Image as ImageIcon, IndianRupee, ShoppingBag, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { HeroHighlight } from '@/components/ui/hero-highlight';
+import { redirectToHouspireHome } from '@/lib/external-links';
 
 const ease = [0.25, 0.46, 0.45, 0.94];
 
@@ -113,7 +114,7 @@ export function HeroSection() {
               >
                 <Button
                   size="lg"
-                  onClick={() => router.push('/style-quiz')}
+                  onClick={redirectToHouspireHome}
                   className="h-11 rounded-full px-7 text-base"
                 >
                   Take the free style quiz

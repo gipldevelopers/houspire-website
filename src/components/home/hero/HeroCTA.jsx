@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, ChevronRight } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { redirectToHouspireHome } from '@/lib/external-links';
 
 export function HeroCTA() {
   const router = useRouter();
@@ -17,7 +18,7 @@ export function HeroCTA() {
     >
       <Button
         size="lg"
-        onClick={() => router.push('/style-quiz')}
+        onClick={redirectToHouspireHome}
         className="min-w-[200px] group px-8 py-4 text-lg h-auto shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 ease-smooth"
       >
         Take the Free Style Quiz

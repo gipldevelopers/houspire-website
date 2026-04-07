@@ -2,6 +2,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { ContentProtection } from "@/components/ContentProtection";
 
 export const metadata = {
   title: "Houspire - Interior Design Made Simple",
@@ -13,6 +14,7 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <body>
         <Providers>
+          <ContentProtection />
           <Header />
           <main>{children}</main>
           <Footer />
