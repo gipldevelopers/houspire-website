@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from '@/components/ui/select';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { RefreshCw, Upload, X, Send, Loader2, Info } from 'lucide-react';
@@ -53,7 +53,7 @@ export function RevisionRequestForm({ projectId, onSuccess, onCancel, }) {
         setSubmitting(true);
         try {
             // Create revision request
-            const { data: revision, error: revisionError } = await supabase
+            const { data: revision, error: revisionError } = await appDataClient
                 .from('revision_requests')
                 .insert({
                 project_id: projectId,
@@ -71,14 +71,14 @@ export function RevisionRequestForm({ projectId, onSuccess, onCancel, }) {
                 for (const file of attachments) {
                     const fileName = `${Date.now()}-${file.name}`;
                     const filePath = `revisions/${revision.id}/${fileName}`;
-                    const { error: uploadError } = await supabase.storage
+                    const { error: uploadError } = await appDataClient.storage
                         .from('project-renders')
                         .upload(filePath, file);
                     if (!uploadError) {
-                        const { data: urlData } = supabase.storage
+                        const { data: urlData } = appDataClient.storage
                             .from('project-renders')
                             .getPublicUrl(filePath);
-                        await supabase.from('revision_attachments').insert({
+                        await appDataClient.from('revision_attachments').insert({
                             revision_request_id: revision.id,
                             file_url: urlData.publicUrl,
                             file_name: file.name,
@@ -233,3 +233,4 @@ export function RevisionRequestForm({ projectId, onSuccess, onCancel, }) {
       </CardContent>
     </Card>);
 }
+

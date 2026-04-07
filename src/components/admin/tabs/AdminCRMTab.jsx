@@ -9,7 +9,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from '
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, } from '@/components/ui/dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from '@/components/ui/select';
 import { Search, UserPlus, Mail, Phone, Send, Clock, CheckCircle, AlertCircle, Eye, } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 export function AdminCRMTab({ projects, onRefresh }) {
     const { toast } = useToast();
@@ -26,7 +26,7 @@ export function AdminCRMTab({ projects, onRefresh }) {
     }, [projects]);
     const fetchCustomers = async () => {
         setLoading(true);
-        const { data: profiles } = await supabase
+        const { data: profiles } = await appDataClient
             .from('profiles')
             .select('*')
             .order('created_at', { ascending: false });
@@ -284,3 +284,4 @@ export function AdminCRMTab({ projects, onRefresh }) {
       </Dialog>
     </div>);
 }
+

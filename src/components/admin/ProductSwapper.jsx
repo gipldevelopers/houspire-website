@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, } from '@/components/ui/dialog';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Save, Package, ThumbsUp, ThumbsDown, Wand2, Loader2 } from 'lucide-react';
 export function ProductSwapper({ product, onUpdate }) {
@@ -26,7 +26,7 @@ export function ProductSwapper({ product, onUpdate }) {
     const handleSave = async () => {
         setLoading(true);
         try {
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('concept_products')
                 .update({
                 product_name: formData.product_name,
@@ -217,3 +217,4 @@ export function ProductSwapper({ product, onUpdate }) {
       </DialogContent>
     </Dialog>);
 }
+

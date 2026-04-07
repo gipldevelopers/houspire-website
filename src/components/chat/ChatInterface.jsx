@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Input } from '@/components/ui/input';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { Send, Paperclip, Image as ImageIcon, FileIcon, X, Check, CheckCheck, Trash2, MessageCircle, Search, Download, Smile, } from 'lucide-react';
@@ -59,14 +59,14 @@ export function ChatInterface({ projectId }) {
     const initializeChat = async () => {
         try {
             // Get or create chat room
-            let { data: existingRoom, error: roomError } = await supabase
+            let { data: existingRoom, error: roomError } = await appDataClient
                 .from('chat_rooms')
                 .select('*')
                 .eq('project_id', projectId)
                 .single();
             if (roomError && roomError.code === 'PGRST116') {
                 // Create room if doesn't exist
-                const { data: newRoom, error: createError } = await supabase
+                const { data: newRoom, error: createError } = await appDataClient
                     .from('chat_rooms')
                     .insert({
                     project_id: projectId,
@@ -101,7 +101,7 @@ export function ChatInterface({ projectId }) {
     };
     const loadMessages = async (roomId, before) => {
         try {
-            let query = supabase
+            let query = appDataClient
                 .from('chat_messages')
                 .select('*')
                 .eq('room_id', roomId)
@@ -116,7 +116,7 @@ export function ChatInterface({ projectId }) {
                 throw error;
             // Fetch profiles for senders
             const messagesWithProfiles = await Promise.all((data || []).map(async (msg) => {
-                const { data: profile } = await supabase
+                const { data: profile } = await appDataClient
                     .from('profiles')
                     .select('full_name')
                     .eq('user_id', msg.sender_id)
@@ -157,7 +157,7 @@ export function ChatInterface({ projectId }) {
     const subscribeToMessages = () => {
         if (!room)
             return;
-        const channel = supabase
+        const channel = appDataClient
             .channel(`chat-messages-${room.id}`)
             .on('postgres_changes', {
             event: 'INSERT',
@@ -167,7 +167,7 @@ export function ChatInterface({ projectId }) {
         }, async (payload) => {
             const newMessage = payload.new;
             // Fetch sender profile
-            const { data: profile } = await supabase
+            const { data: profile } = await appDataClient
                 .from('profiles')
                 .select('full_name')
                 .eq('user_id', newMessage.sender_id)
@@ -198,13 +198,13 @@ export function ChatInterface({ projectId }) {
         })
             .subscribe();
         return () => {
-            supabase.removeChannel(channel);
+            appDataClient.removeChannel(channel);
         };
     };
     const subscribeToRoom = () => {
         if (!room)
             return;
-        const channel = supabase
+        const channel = appDataClient
             .channel(`chat-room-${room.id}`)
             .on('postgres_changes', {
             event: 'UPDATE',
@@ -217,12 +217,12 @@ export function ChatInterface({ projectId }) {
         })
             .subscribe();
         return () => {
-            supabase.removeChannel(channel);
+            appDataClient.removeChannel(channel);
         };
     };
     const markAsRead = async (roomId) => {
         try {
-            await supabase.rpc('mark_messages_as_read', {
+            await appDataClient.rpc('mark_messages_as_read', {
                 p_room_id: roomId,
                 p_is_admin: false,
             });
@@ -244,7 +244,7 @@ export function ChatInterface({ projectId }) {
                 setUploading(false);
             }
             // Send message
-            const { data, error } = await supabase.rpc('send_chat_message', {
+            const { data, error } = await appDataClient.rpc('send_chat_message', {
                 p_room_id: room.id,
                 p_message_text: messageText.trim() || null,
                 p_attachments: uploadedAttachments,
@@ -292,12 +292,12 @@ export function ChatInterface({ projectId }) {
                 }
                 const fileName = `${Date.now()}-${file.name}`;
                 const filePath = `${projectId}/chat/${fileName}`;
-                const { error: uploadError } = await supabase.storage
+                const { error: uploadError } = await appDataClient.storage
                     .from('chat-files')
                     .upload(filePath, fileToUpload);
                 if (uploadError)
                     throw uploadError;
-                const { data: urlData } = supabase.storage
+                const { data: urlData } = appDataClient.storage
                     .from('chat-files')
                     .getPublicUrl(filePath);
                 uploaded.push({
@@ -349,7 +349,7 @@ export function ChatInterface({ projectId }) {
         if (!room)
             return;
         try {
-            await supabase.rpc('update_typing_status', {
+            await appDataClient.rpc('update_typing_status', {
                 p_room_id: room.id,
                 p_is_typing: isTyping,
             });
@@ -362,7 +362,7 @@ export function ChatInterface({ projectId }) {
         if (!confirm('Delete this message?'))
             return;
         try {
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('chat_messages')
                 .update({ deleted: true, deleted_at: new Date().toISOString() })
                 .eq('id', messageId);
@@ -404,7 +404,7 @@ export function ChatInterface({ projectId }) {
             return;
         setSearching(true);
         try {
-            const { data, error } = await supabase.rpc('search_chat_messages', {
+            const { data, error } = await appDataClient.rpc('search_chat_messages', {
                 p_room_id: room.id,
                 p_query: searchQuery,
                 p_limit: 50,
@@ -436,7 +436,7 @@ export function ChatInterface({ projectId }) {
     // Reactions
     const handleAddReaction = async (messageId, reaction) => {
         try {
-            const { error } = await supabase.rpc('add_message_reaction', {
+            const { error } = await appDataClient.rpc('add_message_reaction', {
                 p_message_id: messageId,
                 p_reaction: reaction,
             });
@@ -455,7 +455,7 @@ export function ChatInterface({ projectId }) {
     };
     const handleRemoveReaction = async (messageId, reaction) => {
         try {
-            const { error } = await supabase.rpc('remove_message_reaction', {
+            const { error } = await appDataClient.rpc('remove_message_reaction', {
                 p_message_id: messageId,
                 p_reaction: reaction,
             });
@@ -473,7 +473,7 @@ export function ChatInterface({ projectId }) {
     };
     const loadReactions = async (messageId) => {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await appDataClient
                 .from('chat_message_reactions')
                 .select('reaction, user_id')
                 .eq('message_id', messageId);
@@ -503,7 +503,7 @@ export function ChatInterface({ projectId }) {
         if (!room)
             return;
         try {
-            const { data, error } = await supabase.rpc('export_chat_messages', {
+            const { data, error } = await appDataClient.rpc('export_chat_messages', {
                 p_room_id: room.id,
                 p_format: 'txt',
             });
@@ -831,3 +831,4 @@ export function ChatInterface({ projectId }) {
       </div>
     </Card>);
 }
+

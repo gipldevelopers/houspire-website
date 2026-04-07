@@ -10,7 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
-import { apiPost } from '@/lib/api';
+import { dataPost } from '@/lib/frontend-data';
 import { useAuth } from '@/contexts/AuthContext';
 import { contactFormSchema, subjects } from '@/lib/schemas/contactSchema';
 import { 
@@ -51,7 +51,7 @@ export function ContactForm() {
 
   const onSubmit = async (data) => {
     try {
-      await apiPost('/api/contact', {
+      await dataPost('/contact', {
         name: data.name,
         email: data.email,
         phone: data.phone || null,
@@ -298,3 +298,5 @@ export function ContactForm() {
     </Card>
   );
 }
+
+

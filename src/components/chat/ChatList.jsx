@@ -10,7 +10,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Loader2, Plus, FolderOpen, Package } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
 import { cn } from '@/lib/utils';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 export function ChatList({ isAdmin = false, onSelectRoom, selectedRoomId, className }) {
     const { user } = useAuth();
@@ -46,10 +46,10 @@ export function ChatList({ isAdmin = false, onSelectRoom, selectedRoomId, classN
     async function loadOrders() {
         if (isAdmin)
             return [];
-        const { data: { user: currentUser } } = await supabase.auth.getUser();
+        const { data: { user: currentUser } } = await appDataClient.auth.getUser();
         if (!currentUser)
             return [];
-        const { data } = await supabase
+        const { data } = await appDataClient
             .from('orders')
             .select('id, order_number, package_name, status, design_files')
             .eq('user_id', currentUser.id)
@@ -60,10 +60,10 @@ export function ChatList({ isAdmin = false, onSelectRoom, selectedRoomId, classN
     async function loadProjects() {
         if (isAdmin)
             return [];
-        const { data: { user: currentUser } } = await supabase.auth.getUser();
+        const { data: { user: currentUser } } = await appDataClient.auth.getUser();
         if (!currentUser)
             return [];
-        const { data } = await supabase
+        const { data } = await appDataClient
             .from('projects')
             .select('id, room_type, designer_persona, current_phase')
             .eq('user_id', currentUser.id)
@@ -224,3 +224,4 @@ export function ChatList({ isAdmin = false, onSelectRoom, selectedRoomId, classN
       </div>
     </ScrollArea>);
 }
+

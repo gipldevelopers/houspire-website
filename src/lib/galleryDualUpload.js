@@ -4,7 +4,7 @@
  * Uploads images to both Cloudinary CDN (primary) and Supabase Storage (backup).
  * Returns both URLs for database storage.
  */
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { uploadToCloudinary } from './cloudinaryUpload';
 /**
  * Upload a gallery image to both Cloudinary and Supabase Storage
@@ -33,7 +33,7 @@ export async function uploadGalleryImage(file, options) {
     let storageBackupUrl;
     try {
         const storagePath = `${roomType}/${style}/${filename}`;
-        const { error: uploadError } = await supabase.storage
+        const { error: uploadError } = await appDataClient.storage
             .from('gallery-images')
             .upload(storagePath, file, {
             cacheControl: '31536000', // 1 year cache
@@ -44,7 +44,7 @@ export async function uploadGalleryImage(file, options) {
             storageBackupUrl = ''; // Non-fatal - we still have Cloudinary
         }
         else {
-            const { data: urlData } = supabase.storage
+            const { data: urlData } = appDataClient.storage
                 .from('gallery-images')
                 .getPublicUrl(storagePath);
             storageBackupUrl = urlData.publicUrl;
@@ -56,7 +56,7 @@ export async function uploadGalleryImage(file, options) {
     }
     onProgress?.(80, 'storage');
     // Phase 3: Create database record
-    const { data: dbRecord, error: dbError } = await supabase
+    const { data: dbRecord, error: dbError } = await appDataClient
         .from('gallery_images')
         .insert({
         image_url: cloudinaryResult.secureUrl, // Primary display URL
@@ -118,3 +118,4 @@ export async function uploadMultipleGalleryImages(files, options) {
     }
     return { results, errors };
 }
+

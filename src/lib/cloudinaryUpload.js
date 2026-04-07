@@ -4,13 +4,13 @@
  * Provides functions for securely uploading images to Cloudinary
  * using signed requests via the backend edge function.
  */
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { CLOUDINARY_CLOUD_NAME } from './cloudinary';
 /**
  * Get a signed upload URL from the backend
  */
 async function getUploadSignature(options) {
-    const { data, error } = await supabase.functions.invoke('cloudinary-signature', {
+    const { data, error } = await appDataClient.functions.invoke('cloudinary-signature', {
         body: {
             folder: options.folder || 'uploads',
             uploadPreset: options.uploadPreset,
@@ -144,3 +144,4 @@ export async function deleteFromCloudinary(publicId) {
 export function isCloudinaryUploadEnabled() {
     return Boolean(CLOUDINARY_CLOUD_NAME);
 }
+

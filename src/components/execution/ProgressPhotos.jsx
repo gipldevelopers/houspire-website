@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useDropzone } from 'react-dropzone';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Camera, Upload, Calendar, Image as ImageIcon, Download, Grid3x3, List, Trash2 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, } from '@/components/ui/dialog';
@@ -35,7 +35,7 @@ export function ProgressPhotos({ projectId }) {
         onDrop,
     });
     const fetchPhotos = useCallback(async () => {
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('progress_photos')
             .select('*')
             .eq('project_id', projectId)
@@ -60,15 +60,15 @@ export function ProgressPhotos({ projectId }) {
             for (const photo of selectedPhotos) {
                 const fileExt = photo.name.split('.').pop();
                 const fileName = `${projectId}/${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
-                const { error: uploadError } = await supabase.storage
+                const { error: uploadError } = await appDataClient.storage
                     .from('progress-photos')
                     .upload(fileName, photo);
                 if (uploadError)
                     throw uploadError;
-                const { data: urlData } = supabase.storage
+                const { data: urlData } = appDataClient.storage
                     .from('progress-photos')
                     .getPublicUrl(fileName);
-                await supabase.from('progress_photos').insert({
+                await appDataClient.from('progress_photos').insert({
                     project_id: projectId,
                     photo_url: urlData.publicUrl,
                     photo_type: uploadDetails.photo_type,
@@ -104,9 +104,9 @@ export function ProgressPhotos({ projectId }) {
         try {
             const filePath = photoUrl.split('/progress-photos/')[1];
             if (filePath) {
-                await supabase.storage.from('progress-photos').remove([filePath]);
+                await appDataClient.storage.from('progress-photos').remove([filePath]);
             }
-            await supabase.from('progress_photos').delete().eq('id', photoId);
+            await appDataClient.from('progress_photos').delete().eq('id', photoId);
             toast({
                 title: 'Photo deleted',
             });
@@ -330,3 +330,4 @@ export function ProgressPhotos({ projectId }) {
       </Dialog>
     </div>);
 }
+

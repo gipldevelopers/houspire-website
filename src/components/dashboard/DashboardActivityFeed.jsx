@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
-import { apiGet } from '@/lib/api';
+import { dataGet } from '@/lib/frontend-data';
 import { useAuth } from '@/contexts/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { formatDistanceToNow } from 'date-fns';
@@ -58,10 +58,10 @@ export function DashboardActivityFeed({ projectId }) {
   const fetchActivities = async () => {
     try {
       const url = projectId 
-        ? `/api/project-activity?projectId=${projectId}&limit=10`
-        : `/api/project-activity?limit=10`;
+        ? `/project-activity?projectId=${projectId}&limit=10`
+        : `/project-activity?limit=10`;
       
-      const data = await apiGet(url);
+      const data = await dataGet(url);
 
       // Transform to activity items
       const activityItems = (data || []).map(a => ({
@@ -147,3 +147,5 @@ export function DashboardActivityFeed({ projectId }) {
     </Card>
   );
 }
+
+

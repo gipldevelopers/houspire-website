@@ -1,12 +1,12 @@
 import { Button } from '@/components/ui/button';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Bell, FileText, Download, RefreshCw, Mail, } from 'lucide-react';
 export function QuickActionsCard({ projectId, onRefresh }) {
     const { toast } = useToast();
     const handleNotifyConceptsReady = async () => {
         try {
-            await supabase.functions.invoke('send-notification', {
+            await appDataClient.functions.invoke('send-notification', {
                 body: {
                     type: 'concepts_ready',
                     project_id: projectId,
@@ -27,7 +27,7 @@ export function QuickActionsCard({ projectId, onRefresh }) {
     };
     const handleSendReminder = async () => {
         try {
-            await supabase.functions.invoke('send-notification', {
+            await appDataClient.functions.invoke('send-notification', {
                 body: {
                     type: 'feedback_reminder',
                     project_id: projectId,
@@ -88,3 +88,4 @@ export function QuickActionsCard({ projectId, onRefresh }) {
         </Button>)}
     </div>);
 }
+

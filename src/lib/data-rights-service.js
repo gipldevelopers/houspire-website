@@ -1,4 +1,4 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 /**
  * Generate a 6-digit verification code
  */
@@ -10,14 +10,14 @@ function generateVerificationCode() {
  */
 export async function submitDataRightRequest(requestType, description) {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         if (!user) {
             return { success: false, error: 'User not authenticated' };
         }
         const verificationCode = generateVerificationCode();
         const expiresAt = new Date();
         expiresAt.setMinutes(expiresAt.getMinutes() + 15);
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('data_rights_requests')
             .insert({
             user_id: user.id,
@@ -46,7 +46,7 @@ export async function submitDataRightRequest(requestType, description) {
  */
 export async function verifyDataRightRequest(requestId, verificationCode) {
     try {
-        const { data: request, error: fetchError } = await supabase
+        const { data: request, error: fetchError } = await appDataClient
             .from('data_rights_requests')
             .select('*')
             .eq('id', requestId)
@@ -63,7 +63,7 @@ export async function verifyDataRightRequest(requestId, verificationCode) {
         if (request.verification_code !== verificationCode) {
             return { success: false, error: 'Invalid verification code' };
         }
-        const { error: updateError } = await supabase
+        const { error: updateError } = await appDataClient
             .from('data_rights_requests')
             .update({
             status: 'verified',
@@ -87,10 +87,10 @@ export async function verifyDataRightRequest(requestId, verificationCode) {
  */
 export async function getUserDataRightRequests() {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         if (!user)
             return [];
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('data_rights_requests')
             .select('*')
             .eq('user_id', user.id)
@@ -109,10 +109,10 @@ export async function getUserDataRightRequests() {
  */
 export async function cancelDataRightRequest(requestId) {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         if (!user)
             return false;
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('data_rights_requests')
             .delete()
             .eq('id', requestId)
@@ -132,13 +132,13 @@ export async function cancelDataRightRequest(requestId) {
  */
 export async function resendVerificationCode(requestId) {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         if (!user)
             return { success: false, error: 'Not authenticated' };
         const newCode = generateVerificationCode();
         const expiresAt = new Date();
         expiresAt.setMinutes(expiresAt.getMinutes() + 15);
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('data_rights_requests')
             .update({
             verification_code: newCode,
@@ -158,3 +158,4 @@ export async function resendVerificationCode(requestId) {
         return { success: false, error: message };
     }
 }
+

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { MessageSquare, Send, User, Shield, Loader2 } from 'lucide-react';
@@ -22,7 +22,7 @@ export function RevisionComments({ revisionRequestId }) {
     }, [revisionRequestId]);
     const fetchComments = async () => {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await appDataClient
                 .from('revision_comments')
                 .select('*')
                 .eq('revision_request_id', revisionRequestId)
@@ -39,7 +39,7 @@ export function RevisionComments({ revisionRequestId }) {
         }
     };
     const subscribeToComments = () => {
-        const channel = supabase
+        const channel = appDataClient
             .channel(`revision-comments-${revisionRequestId}`)
             .on('postgres_changes', {
             event: 'INSERT',
@@ -51,7 +51,7 @@ export function RevisionComments({ revisionRequestId }) {
         })
             .subscribe();
         return () => {
-            supabase.removeChannel(channel);
+            appDataClient.removeChannel(channel);
         };
     };
     const handleSubmit = async () => {
@@ -65,7 +65,7 @@ export function RevisionComments({ revisionRequestId }) {
         }
         setSubmitting(true);
         try {
-            const { error } = await supabase.from('revision_comments').insert({
+            const { error } = await appDataClient.from('revision_comments').insert({
                 revision_request_id: revisionRequestId,
                 user_id: user?.id,
                 comment: newComment,
@@ -175,3 +175,4 @@ export function RevisionComments({ revisionRequestId }) {
       </CardContent>
     </Card>);
 }
+

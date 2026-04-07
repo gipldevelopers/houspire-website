@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { motion, AnimatePresence } from 'framer-motion';
-import { apiGet } from '@/lib/api';
+import { dataGet } from '@/lib/frontend-data';
 import { useAuth } from '@/contexts/AuthContext';
 import { formatDistanceToNow, addDays, format } from 'date-fns';
 import { 
@@ -91,7 +91,7 @@ export function ProjectStatusAccordion({
 
   const fetchActivities = async () => {
     try {
-      const data = await apiGet(`/api/project-activity?projectId=${projectId}&limit=5`);
+      const data = await dataGet(`/project-activity?projectId=${projectId}&limit=5`);
       
       const items = (data || []).map(a => ({
         id: a.id,
@@ -198,3 +198,5 @@ export function ProjectStatusAccordion({
     </Card>
   );
 }
+
+

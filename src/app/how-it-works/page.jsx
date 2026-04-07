@@ -8,7 +8,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { SEOHead } from '@/components/SEOHead';
 import { useEffect, useState } from 'react';
-import { apiGet } from '@/lib/api';
+import { dataGet } from '@/lib/frontend-data';
 import { 
   Wand2, 
   CreditCard, 
@@ -36,7 +36,7 @@ export default function HowItWorks() {
 
   const fetchPackages = async () => {
     try {
-      const { packages: packagesData } = await apiGet('/api/packages?limit=4');
+      const { packages: packagesData } = await dataGet('/packages?limit=4');
       setPackages(packagesData || []);
     } catch (error) {
       console.error('Error fetching packages:', error);
@@ -501,3 +501,5 @@ export default function HowItWorks() {
     </>
   );
 }
+
+

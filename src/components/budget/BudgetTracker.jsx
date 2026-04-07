@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { TrendingUp, TrendingDown, Edit, AlertCircle, CheckCircle2, } from 'lucide-react';
 export function BudgetTracker({ projectId }) {
@@ -24,7 +24,7 @@ export function BudgetTracker({ projectId }) {
     }, [projectId]);
     const fetchBudgetActuals = async () => {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await appDataClient
                 .from('budget_actuals')
                 .select('*')
                 .eq('project_id', projectId)
@@ -46,7 +46,7 @@ export function BudgetTracker({ projectId }) {
     };
     const checkBudgetHealth = async () => {
         try {
-            const { data, error } = await supabase.rpc('check_budget_health', {
+            const { data, error } = await appDataClient.rpc('check_budget_health', {
                 p_project_id: projectId,
             });
             if (error)
@@ -69,7 +69,7 @@ export function BudgetTracker({ projectId }) {
             return;
         setSaving(true);
         try {
-            const { error } = await supabase.rpc('update_budget_actual', {
+            const { error } = await appDataClient.rpc('update_budget_actual', {
                 p_project_id: projectId,
                 p_category: editingCategory,
                 p_actual_amount: parseFloat(editAmount),
@@ -277,3 +277,4 @@ export function BudgetTracker({ projectId }) {
       </Card>
     </div>);
 }
+

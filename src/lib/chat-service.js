@@ -1,14 +1,14 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 /**
  * Get or create chat room for a project/order
  */
 export async function getOrCreateChatRoom(projectId, orderId) {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         if (!user)
             throw new Error('Not authenticated');
         // Check if room exists for this project
-        const { data: existingRoom, error: fetchError } = await supabase
+        const { data: existingRoom, error: fetchError } = await appDataClient
             .from('chat_rooms')
             .select('*')
             .eq('project_id', projectId)
@@ -18,7 +18,7 @@ export async function getOrCreateChatRoom(projectId, orderId) {
         if (existingRoom)
             return existingRoom;
         // Create new room
-        const { data: newRoom, error: createError } = await supabase
+        const { data: newRoom, error: createError } = await appDataClient
             .from('chat_rooms')
             .insert({
             project_id: projectId,
@@ -44,11 +44,11 @@ export async function getOrCreateChatRoom(projectId, orderId) {
  */
 export async function getChatRooms() {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         if (!user)
             return [];
         // Get rooms where user is the owner
-        const { data: rooms, error } = await supabase
+        const { data: rooms, error } = await appDataClient
             .from('chat_rooms')
             .select('*')
             .eq('user_id', user.id)
@@ -67,7 +67,7 @@ export async function getChatRooms() {
  */
 export async function getAllChatRooms() {
     try {
-        const { data: rooms, error } = await supabase
+        const { data: rooms, error } = await appDataClient
             .from('chat_rooms')
             .select('*')
             .order('last_message_at', { ascending: false, nullsFirst: false });
@@ -85,7 +85,7 @@ export async function getAllChatRooms() {
  */
 export async function getMessages(roomId, limit = 50, before) {
     try {
-        let query = supabase
+        let query = appDataClient
             .from('chat_messages')
             .select('*')
             .eq('room_id', roomId)
@@ -111,10 +111,10 @@ export async function getMessages(roomId, limit = 50, before) {
  */
 export async function sendMessage(roomId, messageText, isAdmin = false) {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         if (!user)
             throw new Error('Not authenticated');
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('chat_messages')
             .insert({
             room_id: roomId,
@@ -141,7 +141,7 @@ export async function sendMessage(roomId, messageText, isAdmin = false) {
  */
 export async function sendAttachment(roomId, file, isAdmin = false) {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         if (!user)
             throw new Error('Not authenticated');
         // Upload file
@@ -149,13 +149,13 @@ export async function sendAttachment(roomId, file, isAdmin = false) {
         const random = Math.random().toString(36).substring(7);
         const sanitizedName = file.name.replace(/[^a-zA-Z0-9.-]/g, '_');
         const fileName = `${roomId}/${timestamp}-${random}-${sanitizedName}`;
-        const { error: uploadError } = await supabase.storage
+        const { error: uploadError } = await appDataClient.storage
             .from('chat-attachments')
             .upload(fileName, file, { upsert: false });
         if (uploadError)
             throw uploadError;
         // Get public URL
-        const { data: urlData } = supabase.storage
+        const { data: urlData } = appDataClient.storage
             .from('chat-attachments')
             .getPublicUrl(fileName);
         // Create message with attachment
@@ -165,7 +165,7 @@ export async function sendAttachment(roomId, file, isAdmin = false) {
                 type: file.type,
                 size: file.size
             }];
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('chat_messages')
             .insert({
             room_id: roomId,
@@ -192,7 +192,7 @@ export async function sendAttachment(roomId, file, isAdmin = false) {
  */
 export async function markMessagesRead(roomId, isAdmin) {
     try {
-        await supabase.rpc('mark_chat_messages_read', {
+        await appDataClient.rpc('mark_chat_messages_read', {
             p_room_id: roomId,
             p_is_admin: isAdmin
         });
@@ -206,10 +206,10 @@ export async function markMessagesRead(roomId, isAdmin) {
  */
 export async function getTotalUnreadCount(isAdmin = false) {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         if (!user)
             return 0;
-        let query = supabase.from('chat_rooms').select('unread_count_user, unread_count_admin');
+        let query = appDataClient.from('chat_rooms').select('unread_count_user, unread_count_admin');
         if (!isAdmin) {
             query = query.eq('user_id', user.id);
         }
@@ -233,7 +233,7 @@ export async function setTypingIndicator(roomId, isTyping, isAdmin) {
         const updateData = isAdmin
             ? { admin_typing: isTyping }
             : { user_typing: isTyping };
-        await supabase
+        await appDataClient
             .from('chat_rooms')
             .update(updateData)
             .eq('id', roomId);
@@ -247,10 +247,10 @@ export async function setTypingIndicator(roomId, isTyping, isAdmin) {
  */
 export async function updatePresence(isOnline) {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         if (!user)
             return;
-        await supabase
+        await appDataClient
             .from('user_presence')
             .upsert({
             user_id: user.id,
@@ -268,7 +268,7 @@ export async function updatePresence(isOnline) {
  */
 export async function getUserPresence(userId) {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('user_presence')
             .select('*')
             .eq('user_id', userId)
@@ -285,7 +285,7 @@ export async function getUserPresence(userId) {
  * Subscribe to new messages in a room
  */
 export function subscribeToMessages(roomId, onMessage) {
-    const channel = supabase
+    const channel = appDataClient
         .channel(`chat-messages:${roomId}`)
         .on('postgres_changes', {
         event: 'INSERT',
@@ -302,7 +302,7 @@ export function subscribeToMessages(roomId, onMessage) {
  * Subscribe to room updates (typing, unread counts)
  */
 export function subscribeToRoom(roomId, onRoomUpdate) {
-    const channel = supabase
+    const channel = appDataClient
         .channel(`chat-room:${roomId}`)
         .on('postgres_changes', {
         event: 'UPDATE',
@@ -319,7 +319,7 @@ export function subscribeToRoom(roomId, onRoomUpdate) {
  * Subscribe to user presence changes
  */
 export function subscribeToPresence(userId, onPresenceChange) {
-    const channel = supabase
+    const channel = appDataClient
         .channel(`presence:${userId}`)
         .on('postgres_changes', {
         event: '*',
@@ -336,14 +336,14 @@ export function subscribeToPresence(userId, onPresenceChange) {
  * Unsubscribe from channel
  */
 export async function unsubscribeChannel(channel) {
-    await supabase.removeChannel(channel);
+    await appDataClient.removeChannel(channel);
 }
 /**
  * Delete a message (soft delete)
  */
 export async function deleteMessage(messageId) {
     try {
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('chat_messages')
             .update({ deleted: true, deleted_at: new Date().toISOString() })
             .eq('id', messageId);
@@ -361,7 +361,7 @@ export async function deleteMessage(messageId) {
  */
 export async function editMessage(messageId, newText) {
     try {
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('chat_messages')
             .update({
             message_text: newText.trim(),
@@ -383,11 +383,11 @@ export async function editMessage(messageId, newText) {
  */
 export async function getOrCreateChatRoomForOrder(orderId) {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         if (!user)
             throw new Error('Not authenticated');
         // First check if room already exists for this order
-        const { data: existingRoom } = await supabase
+        const { data: existingRoom } = await appDataClient
             .from('chat_rooms')
             .select('*')
             .eq('order_id', orderId)
@@ -395,7 +395,7 @@ export async function getOrCreateChatRoomForOrder(orderId) {
         if (existingRoom)
             return existingRoom;
         // Get order with linked project_id
-        const { data: order, error: orderError } = await supabase
+        const { data: order, error: orderError } = await appDataClient
             .from('orders')
             .select('id, user_id, design_files')
             .eq('id', orderId)
@@ -420,3 +420,4 @@ export async function getOrCreateChatRoomForOrder(orderId) {
         return null;
     }
 }
+

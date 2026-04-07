@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from '@/components/ui/select';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Download, Send, Trash2, Loader2 } from 'lucide-react';
 export function BulkActions({ selectedProjects, onComplete }) {
@@ -48,7 +48,7 @@ export function BulkActions({ selectedProjects, onComplete }) {
         }
     };
     const exportProjects = async () => {
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('projects')
             .select('*')
             .in('id', selectedProjects);
@@ -59,13 +59,13 @@ export function BulkActions({ selectedProjects, onComplete }) {
     };
     const sendBulkReminders = async () => {
         for (const projectId of selectedProjects) {
-            const { data: project } = await supabase
+            const { data: project } = await appDataClient
                 .from('projects')
                 .select('user_id')
                 .eq('id', projectId)
                 .single();
             if (project) {
-                await supabase.functions.invoke('send-notification', {
+                await appDataClient.functions.invoke('send-notification', {
                     body: {
                         userId: project.user_id,
                         projectId,
@@ -77,13 +77,13 @@ export function BulkActions({ selectedProjects, onComplete }) {
         }
     };
     const updatePhases = async () => {
-        await supabase
+        await appDataClient
             .from('projects')
             .update({ current_phase: 3 })
             .in('id', selectedProjects);
     };
     const archiveProjects = async () => {
-        await supabase
+        await appDataClient
             .from('projects')
             .update({ phase_status: 'archived' })
             .in('id', selectedProjects);
@@ -150,3 +150,4 @@ function downloadCSV(csv, filename) {
     document.body.removeChild(a);
     window.URL.revokeObjectURL(url);
 }
+

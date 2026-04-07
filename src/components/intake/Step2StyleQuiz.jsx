@@ -10,7 +10,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useQuizResults } from '@/hooks/useQuizResults';
 import { useAuth } from '@/contexts/AuthContext';
 import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 // Mapping from quiz IDs (underscores) to database slugs (hyphens)
 const STYLE_SLUG_MAP = {
     modern_minimalist: 'modern-minimalist',
@@ -52,7 +52,7 @@ export function Step2StyleQuiz({ onNext, onBack }) {
     const { data: styleCovers } = useQuery({
         queryKey: ['design-style-covers'],
         queryFn: async () => {
-            const { data } = await supabase
+            const { data } = await appDataClient
                 .from('design_styles')
                 .select('slug, cover_image_url');
             return data || [];
@@ -208,3 +208,4 @@ export function Step2StyleQuiz({ onNext, onBack }) {
       </div>
     </div>);
 }
+

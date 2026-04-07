@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { X, Save, Download, Share2, ZoomIn, ZoomOut, ArrowLeftRight, Grid3x3, Columns, Trash2, } from 'lucide-react';
@@ -31,7 +31,7 @@ export function ComparisonTool({ projectId, items, comparisonType, onClose, }) {
     }, [items]);
     const fetchSavedComparisons = async () => {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await appDataClient
                 .from('saved_comparisons')
                 .select('*')
                 .eq('project_id', projectId)
@@ -76,7 +76,7 @@ export function ComparisonTool({ projectId, items, comparisonType, onClose, }) {
         }
         setSaving(true);
         try {
-            const { error } = await supabase.from('saved_comparisons').insert({
+            const { error } = await appDataClient.from('saved_comparisons').insert({
                 user_id: user?.id,
                 project_id: projectId,
                 comparison_name: comparisonName,
@@ -195,7 +195,7 @@ export function ComparisonTool({ projectId, items, comparisonType, onClose, }) {
         if (!confirm('Delete this comparison?'))
             return;
         try {
-            await supabase.from('saved_comparisons').delete().eq('id', id);
+            await appDataClient.from('saved_comparisons').delete().eq('id', id);
             toast({ title: 'Comparison deleted' });
             fetchSavedComparisons();
         }
@@ -500,3 +500,4 @@ export function ComparisonTool({ projectId, items, comparisonType, onClose, }) {
       </AnimatePresence>
     </div>);
 }
+

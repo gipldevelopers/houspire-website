@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Slider } from '@/components/ui/slider';
 import { toast } from 'sonner';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { Cloud, Play, Pause, RotateCcw, CheckCircle, XCircle, AlertTriangle, Info } from 'lucide-react';
 export function CloudinaryMigration() {
     const [isRunning, setIsRunning] = useState(false);
@@ -25,11 +25,11 @@ export function CloudinaryMigration() {
     const fetchStats = useCallback(async () => {
         try {
             const [totalRes, migratedRes] = await Promise.all([
-                supabase
+                appDataClient
                     .from('gallery_designs')
                     .select('id', { count: 'exact', head: true })
                     .not('cover_image_url', 'is', null),
-                supabase
+                appDataClient
                     .from('gallery_designs')
                     .select('id', { count: 'exact', head: true })
                     .not('cloudinary_public_id', 'is', null),
@@ -51,7 +51,7 @@ export function CloudinaryMigration() {
         if (pauseRef.current || abortRef.current)
             return null;
         try {
-            const { data, error } = await supabase.functions.invoke('migrate-to-cloudinary', {
+            const { data, error } = await appDataClient.functions.invoke('migrate-to-cloudinary', {
                 body: {
                     batchSize,
                     startAfter: cursor,
@@ -147,8 +147,7 @@ export function CloudinaryMigration() {
     // Fetch stats on mount
     useEffect(() => {
         fetchStats();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [fetchStats]);
     const progress = stats.total > 0 ? (stats.migrated / stats.total) * 100 : 0;
     return (<div className="space-y-6">
       <Card>
@@ -250,3 +249,4 @@ function StatCard({ label, value, icon }) {
       <p className="text-2xl font-bold mt-1">{value.toLocaleString()}</p>
     </div>);
 }
+

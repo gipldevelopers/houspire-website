@@ -8,7 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { Upload, AlertCircle, Calendar, Clock, CheckCircle2, MessageSquare } from 'lucide-react';
 export default function RevisionRequestDetail({ revisions, orderId, orderNumber, revisionCount }) {
     const navigate = useNavigate();
@@ -27,7 +27,7 @@ export default function RevisionRequestDetail({ revisions, orderId, orderNumber,
         setResponding(true);
         try {
             // Update internal notes with designer response
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('orders')
                 .update({
                 internal_notes: `[Designer Response - ${new Date().toLocaleDateString()}]\n${designerResponse}`,
@@ -196,3 +196,4 @@ export default function RevisionRequestDetail({ revisions, orderId, orderNumber,
       </Card>
     </div>);
 }
+

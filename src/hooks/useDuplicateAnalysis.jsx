@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { supabase } from '@/integrations/supabase/client'
+import { appDataClient } from '@/lib/static-client'
 import { useToast } from '@/hooks/use-toast'
 import { logAdminAction } from '@/lib/activity-logger'
 
@@ -18,12 +18,12 @@ export function useDuplicateAnalysis() {
   const scan = useCallback(async () => {
     setIsScanning(true)
     try {
-      const { data: { session } } = await supabase.auth.getSession()
+      const { data: { session } } = await appDataClient.auth.getSession()
       if (!session) {
         throw new Error('Not authenticated')
       }
 
-      const { data, error } = await supabase.functions.invoke('analyze-duplicates', {
+      const { data, error } = await appDataClient.functions.invoke('analyze-duplicates', {
         headers: {
           Authorization: `Bearer ${session.access_token}`
         }
@@ -156,7 +156,7 @@ export function useDuplicateAnalysis() {
       for (let i = 0; i < ids.length; i += batchSize) {
         const batch = ids.slice(i, i + batchSize)
         
-        const { error } = await supabase
+        const { error } = await appDataClient
           .from('gallery_designs')
           .delete()
           .in('id', batch)
@@ -241,3 +241,4 @@ export function useDuplicateAnalysis() {
     reset
   }
 }
+

@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Progress } from '@/components/ui/progress';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { DESIGNER_PERSONAS } from '@/lib/constants';
 import { Loader2, User, AlertCircle } from 'lucide-react';
 export function QuizDataPanel({ userId }) {
@@ -14,7 +14,7 @@ export function QuizDataPanel({ userId }) {
     }, [userId]);
     const fetchQuizData = async () => {
         setLoading(true);
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('quiz_results')
             .select('*')
             .eq('user_id', userId)
@@ -165,3 +165,4 @@ export function QuizDataPanel({ userId }) {
         </p>)}
     </div>);
 }
+

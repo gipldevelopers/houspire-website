@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Container } from '@/components/layout/Container';
-import { apiGet } from '@/lib/api';
+import { dataGet } from '@/lib/frontend-data';
 import { FALLBACK_DESIGN_STYLES } from '@/lib/fallback-design-styles';
 import {
   ArrowRight,
@@ -67,7 +67,7 @@ export default function StyleQuizPage() {
   useEffect(() => {
     async function load() {
       try {
-        const { styles: data } = await apiGet('/api/design-styles');
+        const { styles: data } = await dataGet('/design-styles');
         setStyles(Array.isArray(data) && data.length > 0 ? data : FALLBACK_DESIGN_STYLES);
       } catch {
         setStyles(FALLBACK_DESIGN_STYLES);
@@ -417,3 +417,5 @@ export default function StyleQuizPage() {
     </div>
   );
 }
+
+

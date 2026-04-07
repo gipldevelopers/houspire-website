@@ -7,7 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
-import { apiPost, apiRequest } from '@/lib/api';
+import { dataPost, dataRequest } from '@/lib/frontend-data';
 import { Mail, CheckCircle, RefreshCw, ArrowLeft, Loader2 } from 'lucide-react';
 
 import { Suspense } from 'react';
@@ -35,7 +35,7 @@ function VerifyEmailContent() {
       const verifyEmail = async () => {
         setVerifying(true);
         try {
-          await apiPost('/api/auth/verify-email', { token });
+          await dataPost('/auth/verify-email', { token });
           
           toast({
             title: 'Email verified!',
@@ -74,7 +74,7 @@ function VerifyEmailContent() {
     setResending(true);
 
     try {
-      await apiRequest('/api/auth/verify-email', {
+      await dataRequest('/auth/verify-email', {
         method: 'PUT',
         body: JSON.stringify({ email }),
       });
@@ -217,3 +217,5 @@ export default function VerifyEmail() {
     </Suspense>
   );
 }
+
+

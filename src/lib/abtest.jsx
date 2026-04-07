@@ -1,5 +1,19 @@
 import { useState, useCallback, createContext, useContext } from 'react';
 const ABTestContext = createContext(null);
+
+function getAssignedVariant(experimentId) {
+    const storageKey = `ab_${experimentId}`;
+    const stored = localStorage.getItem(storageKey);
+    if (stored)
+        return stored;
+    const experiment = EXPERIMENTS[experimentId];
+    if (!experiment)
+        return 'control';
+    const userId = getExperimentUserId();
+    const assigned = assignVariant(experiment, userId);
+    localStorage.setItem(storageKey, assigned);
+    return assigned;
+}
 // Simple hash function for consistent bucketing
 function hashString(str) {
     let hash = 0;
@@ -54,23 +68,8 @@ function assignVariant(experiment, userId) {
 }
 export function useABTest(experimentId) {
     const ctx = useContext(ABTestContext);
-    if (ctx)
-        return ctx.getVariant(experimentId);
-    // Fallback if used outside provider
-    const [variant] = useState(() => {
-        const storageKey = `ab_${experimentId}`;
-        const stored = localStorage.getItem(storageKey);
-        if (stored)
-            return stored;
-        const experiment = EXPERIMENTS[experimentId];
-        if (!experiment)
-            return 'control';
-        const userId = getExperimentUserId();
-        const assigned = assignVariant(experiment, userId);
-        localStorage.setItem(storageKey, assigned);
-        return assigned;
-    });
-    return variant;
+    const [fallbackVariant] = useState(() => getAssignedVariant(experimentId));
+    return ctx ? ctx.getVariant(experimentId) : fallbackVariant;
 }
 export function useABTrack() {
     return useCallback((experimentId, eventName) => {

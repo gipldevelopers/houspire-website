@@ -1,11 +1,11 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 /**
  * Log an activity for a project
  */
 export async function logProjectActivity(params) {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
-        const { error } = await supabase
+        const { data: { user } } = await appDataClient.auth.getUser();
+        const { error } = await appDataClient
             .from('project_activity')
             .insert({
             project_id: params.projectId,
@@ -31,12 +31,12 @@ export async function logProjectActivity(params) {
  */
 export async function logAdminAction(params) {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         if (!user) {
             console.error('No authenticated user for admin audit log');
             return false;
         }
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('admin_audit_log')
             .insert({
             admin_user_id: user.id,
@@ -62,7 +62,7 @@ export async function logAdminAction(params) {
  */
 export async function getProjectIdFromOrder(orderId) {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('orders')
             .select('design_files')
             .eq('id', orderId)
@@ -106,3 +106,4 @@ function getDefaultDescription(action) {
     };
     return descriptions[action] || 'Activity logged';
 }
+

@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { supabase } from '@/integrations/supabase/client'
+import { appDataClient } from '@/lib/static-client'
 import { useToast } from '@/hooks/use-toast'
 
 export function useProjectArchive() {
@@ -16,7 +16,7 @@ export function useProjectArchive() {
     setArchiving(true)
 
     try {
-      const { data, error } = await supabase.rpc('archive_project', {
+      const { data, error } = await appDataClient.rpc('archive_project', {
         p_project_id: projectId,
       })
 
@@ -48,7 +48,7 @@ export function useProjectArchive() {
     setArchiving(true)
 
     try {
-      const { data, error } = await supabase.rpc('unarchive_project', {
+      const { data, error } = await appDataClient.rpc('unarchive_project', {
         p_project_id: projectId,
       })
 
@@ -78,3 +78,4 @@ export function useProjectArchive() {
     archiving,
   }
 }
+

@@ -1,4 +1,4 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { notificationHelpers } from './notifications';
 import { logProjectActivity, logAdminAction, getProjectIdFromOrder } from './activity-logger';
 const MAX_PROJECTS_PER_DESIGNER = 5;
@@ -7,7 +7,7 @@ const MAX_PROJECTS_PER_DESIGNER = 5;
  */
 export async function matchDesignersForOrder(orderId) {
     // Fetch order details
-    const { data: order, error: orderError } = await supabase
+    const { data: order, error: orderError } = await appDataClient
         .from('orders')
         .select('id, style_id, style_name, package_name, room_count')
         .eq('id', orderId)
@@ -17,7 +17,7 @@ export async function matchDesignersForOrder(orderId) {
         return [];
     }
     // Fetch all active designers with their style mappings
-    const { data: designers, error: designersError } = await supabase
+    const { data: designers, error: designersError } = await appDataClient
         .from('designer_profiles')
         .select(`
       id,
@@ -34,13 +34,13 @@ export async function matchDesignersForOrder(orderId) {
         return [];
     }
     // Get style mappings for the order's style
-    const { data: styleMappings } = await supabase
+    const { data: styleMappings } = await appDataClient
         .from('designer_style_mapping')
         .select('designer_id, expertise_level, is_primary')
         .eq('style_id', order.style_id);
     const styleMappingMap = new Map((styleMappings || []).map(m => [m.designer_id, m]));
     // Get current workload for each designer
-    const { data: workloadData } = await supabase
+    const { data: workloadData } = await appDataClient
         .from('orders')
         .select('assigned_designer_id')
         .in('status', ['in_progress', 'design_ready', 'revision_requested'])
@@ -122,9 +122,9 @@ export async function matchDesignersForOrder(orderId) {
 export async function assignDesignerToOrder(orderId, designerId, assignmentType = 'manual', matchScore) {
     try {
         // Get the current user (admin)
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         // Update the order with the assigned designer
-        const { error: updateError } = await supabase
+        const { error: updateError } = await appDataClient
             .from('orders')
             .update({
             assigned_designer_id: designerId,
@@ -136,7 +136,7 @@ export async function assignDesignerToOrder(orderId, designerId, assignmentType 
             return { success: false, error: updateError.message };
         }
         // Log the assignment
-        await supabase
+        await appDataClient
             .from('assignment_log')
             .insert([{
                 order_id: orderId,
@@ -146,7 +146,7 @@ export async function assignDesignerToOrder(orderId, designerId, assignmentType 
                 match_score: matchScore,
             }]);
         // Get order details for notification
-        const { data: order } = await supabase
+        const { data: order } = await appDataClient
             .from('orders')
             .select('user_id, order_number')
             .eq('id', orderId)
@@ -156,7 +156,7 @@ export async function assignDesignerToOrder(orderId, designerId, assignmentType 
             await notificationHelpers.onDesignWorkStarted(order.user_id, orderId);
         }
         // Get designer name and log activity
-        const { data: designer } = await supabase
+        const { data: designer } = await appDataClient
             .from('designer_profiles')
             .select('display_name')
             .eq('id', designerId)
@@ -200,16 +200,16 @@ export async function assignDesignerToOrder(orderId, designerId, assignmentType 
 export async function reassignDesigner(orderId, newDesignerId, reason) {
     try {
         // Get current designer
-        const { data: order } = await supabase
+        const { data: order } = await appDataClient
             .from('orders')
             .select('assigned_designer_id')
             .eq('id', orderId)
             .single();
         const previousDesignerId = order?.assigned_designer_id;
         // Get the current user (admin)
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         // Update the order
-        const { error: updateError } = await supabase
+        const { error: updateError } = await appDataClient
             .from('orders')
             .update({
             assigned_designer_id: newDesignerId,
@@ -219,7 +219,7 @@ export async function reassignDesigner(orderId, newDesignerId, reason) {
             return { success: false, error: updateError.message };
         }
         // Log the reassignment
-        await supabase
+        await appDataClient
             .from('assignment_log')
             .insert([{
                 order_id: orderId,
@@ -242,7 +242,7 @@ export async function reassignDesigner(orderId, newDesignerId, reason) {
 export async function getDesignerWorkload(designerId) {
     try {
         // Get designer info
-        const { data: designer } = await supabase
+        const { data: designer } = await appDataClient
             .from('designer_profiles')
             .select('id, display_name')
             .eq('id', designerId)
@@ -250,7 +250,7 @@ export async function getDesignerWorkload(designerId) {
         if (!designer)
             return null;
         // Get active orders
-        const { data: orders } = await supabase
+        const { data: orders } = await appDataClient
             .from('orders')
             .select('id, order_number, package_name, design_started_at, status')
             .eq('assigned_designer_id', designerId)
@@ -276,3 +276,4 @@ export async function getDesignerWorkload(designerId) {
         return null;
     }
 }
+

@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Slider } from '@/components/ui/slider';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { DollarSign, TrendingDown, TrendingUp, Settings2, AlertTriangle, } from 'lucide-react';
 export function BudgetAdjustmentTool({ projectId, currentBudget, categories, onSuccess, }) {
@@ -55,7 +55,7 @@ export function BudgetAdjustmentTool({ projectId, currentBudget, categories, onS
                     affectedCategories[cat.name] = change;
                 }
             });
-            const { error } = await supabase.rpc('request_budget_adjustment', {
+            const { error } = await appDataClient.rpc('request_budget_adjustment', {
                 p_project_id: projectId,
                 p_adjustment_type: adjustmentType,
                 p_new_amount: targetBudget,
@@ -253,3 +253,4 @@ export function BudgetAdjustmentTool({ projectId, currentBudget, categories, onS
       </p>
     </Card>);
 }
+

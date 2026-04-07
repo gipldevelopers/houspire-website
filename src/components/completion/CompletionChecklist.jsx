@@ -5,7 +5,7 @@ import { Checkbox } from '@/components/ui/checkbox';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { CheckCircle, Star, Camera, Share2, PartyPopper } from 'lucide-react';
 export function CompletionChecklist({ projectId, onComplete }) {
@@ -129,7 +129,7 @@ export function CompletionChecklist({ projectId, onComplete }) {
             return;
         }
         try {
-            await supabase
+            await appDataClient
                 .from('projects')
                 .update({
                 current_phase: 6,
@@ -268,3 +268,4 @@ export function CompletionChecklist({ projectId, onComplete }) {
       </Button>
     </div>);
 }
+

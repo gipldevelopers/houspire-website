@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { Tag, X, CheckCircle, Percent } from 'lucide-react';
@@ -27,7 +27,7 @@ export function PromoCodeInput({ amount, onApply, onRemove, appliedCode, }) {
         }
         setValidating(true);
         try {
-            const { data, error } = await supabase.rpc('validate_promo_code', {
+            const { data, error } = await appDataClient.rpc('validate_promo_code', {
                 p_code: code.toUpperCase(),
                 p_user_id: user.id,
                 p_amount: amount,
@@ -120,3 +120,4 @@ export function PromoCodeInput({ amount, onApply, onRemove, appliedCode, }) {
       </div>
     </div>);
 }
+

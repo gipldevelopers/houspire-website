@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { Bell, Check, AlertCircle, Info, CheckCircle2, AlertTriangle, Clock, Settings, Trash2, } from 'lucide-react';
@@ -24,7 +24,7 @@ export function NotificationCenter() {
     }, [user]);
     const fetchNotifications = async () => {
         try {
-            const { data, error } = await supabase.rpc('get_grouped_notifications', {
+            const { data, error } = await appDataClient.rpc('get_grouped_notifications', {
                 p_user_id: user?.id,
                 p_limit: 50,
             });
@@ -57,7 +57,7 @@ export function NotificationCenter() {
         }
     };
     const subscribeToNotifications = () => {
-        const channel = supabase
+        const channel = appDataClient
             .channel(`notifications-${user?.id}`)
             .on('postgres_changes', {
             event: '*',
@@ -69,12 +69,12 @@ export function NotificationCenter() {
         })
             .subscribe();
         return () => {
-            supabase.removeChannel(channel);
+            appDataClient.removeChannel(channel);
         };
     };
     const handleMarkGroupRead = async (groupKey) => {
         try {
-            const { error } = await supabase.rpc('mark_notification_group_read', {
+            const { error } = await appDataClient.rpc('mark_notification_group_read', {
                 p_group_key: groupKey,
             });
             if (error)
@@ -92,7 +92,7 @@ export function NotificationCenter() {
     };
     const handleMarkAllRead = async () => {
         try {
-            const { error } = await supabase.rpc('mark_all_notifications_read');
+            const { error } = await appDataClient.rpc('mark_all_notifications_read');
             if (error)
                 throw error;
             fetchNotifications();
@@ -116,7 +116,7 @@ export function NotificationCenter() {
             const group = notifications.find((n) => n.group_key === groupKey);
             if (!group)
                 return;
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('in_app_notifications')
                 .delete()
                 .in('id', group.notification_ids);
@@ -140,7 +140,7 @@ export function NotificationCenter() {
         try {
             const snoozeUntil = new Date();
             snoozeUntil.setHours(snoozeUntil.getHours() + hours);
-            const { error } = await supabase.rpc('snooze_notification', {
+            const { error } = await appDataClient.rpc('snooze_notification', {
                 p_notification_id: notificationId,
                 p_snooze_until: snoozeUntil.toISOString(),
             });
@@ -322,3 +322,4 @@ export function NotificationCenter() {
       </Tabs>
     </Card>);
 }
+

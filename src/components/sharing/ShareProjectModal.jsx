@@ -6,7 +6,7 @@ import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { X, Link2, Copy, Share2, Eye, Calendar, Lock, Download, CheckCircle, Loader2, } from 'lucide-react';
@@ -30,7 +30,7 @@ export function ShareProjectModal({ projectId, onClose }) {
                 ? new Date(Date.now() + expiresInDays * 24 * 60 * 60 * 1000).toISOString()
                 : null;
             const maxViews = settings.maxViews ? parseInt(settings.maxViews) : null;
-            const { data, error } = await supabase
+            const { data, error } = await appDataClient
                 .from('project_shares')
                 .insert({
                 project_id: projectId,
@@ -211,3 +211,4 @@ export function ShareProjectModal({ projectId, onClose }) {
       </Card>
     </div>);
 }
+

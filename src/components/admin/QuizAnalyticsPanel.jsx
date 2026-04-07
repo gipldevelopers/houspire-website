@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { Loader2, TrendingUp, Users, Award, DollarSign } from 'lucide-react';
 export function QuizAnalyticsPanel() {
     const [analytics, setAnalytics] = useState(null);
@@ -10,7 +10,7 @@ export function QuizAnalyticsPanel() {
     }, []);
     const fetchAnalytics = async () => {
         try {
-            const { data, error } = await supabase.rpc('get_quiz_analytics_summary', {
+            const { data, error } = await appDataClient.rpc('get_quiz_analytics_summary', {
                 p_days: 30,
             });
             if (error)
@@ -120,3 +120,4 @@ export function QuizAnalyticsPanel() {
         </Card>)}
     </div>);
 }
+

@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Mail, Lock, User, Loader2 } from 'lucide-react';
 export function QuickAuthForm({ onSuccess }) {
@@ -27,7 +27,7 @@ export function QuickAuthForm({ onSuccess }) {
                 throw new Error('Password must be at least 8 characters');
             }
             const redirectUrl = `${window.location.origin}/`;
-            const { data: authData, error: signupError } = await supabase.auth.signUp({
+            const { data: authData, error: signupError } = await appDataClient.auth.signUp({
                 email: signupData.email,
                 password: signupData.password,
                 options: {
@@ -41,7 +41,7 @@ export function QuickAuthForm({ onSuccess }) {
                 throw signupError;
             if (authData.user) {
                 // Create profile
-                await supabase.from('profiles').upsert({
+                await appDataClient.from('profiles').upsert({
                     user_id: authData.user.id,
                     full_name: signupData.name,
                     created_at: new Date().toISOString(),
@@ -70,7 +70,7 @@ export function QuickAuthForm({ onSuccess }) {
         e.preventDefault();
         setLoading(true);
         try {
-            const { data, error } = await supabase.auth.signInWithPassword({
+            const { data, error } = await appDataClient.auth.signInWithPassword({
                 email: loginData.email,
                 password: loginData.password,
             });
@@ -169,3 +169,4 @@ export function QuickAuthForm({ onSuccess }) {
       </Tabs>
     </div>);
 }
+

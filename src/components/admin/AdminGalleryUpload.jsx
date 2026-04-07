@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, } from '@/components/ui/dialog';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { useConfirm } from '@/hooks/useConfirm';
 import { GalleryImageEditModal } from './GalleryImageEditModal';
@@ -74,14 +74,14 @@ export function AdminGalleryUpload() {
     };
     const fetchGalleryStats = async () => {
         // Get accurate count using count query (bypasses 1000 row limit)
-        const { count: totalCount, error: countError } = await supabase
+        const { count: totalCount, error: countError } = await appDataClient
             .from('gallery_designs')
             .select('*', { count: 'exact', head: true });
-        const { count: publishedCount } = await supabase
+        const { count: publishedCount } = await appDataClient
             .from('gallery_designs')
             .select('*', { count: 'exact', head: true })
             .eq('is_published', true);
-        const { count: unpublishedCount } = await supabase
+        const { count: unpublishedCount } = await appDataClient
             .from('gallery_designs')
             .select('*', { count: 'exact', head: true })
             .eq('is_published', false);
@@ -123,7 +123,7 @@ export function AdminGalleryUpload() {
         try {
             const pageSize = 100;
             // Build query with cursor-based pagination (bypasses Supabase 1000 row limit)
-            let query = supabase
+            let query = appDataClient
                 .from('gallery_designs')
                 .select('id, design_title, design_description, cover_image_url, style_primary, room_type, budget_range, is_featured, is_published, key_features, created_at', { count: 'exact' })
                 .order('created_at', { ascending: false })
@@ -173,7 +173,7 @@ export function AdminGalleryUpload() {
             return;
         setDeletingId(imageId);
         try {
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('gallery_designs')
                 .delete()
                 .eq('id', imageId);
@@ -279,7 +279,7 @@ export function AdminGalleryUpload() {
                 body.roomType = imageData.roomType;
                 body.style = imageData.style;
             }
-            const { data, error } = await supabase.functions.invoke('generate-image-metadata', {
+            const { data, error } = await appDataClient.functions.invoke('generate-image-metadata', {
                 body,
             });
             if (error)
@@ -498,7 +498,7 @@ export function AdminGalleryUpload() {
                 }
                 const needsUpdate = Object.keys(updateData).length > 0;
                 if (needsUpdate) {
-                    const { error } = await supabase.from('gallery_designs').update(updateData).eq('id', image.id);
+                    const { error } = await appDataClient.from('gallery_designs').update(updateData).eq('id', image.id);
                     if (error) {
                         console.error('Error updating image:', error);
                         errors++;
@@ -562,7 +562,7 @@ export function AdminGalleryUpload() {
             let cursor = lastCursor;
             let hasMore = true;
             while (hasMore) {
-                let query = supabase
+                let query = appDataClient
                     .from('gallery_designs')
                     .select('id, design_title, design_description, cover_image_url, style_primary, room_type, budget_range, is_featured, is_published, key_features, created_at')
                     .order('created_at', { ascending: false })
@@ -622,13 +622,13 @@ export function AdminGalleryUpload() {
                 body.roomType = image.room_type;
                 body.style = image.style_primary;
             }
-            const { data, error } = await supabase.functions.invoke('generate-image-metadata', {
+            const { data, error } = await appDataClient.functions.invoke('generate-image-metadata', {
                 body,
             });
             if (error)
                 throw error;
             // Update the database with all generated content including detected room/style
-            const { error: updateError } = await supabase
+            const { error: updateError } = await appDataClient
                 .from('gallery_designs')
                 .update({
                 design_description: data.description || null,
@@ -733,7 +733,7 @@ export function AdminGalleryUpload() {
         }
         setBulkPublishing(true);
         try {
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('gallery_designs')
                 .update({ is_published: publish })
                 .in('id', Array.from(selectedImageIds));
@@ -773,7 +773,7 @@ export function AdminGalleryUpload() {
             return;
         setBulkPublishing(true);
         try {
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('gallery_designs')
                 .update({ is_published: true })
                 .eq('is_published', false);
@@ -848,7 +848,7 @@ export function AdminGalleryUpload() {
         // Phase 2: Upload to Supabase Storage (backup)
         for (let attempt = 1; attempt <= maxRetries; attempt++) {
             try {
-                const { data: uploadData, error: uploadError } = await supabase.storage
+                const { data: uploadData, error: uploadError } = await appDataClient.storage
                     .from('gallery-images')
                     .upload(fileName, file, {
                     cacheControl: '3600',
@@ -857,7 +857,7 @@ export function AdminGalleryUpload() {
                 if (uploadError) {
                     throw uploadError;
                 }
-                const { data: urlData } = supabase.storage
+                const { data: urlData } = appDataClient.storage
                     .from('gallery-images')
                     .getPublicUrl(uploadData.path);
                 return {
@@ -898,7 +898,7 @@ export function AdminGalleryUpload() {
                 setImages((prev) => prev.map((img, i) => i === index ? { ...img, status: 'uploading' } : img));
                 // If overwriting, delete the existing image first
                 if (image.duplicateOf) {
-                    const { error: deleteError } = await supabase
+                    const { error: deleteError } = await appDataClient
                         .from('gallery_designs')
                         .delete()
                         .eq('id', image.duplicateOf.id);
@@ -921,7 +921,7 @@ export function AdminGalleryUpload() {
                     }
                 }
                 // Insert gallery design with Cloudinary fields
-                const { error: insertError } = await supabase
+                const { error: insertError } = await appDataClient
                     .from('gallery_designs')
                     .insert({
                     cover_image_url: imageUrl,
@@ -1789,3 +1789,4 @@ https://example.com/image2.jpg,"Luxury Bedroom","Elegant master suite with premi
         }}/>
     </div>);
 }
+

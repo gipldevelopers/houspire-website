@@ -1,7 +1,7 @@
 /**
  * Image Optimization Utilities for Gallery
  */
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 // Standard responsive image widths
 export const RESPONSIVE_WIDTHS = [400, 800, 1200, 1920];
 /**
@@ -9,7 +9,7 @@ export const RESPONSIVE_WIDTHS = [400, 800, 1200, 1920];
  */
 export function generateSrcSet(baseUrl, widths = RESPONSIVE_WIDTHS) {
     // For Supabase Storage URLs, append width parameter
-    if (baseUrl.includes('supabase')) {
+    if (baseUrl.includes('appDataClient')) {
         return widths.map(w => `${baseUrl}?width=${w} ${w}w`).join(', ');
     }
     // For other URLs, just return widths
@@ -113,7 +113,7 @@ export async function uploadAndOptimize(file, bucket = 'gallery-images', folder 
     const compressed = await compressImageForUpload(file);
     // Upload to storage
     const fileName = `${folder}/${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-    const { data: uploadData, error: uploadError } = await supabase.storage
+    const { data: uploadData, error: uploadError } = await appDataClient.storage
         .from(bucket)
         .upload(fileName, compressed, {
         contentType: 'image/jpeg',
@@ -121,13 +121,13 @@ export async function uploadAndOptimize(file, bucket = 'gallery-images', folder 
     });
     if (uploadError)
         throw uploadError;
-    const { data: urlData } = supabase.storage
+    const { data: urlData } = appDataClient.storage
         .from(bucket)
         .getPublicUrl(fileName);
     const originalUrl = urlData.publicUrl;
     // Call edge function for server-side optimization
     try {
-        const { data: optimizeData } = await supabase.functions.invoke('compress-image', {
+        const { data: optimizeData } = await appDataClient.functions.invoke('compress-image', {
             body: {
                 imageUrl: originalUrl,
                 sizes: RESPONSIVE_WIDTHS,
@@ -174,3 +174,4 @@ export function createImageObserver(callback, options) {
 export function getBlurPlaceholder(color = '#e5e5e5') {
     return `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='${encodeURIComponent(color)}' width='100' height='100'/%3E%3C/svg%3E`;
 }
+

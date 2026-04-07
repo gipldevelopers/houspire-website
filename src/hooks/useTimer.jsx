@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { supabase } from '@/integrations/supabase/client'
+import { appDataClient } from '@/lib/static-client'
 
 export function useTimer(projectId) {
   const [timer, setTimer] = useState({
@@ -38,7 +38,7 @@ export function useTimer(projectId) {
     }
 
     const fetchTimer = async () => {
-      const { data: project } = await supabase
+      const { data: project } = await appDataClient
         .from('projects')
         .select('timer_total_seconds, timer_elapsed_seconds, timer_status, timer_started_at')
         .eq('id', projectId)
@@ -76,3 +76,4 @@ export function useTimer(projectId) {
 
   return timer
 }
+

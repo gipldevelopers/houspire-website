@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ThumbsUp, ThumbsDown, ExternalLink, Package, IndianRupee } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { motion } from 'framer-motion';
 export function ProductGallery({ products, onFeedback }) {
@@ -12,7 +12,7 @@ export function ProductGallery({ products, onFeedback }) {
     const handleThumbsUp = async (productId, currentThumb) => {
         setLoadingId(productId);
         const newValue = currentThumb === 'up' ? null : 'up';
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('concept_products')
             .update({ user_thumbs: newValue })
             .eq('id', productId);
@@ -37,7 +37,7 @@ export function ProductGallery({ products, onFeedback }) {
     const handleThumbsDown = async (productId, currentThumb) => {
         setLoadingId(productId);
         const newValue = currentThumb === 'down' ? null : 'down';
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('concept_products')
             .update({ user_thumbs: newValue })
             .eq('id', productId);
@@ -143,3 +143,4 @@ export function ProductGallery({ products, onFeedback }) {
         </div>)}
     </div>);
 }
+

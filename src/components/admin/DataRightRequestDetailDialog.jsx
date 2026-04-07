@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -25,7 +25,7 @@ export default function DataRightRequestDetailDialog({ isOpen, onClose, request,
         }
         setProcessing(true);
         try {
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('data_rights_requests')
                 .update({
                 status: 'processing',
@@ -62,7 +62,7 @@ export default function DataRightRequestDetailDialog({ isOpen, onClose, request,
         }
         setProcessing(true);
         try {
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('data_rights_requests')
                 .update({
                 status: 'completed',
@@ -105,7 +105,7 @@ export default function DataRightRequestDetailDialog({ isOpen, onClose, request,
         }
         setRejecting(true);
         try {
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('data_rights_requests')
                 .update({
                 status: 'rejected',
@@ -280,3 +280,4 @@ export default function DataRightRequestDetailDialog({ isOpen, onClose, request,
       </DialogContent>
     </Dialog>);
 }
+

@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import { apiGet } from '@/lib/api';
+import { dataGet } from '@/lib/frontend-data';
 import { CheckCircle2, Circle, Clock, Trophy } from 'lucide-react';
 
 export function MilestoneProgress({ projectId, percentage = 0 }) {
@@ -28,7 +28,7 @@ export function MilestoneProgress({ projectId, percentage = 0 }) {
 
   const fetchMilestones = async () => {
     try {
-      const data = await apiGet(`/api/projects/${projectId}/milestones`);
+      const data = await dataGet(`/projects/${projectId}/milestones`);
       setMilestones(data || []);
     } catch (error) {
       console.error('Failed to fetch milestones:', error);
@@ -154,3 +154,5 @@ export function MilestoneProgress({ projectId, percentage = 0 }) {
     </Card>
   );
 }
+
+

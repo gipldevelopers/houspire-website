@@ -2,6 +2,7 @@
 
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { dataGet, dataPost } from '@/lib/frontend-data';
 
 const AuthContext = createContext(undefined);
 
@@ -24,14 +25,8 @@ export function AuthProvider({ children }) {
         return;
       }
 
-      const response = await fetch('/api/auth/me', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
+      const data = await dataGet('/auth/me');
+      if (data?.user) {
         setUser(data.user);
         setIsAdmin(data.user.role === 'admin');
       } else {
@@ -46,22 +41,14 @@ export function AuthProvider({ children }) {
 
   const signIn = async (email, password) => {
     try {
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
+      const data = await dataPost('/auth/login', { email, password });
+      if (data?.user && data?.token) {
         localStorage.setItem('token', data.token);
         setUser(data.user);
         setIsAdmin(data.user.role === 'admin');
         return { error: null };
-      } else {
-        return { error: new Error(data.error || 'Login failed') };
       }
+      return { error: new Error('Login failed') };
     } catch (error) {
       return { error };
     }
@@ -69,22 +56,14 @@ export function AuthProvider({ children }) {
 
   const signUp = async (email, password, name) => {
     try {
-      const response = await fetch('/api/auth/signup', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password, name }),
-      });
-
-      const data = await response.json();
-
-      if (response.ok) {
+      const data = await dataPost('/auth/signup', { email, password, name });
+      if (data?.user && data?.token) {
         localStorage.setItem('token', data.token);
         setUser(data.user);
         setIsAdmin(data.user.role === 'admin');
         return { error: null };
-      } else {
-        return { error: new Error(data.error || 'Signup failed') };
       }
+      return { error: new Error('Signup failed') };
     } catch (error) {
       return { error };
     }
@@ -125,3 +104,4 @@ export function useAuth() {
   }
   return context;
 }
+

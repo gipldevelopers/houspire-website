@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
-import { apiGet, apiPost } from '@/lib/api';
+import { dataGet, dataPost } from '@/lib/frontend-data';
 import { useAuth } from '@/contexts/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { format, isToday, isYesterday } from 'date-fns';
@@ -58,14 +58,14 @@ export function ProjectMessagesTab({ project, designer }) {
 
     try {
       // Check for existing chat room
-      const existingRoom = await apiGet(`/api/chat-rooms?projectId=${project.id}`);
+      const existingRoom = await dataGet(`/chat-rooms?projectId=${project.id}`);
       
       if (existingRoom && existingRoom.length > 0) {
         setRoomId(existingRoom[0].id);
         await fetchMessages(existingRoom[0].id);
       } else {
         // Create new chat room
-        const newRoom = await apiPost('/api/chat-rooms', {
+        const newRoom = await dataPost('/chat-rooms', {
           project_id: project.id,
           user_id: user.id,
         });
@@ -83,7 +83,7 @@ export function ProjectMessagesTab({ project, designer }) {
 
   const fetchMessages = async (chatRoomId) => {
     try {
-      const data = await apiGet(`/api/chat-messages?roomId=${chatRoomId}&limit=100`);
+      const data = await dataGet(`/chat-messages?roomId=${chatRoomId}&limit=100`);
       setMessages(data || []);
     } catch (error) {
       console.error('Failed to fetch messages:', error);
@@ -99,7 +99,7 @@ export function ProjectMessagesTab({ project, designer }) {
 
     setSending(true);
     try {
-      await apiPost('/api/chat-messages', {
+      await dataPost('/chat-messages', {
         room_id: roomId,
         sender_id: user.id,
         message_text: text.trim(),
@@ -244,3 +244,5 @@ export function ProjectMessagesTab({ project, designer }) {
     </div>
   );
 }
+
+

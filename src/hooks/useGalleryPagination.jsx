@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
-import { supabase } from '@/integrations/supabase/client'
+import { appDataClient } from '@/lib/static-client'
 
 const PAGE_SIZE = 24
 
@@ -15,7 +15,7 @@ export function useGalleryPagination(filters) {
   const filtersRef = useRef('')
 
   const buildQuery = useCallback((cursor) => {
-    let query = supabase
+    let query = appDataClient
       .from('gallery_designs')
       .select('*', { count: 'exact' })
       .eq('is_published', true)
@@ -108,7 +108,7 @@ export function useGalleryPagination(filters) {
     try {
       const [queryResult, totalResult] = await Promise.all([
         buildQuery(null),
-        supabase
+        appDataClient
           .from('gallery_designs')
           .select('*', { count: 'exact', head: true })
           .eq('is_published', true)
@@ -204,3 +204,4 @@ export function useGalleryPagination(filters) {
     refetch: fetchInitial,
   }
 }
+

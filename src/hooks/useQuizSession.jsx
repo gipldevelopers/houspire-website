@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { supabase } from '@/integrations/supabase/client'
+import { appDataClient } from '@/lib/static-client'
 import { useAuth } from '@/contexts/AuthContext'
 import { useToast } from '@/hooks/use-toast'
 
@@ -34,7 +34,7 @@ export function useQuizSession() {
 
   const loadSession = async (token) => {
     try {
-      const { data, error } = await supabase
+      const { data, error } = await appDataClient
         .from('quiz_sessions')
         .select('*')
         .eq('session_token', token)
@@ -62,7 +62,7 @@ export function useQuizSession() {
     setSaving(true)
     
     try {
-      const { data, error } = await supabase.rpc('save_quiz_progress', {
+      const { data, error } = await appDataClient.rpc('save_quiz_progress', {
         p_session_token: sessionToken,
         p_current_step: currentStep,
         p_quiz_data: quizData,
@@ -83,7 +83,7 @@ export function useQuizSession() {
     if (!sessionToken) return
 
     try {
-      await supabase
+      await appDataClient
         .from('quiz_sessions')
         .update({ 
           completed: true, 
@@ -119,3 +119,4 @@ export function useQuizSession() {
     initialAnswers: session?.quiz_data || {},
   }
 }
+

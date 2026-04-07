@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import { apiGet } from '@/lib/api';
+import { dataGet } from '@/lib/frontend-data';
 import { useAuth } from '@/contexts/AuthContext';
 import { CreditCard, Clock, ArrowRight, ShoppingBag } from 'lucide-react';
 
@@ -24,7 +24,7 @@ export function PendingOrdersCard() {
 
   const fetchPendingOrders = async () => {
     try {
-      const data = await apiGet('/api/orders?status=payment_pending,pending&limit=5');
+      const data = await dataGet('/orders?status=payment_pending,pending&limit=5');
       
       // Deduplicate accidental duplicate payment attempts (keep newest per status+package)
       const deduped = [];
@@ -154,3 +154,5 @@ export function PendingOrdersCard() {
     </Card>
   );
 }
+
+

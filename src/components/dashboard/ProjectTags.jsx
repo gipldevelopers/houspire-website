@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
-import { apiPost, apiDelete } from '@/lib/api';
+import { dataPost, dataDelete } from '@/lib/frontend-data';
 import { useToast } from '@/hooks/use-toast';
 import { Plus, X } from 'lucide-react';
 
@@ -24,7 +24,7 @@ export function ProjectTags({
     setAddingTag(true);
 
     try {
-      await apiPost(`/api/projects/${projectId}/tags`, {
+      await dataPost(`/projects/${projectId}/tags`, {
         tag: newTag.trim().toLowerCase(),
       });
 
@@ -44,7 +44,7 @@ export function ProjectTags({
 
   const handleRemoveTag = async (tag) => {
     try {
-      await apiDelete(`/api/projects/${projectId}/tags`, {
+      await dataDelete(`/projects/${projectId}/tags`, {
         tag: tag,
       });
 
@@ -114,3 +114,5 @@ export function ProjectTags({
     </div>
   );
 }
+
+

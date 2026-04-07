@@ -5,7 +5,7 @@ import { motion, useInView } from 'framer-motion';
 import { Star, Quote, ChevronLeft, ChevronRight, BadgeCheck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import useEmblaCarousel from 'embla-carousel-react';
-import { apiGet } from '@/lib/api';
+import { dataGet } from '@/lib/frontend-data';
 
 const GRADIENTS = [
   'from-blue-500 to-cyan-500',
@@ -72,7 +72,7 @@ export function TestimonialsSection() {
     async function fetchTestimonials() {
       try {
         // TODO: Create API route for featured testimonials
-        // const data = await apiGet('/api/reviews?featured=true&limit=6');
+        // const data = await dataGet('/reviews?featured=true&limit=6');
         // if (data) setDbReviews(data);
       } catch (error) {
         console.error('Failed to fetch testimonials:', error);
@@ -151,7 +151,7 @@ export function TestimonialsSection() {
               initial={{ opacity: 0, y: 24 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.8, delay: idx * 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-              className="bg-background border border-border/50 rounded-2xl p-10 hover:border-accent/20 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
+              className="bg-background border border-border/50 rounded-2xl p-10 hover:border-accent/20 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 ease-smooth"
             >
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-1">
@@ -260,3 +260,5 @@ export function TestimonialsSection() {
     </section>
   );
 }
+
+

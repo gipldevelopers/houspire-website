@@ -1,4 +1,4 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { notificationHelpers } from './notifications';
 /**
  * Get call duration based on package type
@@ -38,7 +38,7 @@ export function getCalendlyUrl(duration) {
 export async function scheduleCall(params) {
     try {
         // Create call booking record
-        const { data: booking, error: bookingError } = await supabase
+        const { data: booking, error: bookingError } = await appDataClient
             .from('call_bookings')
             .insert([{
                 order_id: params.orderId,
@@ -55,7 +55,7 @@ export async function scheduleCall(params) {
             return { success: false, error: bookingError.message };
         }
         // Update order with call details
-        await supabase
+        await appDataClient
             .from('orders')
             .update({
             discovery_call_scheduled: params.scheduledAt,
@@ -64,7 +64,7 @@ export async function scheduleCall(params) {
         })
             .eq('id', params.orderId);
         // Send confirmation email
-        const { data: order } = await supabase
+        const { data: order } = await appDataClient
             .from('orders')
             .select('user_id')
             .eq('id', params.orderId)
@@ -88,7 +88,7 @@ export async function scheduleCall(params) {
  */
 export async function cancelCall(bookingId) {
     try {
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('call_bookings')
             .update({ status: 'cancelled' })
             .eq('id', bookingId);
@@ -96,13 +96,13 @@ export async function cancelCall(bookingId) {
             return { success: false, error: error.message };
         }
         // Get booking details to update order
-        const { data: booking } = await supabase
+        const { data: booking } = await appDataClient
             .from('call_bookings')
             .select('order_id')
             .eq('id', bookingId)
             .single();
         if (booking) {
-            await supabase
+            await appDataClient
                 .from('orders')
                 .update({
                 discovery_call_scheduled: null,
@@ -122,7 +122,7 @@ export async function cancelCall(bookingId) {
  */
 export async function completeCall(bookingId, notes) {
     try {
-        const { data: booking, error: fetchError } = await supabase
+        const { data: booking, error: fetchError } = await appDataClient
             .from('call_bookings')
             .select('order_id')
             .eq('id', bookingId)
@@ -131,7 +131,7 @@ export async function completeCall(bookingId, notes) {
             return { success: false, error: 'Booking not found' };
         }
         // Update booking
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('call_bookings')
             .update({
             status: 'completed',
@@ -142,7 +142,7 @@ export async function completeCall(bookingId, notes) {
             return { success: false, error: error.message };
         }
         // Update order
-        await supabase
+        await appDataClient
             .from('orders')
             .update({
             discovery_call_completed_at: new Date().toISOString(),
@@ -161,7 +161,7 @@ export async function completeCall(bookingId, notes) {
  */
 export async function getCallBookingForOrder(orderId) {
     try {
-        const { data } = await supabase
+        const { data } = await appDataClient
             .from('call_bookings')
             .select('*')
             .eq('order_id', orderId)
@@ -186,7 +186,7 @@ export async function checkAndSendReminders() {
     let sent1h = 0;
     try {
         // Get calls scheduled within next 24 hours that haven't received 24h reminder
-        const { data: calls24h } = await supabase
+        const { data: calls24h } = await appDataClient
             .from('call_bookings')
             .select('id, order_id, scheduled_at')
             .eq('status', 'scheduled')
@@ -194,14 +194,14 @@ export async function checkAndSendReminders() {
             .gte('scheduled_at', now.toISOString())
             .lte('scheduled_at', in24Hours.toISOString());
         for (const call of calls24h || []) {
-            const { data: order } = await supabase
+            const { data: order } = await appDataClient
                 .from('orders')
                 .select('user_id')
                 .eq('id', call.order_id)
                 .single();
             if (order?.user_id) {
                 await notificationHelpers.onDiscoveryCallReminder(order.user_id, call.order_id, 24);
-                await supabase
+                await appDataClient
                     .from('call_bookings')
                     .update({ reminder_sent_24h: true })
                     .eq('id', call.id);
@@ -209,7 +209,7 @@ export async function checkAndSendReminders() {
             }
         }
         // Get calls scheduled within next 1 hour that haven't received 1h reminder
-        const { data: calls1h } = await supabase
+        const { data: calls1h } = await appDataClient
             .from('call_bookings')
             .select('id, order_id, scheduled_at')
             .eq('status', 'scheduled')
@@ -217,14 +217,14 @@ export async function checkAndSendReminders() {
             .gte('scheduled_at', now.toISOString())
             .lte('scheduled_at', in1Hour.toISOString());
         for (const call of calls1h || []) {
-            const { data: order } = await supabase
+            const { data: order } = await appDataClient
                 .from('orders')
                 .select('user_id')
                 .eq('id', call.order_id)
                 .single();
             if (order?.user_id) {
                 await notificationHelpers.onDiscoveryCallReminder(order.user_id, call.order_id, 1);
-                await supabase
+                await appDataClient
                     .from('call_bookings')
                     .update({ reminder_sent_1h: true })
                     .eq('id', call.id);
@@ -237,3 +237,4 @@ export async function checkAndSendReminders() {
     }
     return { sent24h, sent1h };
 }
+

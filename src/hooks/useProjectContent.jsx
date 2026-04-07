@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { supabase } from '@/integrations/supabase/client'
+import { appDataClient } from '@/lib/static-client'
 
 export function useProjectContent(projectId) {
   const [content, setContent] = useState([])
@@ -21,7 +21,7 @@ export function useProjectContent(projectId) {
     setLoading(true)
     setError(null)
 
-    const { data, error: fetchError } = await supabase
+    const { data, error: fetchError } = await appDataClient
       .from('project_content')
       .select('*')
       .eq('project_id', projectId)
@@ -53,3 +53,4 @@ export function useProjectContent(projectId) {
     documents: getContentByType('document'),
   }
 }
+

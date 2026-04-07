@@ -73,7 +73,7 @@ export function FeaturesSection() {
             <motion.div
               key={feature.title}
               variants={itemVariants}
-              className="group text-center md:text-left bg-background border border-border/50 rounded-2xl p-8 hover:border-accent/20 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
+              className="group text-center md:text-left bg-background border border-border/50 rounded-2xl p-8 hover:border-accent/20 hover:shadow-xl hover:-translate-y-1 transition-all duration-500 ease-smooth"
             >
               <div className={`w-16 h-16 mx-auto md:mx-0 mb-6 rounded-2xl bg-gradient-to-br ${feature.gradient} flex items-center justify-center shadow-xl transition-transform duration-500 group-hover:rotate-3`}>
                 <feature.icon className="w-8 h-8 text-white" />

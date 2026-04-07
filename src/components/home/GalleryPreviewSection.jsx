@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
-import { apiGet } from '@/lib/api';
+import { dataGet } from '@/lib/frontend-data';
 import { ArrowRight, Eye, Heart } from 'lucide-react';
 
 function GalleryCardSkeleton() {
@@ -34,7 +34,7 @@ export function GalleryPreviewSection() {
 
   const fetchFeaturedDesigns = async () => {
     try {
-      const data = await apiGet('/api/gallery?featured=true&limit=12');
+      const data = await dataGet('/gallery?featured=true&limit=12');
       const normalized =
         Array.isArray(data)
           ? data
@@ -407,3 +407,5 @@ export function GalleryPreviewSection() {
     </section>
   );
 }
+
+

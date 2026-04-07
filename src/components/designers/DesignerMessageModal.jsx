@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, } from '@/components/ui/dialog';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
@@ -45,7 +45,7 @@ export function DesignerMessageModal({ open, onOpenChange, designer }) {
         setSending(true);
         try {
             // Insert inquiry into database
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('designer_inquiries')
                 .insert({
                 designer_id: designer.id,
@@ -163,3 +163,4 @@ export function DesignerMessageModal({ open, onOpenChange, designer }) {
       </DialogContent>
     </Dialog>);
 }
+

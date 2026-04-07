@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from '@/components/ui/select';
 import { DollarSign, Users, FolderKanban, Target, BarChart3, PieChart, Activity, ArrowUpRight, ArrowDownRight, Download, } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 export function AdminAnalyticsTab({ projects, onRefresh }) {
     const [timeRange, setTimeRange] = useState('30d');
     const [designerStats, setDesignerStats] = useState([]);
@@ -14,7 +14,7 @@ export function AdminAnalyticsTab({ projects, onRefresh }) {
     // Fetch real designer stats
     useEffect(() => {
         async function fetchDesignerStats() {
-            const { data } = await supabase
+            const { data } = await appDataClient
                 .from('designer_profiles')
                 .select('id, display_name, projects_completed, rating, completion_rate')
                 .eq('status', 'active')
@@ -29,7 +29,7 @@ export function AdminAnalyticsTab({ projects, onRefresh }) {
                     completionRate: d.completion_rate || 0,
                 })));
             }
-            const { count } = await supabase
+            const { count } = await appDataClient
                 .from('designer_reviews')
                 .select('*', { count: 'exact', head: true });
             setReviewCount(count || 0);
@@ -249,3 +249,4 @@ function MetricCard({ icon: Icon, label, value, change, trend, color, }) {
       </div>
     </Card>);
 }
+

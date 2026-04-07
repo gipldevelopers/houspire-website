@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from '@/components/ui/table';
 import { Users, Plus, Edit, Star, MapPin, Briefcase, CheckCircle, XCircle, Search, } from 'lucide-react';
@@ -19,7 +19,7 @@ export default function AdminDesignerManagement() {
     const fetchDesigners = async () => {
         try {
             setLoading(true);
-            let query = supabase
+            let query = appDataClient
                 .from('designer_profiles')
                 .select('id, full_name, display_name, city, country, primary_specialty, projects_completed, rating, is_available, is_featured, status')
                 .order('is_featured', { ascending: false })
@@ -46,7 +46,7 @@ export default function AdminDesignerManagement() {
     };
     const toggleFeatured = async (designerId, currentStatus) => {
         try {
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('designer_profiles')
                 .update({ is_featured: !currentStatus })
                 .eq('id', designerId);
@@ -68,7 +68,7 @@ export default function AdminDesignerManagement() {
     };
     const toggleAvailability = async (designerId, currentStatus) => {
         try {
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('designer_profiles')
                 .update({ is_available: !currentStatus })
                 .eq('id', designerId);
@@ -91,7 +91,7 @@ export default function AdminDesignerManagement() {
     const toggleStatus = async (designerId, currentStatus) => {
         const newStatus = currentStatus === 'active' ? 'inactive' : 'active';
         try {
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('designer_profiles')
                 .update({ status: newStatus })
                 .eq('id', designerId);
@@ -270,3 +270,4 @@ export default function AdminDesignerManagement() {
       </Card>
     </div>);
 }
+

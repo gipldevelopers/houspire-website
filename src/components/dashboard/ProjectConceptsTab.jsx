@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { apiGet, apiPatch } from '@/lib/api';
+import { dataGet, dataPatch } from '@/lib/frontend-data';
 import { motion } from 'framer-motion';
 import { 
   Image, 
@@ -32,7 +32,7 @@ export function ProjectConceptsTab({ project }) {
 
   const fetchConcepts = async () => {
     try {
-      const data = await apiGet(`/api/concepts?projectId=${project.id}`);
+      const data = await dataGet(`/concepts?projectId=${project.id}`);
       setConcepts(data || []);
     } catch (error) {
       console.error('Failed to fetch concepts:', error);
@@ -43,7 +43,7 @@ export function ProjectConceptsTab({ project }) {
 
   const handleRating = async (conceptId, rating) => {
     try {
-      await apiPatch(`/api/concepts/${conceptId}`, { user_rating: rating });
+      await dataPatch(`/concepts/${conceptId}`, { user_rating: rating });
       fetchConcepts();
     } catch (error) {
       console.error('Failed to update rating:', error);
@@ -236,3 +236,5 @@ export function ProjectConceptsTab({ project }) {
     </div>
   );
 }
+
+

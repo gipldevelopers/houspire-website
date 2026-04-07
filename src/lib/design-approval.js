@@ -1,4 +1,4 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { notificationHelpers } from './notifications';
 import { logProjectActivity, getProjectIdFromOrder } from './activity-logger';
 /**
@@ -6,9 +6,9 @@ import { logProjectActivity, getProjectIdFromOrder } from './activity-logger';
  */
 export async function approveRoom(orderId, roomName) {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         // Upsert the approval
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('design_approvals')
             .upsert({
             order_id: orderId,
@@ -26,7 +26,7 @@ export async function approveRoom(orderId, roomName) {
         const status = await getApprovalStatus(orderId);
         if (status.allApproved) {
             // Update order to completed
-            await supabase
+            await appDataClient
                 .from('orders')
                 .update({
                 all_designs_approved: true,
@@ -36,7 +36,7 @@ export async function approveRoom(orderId, roomName) {
             })
                 .eq('id', orderId);
             // Send notification
-            const { data: order } = await supabase
+            const { data: order } = await appDataClient
                 .from('orders')
                 .select('user_id')
                 .eq('id', orderId)
@@ -67,9 +67,9 @@ export async function approveRoom(orderId, roomName) {
  */
 export async function approveAllDesigns(orderId) {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         // Get the order to find all rooms
-        const { data: order } = await supabase
+        const { data: order } = await appDataClient
             .from('orders')
             .select('selected_rooms, user_id, design_files')
             .eq('id', orderId)
@@ -97,7 +97,7 @@ export async function approveAllDesigns(orderId) {
             approved_by: user?.id,
         }));
         if (approvals.length > 0) {
-            const { error: approvalError } = await supabase
+            const { error: approvalError } = await appDataClient
                 .from('design_approvals')
                 .upsert(approvals, {
                 onConflict: 'order_id,room_name'
@@ -107,7 +107,7 @@ export async function approveAllDesigns(orderId) {
             }
         }
         // Update order status
-        const { error: updateError } = await supabase
+        const { error: updateError } = await appDataClient
             .from('orders')
             .update({
             all_designs_approved: true,
@@ -145,9 +145,9 @@ export async function approveAllDesigns(orderId) {
  */
 export async function requestRoomChanges(orderId, roomName, feedback) {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         // Upsert the approval with changes_requested status
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('design_approvals')
             .upsert({
             order_id: orderId,
@@ -163,14 +163,14 @@ export async function requestRoomChanges(orderId, roomName, feedback) {
             return { success: false, error: error.message };
         }
         // Get current revision count
-        const { data: order } = await supabase
+        const { data: order } = await appDataClient
             .from('orders')
             .select('revision_count, user_id')
             .eq('id', orderId)
             .single();
         const newRevisionCount = (order?.revision_count || 0) + 1;
         // Update order status to revision_requested
-        await supabase
+        await appDataClient
             .from('orders')
             .update({
             status: 'revision_requested',
@@ -196,13 +196,13 @@ export const requestRevision = requestRoomChanges;
 export async function getApprovalStatus(orderId) {
     try {
         // Get order details including design files
-        const { data: order } = await supabase
+        const { data: order } = await appDataClient
             .from('orders')
             .select('selected_rooms, design_files, all_designs_approved, approved_at')
             .eq('id', orderId)
             .single();
         // Get all approvals for this order
-        const { data: approvals } = await supabase
+        const { data: approvals } = await appDataClient
             .from('design_approvals')
             .select('room_name, status, approved_at, feedback')
             .eq('order_id', orderId);
@@ -244,3 +244,4 @@ export async function getApprovalStatus(orderId) {
         };
     }
 }
+

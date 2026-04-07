@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { compressImage, validateImageFile } from '@/lib/imageUtils';
 import { OptimizedImage } from '@/components/OptimizedImage';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Upload, X, Check, Loader2 } from 'lucide-react';
 export function ImageUploadPreview({ images, onImagesChange, maxImages = 10, maxSize = 10 * 1024 * 1024, bucket, folder, }) {
@@ -29,12 +29,12 @@ export function ImageUploadPreview({ images, onImagesChange, maxImages = 10, max
                     type: 'image/jpeg',
                 });
                 const fileName = `${folder}/${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-                const { error } = await supabase.storage
+                const { error } = await appDataClient.storage
                     .from(bucket)
                     .upload(fileName, compressedFile);
                 if (error)
                     throw error;
-                const { data: urlData } = supabase.storage
+                const { data: urlData } = appDataClient.storage
                     .from(bucket)
                     .getPublicUrl(fileName);
                 return urlData.publicUrl;
@@ -97,3 +97,4 @@ export function ImageUploadPreview({ images, onImagesChange, maxImages = 10, max
         </div>)}
     </div>);
 }
+

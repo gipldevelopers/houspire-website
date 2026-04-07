@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useAuth } from '@/contexts/AuthContext';
 import { Bell, CheckCircle, AlertCircle, Info, AlertTriangle, Zap, X, Check, } from 'lucide-react';
 export function NotificationBell() {
@@ -27,7 +27,7 @@ export function NotificationBell() {
             return;
         setLoading(true);
         try {
-            const { data, error } = await supabase
+            const { data, error } = await appDataClient
                 .from('in_app_notifications')
                 .select('*')
                 .eq('user_id', user.id)
@@ -48,7 +48,7 @@ export function NotificationBell() {
     const subscribeToNotifications = () => {
         if (!user)
             return () => { };
-        const channel = supabase
+        const channel = appDataClient
             .channel('user-notifications')
             .on('postgres_changes', {
             event: 'INSERT',
@@ -71,12 +71,12 @@ export function NotificationBell() {
         })
             .subscribe();
         return () => {
-            supabase.removeChannel(channel);
+            appDataClient.removeChannel(channel);
         };
     };
     const markAsRead = async (id) => {
         try {
-            const { error } = await supabase.rpc('mark_notification_read', {
+            const { error } = await appDataClient.rpc('mark_notification_read', {
                 p_notification_id: id,
             });
             if (error)
@@ -90,7 +90,7 @@ export function NotificationBell() {
     };
     const markAllAsRead = async () => {
         try {
-            const { error } = await supabase.rpc('mark_all_notifications_read');
+            const { error } = await appDataClient.rpc('mark_all_notifications_read');
             if (error)
                 throw error;
             setNotifications(prev => prev.map(n => ({ ...n, read: true })));
@@ -223,7 +223,7 @@ export function NotificationBell() {
                 {/* Footer */}
                 {notifications.length > 0 && (<div className="p-3 border-t bg-muted/30">
                     <Button onClick={() => {
-                    navigate('/notifications');
+                    router.push('/notifications');
                     setIsOpen(false);
                 }} size="sm" variant="ghost" className="w-full text-xs">
                       View all notifications
@@ -235,3 +235,4 @@ export function NotificationBell() {
       </AnimatePresence>
     </div>);
 }
+

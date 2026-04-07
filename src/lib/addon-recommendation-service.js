@@ -1,17 +1,17 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 /**
  * Get recommended add-ons for an order (post-design phase)
  */
 export async function getRecommendedAddons(orderId) {
     try {
         // Get already purchased add-ons for this order
-        const { data: existingAddons } = await supabase
+        const { data: existingAddons } = await appDataClient
             .from('order_addons')
             .select('addon_id')
             .eq('order_id', orderId);
         const purchasedIds = existingAddons?.map(a => a.addon_id) || [];
         // Get popular add-ons that would complement the design
-        const { data: addons, error } = await supabase
+        const { data: addons, error } = await appDataClient
             .from('addons')
             .select('*')
             .eq('is_bundle', false)
@@ -61,7 +61,7 @@ function getRelevanceReason(slug) {
  */
 export async function addAddonToOrder(orderId, addonId, price) {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('order_addons')
             .insert({
             order_id: orderId,
@@ -86,7 +86,7 @@ export async function addAddonToOrder(orderId, addonId, price) {
  */
 export async function getOrderAddons(orderId) {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('order_addons')
             .select(`
         addon_id,
@@ -116,3 +116,4 @@ export async function getOrderAddons(orderId) {
         return [];
     }
 }
+

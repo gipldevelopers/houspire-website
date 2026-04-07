@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { useDropzone } from 'react-dropzone';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Upload, X, FileText, Image as ImageIcon, Check, Receipt as ReceiptIcon, Download, Trash2 } from 'lucide-react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, } from '@/components/ui/dialog';
@@ -35,7 +35,7 @@ export function ReceiptUploader({ projectId, productId, productName, onUploadCom
         onDrop,
     });
     const fetchReceipts = useCallback(async () => {
-        let query = supabase
+        let query = appDataClient
             .from('receipts')
             .select('*')
             .eq('project_id', projectId);
@@ -71,15 +71,15 @@ export function ReceiptUploader({ projectId, productId, productName, onUploadCom
         try {
             const fileExt = selectedFile.name.split('.').pop();
             const fileName = `${projectId}/${Date.now()}.${fileExt}`;
-            const { error: uploadError } = await supabase.storage
+            const { error: uploadError } = await appDataClient.storage
                 .from('receipts')
                 .upload(fileName, selectedFile);
             if (uploadError)
                 throw uploadError;
-            const { data: urlData } = supabase.storage
+            const { data: urlData } = appDataClient.storage
                 .from('receipts')
                 .getPublicUrl(fileName);
-            const { error: receiptError } = await supabase
+            const { error: receiptError } = await appDataClient
                 .from('receipts')
                 .insert({
                 project_id: projectId,
@@ -123,9 +123,9 @@ export function ReceiptUploader({ projectId, productId, productName, onUploadCom
         try {
             const filePath = fileUrl.split('/receipts/')[1];
             if (filePath) {
-                await supabase.storage.from('receipts').remove([filePath]);
+                await appDataClient.storage.from('receipts').remove([filePath]);
             }
-            await supabase.from('receipts').delete().eq('id', receiptId);
+            await appDataClient.from('receipts').delete().eq('id', receiptId);
             toast({
                 title: 'Receipt deleted',
                 description: 'The receipt has been removed',
@@ -305,3 +305,4 @@ export function ReceiptUploader({ projectId, productId, productName, onUploadCom
       </Dialog>
     </div>);
 }
+

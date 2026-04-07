@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
 import { Card } from '@/components/ui/card';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Plus, Trash2, Send, DollarSign, Calculator, Loader2, Save, CheckCircle, } from 'lucide-react';
 export function AdminBudgetManager({ projectId }) {
@@ -19,7 +19,7 @@ export function AdminBudgetManager({ projectId }) {
     }, [projectId]);
     const fetchBudget = async () => {
         setLoading(true);
-        const { data } = await supabase
+        const { data } = await appDataClient
             .from('project_budgets')
             .select('*')
             .eq('project_id', projectId)
@@ -62,7 +62,7 @@ export function AdminBudgetManager({ projectId }) {
         setSaving(true);
         try {
             // Delete existing
-            await supabase.from('project_budgets').delete().eq('project_id', projectId);
+            await appDataClient.from('project_budgets').delete().eq('project_id', projectId);
             // Insert new
             const itemsToInsert = budgetItems
                 .filter(item => item.item_name.trim())
@@ -85,7 +85,7 @@ export function AdminBudgetManager({ projectId }) {
                 setSaving(false);
                 return;
             }
-            const { error } = await supabase.from('project_budgets').insert(itemsToInsert);
+            const { error } = await appDataClient.from('project_budgets').insert(itemsToInsert);
             if (error)
                 throw error;
             toast({
@@ -110,7 +110,7 @@ export function AdminBudgetManager({ projectId }) {
         try {
             // Save first
             await handleSave();
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('project_budgets')
                 .update({ is_published: true, published_at: new Date().toISOString() })
                 .eq('project_id', projectId);
@@ -118,7 +118,7 @@ export function AdminBudgetManager({ projectId }) {
                 throw error;
             // Notify user
             try {
-                await supabase.functions.invoke('send-notification', {
+                await appDataClient.functions.invoke('send-notification', {
                     body: {
                         type: 'budget_published',
                         project_id: projectId,
@@ -266,3 +266,4 @@ export function AdminBudgetManager({ projectId }) {
       </Card>
     </div>);
 }
+

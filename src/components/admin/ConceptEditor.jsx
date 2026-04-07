@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Save, X, Plus, Trash2, RefreshCw, CheckCircle, Loader2 } from 'lucide-react';
 export function ConceptEditor({ concept, onSave, onClose }) {
@@ -28,7 +28,7 @@ export function ConceptEditor({ concept, onSave, onClose }) {
     const handleSave = async () => {
         setLoading(true);
         try {
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('concepts')
                 .update({
                 concept_name: formData.concept_name,
@@ -221,3 +221,4 @@ export function ConceptEditor({ concept, onSave, onClose }) {
         </Card>)}
     </div>);
 }
+

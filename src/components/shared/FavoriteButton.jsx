@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { Heart } from 'lucide-react';
@@ -18,7 +18,7 @@ export function FavoriteButton({ itemType, itemId, itemData, projectId, size = '
         if (!user)
             return;
         try {
-            const { data, error } = await supabase.rpc('is_favorited', {
+            const { data, error } = await appDataClient.rpc('is_favorited', {
                 p_item_type: itemType,
                 p_item_id: itemId,
             });
@@ -44,7 +44,7 @@ export function FavoriteButton({ itemType, itemId, itemData, projectId, size = '
         setLoading(true);
         try {
             if (isFavorited) {
-                const { error } = await supabase.rpc('remove_from_favorites', {
+                const { error } = await appDataClient.rpc('remove_from_favorites', {
                     p_item_type: itemType,
                     p_item_id: itemId,
                 });
@@ -56,7 +56,7 @@ export function FavoriteButton({ itemType, itemId, itemData, projectId, size = '
                 });
             }
             else {
-                const { error } = await supabase.rpc('add_to_favorites', {
+                const { error } = await appDataClient.rpc('add_to_favorites', {
                     p_item_type: itemType,
                     p_item_id: itemId,
                     p_item_data: itemData,
@@ -104,3 +104,4 @@ export function FavoriteButton({ itemType, itemId, itemData, projectId, size = '
         </span>)}
     </Button>);
 }
+

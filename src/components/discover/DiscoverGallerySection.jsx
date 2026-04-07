@@ -3,7 +3,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { Container } from '@/components/layout/Container'
 import { Button } from '@/components/ui/button'
-import { supabase } from '@/integrations/supabase/client'
+import { appDataClient } from '@/lib/static-client'
 import { useToast } from '@/hooks/use-toast'
 import { useLikedDesigns } from '@/hooks/useLikedDesigns'
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
@@ -247,7 +247,7 @@ export default function Discover() {
     setCurrentIndex(index)
 
     // Increment view count (fire and forget)
-    supabase
+    appDataClient
       .from('gallery_designs')
       .update({ view_count: (design.view_count || 0) + 1 })
       .eq('id', design.id)
@@ -268,7 +268,7 @@ export default function Discover() {
       : (design.save_count || 0) + 1
 
     // Update database (fire and forget)
-    supabase
+    appDataClient
       .from('gallery_designs')
       .update({ save_count: newCount })
       .eq('id', designId)
@@ -595,6 +595,7 @@ export default function Discover() {
     </div>
   )
 }
+
 
 
 

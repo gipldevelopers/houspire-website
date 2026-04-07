@@ -8,7 +8,7 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { QuickAuthForm } from '@/components/auth/QuickAuthForm';
 import jsPDF from 'jspdf';
 // Style data mapping
@@ -497,7 +497,7 @@ export function QuizResults({ answers }) {
             }
             const quizData = JSON.parse(storedQuiz);
             if (user) {
-                const { error } = await supabase
+                const { error } = await appDataClient
                     .from('quiz_results')
                     .upsert({
                     user_id: user.id,
@@ -834,3 +834,4 @@ export function QuizResults({ answers }) {
       </Dialog>
     </div>);
 }
+

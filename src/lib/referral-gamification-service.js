@@ -1,10 +1,10 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 /**
  * Get all referral tiers
  */
 export async function getReferralTiers() {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('referral_rewards')
             .select('*')
             .order('min_referrals', { ascending: true });
@@ -23,7 +23,7 @@ export async function getReferralTiers() {
 export async function getEnhancedReferralStats(userId) {
     try {
         // Get referral code
-        const { data: codeData, error: codeError } = await supabase
+        const { data: codeData, error: codeError } = await appDataClient
             .from('referral_codes')
             .select('*')
             .eq('user_id', userId)
@@ -33,7 +33,7 @@ export async function getEnhancedReferralStats(userId) {
         if (!codeData)
             return null;
         // Get usage stats
-        const { data: usageData } = await supabase
+        const { data: usageData } = await appDataClient
             .from('referral_usage')
             .select('status')
             .eq('referrer_user_id', userId);
@@ -41,7 +41,7 @@ export async function getEnhancedReferralStats(userId) {
         const successfulReferrals = usageData?.filter(r => r.status === 'completed').length || 0;
         const pendingReferrals = usageData?.filter(r => r.status === 'pending').length || 0;
         // Calculate tier
-        const { data: tiers } = await supabase
+        const { data: tiers } = await appDataClient
             .from('referral_rewards')
             .select('*')
             .order('min_referrals', { ascending: true });
@@ -77,7 +77,7 @@ export async function getEnhancedReferralStats(userId) {
  */
 export async function getReferralActivity(userId) {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('referral_usage')
             .select('id, status, created_at')
             .eq('referrer_user_id', userId)
@@ -135,3 +135,4 @@ export function calculateTierProgress(currentReferrals, tiers) {
     }
     return { currentTier, nextTier, progress };
 }
+

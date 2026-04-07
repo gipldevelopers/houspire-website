@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Textarea } from '@/components/ui/textarea';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { Heart, MessageCircle, CheckCircle, Eye, Palette, Layers, Download, ChevronLeft, ChevronRight, X, } from 'lucide-react';
@@ -28,7 +28,7 @@ export function DesignVariations({ projectId }) {
     }, [projectId]);
     const fetchVariations = async () => {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await appDataClient
                 .from('design_variations')
                 .select(`
           *,
@@ -45,13 +45,13 @@ export function DesignVariations({ projectId }) {
             if (error)
                 throw error;
             // Check which variations user has voted for
-            const { data: votesData } = await supabase
+            const { data: votesData } = await appDataClient
                 .from('variation_votes')
                 .select('variation_id')
                 .eq('user_id', user?.id || '');
             const votedVariationIds = new Set(votesData?.map(v => v.variation_id) || []);
             // Get comment counts
-            const { data: commentsData } = await supabase
+            const { data: commentsData } = await appDataClient
                 .from('variation_comments')
                 .select('variation_id');
             const commentCounts = commentsData?.reduce((acc, c) => {
@@ -89,7 +89,7 @@ export function DesignVariations({ projectId }) {
     const handleVote = async (variationId, currentlyVoted) => {
         try {
             if (currentlyVoted) {
-                const { error } = await supabase
+                const { error } = await appDataClient
                     .from('variation_votes')
                     .delete()
                     .eq('variation_id', variationId)
@@ -99,7 +99,7 @@ export function DesignVariations({ projectId }) {
                 toast({ title: 'Vote removed' });
             }
             else {
-                const { error } = await supabase
+                const { error } = await appDataClient
                     .from('variation_votes')
                     .insert({
                     variation_id: variationId,
@@ -122,7 +122,7 @@ export function DesignVariations({ projectId }) {
     };
     const handleSelectVariation = async (variationId) => {
         try {
-            const { error } = await supabase.rpc('select_design_variation', {
+            const { error } = await appDataClient.rpc('select_design_variation', {
                 p_variation_id: variationId,
             });
             if (error)
@@ -144,7 +144,7 @@ export function DesignVariations({ projectId }) {
     };
     const fetchComments = async (variationId) => {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await appDataClient
                 .from('variation_comments')
                 .select('*')
                 .eq('variation_id', variationId)
@@ -162,7 +162,7 @@ export function DesignVariations({ projectId }) {
             return;
         setSubmittingComment(true);
         try {
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('variation_comments')
                 .insert({
                 variation_id: variationId,
@@ -442,3 +442,4 @@ export function DesignVariations({ projectId }) {
       </AnimatePresence>
     </>);
 }
+

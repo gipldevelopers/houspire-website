@@ -1,12 +1,12 @@
 import { useQuery } from '@tanstack/react-query'
-import { supabase } from '@/integrations/supabase/client'
+import { appDataClient } from '@/lib/static-client'
 
 // Fetch all designers with optional filters
 export function useDesigners(options = {}) {
   return useQuery({
     queryKey: ['designers', options],
     queryFn: async () => {
-      let query = supabase
+      let query = appDataClient
         .from('designer_profiles')
         .select('*')
         .eq('status', 'active')
@@ -60,7 +60,7 @@ export function useDesigner(slug) {
     queryFn: async () => {
       if (!slug) throw new Error('Slug is required')
 
-      const { data, error } = await supabase
+      const { data, error } = await appDataClient
         .from('designer_profiles')
         .select('*')
         .eq('slug', slug)
@@ -82,7 +82,7 @@ export function useDesignerReviews(designerId, limit = 10) {
     queryFn: async () => {
       if (!designerId) throw new Error('Designer ID is required')
 
-      const { data, error } = await supabase
+      const { data, error } = await appDataClient
         .from('designer_reviews')
         .select('*')
         .eq('designer_id', designerId)
@@ -103,7 +103,7 @@ export function useDesignerCities() {
   return useQuery({
     queryKey: ['designer-cities'],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await appDataClient
         .from('designer_profiles')
         .select('city, country')
         .eq('status', 'active')
@@ -122,7 +122,7 @@ export function useDesignerSpecialties() {
   return useQuery({
     queryKey: ['designer-specialties'],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await appDataClient
         .from('designer_profiles')
         .select('primary_specialty')
         .eq('status', 'active')
@@ -141,7 +141,7 @@ export function useFeaturedDesigners(limit = 6) {
   return useQuery({
     queryKey: ['featured-designers', limit],
     queryFn: async () => {
-      const { data, error } = await supabase
+      const { data, error } = await appDataClient
         .from('designer_profiles')
         .select('*')
         .eq('status', 'active')
@@ -155,3 +155,4 @@ export function useFeaturedDesigners(limit = 6) {
     staleTime: 1000 * 60 * 5,
   })
 }
+

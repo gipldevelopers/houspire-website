@@ -1,4 +1,4 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 export const milestoneDefinitions = [
     {
         type: 'order_placed',
@@ -97,7 +97,7 @@ function getMilestoneOrderIndex(type) {
  */
 export async function getOrderMilestones(orderId) {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('order_milestones')
             .select('*')
             .eq('order_id', orderId);
@@ -120,7 +120,7 @@ export async function getOrderMilestones(orderId) {
  */
 export async function getOrderProgressState(orderId) {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('orders')
             .select('status, discovery_call_scheduled, discovery_call_completed_at, assigned_designer_id, design_files, all_designs_approved, completed_at')
             .eq('id', orderId)
@@ -249,7 +249,7 @@ export async function updateMilestoneStatus(orderId, milestoneType, status, note
         if (status === 'completed') {
             updateData.completed_at = new Date().toISOString();
         }
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('order_milestones')
             .update(updateData)
             .eq('order_id', orderId)
@@ -318,3 +318,4 @@ export function getNextAction(milestones, orderId) {
 export function getMilestoneDefinition(type) {
     return milestoneDefinitions.find(m => m.type === type);
 }
+

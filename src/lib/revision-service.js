@@ -1,4 +1,4 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { notificationHelpers } from './notifications';
 import { logProjectActivity, getProjectIdFromOrder } from './activity-logger';
 /**
@@ -6,12 +6,12 @@ import { logProjectActivity, getProjectIdFromOrder } from './activity-logger';
  */
 export async function canRequestRevision(orderId) {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         if (!user) {
             return { allowed: false, reason: 'User not authenticated' };
         }
         // Get order details
-        const { data: order, error } = await supabase
+        const { data: order, error } = await appDataClient
             .from('orders')
             .select('id, status, revision_count, user_id')
             .eq('id', orderId)
@@ -56,12 +56,12 @@ export async function canRequestRevision(orderId) {
  */
 export async function submitRevisionRequest(orderId, roomsAffected, changesRequested, referenceImages) {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         if (!user) {
             return { success: false, error: 'User not authenticated' };
         }
         // Get order details and current revision count
-        const { data: order, error: orderError } = await supabase
+        const { data: order, error: orderError } = await appDataClient
             .from('orders')
             .select('revision_count, user_id, order_number')
             .eq('id', orderId)
@@ -71,7 +71,7 @@ export async function submitRevisionRequest(orderId, roomsAffected, changesReque
         }
         const newRevisionNumber = (order.revision_count || 0) + 1;
         // Update order status
-        const { error: updateError } = await supabase
+        const { error: updateError } = await appDataClient
             .from('orders')
             .update({
             status: 'revision_requested',
@@ -83,7 +83,7 @@ export async function submitRevisionRequest(orderId, roomsAffected, changesReque
         }
         // Create design_approvals entries for affected rooms with changes_requested status
         for (const room of roomsAffected) {
-            await supabase
+            await appDataClient
                 .from('design_approvals')
                 .upsert({
                 order_id: orderId,
@@ -99,7 +99,7 @@ export async function submitRevisionRequest(orderId, roomsAffected, changesReque
         // Send confirmation email to customer
         await notificationHelpers.onRevisionReceived(order.user_id, orderId, Object.values(changesRequested).join('; '));
         // Notify admin about revision request
-        const { data: admins } = await supabase
+        const { data: admins } = await appDataClient
             .from('user_roles')
             .select('user_id')
             .eq('role', 'admin')
@@ -134,7 +134,7 @@ export async function submitRevisionRequest(orderId, roomsAffected, changesReque
  */
 export async function getRevisionHistory(orderId) {
     try {
-        const { data: approvals } = await supabase
+        const { data: approvals } = await appDataClient
             .from('design_approvals')
             .select('room_name, status, feedback, updated_at')
             .eq('order_id', orderId)
@@ -160,7 +160,7 @@ export async function getRevisionHistory(orderId) {
  */
 export async function getRevisionRequests(projectId) {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('revision_requests')
             .select('*')
             .eq('project_id', projectId)
@@ -181,7 +181,7 @@ export async function getRevisionRequests(projectId) {
  */
 export async function getRevisionRequestsByOrderId(orderId) {
     try {
-        const { data: order, error: orderError } = await supabase
+        const { data: order, error: orderError } = await appDataClient
             .from('orders')
             .select('user_id')
             .eq('id', orderId)
@@ -190,7 +190,7 @@ export async function getRevisionRequestsByOrderId(orderId) {
             return [];
         }
         // Get revision requests for this user (as we don't have project_id on orders)
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('revision_requests')
             .select('*')
             .eq('user_id', order.user_id)
@@ -211,7 +211,7 @@ export async function getRevisionRequestsByOrderId(orderId) {
 export async function completeRevision(orderId, roomsCompleted) {
     try {
         // Get all rooms with changes_requested status
-        const { data: pendingApprovals } = await supabase
+        const { data: pendingApprovals } = await appDataClient
             .from('design_approvals')
             .select('room_name')
             .eq('order_id', orderId)
@@ -219,7 +219,7 @@ export async function completeRevision(orderId, roomsCompleted) {
         const roomsToUpdate = roomsCompleted || (pendingApprovals || []).map(a => a.room_name);
         // Update the affected rooms back to pending for review
         for (const room of roomsToUpdate) {
-            await supabase
+            await appDataClient
                 .from('design_approvals')
                 .update({
                 status: 'pending',
@@ -230,7 +230,7 @@ export async function completeRevision(orderId, roomsCompleted) {
                 .eq('room_name', room);
         }
         // Update order status back to design_ready
-        await supabase
+        await appDataClient
             .from('orders')
             .update({
             status: 'design_ready',
@@ -238,7 +238,7 @@ export async function completeRevision(orderId, roomsCompleted) {
         })
             .eq('id', orderId);
         // Notify customer that revised designs are ready
-        const { data: order } = await supabase
+        const { data: order } = await appDataClient
             .from('orders')
             .select('user_id')
             .eq('id', orderId)
@@ -257,7 +257,7 @@ export async function completeRevision(orderId, roomsCompleted) {
  * Check if order has pending revision
  */
 export async function hasPendingRevision(orderId) {
-    const { data: order } = await supabase
+    const { data: order } = await appDataClient
         .from('orders')
         .select('status')
         .eq('id', orderId)
@@ -269,7 +269,7 @@ export async function hasPendingRevision(orderId) {
  */
 export async function getPendingRevisionsCount() {
     try {
-        const { data: orders } = await supabase
+        const { data: orders } = await appDataClient
             .from('orders')
             .select('id, updated_at')
             .eq('status', 'revision_requested');
@@ -303,7 +303,7 @@ export async function uploadRevisionImages(orderId, files) {
         const random = Math.random().toString(36).substring(7);
         const ext = file.name.split('.').pop() || 'jpg';
         const filename = `${orderId}/revision-refs/ref-${i + 1}-${timestamp}-${random}.${ext}`;
-        const { data, error } = await supabase.storage
+        const { data, error } = await appDataClient.storage
             .from('design-files')
             .upload(filename, file, {
             cacheControl: '3600',
@@ -313,7 +313,7 @@ export async function uploadRevisionImages(orderId, files) {
             console.error('Upload error:', error);
             continue;
         }
-        const { data: { publicUrl } } = supabase.storage
+        const { data: { publicUrl } } = appDataClient.storage
             .from('design-files')
             .getPublicUrl(data.path);
         urls.push(publicUrl);
@@ -324,7 +324,7 @@ export async function uploadRevisionImages(orderId, files) {
  * Calculate revisions remaining for an order
  */
 export async function getRevisionsRemaining(orderId) {
-    const { data: order } = await supabase
+    const { data: order } = await appDataClient
         .from('orders')
         .select('revision_count')
         .eq('id', orderId)
@@ -335,3 +335,4 @@ export async function getRevisionsRemaining(orderId) {
     const revisionsUsed = order.revision_count || 0;
     return Math.max(0, revisionsIncluded - revisionsUsed);
 }
+

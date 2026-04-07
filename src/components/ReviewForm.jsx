@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { StarRating } from '@/components/StarRating';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { Star, Send } from 'lucide-react';
@@ -35,7 +35,7 @@ export function ReviewForm({ projectId, onSuccess }) {
             return;
         setSubmitting(true);
         try {
-            const { error } = await supabase.from('reviews').insert({
+            const { error } = await appDataClient.from('reviews').insert({
                 project_id: projectId,
                 user_id: user.id,
                 rating: data.rating,
@@ -124,3 +124,4 @@ export function ReviewForm({ projectId, onSuccess }) {
       </form>
     </Card>);
 }
+

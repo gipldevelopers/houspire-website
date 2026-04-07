@@ -1,10 +1,10 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 /**
  * Create in-app notification
  */
 export async function createInAppNotification(params) {
     try {
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('in_app_notifications')
             .insert({
             user_id: params.userId,
@@ -95,3 +95,4 @@ export async function notifyProjectCompleted(userId, projectId) {
         actionText: 'View Project'
     });
 }
+

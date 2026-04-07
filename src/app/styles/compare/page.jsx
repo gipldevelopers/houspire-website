@@ -17,8 +17,7 @@ import {
   Scale,
   Sparkles,
 } from 'lucide-react';
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || '';
+import { getStaticStyleBySlug } from '@/lib/frontend-data';
 
 import { Suspense } from 'react';
 
@@ -45,13 +44,7 @@ function StyleCompareContent() {
     if (styleSlugs.length === 0) return;
     try {
       setLoading(true);
-      const results = await Promise.all(
-        styleSlugs.map((slug) =>
-          fetch(`${API_BASE}/api/design-styles/${slug}`).then((res) =>
-            res.ok ? res.json() : null
-          )
-        )
-      );
+      const results = styleSlugs.map((slug) => getStaticStyleBySlug(slug));
       setStyles(results.filter(Boolean));
     } catch (err) {
       console.error('Error fetching styles for compare:', err);

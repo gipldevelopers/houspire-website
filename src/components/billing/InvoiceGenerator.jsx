@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { Download, Mail, Printer, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { downloadInvoice, printInvoice } from '@/lib/invoice-generator';
@@ -50,7 +50,7 @@ export function InvoiceGenerator({ projectId, data }) {
     };
     const sendEmail = async () => {
         try {
-            const { error } = await supabase.functions.invoke('send-invoice', {
+            const { error } = await appDataClient.functions.invoke('send-invoice', {
                 body: { projectId, email: data.customerEmail },
             });
             if (error)
@@ -238,3 +238,4 @@ export function InvoiceGenerator({ projectId, data }) {
       </Card>
     </div>);
 }
+

@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { Sparkles, Palette, Calculator, MapPin, Clock, CheckCircle2, Loader2, Image as ImageIcon, Lightbulb, } from 'lucide-react';
 const GENERATION_STEPS = [
     {
@@ -52,7 +52,7 @@ export function AIGenerationProgress({ orderId, onComplete }) {
     const [showConfetti, setShowConfetti] = useState(false);
     // Subscribe to order status changes
     useEffect(() => {
-        const channel = supabase
+        const channel = appDataClient
             .channel(`order-${orderId}`)
             .on('postgres_changes', {
             event: 'UPDATE',
@@ -73,7 +73,7 @@ export function AIGenerationProgress({ orderId, onComplete }) {
         })
             .subscribe();
         return () => {
-            supabase.removeChannel(channel);
+            appDataClient.removeChannel(channel);
         };
     }, [orderId, onComplete]);
     // Simulate progress for UX
@@ -202,3 +202,4 @@ export function AIGenerationProgress({ orderId, onComplete }) {
         </motion.div>)}
     </Card>);
 }
+

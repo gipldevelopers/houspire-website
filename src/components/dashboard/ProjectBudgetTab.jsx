@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
-import { apiGet } from '@/lib/api';
+import { dataGet } from '@/lib/frontend-data';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip, Legend } from 'recharts';
@@ -38,7 +38,7 @@ export function ProjectBudgetTab({ project }) {
 
   const fetchBudgetData = async () => {
     try {
-      const data = await apiGet(`/api/projects/${project.id}/budget`);
+      const data = await dataGet(`/projects/${project.id}/budget`);
       setBudgetData(data || []);
     } catch (error) {
       console.error('Failed to fetch budget data:', error);
@@ -240,3 +240,5 @@ export function ProjectBudgetTab({ project }) {
     </div>
   );
 }
+
+

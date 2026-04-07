@@ -1,4 +1,4 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { notificationHelpers } from './notifications';
 /**
  * Complete project when all rooms are approved
@@ -6,7 +6,7 @@ import { notificationHelpers } from './notifications';
 export async function completeProject(orderId) {
     try {
         // Update order status to completed
-        const { error: updateError } = await supabase
+        const { error: updateError } = await appDataClient
             .from('orders')
             .update({
             status: 'completed',
@@ -17,7 +17,7 @@ export async function completeProject(orderId) {
         if (updateError)
             throw updateError;
         // Get order details for notification
-        const { data: order } = await supabase
+        const { data: order } = await appDataClient
             .from('orders')
             .select('user_id, order_number')
             .eq('id', orderId)
@@ -43,7 +43,7 @@ export async function completeProject(orderId) {
  * Check if project is ready for completion (all rooms approved)
  */
 export async function isProjectReadyForCompletion(orderId) {
-    const { data: approvals, error } = await supabase
+    const { data: approvals, error } = await appDataClient
         .from('design_approvals')
         .select('status')
         .eq('order_id', orderId);
@@ -55,12 +55,12 @@ export async function isProjectReadyForCompletion(orderId) {
  * Get completion details for an order
  */
 export async function getCompletionDetails(orderId) {
-    const { data: order } = await supabase
+    const { data: order } = await appDataClient
         .from('orders')
         .select('status, completed_at, all_designs_approved')
         .eq('id', orderId)
         .single();
-    const { data: approvals } = await supabase
+    const { data: approvals } = await appDataClient
         .from('design_approvals')
         .select('status')
         .eq('order_id', orderId);
@@ -112,3 +112,4 @@ export function downloadAllFiles(designFiles) {
     });
     return urls.length;
 }
+

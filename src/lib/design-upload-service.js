@@ -1,4 +1,4 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { notificationHelpers } from './notifications';
 import { logProjectActivity, logAdminAction, getProjectIdFromOrder } from './activity-logger';
 /**
@@ -8,7 +8,7 @@ async function uploadWithRetry(path, file, attempts = 3) {
     let lastError = null;
     for (let i = 0; i < attempts; i++) {
         try {
-            const { data, error } = await supabase.storage
+            const { data, error } = await appDataClient.storage
                 .from('design-files')
                 .upload(path, file, {
                 cacheControl: '3600',
@@ -16,7 +16,7 @@ async function uploadWithRetry(path, file, attempts = 3) {
             });
             if (error)
                 throw error;
-            const { data: urlData } = supabase.storage
+            const { data: urlData } = appDataClient.storage
                 .from('design-files')
                 .getPublicUrl(data.path);
             return urlData.publicUrl;
@@ -81,7 +81,7 @@ export async function uploadDocument(orderId, file, type) {
  */
 export async function saveDesignFiles(orderId, fileData, designerNotes) {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         // Build design_files JSONB structure
         const designFiles = {
             renders: Object.entries(fileData.renders).map(([room, urls]) => ({
@@ -116,14 +116,14 @@ export async function saveDesignFiles(orderId, fileData, designerNotes) {
             (designFiles.shopping_list ? 1 : 0) +
             (designFiles.vendor_list ? 1 : 0);
         // Check if this is a revision (order status is revision_requested)
-        const { data: currentOrder } = await supabase
+        const { data: currentOrder } = await appDataClient
             .from('orders')
             .select('status')
             .eq('id', orderId)
             .single();
         const isRevision = currentOrder?.status === 'revision_requested';
         // Update order - cast to JSON for Supabase
-        const { error: updateError } = await supabase
+        const { error: updateError } = await appDataClient
             .from('orders')
             .update({
             design_files: JSON.parse(JSON.stringify(designFiles)),
@@ -137,7 +137,7 @@ export async function saveDesignFiles(orderId, fileData, designerNotes) {
         }
         // If this was a revision, reset design_approvals to pending for re-review
         if (isRevision) {
-            await supabase
+            await appDataClient
                 .from('design_approvals')
                 .update({
                 status: 'pending',
@@ -148,7 +148,7 @@ export async function saveDesignFiles(orderId, fileData, designerNotes) {
                 .eq('status', 'changes_requested');
         }
         // Log delivery
-        await supabase
+        await appDataClient
             .from('design_delivery_log')
             .insert([{
                 order_id: orderId,
@@ -158,7 +158,7 @@ export async function saveDesignFiles(orderId, fileData, designerNotes) {
                 customer_notified_at: new Date().toISOString(),
             }]);
         // Notify customer
-        const { data: order } = await supabase
+        const { data: order } = await appDataClient
             .from('orders')
             .select('user_id')
             .eq('id', orderId)
@@ -178,14 +178,14 @@ export async function saveDesignFiles(orderId, fileData, designerNotes) {
  */
 export async function saveDesignDelivery(orderId, designFiles, designerNotes) {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         // Count total files
         const filesCount = designFiles.renders.reduce((acc, r) => acc + r.files.length, 0) +
             (designFiles.budget ? 1 : 0) +
             (designFiles.shopping_list ? 1 : 0) +
             (designFiles.vendor_list ? 1 : 0);
         // Update order
-        const { error: updateError } = await supabase
+        const { error: updateError } = await appDataClient
             .from('orders')
             .update({
             design_files: JSON.parse(JSON.stringify(designFiles)),
@@ -198,7 +198,7 @@ export async function saveDesignDelivery(orderId, designFiles, designerNotes) {
             return { success: false, error: updateError.message };
         }
         // Log delivery
-        await supabase
+        await appDataClient
             .from('design_delivery_log')
             .insert([{
                 order_id: orderId,
@@ -208,7 +208,7 @@ export async function saveDesignDelivery(orderId, designFiles, designerNotes) {
                 customer_notified_at: new Date().toISOString(),
             }]);
         // Notify customer
-        const { data: order } = await supabase
+        const { data: order } = await appDataClient
             .from('orders')
             .select('user_id')
             .eq('id', orderId)
@@ -276,7 +276,7 @@ export function validateDocumentFile(file) {
  */
 export async function getDesignFiles(orderId) {
     try {
-        const { data } = await supabase
+        const { data } = await appDataClient
             .from('orders')
             .select('design_files')
             .eq('id', orderId)
@@ -289,3 +289,4 @@ export async function getDesignFiles(orderId) {
         return null;
     }
 }
+

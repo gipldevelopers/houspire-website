@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { supabase } from '@/integrations/supabase/client'
+import { appDataClient } from '@/lib/static-client'
 
 export function useProjectStatus(userId) {
   const [projects, setProjects] = useState([])
@@ -12,7 +12,7 @@ export function useProjectStatus(userId) {
       return
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await appDataClient
       .from('projects')
       .select('*')
       .eq('user_id', userId)
@@ -41,7 +41,7 @@ export function useProjectStatus(userId) {
 
     fetchProjects()
 
-    const subscription = supabase
+    const subscription = appDataClient
       .channel('projects_changes')
       .on(
         'postgres_changes',
@@ -69,3 +69,4 @@ export function useProjectStatus(userId) {
 
   return { projects, activeProject, loading, setActiveProject, refetch }
 }
+

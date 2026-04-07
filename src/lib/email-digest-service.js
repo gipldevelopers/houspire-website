@@ -1,4 +1,4 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 /**
  * Get digest data for user
  */
@@ -13,7 +13,7 @@ export async function getDigestData(userId, period) {
             startDate.setDate(startDate.getDate() - 7);
         }
         // Get user profile
-        const { data: profile } = await supabase
+        const { data: profile } = await appDataClient
             .from('profiles')
             .select('full_name')
             .eq('user_id', userId)
@@ -21,14 +21,14 @@ export async function getDigestData(userId, period) {
         if (!profile)
             return null;
         // Get new messages count
-        const { count: messagesCount } = await supabase
+        const { count: messagesCount } = await appDataClient
             .from('chat_messages')
             .select('id', { count: 'exact', head: true })
             .neq('sender_id', userId)
             .gte('created_at', startDate.toISOString())
             .lte('created_at', endDate.toISOString());
         // Get projects for this user
-        const { data: userProjects } = await supabase
+        const { data: userProjects } = await appDataClient
             .from('projects')
             .select('id')
             .eq('user_id', userId);
@@ -36,7 +36,7 @@ export async function getDigestData(userId, period) {
         // Get design updates (concepts)
         let designsCount = 0;
         if (projectIds.length > 0) {
-            const { count } = await supabase
+            const { count } = await appDataClient
                 .from('concepts')
                 .select('id', { count: 'exact', head: true })
                 .in('project_id', projectIds)
@@ -45,7 +45,7 @@ export async function getDigestData(userId, period) {
             designsCount = count || 0;
         }
         // Get order updates
-        const { data: orders } = await supabase
+        const { data: orders } = await appDataClient
             .from('orders')
             .select('id, order_number, status, updated_at')
             .eq('user_id', userId)
@@ -189,3 +189,4 @@ export function generateDigestHTML(data) {
 </html>
 `;
 }
+

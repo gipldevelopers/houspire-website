@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { SEOHead } from '@/components/SEOHead';
 import { useAuth } from '@/contexts/AuthContext';
-import { apiGet } from '@/lib/api';
+import { dataGet } from '@/lib/frontend-data';
 import { useToast } from '@/hooks/use-toast';
 import {
   Gift,
@@ -42,12 +42,12 @@ export default function Referrals() {
       setLoading(true);
       
       // Get referral stats
-      const referralData = await apiGet('/api/referrals');
+      const referralData = await dataGet('/referrals');
       setStats(referralData);
       setReferrals(referralData.referrals || []);
 
       // Get credits
-      const creditsData = await apiGet('/api/referrals/credits');
+      const creditsData = await dataGet('/referrals/credits');
       setCredits(creditsData.credits || []);
     } catch (error) {
       console.error('Error loading referral data:', error);
@@ -403,3 +403,5 @@ export default function Referrals() {
     </>
   );
 }
+
+

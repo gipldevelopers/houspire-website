@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Save, FileText, Loader2 } from 'lucide-react';
 export function AdminNotes({ projectId, initialNotes = '' }) {
@@ -14,7 +14,7 @@ export function AdminNotes({ projectId, initialNotes = '' }) {
         try {
             // Store notes in project_inputs or a separate admin_notes field
             // For now, we'll update project_inputs with admin notes
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('project_inputs')
                 .upsert({
                 project_id: projectId,
@@ -63,3 +63,4 @@ export function AdminNotes({ projectId, initialNotes = '' }) {
       </CardContent>
     </Card>);
 }
+

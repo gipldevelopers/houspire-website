@@ -6,7 +6,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Skeleton } from '@/components/ui/skeleton';
-import { apiGet } from '@/lib/api';
+import { dataGet } from '@/lib/frontend-data';
 import { useAuth } from '@/contexts/AuthContext';
 import {
   Rocket,
@@ -34,7 +34,7 @@ export function ActiveOrdersCard() {
 
   const fetchActiveOrders = async () => {
     try {
-      const data = await apiGet('/api/orders?status=paid,in_progress,design_ready,revision_requested&limit=5');
+      const data = await dataGet('/orders?status=paid,in_progress,design_ready,revision_requested&limit=5');
       setOrders(data || []);
     } catch (error) {
       console.error('Failed to fetch active orders:', error);
@@ -191,3 +191,5 @@ export function ActiveOrdersCard() {
     </Card>
   );
 }
+
+

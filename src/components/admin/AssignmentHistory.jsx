@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Badge } from '@/components/ui/badge';
 import { Avatar, AvatarFallback } from '@/components/ui/avatar';
 import { Skeleton } from '@/components/ui/skeleton';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { Clock, ArrowRight, Zap, User, RefreshCw, } from 'lucide-react';
 export function AssignmentHistory({ orderId }) {
     const [history, setHistory] = useState([]);
@@ -14,7 +14,7 @@ export function AssignmentHistory({ orderId }) {
         try {
             setLoading(true);
             // Fetch assignment logs
-            const { data: logs, error } = await supabase
+            const { data: logs, error } = await appDataClient
                 .from('assignment_log')
                 .select('*')
                 .eq('order_id', orderId)
@@ -29,7 +29,7 @@ export function AssignmentHistory({ orderId }) {
                 if (log.reassigned_from)
                     allDesignerIds.add(log.reassigned_from);
             });
-            const { data: designers } = await supabase
+            const { data: designers } = await appDataClient
                 .from('designer_profiles')
                 .select('id, display_name')
                 .in('id', Array.from(allDesignerIds));
@@ -143,3 +143,4 @@ export function AssignmentHistory({ orderId }) {
         })}
     </div>);
 }
+

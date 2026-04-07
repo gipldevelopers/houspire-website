@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { apiGet } from '@/lib/api';
+import { dataGet } from '@/lib/frontend-data';
 import { useToast } from '@/hooks/use-toast';
 import { downloadAllFiles } from '@/lib/downloadUtils';
 import {
@@ -50,10 +50,10 @@ export function PublishedContent({ projectId }) {
     try {
       // Fetch all published content in parallel
       const [contentData, budgetData, vendorsData, materialsData] = await Promise.all([
-        apiGet(`/api/projects/${projectId}/files?published=true`),
-        apiGet(`/api/projects/${projectId}/budget?published=true`),
-        apiGet(`/api/projects/${projectId}/vendors?published=true`),
-        apiGet(`/api/projects/${projectId}/materials?published=true`),
+        dataGet(`/projects/${projectId}/files?published=true`),
+        dataGet(`/projects/${projectId}/budget?published=true`),
+        dataGet(`/projects/${projectId}/vendors?published=true`),
+        dataGet(`/projects/${projectId}/materials?published=true`),
       ]);
 
       if (contentData) setContent(contentData);
@@ -421,3 +421,5 @@ export function PublishedContent({ projectId }) {
     </div>
   );
 }
+
+

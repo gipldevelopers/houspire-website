@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Gift, Phone, Loader2 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import { useExitIntent } from '@/hooks/useExitIntent';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 export function ExitIntentPopup({ enabled = true }) {
     const navigate = useNavigate();
     const { toast } = useToast();
@@ -37,7 +37,7 @@ export function ExitIntentPopup({ enabled = true }) {
             // Try to save email to newsletter subscribers
             // This might fail if table doesn't exist, but we still proceed
             try {
-                await supabase
+                await appDataClient
                     .from('newsletter_subscribers')
                     .upsert({
                     email: email.trim().toLowerCase(),
@@ -181,3 +181,4 @@ export function ExitIntentPopup({ enabled = true }) {
       </DialogContent>
     </Dialog>);
 }
+

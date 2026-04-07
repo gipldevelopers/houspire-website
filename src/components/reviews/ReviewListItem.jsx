@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { StarRating } from '@/components/StarRating';
 import { ThumbsUp, CheckCircle, MessageSquare, Flag, User } from 'lucide-react';
 import { formatDistanceToNow } from 'date-fns';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 export function ReviewListItem({ review, onImageClick }) {
@@ -31,7 +31,7 @@ export function ReviewListItem({ review, onImageClick }) {
         setVoting(true);
         try {
             if (hasVoted) {
-                const { error } = await supabase
+                const { error } = await appDataClient
                     .from('review_helpful_votes')
                     .delete()
                     .eq('review_id', review.id)
@@ -42,7 +42,7 @@ export function ReviewListItem({ review, onImageClick }) {
                 setHelpfulCount((prev) => prev - 1);
             }
             else {
-                const { error } = await supabase.from('review_helpful_votes').insert({
+                const { error } = await appDataClient.from('review_helpful_votes').insert({
                     review_id: review.id,
                     user_id: user.id,
                 });
@@ -127,3 +127,4 @@ export function ReviewListItem({ review, onImageClick }) {
       </Card>
     </motion.div>);
 }
+

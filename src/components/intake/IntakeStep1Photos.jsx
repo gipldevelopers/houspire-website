@@ -3,7 +3,7 @@ import { useDropzone } from 'react-dropzone';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Upload, X, Camera, AlertCircle, CheckCircle, Image as ImageIcon, FileText, Loader2, } from 'lucide-react';
 export function IntakeStep1Photos({ photos, floorPlan, onPhotosChange, onFloorPlanChange, projectId, }) {
@@ -26,14 +26,14 @@ export function IntakeStep1Photos({ photos, floorPlan, onPhotosChange, onFloorPl
                     continue;
                 }
                 const fileName = `${projectId}/${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-                const { error } = await supabase.storage
+                const { error } = await appDataClient.storage
                     .from('project-uploads')
                     .upload(fileName, file);
                 if (error) {
                     console.error('Upload error:', error);
                     continue;
                 }
-                const { data: urlData } = supabase.storage
+                const { data: urlData } = appDataClient.storage
                     .from('project-uploads')
                     .getPublicUrl(fileName);
                 uploadedUrls.push(urlData.publicUrl);
@@ -75,12 +75,12 @@ export function IntakeStep1Photos({ photos, floorPlan, onPhotosChange, onFloorPl
         setUploadingFloorPlan(true);
         try {
             const fileName = `${projectId}/floorplan_${Date.now()}_${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-            const { error } = await supabase.storage
+            const { error } = await appDataClient.storage
                 .from('project-uploads')
                 .upload(fileName, file);
             if (error)
                 throw error;
-            const { data: urlData } = supabase.storage
+            const { data: urlData } = appDataClient.storage
                 .from('project-uploads')
                 .getPublicUrl(fileName);
             onFloorPlanChange(urlData.publicUrl);
@@ -226,3 +226,4 @@ export function IntakeStep1Photos({ photos, floorPlan, onPhotosChange, onFloorPl
         </Card>)}
     </div>);
 }
+

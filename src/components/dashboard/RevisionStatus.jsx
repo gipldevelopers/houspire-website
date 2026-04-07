@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
-import { apiGet } from '@/lib/api';
+import { dataGet } from '@/lib/frontend-data';
 import { useAuth } from '@/contexts/AuthContext';
 import {
   RefreshCw,
@@ -31,7 +31,7 @@ export function RevisionStatus() {
 
   const fetchRevisions = async () => {
     try {
-      const data = await apiGet('/api/revision-requests?limit=5');
+      const data = await dataGet('/revision-requests?limit=5');
       setRevisions(data || []);
     } catch (error) {
       console.error('Failed to fetch revisions:', error);
@@ -143,3 +143,5 @@ export function RevisionStatus() {
     </Card>
   );
 }
+
+

@@ -1,4 +1,4 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 // Room and Style definitions for coverage matrix
 const ROOM_CODES = [
     { code: 'LR', dbValue: 'living_room', label: 'Living Room' },
@@ -78,7 +78,7 @@ function downloadJSON(data, filename) {
 // Export users to CSV
 export async function exportUsersToCSV() {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('profiles')
             .select('*')
             .order('created_at', { ascending: false });
@@ -107,7 +107,7 @@ export async function exportUsersToCSV() {
 // Export projects to CSV
 export async function exportProjectsToCSV() {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('projects')
             .select('*')
             .order('created_at', { ascending: false });
@@ -140,7 +140,7 @@ export async function exportProjectsToCSV() {
 // Export reviews to CSV
 export async function exportReviewsToCSV() {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('reviews')
             .select('*')
             .order('created_at', { ascending: false });
@@ -172,7 +172,7 @@ export async function exportReviewsToCSV() {
 export async function exportAnalyticsReport(startDate, endDate) {
     try {
         // Get projects in date range
-        const { data: projects, error: projectsError } = await supabase
+        const { data: projects, error: projectsError } = await appDataClient
             .from('projects')
             .select('*')
             .gte('created_at', startDate.toISOString())
@@ -181,7 +181,7 @@ export async function exportAnalyticsReport(startDate, endDate) {
         if (projectsError)
             throw projectsError;
         // Get payment transactions
-        const { data: payments, error: paymentsError } = await supabase
+        const { data: payments, error: paymentsError } = await appDataClient
             .from('payment_transactions')
             .select('*')
             .gte('created_at', startDate.toISOString())
@@ -221,7 +221,7 @@ export async function exportAnalyticsReport(startDate, endDate) {
 export async function exportGalleryCoverageMatrix() {
     try {
         // Fetch all room_type and style_primary from gallery_designs
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('gallery_designs')
             .select('room_type, style_primary');
         if (error)
@@ -294,3 +294,4 @@ export async function exportGalleryCoverageMatrix() {
         return { success: false, error: errorMessage };
     }
 }
+

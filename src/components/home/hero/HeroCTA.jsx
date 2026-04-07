@@ -18,7 +18,7 @@ export function HeroCTA() {
       <Button
         size="lg"
         onClick={() => router.push('/style-quiz')}
-        className="min-w-[200px] group px-8 py-4 text-lg h-auto shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)]"
+        className="min-w-[200px] group px-8 py-4 text-lg h-auto shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-300 ease-smooth"
       >
         Take the Free Style Quiz
         <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />

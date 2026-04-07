@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Badge } from '@/components/ui/badge';
 import { useAuth } from '@/contexts/AuthContext';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { Search, FileText, HelpCircle, ArrowRight, X, Clock, TrendingUp, Zap, Image, Star, Folder, Trash2, } from 'lucide-react';
 const pages = [
     { title: 'Dashboard', url: '/dashboard', description: 'Your projects' },
@@ -62,7 +62,7 @@ export function GlobalSearch({ isOpen, onClose }) {
         if (!user)
             return;
         try {
-            const { data, error } = await supabase.rpc('get_user_search_history', {
+            const { data, error } = await appDataClient.rpc('get_user_search_history', {
                 p_user_id: user.id,
                 p_limit: 5,
             });
@@ -76,7 +76,7 @@ export function GlobalSearch({ isOpen, onClose }) {
     };
     const fetchTrending = async () => {
         try {
-            const { data, error } = await supabase.rpc('get_trending_searches', {
+            const { data, error } = await appDataClient.rpc('get_trending_searches', {
                 p_limit: 5,
             });
             if (error)
@@ -91,7 +91,7 @@ export function GlobalSearch({ isOpen, onClose }) {
         if (query.length < 2)
             return;
         try {
-            const { data, error } = await supabase.rpc('get_search_suggestions', {
+            const { data, error } = await appDataClient.rpc('get_search_suggestions', {
                 p_partial_query: query,
                 p_limit: 5,
             });
@@ -138,7 +138,7 @@ export function GlobalSearch({ isOpen, onClose }) {
         if (user && query.length >= 3) {
             setLoading(true);
             try {
-                const { data, error } = await supabase.rpc('global_search', {
+                const { data, error } = await appDataClient.rpc('global_search', {
                     p_query: query,
                     p_limit: 5,
                     p_user_id: user.id,
@@ -197,7 +197,7 @@ export function GlobalSearch({ isOpen, onClose }) {
     const handleSelectSuggestion = async (suggestion) => {
         setQuery(suggestion);
         try {
-            await supabase.rpc('track_suggestion_click', {
+            await appDataClient.rpc('track_suggestion_click', {
                 p_suggestion: suggestion,
             });
         }
@@ -209,7 +209,7 @@ export function GlobalSearch({ isOpen, onClose }) {
         if (!user)
             return;
         try {
-            await supabase.rpc('clear_search_history', {
+            await appDataClient.rpc('clear_search_history', {
                 p_user_id: user.id,
             });
             setHistory([]);
@@ -417,3 +417,4 @@ export function GlobalSearch({ isOpen, onClose }) {
         </motion.div>)}
     </AnimatePresence>);
 }
+

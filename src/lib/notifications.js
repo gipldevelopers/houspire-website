@@ -1,7 +1,7 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 export async function sendNotification(payload) {
     try {
-        const { data, error } = await supabase.functions.invoke('send-notification', {
+        const { data, error } = await appDataClient.functions.invoke('send-notification', {
             body: payload,
         });
         if (error)
@@ -198,7 +198,7 @@ export const notificationHelpers = {
 // Email logging function
 export async function logEmail(params) {
     try {
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('email_logs')
             .insert([{
                 order_id: params.orderId || null,
@@ -219,3 +219,4 @@ export async function logEmail(params) {
         console.error('Email logging error:', error);
     }
 }
+

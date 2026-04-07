@@ -4,7 +4,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { CreditCard, FileText, Palette, MessageSquare, CheckCircle, Package, Clock, ArrowRight, AlertTriangle, TrendingUp, } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 const JOURNEY_PHASES = [
     { phase: 1, name: 'Payment', icon: CreditCard, description: 'Initial payment received' },
     { phase: 2, name: 'Intake', icon: FileText, description: 'Room details submitted' },
@@ -21,7 +21,7 @@ export function CustomerJourneyTracker({ projectId, currentPhase }) {
     }, [projectId]);
     const fetchJourneyEvents = async () => {
         setLoading(true);
-        const { data } = await supabase
+        const { data } = await appDataClient
             .from('workflow_events')
             .select('*')
             .eq('project_id', projectId)
@@ -133,3 +133,4 @@ export function CustomerJourneyTracker({ projectId, currentPhase }) {
         </Card>)}
     </div>);
 }
+

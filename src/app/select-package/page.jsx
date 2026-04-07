@@ -8,7 +8,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import Link from 'next/link';
 import { ArrowLeft, ArrowRight, Check, Sparkles, Home, Shield, Info, Clock } from 'lucide-react';
-import { apiGet } from '@/lib/api';
+import { dataGet, getStaticStyleBySlug } from '@/lib/frontend-data';
 import { useToast } from '@/hooks/use-toast';
 import { formatPrice } from '@/lib/utils';
 import { SEOHead } from '@/components/SEOHead';
@@ -34,12 +34,12 @@ function SelectPackageContent() {
 
   useEffect(() => {
     if (styleSlug && styleSlug !== styleName) {
-      fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/design-styles/${styleSlug}`)
-        .then((r) => r.ok ? r.json() : null)
-        .then((data) => data && setStyleName(data.name || ''))
-        .catch(() => {});
+      const style = getStaticStyleBySlug(styleSlug);
+      if (style) {
+        setStyleName(style.name || '');
+      }
     }
-  }, [styleSlug]);
+  }, [styleSlug, styleName]);
 
   useEffect(() => {
     if (packageSlug && packages.length > 0 && !selectedPackage) {
@@ -51,7 +51,7 @@ function SelectPackageContent() {
   const fetchPackages = async () => {
     try {
       setLoading(true);
-      const { packages: data } = await apiGet('/api/packages?limit=10');
+      const { packages: data } = await dataGet('/packages?limit=10');
       setPackages(data || []);
       if (packageSlug && (data || []).length > 0) {
         const pkg = (data || []).find((p) => p.slug === packageSlug);
@@ -372,3 +372,5 @@ function PackageCard({ pkg, index, selected, onSelect, vertical = false }) {
     </motion.div>
   );
 }
+
+

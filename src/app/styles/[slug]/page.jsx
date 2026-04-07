@@ -22,8 +22,7 @@ import {
   ChevronLeft,
   ChevronRight,
 } from 'lucide-react';
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || '';
+import { getStaticStyleBySlug } from '@/lib/frontend-data';
 
 export default function StyleSlugPage() {
   const params = useParams();
@@ -37,18 +36,14 @@ export default function StyleSlugPage() {
 
   useEffect(() => {
     if (!slug) return;
-    const url = `${API_BASE}/api/design-styles/${slug}`;
-    fetch(url)
-      .then((res) => {
-        if (res.status === 404) return null;
-        if (!res.ok) throw new Error('Failed to load style');
-        return res.json();
-      })
-      .then((data) => {
-        if (data) setStyle(data);
-      })
-      .catch(() => setStyle(null))
-      .finally(() => setLoading(false));
+    try {
+      const data = getStaticStyleBySlug(slug);
+      setStyle(data);
+    } catch {
+      setStyle(null);
+    } finally {
+      setLoading(false);
+    }
   }, [slug]);
 
   useEffect(() => {

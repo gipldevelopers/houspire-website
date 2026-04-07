@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
 import { Sparkles, Loader2 } from 'lucide-react'
-import { supabase } from '@/integrations/supabase/client'
+import { appDataClient } from '@/lib/static-client'
 import { formatText } from './types'
 import { SaveToBoardButton } from '@/components/inspiration/SaveToBoardButton'
 
@@ -49,7 +49,7 @@ export function RelatedDesigns({ currentDesign, onDesignClick }) {
       setLoading(true)
       
       try {
-        const { data: roomData } = await supabase
+        const { data: roomData } = await appDataClient
           .from('gallery_designs')
           .select('id, design_title, cover_image_url, room_type, style_primary, save_count')
           .eq('is_published', true)
@@ -57,7 +57,7 @@ export function RelatedDesigns({ currentDesign, onDesignClick }) {
           .neq('id', currentDesign.id)
           .limit(4)
 
-        const { data: styleData } = await supabase
+        const { data: styleData } = await appDataClient
           .from('gallery_designs')
           .select('id, design_title, cover_image_url, room_type, style_primary, save_count')
           .eq('is_published', true)
@@ -181,3 +181,4 @@ export function RelatedDesigns({ currentDesign, onDesignClick }) {
     </div>
   )
 }
+

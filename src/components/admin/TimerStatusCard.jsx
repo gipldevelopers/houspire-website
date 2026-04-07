@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Clock, Play, Pause, AlertTriangle } from 'lucide-react';
 export function TimerStatusCard({ project, onUpdate }) {
@@ -38,7 +38,7 @@ export function TimerStatusCard({ project, onUpdate }) {
         const runningSeconds = project.timer_started_at
             ? Math.floor((Date.now() - new Date(project.timer_started_at).getTime()) / 1000)
             : 0;
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('projects')
             .update({
             timer_status: 'paused',
@@ -53,7 +53,7 @@ export function TimerStatusCard({ project, onUpdate }) {
         }
     };
     const handleResumeTimer = async () => {
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('projects')
             .update({
             timer_status: 'running',
@@ -128,3 +128,4 @@ export function TimerStatusCard({ project, onUpdate }) {
         </div>)}
     </div>);
 }
+

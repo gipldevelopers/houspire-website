@@ -5,7 +5,7 @@ import { Check, ArrowRight, Sparkles, Shield } from 'lucide-react';
 import { motion, useInView } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { useRef, useEffect, useState } from 'react';
-import { apiGet } from '@/lib/api';
+import { dataGet } from '@/lib/frontend-data';
 import { Badge } from '@/components/ui/badge';
 
 const HIGHLIGHTED_SLUGS = ['starter', 'home-design', 'complete-home'];
@@ -20,7 +20,7 @@ export function HomePricingSection() {
   useEffect(() => {
     async function fetchPackages() {
       try {
-        const data = await apiGet('/api/packages');
+        const data = await dataGet('/packages');
         if (data) {
           setPackages(data);
         }
@@ -201,3 +201,5 @@ export function HomePricingSection() {
     </section>
   );
 }
+
+

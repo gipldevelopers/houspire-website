@@ -1,11 +1,11 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 export async function generateReferralCode(baseName) {
     const randomSuffix = Math.random().toString(36).substring(2, 6).toUpperCase();
     const cleanName = baseName.replace(/[^a-zA-Z0-9]/g, '').toUpperCase().substring(0, 6);
     return `${cleanName}${randomSuffix}`;
 }
 export async function getReferralStats(userId) {
-    const { data: codeData } = await supabase
+    const { data: codeData } = await appDataClient
         .from('referral_codes')
         .select('*')
         .eq('user_id', userId)
@@ -19,7 +19,7 @@ export async function getReferralStats(userId) {
             pendingReferrals: 0,
         };
     }
-    const { data: usageData } = await supabase
+    const { data: usageData } = await appDataClient
         .from('referral_usage')
         .select('status')
         .eq('referrer_user_id', userId);
@@ -37,7 +37,7 @@ export async function getReferralStats(userId) {
 }
 export async function applyReferralCode(code, userId) {
     // Find the referral code
-    const { data: codeData, error: codeError } = await supabase
+    const { data: codeData, error: codeError } = await appDataClient
         .from('referral_codes')
         .select('*')
         .eq('code', code.toUpperCase())
@@ -47,7 +47,7 @@ export async function applyReferralCode(code, userId) {
         return { success: false, discount: 0, error: 'Invalid referral code' };
     }
     // Check if user hasn't already used a referral code
-    const { data: existingUsage } = await supabase
+    const { data: existingUsage } = await appDataClient
         .from('referral_usage')
         .select('id')
         .eq('referred_user_id', userId)
@@ -60,7 +60,7 @@ export async function applyReferralCode(code, userId) {
         return { success: false, discount: 0, error: 'Cannot use your own referral code' };
     }
     // Create referral usage record
-    const { error: usageError } = await supabase
+    const { error: usageError } = await appDataClient
         .from('referral_usage')
         .insert({
         referral_code_id: codeData.id,
@@ -75,7 +75,7 @@ export async function applyReferralCode(code, userId) {
 }
 export async function completeReferral(referredUserId) {
     // Find the pending referral
-    const { data: usage } = await supabase
+    const { data: usage } = await appDataClient
         .from('referral_usage')
         .select('*')
         .eq('referred_user_id', referredUserId)
@@ -84,7 +84,7 @@ export async function completeReferral(referredUserId) {
     if (!usage)
         return;
     // Update status to completed
-    await supabase
+    await appDataClient
         .from('referral_usage')
         .update({
         status: 'completed',
@@ -92,7 +92,7 @@ export async function completeReferral(referredUserId) {
     })
         .eq('id', usage.id);
     // Add credit to referrer
-    await supabase
+    await appDataClient
         .from('user_credits')
         .insert({
         user_id: usage.referrer_user_id,
@@ -100,13 +100,13 @@ export async function completeReferral(referredUserId) {
         reason: 'Referral bonus',
     });
     // Update referral code total_referrals count
-    const { data: codeData } = await supabase
+    const { data: codeData } = await appDataClient
         .from('referral_codes')
         .select('total_referrals')
         .eq('id', usage.referral_code_id)
         .single();
     if (codeData) {
-        await supabase
+        await appDataClient
             .from('referral_codes')
             .update({
             total_referrals: (codeData.total_referrals || 0) + 1
@@ -114,3 +114,4 @@ export async function completeReferral(referredUserId) {
             .eq('id', usage.referral_code_id);
     }
 }
+

@@ -1,10 +1,10 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 /**
  * Get style preferences analytics
  */
 export async function getStylePreferences(days = 30) {
     try {
-        const { data, error } = await supabase.rpc('get_style_preferences_analytics', {
+        const { data, error } = await appDataClient.rpc('get_style_preferences_analytics', {
             p_days: days
         });
         if (error)
@@ -21,7 +21,7 @@ export async function getStylePreferences(days = 30) {
  */
 export async function getRoomTypeAnalytics(days = 30) {
     try {
-        const { data, error } = await supabase.rpc('get_room_type_analytics', {
+        const { data, error } = await appDataClient.rpc('get_room_type_analytics', {
             p_days: days
         });
         if (error)
@@ -38,7 +38,7 @@ export async function getRoomTypeAnalytics(days = 30) {
  */
 export async function getBudgetDistribution(days = 30) {
     try {
-        const { data, error } = await supabase.rpc('get_budget_distribution', {
+        const { data, error } = await appDataClient.rpc('get_budget_distribution', {
             p_days: days
         });
         if (error)
@@ -55,7 +55,7 @@ export async function getBudgetDistribution(days = 30) {
  */
 export async function getPopularAddons(days = 30) {
     try {
-        const { data, error } = await supabase.rpc('get_popular_addons_analytics', {
+        const { data, error } = await appDataClient.rpc('get_popular_addons_analytics', {
             p_days: days
         });
         if (error)
@@ -72,7 +72,7 @@ export async function getPopularAddons(days = 30) {
  */
 export async function getLocationAnalytics(days = 30) {
     try {
-        const { data, error } = await supabase.rpc('get_customer_location_analytics', {
+        const { data, error } = await appDataClient.rpc('get_customer_location_analytics', {
             p_days: days
         });
         if (error)
@@ -94,3 +94,4 @@ export function formatCurrency(value) {
         minimumFractionDigits: 0
     }).format(value);
 }
+

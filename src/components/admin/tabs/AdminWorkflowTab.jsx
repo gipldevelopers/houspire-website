@@ -6,7 +6,7 @@ import { Badge } from '@/components/ui/badge';
 import { Switch } from '@/components/ui/switch';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from '@/components/ui/table';
 import { Zap, Clock, Mail, MessageSquare, Bell, CheckCircle, Play, Settings, RefreshCw, Send, } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 export function AdminWorkflowTab({ projects, onRefresh }) {
     const { toast } = useToast();
@@ -18,7 +18,7 @@ export function AdminWorkflowTab({ projects, onRefresh }) {
     }, []);
     const fetchFollowups = async () => {
         setLoading(true);
-        const { data } = await supabase
+        const { data } = await appDataClient
             .from('followup_actions')
             .select('*')
             .order('scheduled_for', { ascending: true })
@@ -81,7 +81,7 @@ export function AdminWorkflowTab({ projects, onRefresh }) {
             title: 'Executing followup...',
             description: 'Sending notification to customer',
         });
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('followup_actions')
             .update({ status: 'executed', executed_at: new Date().toISOString() })
             .eq('id', id);
@@ -279,3 +279,4 @@ export function AdminWorkflowTab({ projects, onRefresh }) {
       </Card>
     </div>);
 }
+

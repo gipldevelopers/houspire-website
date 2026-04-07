@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { CheckCircle, Clock, Circle, Loader2, Calendar, ArrowRight, } from 'lucide-react';
 import { format } from 'date-fns';
 const phaseInfo = [
@@ -18,7 +18,7 @@ export function AdminProjectTimeline({ projectId, currentPhase }) {
         fetchEvents();
     }, [projectId]);
     const fetchEvents = async () => {
-        const { data } = await supabase
+        const { data } = await appDataClient
             .from('workflow_events')
             .select('*')
             .eq('project_id', projectId)
@@ -135,3 +135,4 @@ export function AdminProjectTimeline({ projectId, currentPhase }) {
         </Card>)}
     </div>);
 }
+

@@ -37,8 +37,8 @@ export async function registerPushNotification(userId) {
         });
         const subscriptionJSON = subscription.toJSON();
         // Save subscription to database
-        const { supabase } = await import('@/integrations/supabase/client');
-        const { error } = await supabase.rpc('register_push_subscription', {
+        const { appDataClient } = await import('@/lib/static-client');
+        const { error } = await appDataClient.rpc('register_push_subscription', {
             p_endpoint: subscriptionJSON.endpoint || '',
             p_p256dh_key: subscriptionJSON.keys?.p256dh || '',
             p_auth_key: subscriptionJSON.keys?.auth || '',
@@ -64,8 +64,8 @@ export async function unregisterPushNotification() {
         if (subscription) {
             await subscription.unsubscribe();
             // Remove from database
-            const { supabase } = await import('@/integrations/supabase/client');
-            await supabase.rpc('unregister_push_subscription', {
+            const { appDataClient } = await import('@/lib/static-client');
+            await appDataClient.rpc('unregister_push_subscription', {
                 p_endpoint: subscription.endpoint,
             });
         }
@@ -106,3 +106,5 @@ export function getPushPermissionStatus() {
     }
     return Notification.permission;
 }
+
+

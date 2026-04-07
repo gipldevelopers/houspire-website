@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { StarRating } from '@/components/StarRating';
 import { useAuth } from '@/contexts/AuthContext';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Send, CheckCircle } from 'lucide-react';
 import { z } from 'zod';
@@ -49,7 +49,7 @@ export function ReviewSubmitForm({ onSuccess, onCancel }) {
         setSubmitting(true);
         try {
             // Get user's first project or create a placeholder
-            const { data: projects } = await supabase
+            const { data: projects } = await appDataClient
                 .from('projects')
                 .select('id')
                 .eq('user_id', user.id)
@@ -64,7 +64,7 @@ export function ReviewSubmitForm({ onSuccess, onCancel }) {
                 setSubmitting(false);
                 return;
             }
-            const { error } = await supabase.from('reviews').insert({
+            const { error } = await appDataClient.from('reviews').insert({
                 project_id: projectId,
                 user_id: user.id,
                 rating,
@@ -150,3 +150,4 @@ export function ReviewSubmitForm({ onSuccess, onCancel }) {
       </div>
     </form>);
 }
+

@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Progress } from '@/components/ui/progress';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { Upload, FileText, Image as ImageIcon, Loader2, Trash2, Eye, } from 'lucide-react';
 const MAX_FLOOR_PLAN_SIZE = 10 * 1024 * 1024; // 10MB
 const MAX_REFERENCE_SIZE = 5 * 1024 * 1024; // 5MB
@@ -34,7 +34,7 @@ export default function OrderFileUpload({ orderId, floorPlanUrl, referenceImages
                 : `reference-${currentReferenceImages.length + 1}-${timestamp}.${extension}`;
             const filePath = `${orderId}/${fileName}`;
             // Upload to storage
-            const { data: uploadData, error: uploadError } = await supabase.storage
+            const { data: uploadData, error: uploadError } = await appDataClient.storage
                 .from('order-files')
                 .upload(filePath, file, {
                 cacheControl: '3600',
@@ -45,13 +45,13 @@ export default function OrderFileUpload({ orderId, floorPlanUrl, referenceImages
             // Simulate progress
             setUploadingFiles(prev => prev.map(f => f.id === uploadId ? { ...f, progress: 80 } : f));
             // Get public URL
-            const { data: urlData } = supabase.storage
+            const { data: urlData } = appDataClient.storage
                 .from('order-files')
                 .getPublicUrl(filePath);
             const fileUrl = urlData.publicUrl;
             // Update order record
             if (type === 'floor_plan') {
-                const { error: updateError } = await supabase
+                const { error: updateError } = await appDataClient
                     .from('orders')
                     .update({ floor_plan_url: fileUrl })
                     .eq('id', orderId);
@@ -60,7 +60,7 @@ export default function OrderFileUpload({ orderId, floorPlanUrl, referenceImages
             }
             else {
                 const newReferenceImages = [...currentReferenceImages, fileUrl];
-                const { error: updateError } = await supabase
+                const { error: updateError } = await appDataClient
                     .from('orders')
                     .update({ reference_images: newReferenceImages })
                     .eq('id', orderId);
@@ -157,7 +157,7 @@ export default function OrderFileUpload({ orderId, floorPlanUrl, referenceImages
         setIsDeleting(imageUrl);
         try {
             const newImages = currentReferenceImages.filter(url => url !== imageUrl);
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('orders')
                 .update({ reference_images: newImages })
                 .eq('id', orderId);
@@ -183,7 +183,7 @@ export default function OrderFileUpload({ orderId, floorPlanUrl, referenceImages
     const deleteFloorPlan = async () => {
         setIsDeleting('floor_plan');
         try {
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('orders')
                 .update({ floor_plan_url: null })
                 .eq('id', orderId);
@@ -320,3 +320,4 @@ export default function OrderFileUpload({ orderId, floorPlanUrl, referenceImages
       </div>
     </div>);
 }
+

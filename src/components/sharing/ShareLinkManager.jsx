@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Link2, Copy, Check, Eye, Download, Users, TrendingUp, X, AlertCircle, BarChart3, } from 'lucide-react';
 export function ShareLinkManager({ shareId, projectId, shareToken, expiresAt, isActive, onUpdate, }) {
@@ -19,7 +19,7 @@ export function ShareLinkManager({ shareId, projectId, shareToken, expiresAt, is
     }, [projectId]);
     const fetchAnalytics = async () => {
         try {
-            const { data, error } = await supabase.rpc('get_project_share_analytics', {
+            const { data, error } = await appDataClient.rpc('get_project_share_analytics', {
                 p_project_id: projectId,
             });
             if (error)
@@ -49,7 +49,7 @@ export function ShareLinkManager({ shareId, projectId, shareToken, expiresAt, is
             const days = parseInt(expiryDays);
             const newExpiry = new Date();
             newExpiry.setDate(newExpiry.getDate() + days);
-            const { data, error } = await supabase.rpc('update_share_expiry', {
+            const { data, error } = await appDataClient.rpc('update_share_expiry', {
                 p_share_id: shareId,
                 p_expires_at: newExpiry.toISOString(),
             });
@@ -76,7 +76,7 @@ export function ShareLinkManager({ shareId, projectId, shareToken, expiresAt, is
         if (!confirm('Deactivate this share link? It will no longer be accessible.'))
             return;
         try {
-            const { error } = await supabase.rpc('deactivate_share_link', {
+            const { error } = await appDataClient.rpc('deactivate_share_link', {
                 p_share_id: shareId,
             });
             if (error)
@@ -222,3 +222,4 @@ export function ShareLinkManager({ shareId, projectId, shareToken, expiresAt, is
       </CardContent>
     </Card>);
 }
+

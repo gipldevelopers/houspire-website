@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Plus, Trash2, Palette, Loader2, Save, Layers, CheckCircle, Send, } from 'lucide-react';
 export function AdminMaterialsManager({ projectId }) {
@@ -20,7 +20,7 @@ export function AdminMaterialsManager({ projectId }) {
     const fetchMaterials = async () => {
         setLoading(true);
         try {
-            const { data, error } = await supabase
+            const { data, error } = await appDataClient
                 .from('project_materials')
                 .select('*')
                 .eq('project_id', projectId)
@@ -65,7 +65,7 @@ export function AdminMaterialsManager({ projectId }) {
         const material = materials[index];
         if (material.id) {
             try {
-                const { error } = await supabase
+                const { error } = await appDataClient
                     .from('project_materials')
                     .delete()
                     .eq('id', material.id);
@@ -104,7 +104,7 @@ export function AdminMaterialsManager({ projectId }) {
                 };
                 if (material.id) {
                     // Update existing
-                    const { error } = await supabase
+                    const { error } = await appDataClient
                         .from('project_materials')
                         .update(materialData)
                         .eq('id', material.id);
@@ -113,7 +113,7 @@ export function AdminMaterialsManager({ projectId }) {
                 }
                 else {
                     // Insert new
-                    const { error } = await supabase
+                    const { error } = await appDataClient
                         .from('project_materials')
                         .insert(materialData);
                     if (error)
@@ -142,7 +142,7 @@ export function AdminMaterialsManager({ projectId }) {
     const handlePublish = async () => {
         setPublishing(true);
         try {
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('project_materials')
                 .update({
                 is_published: true,
@@ -265,3 +265,4 @@ export function AdminMaterialsManager({ projectId }) {
         </Card>)}
     </div>);
 }
+

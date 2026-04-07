@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { CheckCircle, ArrowRight, Circle } from 'lucide-react';
 const PHASES = [
@@ -22,7 +22,7 @@ export function ProjectStatusCard({ project, onUpdate }) {
             });
             return;
         }
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('projects')
             .update({
             current_phase: nextPhase,
@@ -37,7 +37,7 @@ export function ProjectStatusCard({ project, onUpdate }) {
             });
             onUpdate();
             // Send notification
-            await supabase.functions.invoke('send-notification', {
+            await appDataClient.functions.invoke('send-notification', {
                 body: {
                     type: 'phase_updated',
                     project_id: project.id,
@@ -47,7 +47,7 @@ export function ProjectStatusCard({ project, onUpdate }) {
         }
     };
     const handleMarkComplete = async () => {
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('projects')
             .update({
             current_phase: 6,
@@ -61,7 +61,7 @@ export function ProjectStatusCard({ project, onUpdate }) {
                 description: 'Customer will be notified',
             });
             onUpdate();
-            await supabase.functions.invoke('send-notification', {
+            await appDataClient.functions.invoke('send-notification', {
                 body: {
                     type: 'project_completed',
                     project_id: project.id,
@@ -110,3 +110,4 @@ export function ProjectStatusCard({ project, onUpdate }) {
       </div>
     </div>);
 }
+

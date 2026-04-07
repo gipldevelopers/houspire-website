@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { SEOHead } from '@/components/SEOHead';
-import { apiGet } from '@/lib/api';
+import { dataGet } from '@/lib/frontend-data';
 import { useToast } from '@/hooks/use-toast';
 import { Search, Sparkles } from 'lucide-react';
 
@@ -42,7 +42,7 @@ export default function Styles() {
   const fetchStyles = async () => {
     try {
       setLoading(true);
-      const { styles: stylesData } = await apiGet('/api/design-styles');
+      const { styles: stylesData } = await dataGet('/design-styles');
       setStyles(stylesData || []);
     } catch (error) {
       console.error('Error fetching styles:', error);
@@ -245,3 +245,5 @@ export default function Styles() {
     </>
   );
 }
+
+

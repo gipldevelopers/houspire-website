@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Checkbox } from '@/components/ui/checkbox';
-import { apiGet } from '@/lib/api';
+import { dataGet } from '@/lib/frontend-data';
 import { motion } from 'framer-motion';
 import { 
   ShoppingBag, 
@@ -32,11 +32,11 @@ export function ProjectShoppingTab({ project }) {
   const fetchProducts = async () => {
     try {
       // First get concepts for this project
-      const concepts = await apiGet(`/api/concepts?projectId=${project.id}`);
+      const concepts = await dataGet(`/concepts?projectId=${project.id}`);
       
       if (concepts && concepts.length > 0) {
         const conceptIds = concepts.map(c => c.id);
-        const data = await apiGet(`/api/concept-products?conceptIds=${conceptIds.join(',')}`);
+        const data = await dataGet(`/concept-products?conceptIds=${conceptIds.join(',')}`);
         setProducts(data || []);
       }
     } catch (error) {
@@ -276,3 +276,5 @@ export function ProjectShoppingTab({ project }) {
     </div>
   );
 }
+
+

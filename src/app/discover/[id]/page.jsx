@@ -10,8 +10,7 @@ import { Card } from '@/components/ui/card';
 import { Container } from '@/components/layout/Container';
 import { SEOHead } from '@/components/SEOHead';
 import { ArrowLeft, Share2, ChevronLeft, ChevronRight } from 'lucide-react';
-
-const API_BASE = process.env.NEXT_PUBLIC_API_URL || '';
+import { getStaticDesignById } from '@/lib/frontend-data';
 
 function formatLabel(text) {
   return (text || '').replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
@@ -27,17 +26,14 @@ export default function DiscoverDesignPage() {
 
   useEffect(() => {
     if (!id) return;
-    fetch(`${API_BASE}/api/gallery/${id}`)
-      .then((res) => {
-        if (res.status === 404) return null;
-        if (!res.ok) throw new Error('Failed to load design');
-        return res.json();
-      })
-      .then((data) => {
-        if (data) setDesign(data);
-      })
-      .catch(() => setDesign(null))
-      .finally(() => setLoading(false));
+    try {
+      const data = getStaticDesignById(id);
+      setDesign(data);
+    } catch {
+      setDesign(null);
+    } finally {
+      setLoading(false);
+    }
   }, [id]);
 
   useEffect(() => {

@@ -1,4 +1,4 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 /**
  * Calculate date range based on period
  */
@@ -28,7 +28,7 @@ export async function getOverviewMetrics(period) {
     try {
         const { start, end } = getDateRange(period);
         // Get orders for current period
-        const { data: currentOrders, error: currentError } = await supabase
+        const { data: currentOrders, error: currentError } = await appDataClient
             .from('orders')
             .select('final_price, created_at, status, user_id')
             .gte('created_at', start.toISOString())
@@ -39,7 +39,7 @@ export async function getOverviewMetrics(period) {
         const periodDays = Math.floor((end.getTime() - start.getTime()) / (1000 * 60 * 60 * 24));
         const prevStart = new Date(start);
         prevStart.setDate(prevStart.getDate() - periodDays);
-        const { data: prevOrders, error: prevError } = await supabase
+        const { data: prevOrders, error: prevError } = await appDataClient
             .from('orders')
             .select('final_price, created_at')
             .gte('created_at', prevStart.toISOString())
@@ -78,7 +78,7 @@ export async function getOverviewMetrics(period) {
 export async function getRevenueTrend(period) {
     try {
         const { start, end } = getDateRange(period);
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('orders')
             .select('final_price, created_at')
             .gte('created_at', start.toISOString())
@@ -121,7 +121,7 @@ export async function getRevenueTrend(period) {
 export async function getPackageDistribution(period) {
     try {
         const { start, end } = getDateRange(period);
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('orders')
             .select('package_name, final_price')
             .gte('created_at', start.toISOString())
@@ -160,7 +160,7 @@ export async function getPackageDistribution(period) {
 export async function getOrderStatusBreakdown(period) {
     try {
         const { start, end } = getDateRange(period);
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('orders')
             .select('status')
             .gte('created_at', start.toISOString())
@@ -194,7 +194,7 @@ export async function getOrderStatusBreakdown(period) {
 export async function getDesignerPerformance() {
     try {
         // Get designer profiles
-        const { data: designerData, error: designerError } = await supabase
+        const { data: designerData, error: designerError } = await appDataClient
             .from('designer_profiles')
             .select('id, full_name, rating, projects_completed')
             .eq('status', 'active')
@@ -204,7 +204,7 @@ export async function getDesignerPerformance() {
         // Get projects data for each designer
         const designers = await Promise.all((designerData || []).map(async (designer) => {
             // Get projects assigned to this designer
-            const { data: projects } = await supabase
+            const { data: projects } = await appDataClient
                 .from('projects')
                 .select('id, current_phase, total_paid')
                 .eq('designer_persona', designer.full_name);
@@ -234,7 +234,7 @@ export async function getDesignerPerformance() {
  */
 export async function getRecentActivity(limit = 10) {
     try {
-        const { data: orders, error } = await supabase
+        const { data: orders, error } = await appDataClient
             .from('orders')
             .select('id, order_number, status, final_price, created_at, package_name')
             .order('created_at', { ascending: false })
@@ -248,3 +248,4 @@ export async function getRecentActivity(limit = 10) {
         throw error;
     }
 }
+

@@ -1,4 +1,4 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 /**
  * Get recent platform activity for social proof
  */
@@ -7,7 +7,7 @@ export async function getRecentActivity() {
         const activities = [];
         const cities = ['Mumbai', 'Delhi', 'Bangalore', 'Chennai', 'Hyderabad', 'Pune', 'Kolkata', 'Ahmedabad', 'Jaipur', 'Lucknow'];
         // Get recent orders
-        const { data: orders } = await supabase
+        const { data: orders } = await appDataClient
             .from('orders')
             .select('id, created_at')
             .order('created_at', { ascending: false })
@@ -25,7 +25,7 @@ export async function getRecentActivity() {
             });
         });
         // Get recent reviews
-        const { data: reviews } = await supabase
+        const { data: reviews } = await appDataClient
             .from('reviews')
             .select('id, created_at, rating')
             .eq('published', true)
@@ -59,21 +59,21 @@ export async function getRecentActivity() {
 export async function getSiteStats() {
     try {
         // Total customers (profiles)
-        const { count: customersCount } = await supabase
+        const { count: customersCount } = await appDataClient
             .from('profiles')
             .select('*', { count: 'exact', head: true });
         // Total designs delivered (completed orders)
-        const { count: designsCount } = await supabase
+        const { count: designsCount } = await appDataClient
             .from('orders')
             .select('*', { count: 'exact', head: true })
             .eq('status', 'completed');
         // Active projects
-        const { count: activeCount } = await supabase
+        const { count: activeCount } = await appDataClient
             .from('orders')
             .select('*', { count: 'exact', head: true })
             .in('status', ['in_progress', 'design_ready', 'processing']);
         // Average rating
-        const { data: reviewData } = await supabase
+        const { data: reviewData } = await appDataClient
             .from('reviews')
             .select('rating')
             .eq('published', true);
@@ -112,3 +112,4 @@ function getTimeAgo(date) {
         return `${Math.floor(seconds / 86400)} days ago`;
     return date.toLocaleDateString();
 }
+

@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { apiPost } from '@/lib/api';
+import { dataPost } from '@/lib/frontend-data';
 import { Mail, ArrowLeft, CheckCircle, KeyRound, Home, Loader2 } from 'lucide-react';
 
 export default function ForgotPassword() {
@@ -33,7 +33,7 @@ export default function ForgotPassword() {
     setLoading(true);
 
     try {
-      await apiPost('/api/auth/forgot-password', { email });
+      await dataPost('/auth/forgot-password', { email });
 
       setEmailSent(true);
       toast({
@@ -263,3 +263,5 @@ export default function ForgotPassword() {
     </div>
   );
 }
+
+

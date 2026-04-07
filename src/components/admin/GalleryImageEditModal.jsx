@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter, DialogDescription, } from '@/components/ui/dialog';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Loader2, Wand2, RotateCcw } from 'lucide-react';
 import { ROOM_LABELS, STYLE_LABELS, BUDGET_LABELS } from '@/lib/houspireFilenameParser';
@@ -72,7 +72,7 @@ export function GalleryImageEditModal({ image, isOpen, onClose, onSave, }) {
                 body.style = formData.style_primary;
             }
             // Use the edge function to generate AI details
-            const { data, error } = await supabase.functions.invoke('generate-image-metadata', {
+            const { data, error } = await appDataClient.functions.invoke('generate-image-metadata', {
                 body,
             });
             if (error) {
@@ -125,7 +125,7 @@ export function GalleryImageEditModal({ image, isOpen, onClose, onSave, }) {
             return;
         setSaving(true);
         try {
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('gallery_designs')
                 .update({
                 design_title: formData.design_title,
@@ -315,3 +315,4 @@ export function GalleryImageEditModal({ image, isOpen, onClose, onSave, }) {
       </DialogContent>
     </Dialog>);
 }
+

@@ -1,6 +1,6 @@
 import jsPDF from 'jspdf';
 import autoTable from 'jspdf-autotable';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 /**
  * Calculate GST breakdown from total amount (inclusive of 18% GST)
  */
@@ -245,7 +245,7 @@ function createInvoicePDF(data) {
 export async function generateInvoice(orderId) {
     try {
         // Fetch order details
-        const { data: order, error } = await supabase
+        const { data: order, error } = await appDataClient
             .from('orders')
             .select('*')
             .eq('id', orderId)
@@ -311,7 +311,7 @@ export async function generateInvoice(orderId) {
 export async function saveInvoiceToStorage(orderId, pdfBlob) {
     try {
         // Get order number for filename
-        const { data: order } = await supabase
+        const { data: order } = await appDataClient
             .from('orders')
             .select('order_number')
             .eq('id', orderId)
@@ -321,7 +321,7 @@ export async function saveInvoiceToStorage(orderId, pdfBlob) {
         const fileName = `${order.order_number}.pdf`;
         const filePath = `${orderId}/${fileName}`;
         // Upload to Supabase Storage
-        const { error: uploadError } = await supabase.storage
+        const { error: uploadError } = await appDataClient.storage
             .from('invoices')
             .upload(filePath, pdfBlob, {
             contentType: 'application/pdf',
@@ -332,12 +332,12 @@ export async function saveInvoiceToStorage(orderId, pdfBlob) {
             // Continue without storage - invoice can still be generated on-demand
         }
         // Get public URL if upload succeeded
-        const { data: urlData } = supabase.storage
+        const { data: urlData } = appDataClient.storage
             .from('invoices')
             .getPublicUrl(filePath);
         const publicUrl = urlData?.publicUrl || '';
         // Update order with invoice details (cast to any for newly added columns)
-        await supabase
+        await appDataClient
             .from('orders')
             .update({
             invoice_number: `INV-${order.order_number}`,
@@ -375,7 +375,7 @@ export async function generateAndSaveInvoice(orderId) {
 export async function downloadInvoice(orderId) {
     try {
         // Get order for filename
-        const { data: order } = await supabase
+        const { data: order } = await appDataClient
             .from('orders')
             .select('order_number')
             .eq('id', orderId)
@@ -412,3 +412,4 @@ export async function printInvoice(orderId) {
         throw error;
     }
 }
+

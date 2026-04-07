@@ -5,7 +5,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Skeleton } from '@/components/ui/skeleton';
-import { apiGet } from '@/lib/api';
+import { dataGet } from '@/lib/frontend-data';
 import { useAuth } from '@/contexts/AuthContext';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
@@ -32,7 +32,7 @@ export function LiveTrackingBanner() {
     if (!user) return;
 
     try {
-      const orderData = await apiGet('/api/orders?status=paid,in_progress,design_ready,revision_requested&limit=3');
+      const orderData = await dataGet('/orders?status=paid,in_progress,design_ready,revision_requested&limit=3');
 
       if (!orderData || orderData.length === 0) {
         setOrders([]);
@@ -45,7 +45,7 @@ export function LiveTrackingBanner() {
         orderData.map(async (order) => {
           // Note: This would need an API endpoint for milestone counts
           // For now, we'll use placeholder values
-          const milestoneData = await apiGet(`/api/orders/${order.id}/milestones`).catch(() => ({ total: 0, completed: 0 }));
+          const milestoneData = await dataGet(`/orders/${order.id}/milestones`).catch(() => ({ total: 0, completed: 0 }));
           
           return {
             id: order.id,
@@ -218,3 +218,5 @@ export function LiveTrackingBanner() {
     </Card>
   );
 }
+
+

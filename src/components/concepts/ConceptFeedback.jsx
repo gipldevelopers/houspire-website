@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Star, Send, CheckCircle, Loader2 } from 'lucide-react';
 import { motion } from 'framer-motion';
@@ -35,7 +35,7 @@ export function ConceptFeedback({ conceptId, existingFeedback, existingRating, o
             return;
         }
         setLoading(true);
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('concepts')
             .update({
             user_rating: rating,
@@ -134,3 +134,4 @@ export function ConceptFeedback({ conceptId, existingFeedback, existingRating, o
       </Button>
     </div>);
 }
+

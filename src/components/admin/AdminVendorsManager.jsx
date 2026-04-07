@@ -4,7 +4,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Plus, Send, Trash2, Store, Phone, Mail, MapPin, User, Loader2, CheckCircle, } from 'lucide-react';
 export function AdminVendorsManager({ projectId }) {
@@ -30,7 +30,7 @@ export function AdminVendorsManager({ projectId }) {
     }, [projectId]);
     const fetchVendors = async () => {
         setLoading(true);
-        const { data } = await supabase
+        const { data } = await appDataClient
             .from('project_vendors')
             .select('*')
             .eq('project_id', projectId)
@@ -54,7 +54,7 @@ export function AdminVendorsManager({ projectId }) {
             return;
         }
         setSaving(true);
-        const { error } = await supabase.from('project_vendors').insert({
+        const { error } = await appDataClient.from('project_vendors').insert({
             project_id: projectId,
             name: newVendor.name,
             category: newVendor.category,
@@ -87,13 +87,13 @@ export function AdminVendorsManager({ projectId }) {
         setSaving(false);
     };
     const handleDeleteVendor = async (vendorId) => {
-        await supabase.from('project_vendors').delete().eq('id', vendorId);
+        await appDataClient.from('project_vendors').delete().eq('id', vendorId);
         toast({ title: 'Vendor deleted' });
         fetchVendors();
     };
     const handlePublish = async () => {
         setSaving(true);
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('project_vendors')
             .update({ is_published: true, published_at: new Date().toISOString() })
             .eq('project_id', projectId);
@@ -104,7 +104,7 @@ export function AdminVendorsManager({ projectId }) {
             });
             setPublished(true);
             try {
-                await supabase.functions.invoke('send-notification', {
+                await appDataClient.functions.invoke('send-notification', {
                     body: {
                         type: 'vendors_published',
                         project_id: projectId,
@@ -258,3 +258,4 @@ export function AdminVendorsManager({ projectId }) {
         </div>)}
     </div>);
 }
+

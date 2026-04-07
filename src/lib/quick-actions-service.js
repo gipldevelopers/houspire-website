@@ -1,15 +1,15 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 /**
  * Get pending quick actions for user
  */
 export async function getQuickActions() {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         if (!user)
             return [];
         const actions = [];
         // Get user's active orders (including payment_pending)
-        const { data: orders, error: ordersError } = await supabase
+        const { data: orders, error: ordersError } = await appDataClient
             .from('orders')
             .select('id, order_number, status, created_at, user_id')
             .eq('user_id', user.id)
@@ -19,7 +19,7 @@ export async function getQuickActions() {
             console.error('Error fetching orders:', ordersError);
         }
         // Get user's active projects
-        const { data: projects, error: projectsError } = await supabase
+        const { data: projects, error: projectsError } = await appDataClient
             .from('projects')
             .select('id, current_phase, created_at')
             .eq('user_id', user.id)
@@ -32,7 +32,7 @@ export async function getQuickActions() {
         const orderIds = (orders || []).map(o => o.id);
         let callBookings = [];
         if (orderIds.length > 0) {
-            const { data: calls } = await supabase
+            const { data: calls } = await appDataClient
                 .from('call_bookings')
                 .select('order_id, status')
                 .in('order_id', orderIds);
@@ -129,3 +129,4 @@ export async function getQuickActions() {
         return [];
     }
 }
+

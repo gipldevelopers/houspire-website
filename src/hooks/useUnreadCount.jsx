@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { getTotalUnreadCount } from '@/lib/chat-service'
-import { supabase } from '@/integrations/supabase/client'
+import { appDataClient } from '@/lib/static-client'
 
 export function useUnreadCount(isAdmin = false) {
   const [unreadCount, setUnreadCount] = useState(0)
@@ -9,7 +9,7 @@ export function useUnreadCount(isAdmin = false) {
   useEffect(() => {
     loadUnreadCount()
 
-    const channel = supabase
+    const channel = appDataClient
       .channel('unread-counts-global')
       .on(
         'postgres_changes',
@@ -27,7 +27,7 @@ export function useUnreadCount(isAdmin = false) {
     const interval = setInterval(loadUnreadCount, 30000)
 
     return () => {
-      supabase.removeChannel(channel)
+      appDataClient.removeChannel(channel)
       clearInterval(interval)
     }
   }, [isAdmin])
@@ -45,3 +45,4 @@ export function useUnreadCount(isAdmin = false) {
 
   return { unreadCount, loading, refresh: loadUnreadCount }
 }
+

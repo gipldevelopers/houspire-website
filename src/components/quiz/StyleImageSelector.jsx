@@ -7,7 +7,7 @@ import { SocialProofBadge } from './QuizSocialProof';
 import { QuizImagePreview, useLongPress } from './QuizImagePreview';
 import { useQuizKeyboardShortcuts, KeyboardShortcutHint } from '@/hooks/useQuizKeyboardShortcuts';
 import { useQuery } from '@tanstack/react-query';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { Skeleton } from '@/components/ui/skeleton';
 // Mapping from quiz IDs (underscores) to database slugs (hyphens)
 const STYLE_SLUG_MAP = {
@@ -94,7 +94,7 @@ export function StyleImageSelector({ answers, onNext, onBack }) {
     const { data: styleCovers } = useQuery({
         queryKey: ['design-style-covers'],
         queryFn: async () => {
-            const { data } = await supabase
+            const { data } = await appDataClient
                 .from('design_styles')
                 .select('slug, cover_image_url');
             return data || [];
@@ -273,3 +273,4 @@ function StyleCard({ style, imageUrl, index, isSelected, isDisabled, selectionOr
       </div>
     </motion.button>);
 }
+

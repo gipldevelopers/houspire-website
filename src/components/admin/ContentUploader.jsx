@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
 import { Upload, Eye, Trash2, Send, CheckCircle, Image, FileText, Loader2, } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 export function ContentUploader({ projectId, conceptId, bucket, contentType = 'render', acceptedTypes = ['image/*'], maxFiles = 10, title, description, onUploadComplete, }) {
     const { toast } = useToast();
@@ -20,7 +20,7 @@ export function ContentUploader({ projectId, conceptId, bucket, contentType = 'r
     }, [projectId, contentType]);
     const fetchExistingContent = async () => {
         setLoading(true);
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('project_content')
             .select('*')
             .eq('project_id', projectId)
@@ -49,14 +49,14 @@ export function ContentUploader({ projectId, conceptId, bucket, contentType = 'r
         for (const file of acceptedFiles) {
             try {
                 const fileName = `${projectId}/${contentType}/${Date.now()}_${file.name}`;
-                const { data: uploadData, error: uploadError } = await supabase.storage
+                const { data: uploadData, error: uploadError } = await appDataClient.storage
                     .from(bucket)
                     .upload(fileName, file);
                 if (uploadError)
                     throw uploadError;
-                const { data: urlData } = supabase.storage.from(bucket).getPublicUrl(fileName);
+                const { data: urlData } = appDataClient.storage.from(bucket).getPublicUrl(fileName);
                 // Save to project_content table
-                const { data: insertData, error: insertError } = await supabase
+                const { data: insertData, error: insertError } = await appDataClient
                     .from('project_content')
                     .insert({
                     project_id: projectId,
@@ -110,10 +110,10 @@ export function ContentUploader({ projectId, conceptId, bucket, contentType = 'r
             // Delete from storage
             const storagePath = file.url.split(`${bucket}/`)[1];
             if (storagePath) {
-                await supabase.storage.from(bucket).remove([storagePath]);
+                await appDataClient.storage.from(bucket).remove([storagePath]);
             }
             // Delete from database
-            await supabase.from('project_content').delete().eq('id', file.id);
+            await appDataClient.from('project_content').delete().eq('id', file.id);
             setFiles((prev) => prev.filter((f) => f.id !== file.id));
             toast({
                 title: 'Deleted',
@@ -130,7 +130,7 @@ export function ContentUploader({ projectId, conceptId, bucket, contentType = 'r
     };
     const handlePublish = async (file) => {
         try {
-            await supabase
+            await appDataClient
                 .from('project_content')
                 .update({
                 is_published: true,
@@ -156,7 +156,7 @@ export function ContentUploader({ projectId, conceptId, bucket, contentType = 'r
         if (unpublishedIds.length === 0)
             return;
         try {
-            await supabase
+            await appDataClient
                 .from('project_content')
                 .update({
                 is_published: true,
@@ -166,7 +166,7 @@ export function ContentUploader({ projectId, conceptId, bucket, contentType = 'r
             setFiles((prev) => prev.map((f) => ({ ...f, published: true })));
             // Send notification to customer
             try {
-                await supabase.functions.invoke('send-notification', {
+                await appDataClient.functions.invoke('send-notification', {
                     body: {
                         type: 'content_published',
                         project_id: projectId,
@@ -299,3 +299,4 @@ export function ContentUploader({ projectId, conceptId, bucket, contentType = 'r
         </div>)}
     </div>);
 }
+

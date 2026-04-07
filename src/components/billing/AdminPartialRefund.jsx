@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { DollarSign, AlertTriangle, Loader2 } from 'lucide-react';
 export function AdminPartialRefund({ payment, onSuccess }) {
@@ -42,7 +42,7 @@ export function AdminPartialRefund({ payment, onSuccess }) {
         }
         setProcessing(true);
         try {
-            const { data, error } = await supabase.rpc('process_partial_refund', {
+            const { data, error } = await appDataClient.rpc('process_partial_refund', {
                 p_payment_id: payment.id,
                 p_refund_amount: amount,
                 p_refund_reason: refundReason,
@@ -138,3 +138,4 @@ export function AdminPartialRefund({ payment, onSuccess }) {
       </CardContent>
     </Card>);
 }
+

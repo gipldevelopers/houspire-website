@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
-import { apiGet } from '@/lib/api';
+import { dataGet } from '@/lib/frontend-data';
 import { motion } from 'framer-motion';
 import JSZip from 'jszip';
 import { saveAs } from 'file-saver';
@@ -50,7 +50,7 @@ export function ProjectFilesTab({ project }) {
 
   const fetchFiles = async () => {
     try {
-      const data = await apiGet(`/api/projects/${project.id}/files?published=true`);
+      const data = await dataGet(`/projects/${project.id}/files?published=true`);
       setFiles(data || []);
     } catch (error) {
       console.error('Failed to fetch files:', error);
@@ -312,3 +312,5 @@ export function ProjectFilesTab({ project }) {
     </div>
   );
 }
+
+

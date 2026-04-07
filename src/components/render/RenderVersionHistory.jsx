@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Clock, Download, Eye, X, History } from 'lucide-react';
 export function RenderVersionHistory({ projectId, currentVersion = 1, className = '', }) {
@@ -16,7 +16,7 @@ export function RenderVersionHistory({ projectId, currentVersion = 1, className 
     }, [projectId]);
     const fetchVersions = async () => {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await appDataClient
                 .from('render_versions')
                 .select('*')
                 .eq('project_id', projectId)
@@ -158,3 +158,4 @@ export function RenderVersionHistory({ projectId, currentVersion = 1, className 
       </AnimatePresence>
     </Card>);
 }
+

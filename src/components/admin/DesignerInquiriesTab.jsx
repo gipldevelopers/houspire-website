@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
@@ -25,7 +25,7 @@ export function DesignerInquiriesTab() {
     }, []);
     const fetchInquiries = async () => {
         try {
-            const { data, error } = await supabase
+            const { data, error } = await appDataClient
                 .from('designer_inquiries')
                 .select(`
           *,
@@ -41,7 +41,7 @@ export function DesignerInquiriesTab() {
             // Fetch user profiles for logged-in users
             const inquiriesWithProfiles = await Promise.all((data || []).map(async (inquiry) => {
                 if (inquiry.user_id) {
-                    const { data: profile } = await supabase
+                    const { data: profile } = await appDataClient
                         .from('profiles')
                         .select('full_name')
                         .eq('user_id', inquiry.user_id)
@@ -68,7 +68,7 @@ export function DesignerInquiriesTab() {
             return;
         setSending(true);
         try {
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('designer_inquiries')
                 .update({
                 admin_response: responseText.trim(),
@@ -81,7 +81,7 @@ export function DesignerInquiriesTab() {
                 throw error;
             // Create in-app notification for logged-in users
             if (selectedInquiry.user_id) {
-                await supabase.rpc('create_in_app_notification', {
+                await appDataClient.rpc('create_in_app_notification', {
                     p_user_id: selectedInquiry.user_id,
                     p_type: 'info',
                     p_title: 'Designer Inquiry Response',
@@ -108,7 +108,7 @@ export function DesignerInquiriesTab() {
     };
     const handleUpdateStatus = async (inquiryId, newStatus) => {
         try {
-            const { error } = await supabase
+            const { error } = await appDataClient
                 .from('designer_inquiries')
                 .update({ status: newStatus })
                 .eq('id', inquiryId);
@@ -333,3 +333,4 @@ export function DesignerInquiriesTab() {
       </Dialog>
     </div>);
 }
+

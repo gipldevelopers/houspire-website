@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Mail, Send, Newspaper } from 'lucide-react';
 export function NewsletterSignup({ variant = 'inline' }) {
@@ -30,7 +30,7 @@ export function NewsletterSignup({ variant = 'inline' }) {
         }
         setLoading(true);
         try {
-            const { error } = await supabase.from('newsletter_subscribers').insert({
+            const { error } = await appDataClient.from('newsletter_subscribers').insert({
                 email,
                 name: name || null,
                 interests: interests.length > 0 ? interests : null,
@@ -160,3 +160,4 @@ export function NewsletterSignup({ variant = 'inline' }) {
       </form>
     </div>);
 }
+

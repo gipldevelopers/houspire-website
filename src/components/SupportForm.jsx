@@ -7,7 +7,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, } from
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from '@/components/ui/select';
 import { useToast } from '@/hooks/use-toast';
 import { useAuth } from '@/contexts/AuthContext';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { notificationHelpers } from '@/lib/notifications';
 import { trackEvents } from '@/lib/analytics';
 import { MessageCircle, Loader2, CheckCircle } from 'lucide-react';
@@ -47,7 +47,7 @@ export function SupportForm({ projectId, trigger }) {
         }
         setSubmitting(true);
         try {
-            const { data: ticket, error } = await supabase
+            const { data: ticket, error } = await appDataClient
                 .from('support_tickets')
                 .insert({
                 user_id: user.id,
@@ -156,3 +156,4 @@ export function SupportForm({ projectId, trigger }) {
       </DialogContent>
     </Dialog>);
 }
+

@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { supabase } from '@/integrations/supabase/client'
+import { appDataClient } from '@/lib/static-client'
 import { useAuth } from '@/contexts/AuthContext'
 import { useToast } from '@/hooks/use-toast'
 
@@ -20,7 +20,7 @@ export function useQuizResults() {
   const fetchQuizResults = async () => {
     if (!user) return
 
-    const { data, error } = await supabase
+    const { data, error } = await appDataClient
       .from('quiz_results')
       .select('*')
       .eq('user_id', user.id)
@@ -46,7 +46,7 @@ export function useQuizResults() {
 
     const styleScores = calculateStyleScores(answers)
 
-    const { data, error } = await supabase
+    const { data, error } = await appDataClient
       .from('quiz_results')
       .upsert({
         user_id: user.id,
@@ -71,7 +71,7 @@ export function useQuizResults() {
     }
 
     try {
-      await supabase.rpc('record_quiz_completion', {
+      await appDataClient.rpc('record_quiz_completion', {
         p_room_type: answers.lifestyle?.room_type || 'living_room',
         p_style_preference: answers.styles[0] || 'modern',
         p_budget_range: answers.budget,
@@ -88,7 +88,7 @@ export function useQuizResults() {
 
   const generateShareToken = useCallback(async (resultId) => {
     try {
-      const { data, error } = await supabase.rpc('generate_quiz_share_token', {
+      const { data, error } = await appDataClient.rpc('generate_quiz_share_token', {
         p_result_id: resultId,
       })
 
@@ -195,3 +195,4 @@ function calculateStyleScores(answers) {
 
   return scores
 }
+

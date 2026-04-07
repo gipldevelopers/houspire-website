@@ -6,7 +6,7 @@ import { Progress } from '@/components/ui/progress';
 import { Skeleton } from '@/components/ui/skeleton';
 import { CheckCircle2, Circle, Clock, AlertCircle, ArrowRight, Loader2 } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { toast } from 'sonner';
 import { getOrderMilestones, getCurrentMilestone, calculateProgress, getNextAction, getMilestoneDefinition, getOrderProgressState, applyOrderProgressState } from '@/lib/progress-tracker-service';
 export function OrderProgressTracker({ orderId, compact = false, className = '', onMilestoneChange }) {
@@ -43,7 +43,7 @@ export function OrderProgressTracker({ orderId, compact = false, className = '',
         setLoading(true);
         loadMilestones();
         // Real-time subscriptions for milestones + order status
-        const channel = supabase
+        const channel = appDataClient
             .channel(`order-tracking-${orderId}`)
             .on('postgres_changes', {
             event: '*',
@@ -65,7 +65,7 @@ export function OrderProgressTracker({ orderId, compact = false, className = '',
             setIsLive(status === 'SUBSCRIBED');
         });
         return () => {
-            supabase.removeChannel(channel);
+            appDataClient.removeChannel(channel);
         };
     }, [orderId]);
     if (loading) {
@@ -215,3 +215,4 @@ export function OrderProgressTracker({ orderId, compact = false, className = '',
       </div>
     </Card>);
 }
+

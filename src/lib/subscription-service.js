@@ -1,10 +1,10 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 /**
  * Get available subscription plans
  */
 export async function getSubscriptionPlans() {
     try {
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('subscription_plans')
             .select('*')
             .eq('is_active', true)
@@ -23,10 +23,10 @@ export async function getSubscriptionPlans() {
  */
 export async function getUserSubscription() {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         if (!user)
             return null;
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('user_subscriptions')
             .select('*, plan:subscription_plans(*)')
             .eq('user_id', user.id)
@@ -74,11 +74,11 @@ export async function getRemainingCredits() {
  */
 export async function createSubscription(planId, billingCycle) {
     try {
-        const { data: { user } } = await supabase.auth.getUser();
+        const { data: { user } } = await appDataClient.auth.getUser();
         if (!user)
             throw new Error('Not authenticated');
         // Get plan details
-        const { data: plan, error: planError } = await supabase
+        const { data: plan, error: planError } = await appDataClient
             .from('subscription_plans')
             .select('*')
             .eq('id', planId)
@@ -89,7 +89,7 @@ export async function createSubscription(planId, billingCycle) {
         const periodEnd = new Date();
         periodEnd.setMonth(periodEnd.getMonth() + (billingCycle === 'yearly' ? 12 : 1));
         // Create subscription record
-        const { data, error } = await supabase
+        const { data, error } = await appDataClient
             .from('user_subscriptions')
             .insert({
             user_id: user.id,
@@ -115,7 +115,7 @@ export async function createSubscription(planId, billingCycle) {
  */
 export async function cancelSubscription(subscriptionId, reason) {
     try {
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('user_subscriptions')
             .update({
             status: 'cancelled',
@@ -142,7 +142,7 @@ export async function useSubscriptionCredit(subscriptionId, creditsToUse = 1) {
             return false;
         if ((subscription.credits_remaining || 0) < creditsToUse)
             return false;
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('user_subscriptions')
             .update({
             credits_remaining: (subscription.credits_remaining || 0) - creditsToUse,
@@ -159,3 +159,4 @@ export async function useSubscriptionCredit(subscriptionId, creditsToUse = 1) {
         return false;
     }
 }
+

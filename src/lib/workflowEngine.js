@@ -1,4 +1,4 @@
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { analytics } from './analytics';
 // Workflow State Machine Definition
 export const WORKFLOW_STATES = {
@@ -226,7 +226,7 @@ export async function logWorkflowEvent(event) {
             trigger_event: event.trigger_event,
             metadata: event.metadata || {},
         };
-        const { error } = await supabase
+        const { error } = await appDataClient
             .from('workflow_events')
             .insert(insertData);
         if (error) {
@@ -247,7 +247,7 @@ export async function logWorkflowEvent(event) {
 export async function transitionWorkflow(projectId, userId, newPhase, trigger) {
     try {
         // Update project workflow phase
-        const { error: updateError } = await supabase
+        const { error: updateError } = await appDataClient
             .from('projects')
             .update({
             workflow_phase: newPhase,
@@ -274,3 +274,4 @@ export async function transitionWorkflow(projectId, userId, newPhase, trigger) {
         return false;
     }
 }
+

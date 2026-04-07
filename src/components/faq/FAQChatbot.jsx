@@ -21,8 +21,6 @@ import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
 import { SUGGESTED_QUESTIONS, FAQ_DATA, FAQ_CATEGORIES } from '@/lib/faqData'
 import ReactMarkdown from 'react-markdown'
-
-const CHAT_URL = '/api/faq-chat'
 const WHATSAPP_NUMBER = '919876543210'
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=Hi%20Houspire!%20I%20have%20a%20question.`
 
@@ -103,6 +101,20 @@ export function FAQChatbot() {
     return () => window.removeEventListener('keydown', handleEscape)
   }, [isOpen])
 
+  const getStaticFaqReply = useCallback((question) => {
+    const normalizedQuestion = question.toLowerCase()
+    const matchedFaq = FAQ_DATA.find((item) => {
+      const haystack = `${item.category} ${item.question} ${item.answer}`.toLowerCase()
+      return normalizedQuestion.split(/\s+/).some((word) => word.length > 3 && haystack.includes(word))
+    })
+
+    if (matchedFaq) {
+      return `**${matchedFaq.question}**\n\n${matchedFaq.answer}`
+    }
+
+    return `I can help with Houspire's packages, style quiz, delivery timeline, revisions, pricing, and support.\n\nTry asking about:\n- pricing\n- refunds\n- design styles\n- delivery timeline\n- revisions`
+  }, [])
+
   const streamChat = async (userMessage) => {
     setIsLoading(true)
     setError(null)
@@ -114,68 +126,9 @@ export function FAQChatbot() {
     setMessages((prev) => [...prev, { id: assistantId, role: 'assistant', content: '', timestamp: new Date() }])
 
     try {
-      const faqDataForAI = FAQ_DATA.map((item) => ({ category: item.category, question: item.question, answer: item.answer }))
-      const response = await fetch(CHAT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          messages: [...messages, newUserMessage].map((m) => ({ role: m.role, content: m.content })),
-          faqData: faqDataForAI,
-        }),
-      })
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}))
-        throw new Error(errorData.error || `Request failed with status ${response.status}`)
-      }
-      if (!response.body) throw new Error('No response body')
-
-      const reader = response.body.getReader()
-      const decoder = new TextDecoder()
-      let buffer = ''
-      while (true) {
-        const { done, value } = await reader.read()
-        if (done) break
-        buffer += decoder.decode(value, { stream: true })
-        let newlineIndex
-        while ((newlineIndex = buffer.indexOf('\n')) !== -1) {
-          let line = buffer.slice(0, newlineIndex)
-          buffer = buffer.slice(newlineIndex + 1)
-          if (line.endsWith('\r')) line = line.slice(0, -1)
-          if (line.startsWith(':') || line.trim() === '') continue
-          if (!line.startsWith('data: ')) continue
-          const jsonStr = line.slice(6).trim()
-          if (jsonStr === '[DONE]') break
-          try {
-            const parsed = JSON.parse(jsonStr)
-            const content = parsed.choices?.[0]?.delta?.content
-            if (content) {
-              assistantContent += content
-              setMessages((prev) => prev.map((m) => (m.id === assistantId ? { ...m, content: assistantContent } : m)))
-            }
-          } catch {
-            buffer = line + '\n' + buffer
-            break
-          }
-        }
-      }
-      if (buffer.trim()) {
-        for (let raw of buffer.split('\n')) {
-          if (!raw) continue
-          if (raw.endsWith('\r')) raw = raw.slice(0, -1)
-          if (raw.startsWith(':') || raw.trim() === '') continue
-          if (!raw.startsWith('data: ')) continue
-          const jsonStr = raw.slice(6).trim()
-          if (jsonStr === '[DONE]') continue
-          try {
-            const parsed = JSON.parse(jsonStr)
-            const content = parsed.choices?.[0]?.delta?.content
-            if (content) {
-              assistantContent += content
-              setMessages((prev) => prev.map((m) => (m.id === assistantId ? { ...m, content: assistantContent } : m)))
-            }
-          } catch {}
-        }
-      }
+      assistantContent = getStaticFaqReply(userMessage)
+      await new Promise((resolve) => setTimeout(resolve, 300))
+      setMessages((prev) => prev.map((m) => (m.id === assistantId ? { ...m, content: assistantContent } : m)))
       setShowFollowups(true)
     } catch (err) {
       console.error('Chat error:', err)

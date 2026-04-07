@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { StarRating } from '@/components/StarRating';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { ThumbsUp, MessageSquare, Flag, CheckCircle, Image as ImageIcon } from 'lucide-react';
@@ -33,7 +33,7 @@ export function ReviewCard({ review, isOwnReview = false, onImageClick }) {
         setVoting(true);
         try {
             if (hasVoted) {
-                const { error } = await supabase
+                const { error } = await appDataClient
                     .from('review_helpful_votes')
                     .delete()
                     .eq('review_id', review.id)
@@ -44,7 +44,7 @@ export function ReviewCard({ review, isOwnReview = false, onImageClick }) {
                 setHelpfulCount(prev => prev - 1);
             }
             else {
-                const { error } = await supabase.from('review_helpful_votes').insert({
+                const { error } = await appDataClient.from('review_helpful_votes').insert({
                     review_id: review.id,
                     user_id: user.id,
                 });
@@ -131,3 +131,4 @@ export function ReviewCard({ review, isOwnReview = false, onImageClick }) {
       </div>
     </Card>);
 }
+

@@ -8,7 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card } from '@/components/ui/card';
 import { useToast } from '@/hooks/use-toast';
-import { apiPost } from '@/lib/api';
+import { dataPost } from '@/lib/frontend-data';
 import { Lock, Eye, EyeOff, CheckCircle, AlertCircle, KeyRound, Loader2 } from 'lucide-react';
 
 import { Suspense } from 'react';
@@ -74,7 +74,7 @@ function ResetPasswordContent() {
     setLoading(true);
 
     try {
-      await apiPost('/api/auth/reset-password', {
+      await dataPost('/auth/reset-password', {
         token,
         password,
       });
@@ -279,3 +279,5 @@ export default function ResetPassword() {
     </Suspense>
   );
 }
+
+

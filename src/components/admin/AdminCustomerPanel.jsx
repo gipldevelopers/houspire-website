@@ -3,7 +3,7 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { User, Phone, MapPin, Calendar, MessageSquare, Send, Loader2, ExternalLink, } from 'lucide-react';
 import { format } from 'date-fns';
@@ -20,7 +20,7 @@ export function AdminCustomerPanel({ projectId, customer, project }) {
     const fetchCustomerData = async () => {
         // Fetch quiz results
         if (project?.user_id) {
-            const { data: quiz } = await supabase
+            const { data: quiz } = await appDataClient
                 .from('quiz_results')
                 .select('*')
                 .eq('user_id', project.user_id)
@@ -32,7 +32,7 @@ export function AdminCustomerPanel({ projectId, customer, project }) {
             }
         }
         // Fetch intake/project inputs
-        const { data: inputs } = await supabase
+        const { data: inputs } = await appDataClient
             .from('project_inputs')
             .select('*')
             .eq('project_id', projectId)
@@ -47,7 +47,7 @@ export function AdminCustomerPanel({ projectId, customer, project }) {
             return;
         setSending(true);
         try {
-            await supabase.functions.invoke('send-notification', {
+            await appDataClient.functions.invoke('send-notification', {
                 body: {
                     type: 'admin_message',
                     project_id: projectId,
@@ -223,3 +223,4 @@ export function AdminCustomerPanel({ projectId, customer, project }) {
         </Card>)}
     </div>);
 }
+

@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, } from '@/components/ui/select';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from '@/components/ui/table';
 import { Plus, Trash2, Save, Send, DollarSign, Package, Sofa, Lightbulb, PaintBucket, Hammer, ShoppingCart, } from 'lucide-react';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 const CATEGORIES = [
     { value: 'furniture', label: 'Furniture', icon: Sofa },
@@ -26,7 +26,7 @@ export function BudgetEditor({ projectId, conceptId }) {
     const fetchBudgetItems = async () => {
         setLoading(true);
         if (conceptId) {
-            const { data } = await supabase
+            const { data } = await appDataClient
                 .from('concept_products')
                 .select('*')
                 .eq('concept_id', conceptId)
@@ -76,9 +76,9 @@ export function BudgetEditor({ projectId, conceptId }) {
         }
         setSaving(true);
         // Delete existing items
-        await supabase.from('concept_products').delete().eq('concept_id', conceptId);
+        await appDataClient.from('concept_products').delete().eq('concept_id', conceptId);
         // Insert new items
-        const { error } = await supabase.from('concept_products').insert(items.map((item) => ({
+        const { error } = await appDataClient.from('concept_products').insert(items.map((item) => ({
             concept_id: conceptId,
             product_category: item.category,
             product_name: item.item_name,
@@ -108,7 +108,7 @@ export function BudgetEditor({ projectId, conceptId }) {
         await saveItems();
         // Send notification to customer
         try {
-            await supabase.functions.invoke('send-notification', {
+            await appDataClient.functions.invoke('send-notification', {
                 body: {
                     type: 'budget_ready',
                     project_id: projectId,
@@ -246,3 +246,4 @@ export function BudgetEditor({ projectId, conceptId }) {
       </Card>
     </div>);
 }
+

@@ -4,7 +4,7 @@ import { Card } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { supabase } from '@/integrations/supabase/client';
+import { appDataClient } from '@/lib/static-client';
 import { useToast } from '@/hooks/use-toast';
 import { Upload, Plus, X } from 'lucide-react';
 const styles = ['Modern', 'Contemporary', 'Traditional', 'Minimalist', 'Luxury', 'Bohemian'];
@@ -49,7 +49,7 @@ export function AdminUploadVariation({ projectId, onSuccess }) {
         setUploading(true);
         try {
             // Create variation
-            const { data: variationData, error: variationError } = await supabase
+            const { data: variationData, error: variationError } = await appDataClient
                 .from('design_variations')
                 .insert({
                 project_id: projectId,
@@ -67,15 +67,15 @@ export function AdminUploadVariation({ projectId, onSuccess }) {
                 const file = renders[i];
                 const fileName = `${Date.now()}-${file.name}`;
                 const filePath = `${projectId}/variations/${variationData.id}/${fileName}`;
-                const { error: uploadError } = await supabase.storage
+                const { error: uploadError } = await appDataClient.storage
                     .from('project-renders')
                     .upload(filePath, file);
                 if (uploadError)
                     throw uploadError;
-                const { data: urlData } = supabase.storage
+                const { data: urlData } = appDataClient.storage
                     .from('project-renders')
                     .getPublicUrl(filePath);
-                await supabase.from('variation_renders').insert({
+                await appDataClient.from('variation_renders').insert({
                     variation_id: variationData.id,
                     render_url: urlData.publicUrl,
                     view_name: file.name.replace(/\.[^/.]+$/, ''),
@@ -212,3 +212,4 @@ export function AdminUploadVariation({ projectId, onSuccess }) {
       </div>
     </Card>);
 }
+

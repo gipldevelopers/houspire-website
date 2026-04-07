@@ -11,7 +11,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useProjectStatus } from '@/hooks/useProjectStatus';
 import { useQuizResults } from '@/hooks/useQuizResults';
 import { DESIGNER_PERSONAS, ROOM_TYPES } from '@/lib/constants';
-import { apiGet } from '@/lib/api';
+import { dataGet } from '@/lib/frontend-data';
 import { motion } from 'framer-motion';
 import { DashboardSkeleton } from '@/components/skeletons';
 import { usePullToRefresh } from '@/hooks/usePullToRefresh';
@@ -114,7 +114,7 @@ function DashboardContent() {
     if (user) {
       const fetchProfile = async () => {
         try {
-          const { profile: profileData } = await apiGet('/api/profile');
+          const { profile: profileData } = await dataGet('/profile');
           setProfile(profileData);
         } catch (error) {
           console.error('Error fetching profile:', error);
@@ -488,3 +488,5 @@ export default function Dashboard() {
     </Suspense>
   );
 }
+
+
