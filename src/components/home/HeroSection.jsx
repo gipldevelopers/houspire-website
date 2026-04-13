@@ -177,11 +177,7 @@ export function HeroSection() {
                       What you’ll see in 3 days
                     </span>
                   </div>
-                  <div className="absolute top-4 right-4">
-                    <span className="inline-flex items-center rounded-full bg-black/50 backdrop-blur px-3 py-1 text-[10px] font-bold text-white uppercase tracking-wider">
-                      4K RENDER
-                    </span>
-                  </div>
+                  
                 </div>
 
                 <div className="mt-3 grid grid-cols-2 gap-3">
