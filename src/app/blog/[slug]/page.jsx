@@ -6,8 +6,9 @@ import { blogPosts, getBlogBySlug, getRelatedPosts } from "../blogData";
 export const generateStaticParams = () =>
   blogPosts.map((post) => ({ slug: post.slug }));
 
-export default function BlogDetailPage({ params }) {
-  const post = getBlogBySlug(params.slug);
+export default async function BlogDetailPage({ params }) {
+  const { slug } = await params;
+  const post = getBlogBySlug(slug);
 
   if (!post) {
     notFound();

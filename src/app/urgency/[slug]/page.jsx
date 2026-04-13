@@ -6,8 +6,8 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { getUrgencyStory, urgencyStories } from '@/lib/urgency';
 
-export default function UrgencyDetailPage({ params }) {
-  const slug = params?.slug;
+export default async function UrgencyDetailPage({ params }) {
+  const { slug } = await params;
   const story = getUrgencyStory(slug);
 
   if (!story) notFound();

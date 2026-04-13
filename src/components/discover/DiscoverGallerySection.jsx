@@ -61,13 +61,24 @@ function GalleryCtaBanner() {
 }
 
 const MOCK_DESIGNS = [
-  
+  {
+    id: 'mock-1',
+    design_title: 'Minimalist Japandi Living Room',
+    cover_image_url: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80',
+    room_type: 'living_room',
+    style_primary: 'minimalist',
+    budget_range: 'mid',
+    view_count: 1250,
+    save_count: 450,
+    is_featured: true,
+  },
   {
     id: 'mock-2',
     design_title: 'Modern Industrial Master Bedroom',
     cover_image_url: 'https://images.unsplash.com/photo-1616137422495-1e9e46e2aa77?auto=format&fit=crop&w=800&q=80',
     room_type: 'master_bedroom',
     style_primary: 'modern',
+    budget_range: 'premium',
     view_count: 890,
     save_count: 230,
     is_featured: false,
@@ -78,6 +89,7 @@ const MOCK_DESIGNS = [
     cover_image_url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=80',
     room_type: 'kitchen',
     style_primary: 'contemporary',
+    budget_range: 'luxury',
     view_count: 2100,
     save_count: 670,
     is_featured: true,
@@ -88,6 +100,7 @@ const MOCK_DESIGNS = [
     cover_image_url: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80',
     room_type: 'guest_bedroom',
     style_primary: 'bohemian',
+    budget_range: 'budget',
     view_count: 560,
     save_count: 120,
     is_featured: false,
@@ -98,6 +111,7 @@ const MOCK_DESIGNS = [
     cover_image_url: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80',
     room_type: 'home_office',
     style_primary: 'minimalist',
+    budget_range: 'mid',
     view_count: 1560,
     save_count: 340,
     is_featured: false,
@@ -108,17 +122,29 @@ const MOCK_DESIGNS = [
     cover_image_url: 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=800&q=80',
     room_type: 'dining_room',
     style_primary: 'traditional_indian',
+    budget_range: 'premium',
     view_count: 3400,
     save_count: 890,
     is_featured: true,
   },
-  
+  {
+    id: 'mock-7',
+    design_title: 'Scandinavian Kids Bedroom',
+    cover_image_url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
+    room_type: 'kids_bedroom',
+    style_primary: 'scandinavian',
+    budget_range: 'mid',
+    view_count: 1100,
+    save_count: 310,
+    is_featured: false,
+  },
   {
     id: 'mock-8',
     design_title: 'Industrial Style Library',
     cover_image_url: 'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=800&q=80',
     room_type: 'library',
     style_primary: 'industrial',
+    budget_range: 'premium',
     view_count: 1200,
     save_count: 430,
     is_featured: false,
@@ -166,10 +192,19 @@ export default function Discover() {
     totalCount: fetchedTotalCount,
   } = useGalleryPagination(filters)
 
-  // Use mock designs as fallback if nothing is found and not loading
+  // Apply local filtering to mock designs if no database results exist
   const designs = useMemo(() => {
-    if (!loading && fetchedDesigns.length === 0 && !searchQuery && selectedRoom === 'all' && selectedStyle === 'all' && selectedBudget === 'all') {
-      return MOCK_DESIGNS
+    if (!loading && fetchedDesigns.length === 0) {
+      return MOCK_DESIGNS.filter(d => {
+        const matchesRoom = selectedRoom === 'all' || d.room_type === selectedRoom
+        const matchesStyle = selectedStyle === 'all' || d.style_primary === selectedStyle
+        const matchesBudget = selectedBudget === 'all' || d.budget_range === selectedBudget
+        const matchesSearch = !searchQuery || 
+          d.design_title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+          d.room_type.toLowerCase().includes(searchQuery.toLowerCase())
+        
+        return matchesRoom && matchesStyle && matchesBudget && matchesSearch
+      })
     }
     return fetchedDesigns
   }, [fetchedDesigns, loading, searchQuery, selectedRoom, selectedStyle, selectedBudget])
