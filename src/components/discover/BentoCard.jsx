@@ -128,8 +128,17 @@ export function BentoCard({ design, index, onClick, isFocused = false, layout = 
             Housepire
           </div>
 
-          {/* Title Overlay - Bottom Left */}
-          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-foreground/80 via-foreground/20 to-transparent pt-12 transition-opacity duration-300">
+          {/* Title & CTA Overlay - Bottom Left */}
+          <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-5 z-30">
+             <h3 className="text-white text-base font-bold line-clamp-2 leading-tight mb-4">
+              {design.design_title}
+            </h3>
+            <button className="w-full bg-white text-primary text-xs font-black py-3 rounded-xl hover:bg-orange-500 hover:text-white transition-all shadow-xl uppercase tracking-wider">
+              Plan my home like this
+            </button>
+          </div>
+
+          <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-foreground/80 via-foreground/20 to-transparent pt-12 transition-opacity duration-300 group-hover:opacity-0">
              <h3 className="text-white text-sm font-bold line-clamp-2 drop-shadow-md leading-tight max-w-[80%]">
               {design.design_title}
             </h3>

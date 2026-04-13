@@ -223,11 +223,11 @@ export function GalleryPreviewSection() {
           className="mb-5 grid gap-4 lg:grid-cols-[1.1fr_0.9fr] lg:items-end"
         >
           <div>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">Inspiration Gallery</p>
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">Home discovery engine</p>
             <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl lg:text-5xl">
-              Stunning designs,
+              Explore homes designed 
               <br />
-              <span className="text-muted-foreground">real results.</span>
+              <span className="text-muted-foreground">with actual budgets</span>
             </h2>
           </div>
           <div className="lg:pl-8">

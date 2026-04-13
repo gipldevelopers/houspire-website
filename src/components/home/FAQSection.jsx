@@ -9,7 +9,7 @@ const ease = [0.25, 0.46, 0.45, 0.94];
 const faqs = [
   {
     q: 'What exactly do I receive?',
-    a: 'You get photorealistic 3D renders of your rooms from multiple angles, a detailed room-by-room budget breakdown with Good/Better/Best options, direct shopping links for every item, and a verified contractor shortlist in your city. Everything is delivered as a comprehensive PDF report within 72 hours.',
+    a: 'You get photorealistic 3D renders of your rooms from multiple angles, a detailed room-by-room budget breakdown with Good/Better/Best options, and direct shopping links for every item. Everything is delivered as a comprehensive digital home plan within 72 hours.',
   },
   {
     q: 'Is this AI-generated? Will it look generic?',
@@ -25,7 +25,7 @@ const faqs = [
   },
   {
     q: 'Do you work in my city?',
-    a: 'We currently operate in Hyderabad, Bangalore, Mumbai, Delhi, Pune, and Chennai. Our design services work for any location, and our vendor lists are curated specifically for each of these 6 cities. Expanding to more cities soon.',
+    a: 'Our design services work for any location across India. While we started in major metros, our digital reports provide everything you need—designs, budgets, and shopping links—to execute your project with any local team of your choice.',
   },
 ];
 

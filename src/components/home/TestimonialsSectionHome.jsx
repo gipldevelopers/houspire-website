@@ -2,72 +2,107 @@
 
 import { useRef } from 'react';
 import { motion } from 'framer-motion';
-import { Star } from 'lucide-react';
+import { Star, ArrowUpRight, MapPin } from 'lucide-react';
+import Link from 'next/link';
 
 const testimonials = [
   {
     stars: 5,
     quote: "We were about to sign with a designer who quoted ₹3.5 lakhs. Got Houspire's report for ₹6,999 and realized we were being overcharged on almost every line item. Saved us over ₹1.2 lakhs.",
     name: 'Priya & Arjun M.',
-    location: '3BHK, Whitefield, Bangalore',
+    location: 'Whitefield, Bangalore',
+    details: '3BHK Interior Plan',
+    image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=800',
+    slug: 'whitefield-3bhk'
   },
   {
     stars: 5,
     quote: 'The 3D renders looked exactly like the final result. My contractor used the shopping list directly — no confusion, no back-and-forth. Entire project done in 6 weeks.',
     name: 'Sneha R.',
-    location: '2BHK, Gachibowli, Hyderabad',
+    location: 'Gachibowli, Hyderabad',
+    details: '2BHK Minimalist Home',
+    image: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=800',
+    slug: 'gachibowli-2bhk'
   },
   {
     stars: 5,
     quote: 'I was skeptical about AI-generated designs. But the quality of the renders and the level of detail in the budget breakdown genuinely surprised me. Worth every rupee of the ₹999 plan.',
     name: 'Vikram T.',
-    location: '1BHK, Andheri West, Mumbai',
+    location: 'Andheri West, Mumbai',
+    details: '1BHK Studio Apartment',
+    image: 'https://images.unsplash.com/photo-1616137466211-f939a420be84?auto=format&fit=crop&q=80&w=800',
+    slug: 'andheri-1bhk'
   },
   {
     stars: 5,
     quote: 'We loved the clear shopping links and budget options. It made decisions much faster and avoided costly confusion.',
     name: 'Ritika S.',
-    location: '2BHK, Kharadi, Pune',
-  },
-  {
-    stars: 5,
-    quote: 'The plan felt practical from day one. We knew exactly what to buy, what to prioritize, and what to skip.',
-    name: 'Naveen K.',
-    location: '3BHK, Velachery, Chennai',
-  },
-  {
-    stars: 5,
-    quote: 'Best part was the transparency. We compared options quickly and completed execution without stressful back-and-forth.',
-    name: 'Farah N.',
-    location: '2BHK, Dwarka, Delhi',
+    location: 'Kharadi, Pune',
+    details: '2BHK Contemporary Living',
+    image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=800',
+    slug: 'kharadi-2bhk'
   },
 ];
 
-const singleRow = testimonials.slice(0, 6);
+const singleRow = testimonials;
 
 function ReviewCard({ item }) {
-  const initials = item.name
-    .split(' ')
-    .map((n) => n[0])
-    .join('')
-    .slice(0, 2)
-    .toUpperCase();
-
   return (
-    <article className="w-[290px] shrink-0 rounded-2xl border border-border/60 bg-card p-4 shadow-[0_8px_24px_rgba(0,0,0,0.08)] transition-transform duration-300 hover:-translate-y-1 md:w-[320px]">
-      <div className="mb-3 flex gap-1">
-        {Array.from({ length: item.stars }).map((_, i) => (
-          <Star key={i} className="h-4 w-4 fill-primary text-primary" />
-        ))}
-      </div>
-      <p className="line-clamp-4 min-h-[92px] text-[15px] leading-[1.55] text-foreground">"{item.quote}"</p>
-      <div className="mt-4 flex items-center gap-3">
-        <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-primary to-accent text-xs font-semibold text-white">
-          {initials}
+    <article className="w-[280px] shrink-0 overflow-hidden rounded-2xl border border-border/40 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:-translate-y-1.5 group md:w-[290px]">
+      {/* Home Image Container */}
+      <div className="relative aspect-[3/2] overflow-hidden">
+        <img 
+          src={item.image} 
+          alt={item.name} 
+          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-40" />
+        
+        {/* Project Link Overlay */}
+        <Link 
+          href={`/discover?q=${item.slug}`}
+          className="absolute bottom-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white text-primary shadow-xl opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 hover:bg-primary hover:text-white"
+        >
+          <ArrowUpRight className="h-4 w-4" />
+        </Link>
+
+        {/* Home Detail Badge */}
+        <div className="absolute top-3 left-3 rounded-full bg-white/30 backdrop-blur-md px-2.5 py-1 text-[9px] font-bold text-white uppercase tracking-widest border border-white/10">
+          {item.details}
         </div>
-        <div>
-          <p className="text-sm font-medium text-foreground">{item.name}</p>
-          <p className="text-xs text-muted-foreground">{item.location}</p>
+      </div>
+
+      <div className="p-5">
+        <div className="mb-3 flex gap-0.5">
+          {Array.from({ length: item.stars }).map((_, i) => (
+            <Star key={i} className="h-3 w-3 fill-primary text-primary" />
+          ))}
+        </div>
+        
+        <p className="mb-4 line-clamp-3 min-h-[60px] text-[14px] leading-relaxed text-foreground/80">
+          "{item.quote}"
+        </p>
+
+        <div className="flex items-center justify-between border-t border-border/40 pt-4">
+          <div className="flex items-center gap-2.5">
+             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary text-[10px] font-bold text-primary border border-primary/10">
+              {item.initials || item.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+            </div>
+            <div>
+              <p className="text-xs font-bold text-foreground">{item.name}</p>
+              <div className="flex items-center gap-1 text-[10px] text-muted-foreground font-medium">
+                <MapPin className="h-2.5 w-2.5" />
+                {item.location}
+              </div>
+            </div>
+          </div>
+          
+          <Link 
+            href={`/discover?q=${item.slug}`}
+            className="text-[9px] font-black uppercase tracking-widest text-primary hover:underline underline-offset-4 text-right leading-[1.1]"
+          >
+            Project<br />Detail
+          </Link>
         </div>
       </div>
     </article>
@@ -97,30 +132,26 @@ export function TestimonialsSectionHome() {
     if (!dragState.current.isDown || !scrollRef.current) return;
     e.preventDefault();
     const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - dragState.current.startX) * 1.2;
+    const walk = (x - dragState.current.startX) * 1.5;
     scrollRef.current.scrollLeft = dragState.current.scrollLeft - walk;
   };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-primary/10 via-primary/5 to-background py-8 md:py-10">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-32 top-16 h-72 w-72 rounded-full bg-primary/15 blur-3xl" />
-        <div className="absolute left-1/2 top-1/3 h-80 w-80 -translate-x-1/2 rounded-full bg-accent/10 blur-3xl" />
-        <div className="absolute -right-24 bottom-12 h-72 w-72 rounded-full bg-primary/12 blur-3xl" />
-      </div>
-
+    <section className="relative overflow-hidden bg-[#fffaf5] py-16 md:py-24">
       <div className="relative mx-auto max-w-[1400px] px-6 md:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, ease: 'easeOut' }}
-          className="mb-5 text-center md:mb-6"
+          className="mb-12 text-center md:mb-16"
         >
-          <p className="mb-3 text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">What Homeowners Say</p>
-          <h2 className="text-2xl font-semibold tracking-tight text-foreground md:text-4xl">200+ homes transformed.</h2>
-          <p className="mx-auto mt-2 max-w-2xl text-xs text-muted-foreground md:text-sm">
-            Real reviews from homeowners who used Houspire to plan, budget, and execute their interiors.
+
+          <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl mb-4">
+             From confusion to clarity <span className="text-primary italic">200+ homes</span> and counting
+          </h2>
+          <p className="mx-auto max-w-2xl text-sm text-muted-foreground/80 font-medium md:text-base">
+            Real reviews from homeowners who used Houspire to plan, budget, and execute their dream interiors without the stress.
           </p>
         </motion.div>
 
@@ -130,20 +161,19 @@ export function TestimonialsSectionHome() {
           onMouseLeave={onMouseLeave}
           onMouseUp={onMouseUp}
           onMouseMove={onMouseMove}
-          className="overflow-x-auto overflow-y-hidden scrollbar-hide pb-2 cursor-grab active:cursor-grabbing select-none"
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7, ease: 'easeOut' }}
+          className="overflow-x-auto overflow-y-hidden scrollbar-hide pb-10 cursor-grab active:cursor-grabbing select-none"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
         >
-          <div className="flex w-max gap-4">
+          <div className="flex w-max gap-5 px-6 md:px-12 lg:mx-auto lg:justify-center">
             {singleRow.map((item, idx) => (
               <motion.div
                 key={`row-${idx}`}
-                initial={{ opacity: 0, y: 18 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 0.5, ease: 'easeOut', delay: idx * 0.05 }}
+                initial={{ opacity: 0, x: 50 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
               >
                 <ReviewCard item={item} />
               </motion.div>

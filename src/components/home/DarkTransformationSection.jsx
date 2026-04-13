@@ -43,7 +43,7 @@ export function DarkTransformationSection() {
         {/* Top Label - Warm gray for better contrast on light orange */}
         <div className="text-center mb-2 md:mb-12">
           <p className="text-sm font-semibold tracking-[0.18em] uppercase text-[#6B4F3F]">
-            Transformation
+            From bare walls to fully designed before you spend a rupee
           </p>
         </div>
 
@@ -58,7 +58,7 @@ export function DarkTransformationSection() {
               className="lg:w-1/6 text-left"
             >
               <h2 className="text-[clamp(30px,3vw,48px)] font-bold tracking-[-0.03em] text-black">
-                From this.
+                Before
               </h2>
             </motion.div>
 
@@ -97,6 +97,9 @@ export function DarkTransformationSection() {
                   <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
                     <path d="M6 10L2 10M2 10L4.5 7.5M2 10L4.5 12.5M14 10L18 10M18 10L15.5 7.5M18 10L15.5 12.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
+                  <div className="absolute top-[120%] left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-bold uppercase tracking-widest text-[#6B4F3F] bg-white/80 backdrop-blur px-2 py-0.5 rounded-full shadow-sm">
+                    drag to reveal transformation
+                  </div>
                 </div>
               </div>
             </div>
@@ -108,7 +111,7 @@ export function DarkTransformationSection() {
               className="lg:w-1/6 text-right"
             >
               <h2 className="text-[clamp(30px,3vw,48px)] font-bold tracking-[-0.03em] text-black">
-                To this.
+                After
               </h2>
             </motion.div>
 
@@ -122,13 +125,13 @@ export function DarkTransformationSection() {
               onClick={() => router.push('/style-quiz')} 
               className="px-8 py-4 bg-[#ff8c42] text-white font-medium rounded-full hover:bg-[#ff6b1a] transition-colors shadow-md shadow-[#ff8c42]/30"
             >
-              Start with One Room →
+              Design my room
             </button>
             <button 
               onClick={() => router.push('/discover')} 
               className="px-8 py-4 border-2 border-[#ff8c42] text-[#ff8c42] font-medium rounded-full hover:bg-[#ff8c42] hover:text-white transition-colors"
             >
-              Explore Gallery
+              See more transformations
             </button>
           </div>
         </div>

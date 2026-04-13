@@ -8,32 +8,32 @@
   :root {
     color-scheme: light;
 
-    /* Houspire brand palette - Orange Theme */
+    /* Houspire brand palette - Premium Navy & Gold Theme */
     --background: 0 0% 100%;
-    --foreground: 210 29% 15%;
+    --foreground: 222 47% 11%;
     --card: 0 0% 100%;
-    --card-foreground: 210 29% 15%;
+    --card-foreground: 222 47% 11%;
     --popover: 0 0% 100%;
-    --popover-foreground: 210 29% 15%;
-    --primary: 28 96% 47%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 222 47% 11%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 210 29% 15%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 210 6% 47%;
-    --accent: 39 89% 50%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 240 2% 44%;
+    --accent: 38 43% 54%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
     --success: 145 63% 42%;
     --success-foreground: 0 0% 100%;
-    --warning: 30 90% 50%;
+    --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
-    --info: 28 96% 47%;
+    --info: 222 47% 11%;
     --info-foreground: 0 0% 100%;
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 28 96% 47%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 222 47% 11%;
     --radius: 0.75rem;
 
     --sidebar-background: 0 0% 98%;

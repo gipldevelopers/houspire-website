@@ -5,10 +5,10 @@ import { motion } from 'framer-motion';
 const ease = [0.25, 0.46, 0.45, 0.94];
 
 const steps = [
-  { num: '01', title: 'Upload your room', desc: 'Take a photo of your space. Any room, any condition.' },
-  { num: '02', title: 'Choose your style', desc: 'Modern, Scandinavian, Indian Contemporary — you decide.' },
-  { num: '03', title: 'Get your designs', desc: 'Photorealistic renders, itemized budgets, and contractor connections.' },
-  { num: '04', title: 'Start building', desc: 'Shop directly from your list. Connect with verified local pros.' },
+  { num: '01', title: 'Upload your room', desc: 'share a photo of your room or upload your layout' },
+  { num: '02', title: 'Choose your style', desc: 'Pick a style you actually love' },
+  { num: '03', title: 'See your home', desc: 'Designs, budgets that are commission free' },
+  { num: '04', title: 'Start building', desc: 'Clear lists. Everything you need. No guesswork.' },
 ];
 
 export function DarkHowItWorksSection() {
@@ -22,11 +22,11 @@ export function DarkHowItWorksSection() {
           viewport={{ once: true, amount: 0.2 }}
           className="text-center mb-16"
         >
-          <p className="text-sm font-semibold tracking-[0.04em] uppercase text-[#6E6E73] mb-3">How it works</p>
+          <p className="text-sm font-semibold tracking-[0.04em] uppercase text-muted-foreground mb-3">How it works</p>
           <h2 className="text-[clamp(36px,5vw,56px)] font-bold tracking-[-0.025em] leading-[1.07] text-[#1D1D1F]">
-            Four steps. That's it.
+            Plan your home in 4 steps
           </h2>
-          <p className="text-[21px] text-[#6E6E73] leading-[1.38] mt-2">From photo to finished plan in 72 hours.</p>
+          <p className="text-[21px] text-muted-foreground leading-[1.38] mt-2">Upload your space today. Get a complete home plan in 72 hours.</p>
         </motion.div>
 
         <div className="relative">
@@ -47,11 +47,11 @@ export function DarkHowItWorksSection() {
                 {i < steps.length - 1 && (
                   <div className="lg:hidden absolute left-1/2 -translate-x-1/2 top-[56px] h-[calc(100%+40px-56px)] w-[2px] bg-[#D2D2D7] -z-0" />
                 )}
-                <span className="inline-block text-[56px] font-bold text-[#E8662E] leading-none relative z-10 bg-white px-2">
+                <span className="inline-block text-[56px] font-bold text-primary leading-none relative z-10 bg-white px-2">
                   {s.num}
                 </span>
                 <h3 className="text-[20px] font-semibold text-[#1D1D1F] mt-4">{s.title}</h3>
-                <p className="text-[15px] text-[#6E6E73] leading-[1.47] mt-2 max-w-[220px] mx-auto">{s.desc}</p>
+                <p className="text-[14px] text-muted-foreground leading-[1.47] mt-2 max-w-[220px] mx-auto">{s.desc}</p>
               </motion.div>
             ))}
           </div>

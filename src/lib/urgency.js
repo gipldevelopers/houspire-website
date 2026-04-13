@@ -1,9 +1,11 @@
 export const urgencyStories = [
   {
     slug: 'contractor-ghosted',
-    title: 'My contractor vanished mid-renovation',
+    title: 'Contractor disappeared mid-project?',
+    problem_tag: 'Contractor vanished',
     summary:
-      'We rebuilt the plan, re-priced materials, and helped them restart with a verified shortlist â€” in 72 hours.',
+      'We rebuilt the plan, re-priced materials, and got execution back on track.',
+    cta_text: 'Fix my plan →',
     person: {
       name: 'Aarav',
       city: 'Bangalore',
@@ -30,9 +32,11 @@ export const urgencyStories = [
   },
   {
     slug: 'moving-in-soon',
-    title: 'Move-in date fixed, design not ready',
+    title: 'Moving in soon but design not ready?',
+    problem_tag: 'Design delays',
     summary:
-      'They had 2 weeks to move in. We delivered a ready-to-execute plan with shopping links and priorities.',
+      'We delivered a complete, ready-to-execute plan in 3 days.',
+    cta_text: 'Plan my home fast →',
     person: {
       name: 'Nisha',
       city: 'Hyderabad',
@@ -59,9 +63,11 @@ export const urgencyStories = [
   },
   {
     slug: 'budget-overrun',
-    title: 'Budget overrun before work even started',
+    title: 'Budget going out of control?',
+    problem_tag: 'Budget overruns',
     summary:
-      'We re-planned using smart alternates to keep the style, cut the cost, and keep quality where it matters.',
+      'We optimized costs without compromising your design vision.',
+    cta_text: 'Get cost clarity →',
     person: {
       name: 'Rohit',
       city: 'Mumbai',
@@ -78,7 +84,7 @@ export const urgencyStories = [
     whatWeDid: [
       'Created an itemized budget with transparent ranges',
       'Suggested alternates for high-cost items (finish, brand, size)',
-      'Kept a â€œnon-negotiablesâ€� list to protect quality',
+      'Kept a â€œnon-negotiablesâ€ list to protect quality',
     ],
     results: [
       'Got quotes back within budget using the same scope',
@@ -91,4 +97,3 @@ export const urgencyStories = [
 export function getUrgencyStory(slug) {
   return urgencyStories.find((s) => s.slug === slug) || null;
 }
-

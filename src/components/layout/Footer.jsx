@@ -55,11 +55,15 @@ export function Footer() {
     { name: 'Pricing', path: '/select-package' },
     { name: 'Gallery', path: '/discover' },
     { name: 'Style Quiz', path: HOUSPIRE_HOME_URL },
+    { name: 'Styles', path: '/styles' },
+    { name: 'Tools', path: '/tools' },
   ];
 
   const companyLinks = [
     { name: 'About', path: '/about' },
     { name: 'Reviews', path: '/reviews' },
+    { name: 'Blog', path: '/blog' },
+    { name: 'Refer & Earn', path: '/referrals' },
     { name: 'Help Center', path: '/help' },
     { name: 'Contact', path: '/contact' },
   ];
@@ -86,8 +90,8 @@ export function Footer() {
             <Link href="/" className="inline-block">
               <img src={LOGO_SRC} alt="Houspire" className="h-7 w-auto object-contain" />
             </Link>
-            <p className="mt-3 text-muted-foreground text-sm leading-relaxed max-w-xs">
-              Professional design intelligence for Indian homeowners. Photorealistic room designs, itemized budgets, and verified contractors — delivered in 72 hours.
+            <p className="mt-4 text-muted-foreground text-sm leading-relaxed max-w-sm font-medium">
+              Photorealistic designs, itemized budgets, and clear execution plans delivered in 72 hours.
             </p>
 
             <div className="flex gap-3 mt-5">
@@ -119,11 +123,11 @@ export function Footer() {
             </h4>
             <a
               href={HOUSPIRE_HOME_URL}
-              className="w-full sm:w-auto inline-flex items-center justify-center px-4 py-2.5 text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 rounded-full shadow-lg shadow-primary/20 transition-all duration-300"
+              className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 text-sm font-black bg-[#E8662E] text-white hover:bg-[#D45A1F] rounded-full shadow-lg shadow-orange-500/20 transition-all duration-300"
             >
-              Take Style Quiz
+              Start my home plan
             </a>
-            <p className="mt-4 text-xs text-muted-foreground">Free • 2 minutes • No signup required</p>
+            <p className="mt-4 text-xs text-muted-foreground">Expert curation · Transparency · Speed</p>
           </div>
 
           <div className="md:hidden space-y-3">

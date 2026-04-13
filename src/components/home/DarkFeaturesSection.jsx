@@ -9,31 +9,35 @@ const ease = [0.25, 0.46, 0.45, 0.94];
 const cards = [
   {
     icon: ImageIcon,
-    title: '4K Room Designs',
-    subtitle: 'Your rooms. Your style. Photorealistic.',
+    title: 'See your actual home 3D designs',
+    subtitle: 'No guesswork. No surprises.',
     image: '/styles/japanese-zen/portfolio-4-dining-room.png',
     scrollTo: 'transformation',
+    cta: 'Start your design',
   },
   {
     icon: IndianRupee,
-    title: 'Budget Breakdown',
-    subtitle: 'Good. Better. Best. Every item itemized.',
+    title: 'Know exactly what your home will cost-before you start',
+    subtitle: 'No hidden charges. No last-minute shocks.',
     image: '/styles/japanese-zen/portfolio-5-bathroom.png',
     scrollTo: 'budget-estimator',
+    cta: 'Plan your budget',
   },
   {
     icon: ShoppingBag,
-    title: 'Shopping Lists',
-    subtitle: 'Direct purchase links for every piece.',
+    title: 'Buy exactly what you see',
+    subtitle: 'No hunting, no confusion, no mismatches',
     image: '/styles/traditional-indian/portfolio-7-kids-bedroom.png',
     scrollTo: 'pricing',
+    cta: 'Explore shopping list',
   },
   {
     icon: Users,
-    title: 'Verified Contractors',
-    subtitle: 'Trusted local professionals in your city.',
+    title: 'Buy from the right people from day one',
+    subtitle: 'No trial and error. Save time',
     image: '/styles/japanese-zen/portfolio-6-home-office.png',
     scrollTo: 'pricing',
+    cta: 'Meet your vendors',
   },
 ];
 
@@ -66,12 +70,12 @@ export function DarkFeaturesSection() {
           </div>
 
           <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.05] text-[#1D1D1F]">
-            Everything you need.
-            <span className="block text-[#6E6E73] font-medium">Nothing you don't.</span>
+            Design, budget, and execution clarity
+            <span className="block text-[#6E6E73] font-medium">in just 3 days</span>
           </h2>
 
           <p className="mt-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
-            A clean, transparent package to design and execute your home with confidence.
+            Here’s how you go from confusion → clarity → execution
           </p>
         </motion.div>
 
@@ -93,7 +97,8 @@ export function DarkFeaturesSection() {
                   className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.05]"
                   loading="lazy"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                <div className="absolute inset-0 bg-black/20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-black/40" />
               </div>
 
               <div className="relative flex min-h-[320px] flex-col justify-between p-6">
@@ -107,7 +112,7 @@ export function DarkFeaturesSection() {
                 </div>
 
                 <div className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-white">
-                  Get started
+                  {card.cta}
                   <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
                 </div>
               </div>

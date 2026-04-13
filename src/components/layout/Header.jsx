@@ -70,25 +70,10 @@ export function Header() {
   };
 
   const navLinks = [
-    { name: 'About', path: '/aboutus' },
-    { name: 'Gallery', path: '/discover' },
-    { name: 'Blog', path: '/blog' },
-    { name: 'Styles', path: '/styles' },
     { name: 'How it works', path: '/how-it-works' },
-    { 
-      name: 'Tools', 
-      path: '/tools',
-      activeMatch: [
-        '/tools',
-        '/style-quiz',
-        '/budget-calculator',
-        '/boq-viewer',
-        '/material-guide',
-        '/timeline-estimator',
-      ],
-    },
-    { name: 'Contact', path: '/contact' },
-    { name: 'Refer & Earn', path: '/referrals' },
+    { name: 'Gallery', path: '/discover' },
+    { name: 'Pricing', path: '/select-package' },
+    { name: 'About', path: '/aboutus' },
   ];
 
   // Check if banner is visible (not dismissed this session)

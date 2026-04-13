@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowRight, Clock } from 'lucide-react';
+import { ArrowRight, Clock, AlertCircle, CheckCircle2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { urgencyStories } from '@/lib/urgency';
@@ -8,66 +8,82 @@ export function UrgencyPreviewSection() {
   const stories = urgencyStories.slice(0, 3);
 
   return (
-    <section id="urgency" className="bg-white py-[56px] md:py-[72px]">
+    <section id="urgency" className="bg-[#f8fafc] py-16 md:py-24">
       <div className="mx-auto max-w-[1400px] px-6">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-10">
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
           <div>
-            <p className="text-sm font-semibold tracking-[0.04em] uppercase text-[#6E6E73]">
-              In a rush?
-            </p>
-            <h2 className="text-[clamp(30px,4vw,44px)] font-bold tracking-[-0.025em] leading-[1.1] text-[#1D1D1F] mt-2">
-              Urgent home decisions, solved fast.
+            <div className="flex items-center gap-2 mb-4">
+              <span className="h-2 w-2 rounded-full bg-orange-500 shadow-[0_0_12px_rgba(249,115,22,0.5)]" />
+              <span className="text-[11px] font-black uppercase tracking-[0.2em] text-orange-500">
+                Fixed in 72 hours
+              </span>
+            </div>
+            <h2 className="text-[clamp(32px,5vw,52px)] font-black tracking-[-0.03em] leading-[1.05] text-[#1D1D1F]">
+              Real stories from homeowners
             </h2>
-            <p className="text-[17px] text-[#6E6E73] leading-[1.5] mt-3 max-w-[62ch]">
-              Real stories from homeowners who needed clarity quickly â€” scope, budgets, and a plan you can execute.
+            <p className="text-lg text-[#6E6E73] font-medium leading-[1.5] mt-4 max-w-[55ch]">
+              From contractor ghosts to budget nightmares, we provide the clarity you need to finish your home without the stress.
             </p>
           </div>
 
-          <Button asChild variant="outline" className="rounded-full h-11 px-6 w-fit">
+          <Button asChild variant="ghost" className="rounded-full h-12 px-6 w-fit text-primary font-bold hover:bg-primary/5 group">
             <Link href="/urgency">
               See all stories
-              <ArrowRight className="ml-2 h-4 w-4" />
+              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
             </Link>
           </Button>
         </div>
 
-        <div className="grid gap-4 md:grid-cols-3">
+        <div className="grid gap-6 md:grid-cols-3">
           {stories.map((story) => (
             <Link
               key={story.slug}
               href={`/urgency/${story.slug}`}
-              className="group rounded-2xl overflow-hidden border border-black/[0.08] bg-white hover:shadow-[0_18px_60px_rgba(0,0,0,0.10)] transition-shadow"
+              className="group flex flex-col rounded-[2rem] overflow-hidden border border-black/[0.05] bg-white hover:shadow-[0_24px_48px_rgba(0,0,0,0.08)] transition-all duration-500"
             >
-              <div className="relative aspect-[16/10] bg-[#F5F5F7] overflow-hidden">
+              <div className="relative aspect-[16/11] bg-[#F5F5F7] overflow-hidden">
                 <img
                   src={story.image || '/placeholder.svg'}
                   alt={story.title}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                  className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                   loading="lazy"
                 />
-                <div className="absolute top-4 left-4 flex gap-2">
-                  <Badge className="bg-white/90 text-[#1D1D1F] border border-black/10 backdrop-blur">
-                    Urgency
-                  </Badge>
-                  <Badge variant="secondary" className="bg-black/70 text-white border-0 backdrop-blur">
-                    <Clock className="h-3 w-3 mr-1" />
-                    {story.delivery}
-                  </Badge>
+                
+                {/* Floating Tags */}
+                <div className="absolute top-4 left-4 right-4 flex flex-col gap-2 pointer-events-none">
+                  <div className="inline-flex items-center w-fit bg-red-600 text-white text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg shadow-lg">
+                    Problem: {story.problem_tag}
+                  </div>
+                  <div className="inline-flex items-center w-fit bg-white/95 backdrop-blur text-green-600 text-[10px] font-black uppercase tracking-widest px-3 py-1.5 rounded-lg shadow-lg border border-green-100">
+                    <CheckCircle2 className="h-3 w-3 mr-1.5" />
+                    Solved in 72 hours
+                  </div>
                 </div>
               </div>
 
-              <div className="p-5">
-                <p className="text-xs text-[#6E6E73] mb-2">
-                  {story.person.name} â€¢ {story.person.city} â€¢ {story.person.homeType}
-                </p>
-                <h3 className="text-lg font-semibold text-[#1D1D1F] leading-snug">
+              <div className="p-7 flex flex-col flex-1">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="h-1 w-1 rounded-full bg-orange-500" />
+                  <p className="text-[11px] font-bold text-[#6E6E73] uppercase tracking-widest">
+                    {story.person.name} • {story.person.city}
+                  </p>
+                </div>
+                
+                <h3 className="text-xl font-bold text-[#1D1D1F] leading-[1.2] tracking-tight group-hover:text-primary transition-colors">
                   {story.title}
                 </h3>
-                <p className="text-[14px] text-[#6E6E73] leading-[1.55] mt-2">
+                
+                <p className="text-[15px] text-[#6E6E73] leading-[1.6] mt-3 flex-1 font-medium">
                   {story.summary}
                 </p>
-                <div className="mt-4 text-[14px] font-medium text-[#E8662E] group-hover:underline">
-                  Read the full story
+                
+                <div className="mt-8 flex items-center justify-between">
+                  <span className="text-sm font-black text-primary uppercase tracking-[0.1em] border-b-2 border-primary/20 group-hover:border-primary transition-all">
+                    {story.cta_text}
+                  </span>
+                  <div className="h-10 w-10 flex items-center justify-center rounded-full bg-primary/5 text-primary group-hover:bg-primary group-hover:text-white transition-all duration-300">
+                    <ArrowRight className="h-5 w-5" />
+                  </div>
                 </div>
               </div>
             </Link>
@@ -77,4 +93,3 @@ export function UrgencyPreviewSection() {
     </section>
   );
 }
-

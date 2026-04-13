@@ -1,65 +1,25 @@
 import { motion, AnimatePresence } from 'framer-motion'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 import {
   Search,
   SlidersHorizontal,
   Check,
-  Grid3X3,
-  LayoutGrid,
-  Square,
   ArrowUpDown,
+  ChevronRight,
+  ChevronLeft
 } from 'lucide-react'
-import {  ROOM_TYPES,
-  STYLES,
-  BUDGET_RANGES,
-  SORT_OPTIONS,
-} from './types'
+import { useRef, useState, useEffect } from 'react'
+import { ROOM_TYPES, STYLES, BUDGET_RANGES } from './types'
 
-// Helper component for visual demo icons
-const ViewDemoIcon = ({ type, isActive }) => {
-  const color = isActive ? 'currentColor' : 'hsl(var(--muted-foreground))';
-  
-  if (type === 'compact') {
-    return (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="2" y="2" width="6" height="6" rx="1.5" fill={color} />
-        <rect x="9" y="2" width="6" height="6" rx="1.5" fill={color} />
-        <rect x="16" y="2" width="6" height="6" rx="1.5" fill={color} />
-        <rect x="2" y="9" width="6" height="6" rx="1.5" fill={color} />
-        <rect x="9" y="9" width="6" height="6" rx="1.5" fill={color} />
-        <rect x="16" y="9" width="6" height="6" rx="1.5" fill={color} />
-        <rect x="2" y="16" width="6" height="6" rx="1.5" fill={color} />
-        <rect x="9" y="16" width="6" height="6" rx="1.5" fill={color} />
-        <rect x="16" y="16" width="6" height="6" rx="1.5" fill={color} />
-      </svg>
-    )
-  }
-  
-  if (type === 'default') {
-    return (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect x="2" y="2" width="9" height="9" rx="2" fill={color} />
-        <rect x="13" y="2" width="9" height="9" rx="2" fill={color} />
-        <rect x="2" y="13" width="9" height="9" rx="2" fill={color} />
-        <rect x="13" y="13" width="9" height="9" rx="2" fill={color} />
-      </svg>
-    )
-  }
-  
-  return ( // large
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="2" y="2" width="20" height="20" rx="3" fill={color} />
-    </svg>
-  )
-}
+const CHIPS = [
+  { label: 'Bedroom', value: 'master_bedroom', type: 'room' },
+  { label: 'Living', value: 'living_room', type: 'room' },
+  { label: 'Kitchen', value: 'kitchen', type: 'room' },
+  { label: 'Modern', value: 'modern', type: 'style' },
+  { label: 'Japandi', value: 'minimalist', type: 'style' }, // Mapping Japandi to minimalist for now
+  { label: 'Budget ₹', value: 'budget', type: 'budget' },
+  { label: 'Small spaces', value: 'small', type: 'search' },
+]
 
 export function DiscoverFilters({
   searchQuery,
@@ -70,184 +30,205 @@ export function DiscoverFilters({
   onStyleChange,
   selectedBudget,
   onBudgetChange,
-  sortBy,
-  onSortChange,
-  gridSize,
-  onGridSizeChange,
   showFilters,
   onToggleFilters,
   activeFilterCount,
 }) {
-  const clearAllFilters = () => {
-    onRoomChange('all')
-    onStyleChange('all')
-    onBudgetChange('all')
-    onSearchChange('')
+  const scrollRef = useRef(null)
+  const [showLeftArrow, setShowLeftArrow] = useState(false)
+  const [showRightArrow, setShowRightArrow] = useState(true)
+
+  const checkScroll = () => {
+    if (scrollRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current
+      setShowLeftArrow(scrollLeft > 0)
+      setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 5)
+    }
+  }
+
+  useEffect(() => {
+    checkScroll()
+    window.addEventListener('resize', checkScroll)
+    return () => window.removeEventListener('resize', checkScroll)
+  }, [])
+
+  const scroll = (direction) => {
+    if (scrollRef.current) {
+      const scrollAmount = 200
+      scrollRef.current.scrollBy({
+        left: direction === 'left' ? -scrollAmount : scrollAmount,
+        behavior: 'smooth'
+      })
+    }
+  }
+
+  const handleChipClick = (chip) => {
+    if (chip.type === 'room') onRoomChange(selectedRoom === chip.value ? 'all' : chip.value)
+    if (chip.type === 'style') onStyleChange(selectedStyle === chip.value ? 'all' : chip.value)
+    if (chip.type === 'budget') onBudgetChange(selectedBudget === chip.value ? 'all' : chip.value)
+    if (chip.type === 'search') onSearchChange(searchQuery === chip.value ? '' : chip.value)
+  }
+
+  const isChipActive = (chip) => {
+    if (chip.type === 'room') return selectedRoom === chip.value
+    if (chip.type === 'style') return selectedStyle === chip.value
+    if (chip.type === 'budget') return selectedBudget === chip.value
+    if (chip.type === 'search') return searchQuery === chip.value
+    return false
   }
 
   return (
-    <div className="space-y-6">
-      {/* Search Bar & Filter Button Combined */}
-      <div className="relative max-w-[760px] mx-auto group">
-        <div className="absolute left-4 top-1/2 -translate-y-1/2">
-          <Search className="h-5 w-5 text-muted-foreground group-focus-within:text-foreground transition-colors" />
+    <div className="w-full max-w-[1100px] mx-auto px-4">
+      <div className="flex items-center h-12 bg-white rounded-full border border-gray-200 shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden">
+        {/* Search */}
+        <div className="flex-shrink-0 flex items-center pl-4 pr-2">
+          <Search className="h-4 w-4 text-gray-400 mr-2.5" />
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}
+            placeholder="Search..."
+            className="w-24 md:w-32 bg-transparent text-sm font-medium focus:outline-none placeholder:text-gray-400"
+          />
         </div>
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => onSearchChange(e.target.value)}
-          placeholder="Search by room type, style, or keyword..."
-          className="w-full pl-12 pr-32 h-14 text-[15px] rounded-full border border-border focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary/40 bg-white shadow-[0_2px_12px_rgba(0,0,0,0.03)] transition-all"
-        />
-        <button
-          onClick={onToggleFilters}
-          className="absolute right-2 top-1/2 -translate-y-1/2 h-11 px-5 flex items-center gap-2.5 rounded-full border-2 border-primary/10 bg-primary/5 hover:bg-primary/10 text-xs font-bold text-foreground transition-all group/filter"
-        >
-          <SlidersHorizontal className="h-4 w-4 text-primary group-hover/filter:scale-110 transition-transform" />
-          <span>Filters</span>
-          {activeFilterCount > 0 && (
-            <span className="flex items-center justify-center min-h-[20px] min-w-[20px] rounded-full bg-primary text-primary-foreground text-[10px] font-black shadow-sm">
-              {activeFilterCount}
-            </span>
+
+        {/* Divider */}
+        <div className="w-px h-5 bg-gray-200" />
+
+        {/* Chips Container */}
+        <div className="flex-1 relative flex items-center min-w-0 px-2 group/scroll h-full">
+          {showLeftArrow && (
+            <button 
+              className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white via-white/90 to-transparent z-30 flex items-center pl-1 group-hover/scroll:flex" 
+              onClick={() => scroll('left')}
+              title="Scroll left"
+            >
+              <ChevronLeft className="h-4 w-4 text-gray-400" />
+            </button>
           )}
-        </button>
-      </div>
 
-      {/* View & Sort Controls */}
-      <div className="flex items-center justify-between flex-wrap gap-4 max-w-[760px] mx-auto px-1">
-        {/* Grid Size Toggle */}
-        <div className="flex items-center gap-4">
-          <span className="text-xs font-bold text-muted-foreground tracking-wide uppercase">View:</span>
-          <div className="inline-flex items-center rounded-full border border-border bg-white p-1.5 shadow-sm">
-            <Button
-              onClick={() => onGridSizeChange('compact')}
-              variant="ghost"
-              size="sm"
-              className={`rounded-full px-5 h-9 gap-2.5 text-xs font-bold transition-all ${gridSize === 'compact' ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-md translate-y-[-1px]' : 'text-foreground hover:bg-secondary hover:text-foreground'}`}
-            >
-              <ViewDemoIcon type="compact" isActive={gridSize === 'compact'} />
-              <span>Compact</span>
-            </Button>
-            <Button
-              onClick={() => onGridSizeChange('default')}
-              variant="ghost"
-              size="sm"
-              className={`rounded-full px-5 h-9 gap-2.5 text-xs font-bold transition-all ${gridSize === 'default' ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-md translate-y-[-1px]' : 'text-foreground hover:bg-secondary hover:text-foreground'}`}
-            >
-              <ViewDemoIcon type="default" isActive={gridSize === 'default'} />
-              <span>Default</span>
-            </Button>
-            <Button
-              onClick={() => onGridSizeChange('large')}
-              variant="ghost"
-              size="sm"
-              className={`rounded-full px-5 h-9 gap-2.5 text-xs font-bold transition-all ${gridSize === 'large' ? 'bg-primary text-primary-foreground hover:bg-primary/90 shadow-md translate-y-[-1px]' : 'text-foreground hover:bg-secondary hover:text-foreground'}`}
-            >
-              <ViewDemoIcon type="large" isActive={gridSize === 'large'} />
-              <span>Large</span>
-            </Button>
+          <div 
+            ref={scrollRef}
+            onScroll={checkScroll}
+            className="flex items-center gap-1.5 overflow-x-auto no-scrollbar scroll-smooth w-full px-2"
+          >
+            {CHIPS.map((chip) => {
+              const active = isChipActive(chip)
+              return (
+                <button
+                  key={chip.label}
+                  onClick={() => handleChipClick(chip)}
+                  className={`flex-shrink-0 relative z-20 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
+                    active 
+                      ? 'bg-foreground text-background shadow-md transform scale-[1.02]' 
+                      : 'text-gray-600 hover:bg-gray-100 hover:text-foreground'
+                  }`}
+                >
+                  {chip.label}
+                </button>
+              )
+            })}
           </div>
+          
+          {showRightArrow && (
+            <button 
+              className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white via-white/80 to-transparent z-30 flex items-center justify-end pr-1 group-hover/scroll:flex" 
+              onClick={() => scroll('right')}
+              title="Scroll right"
+            >
+              <ChevronRight className="h-4 w-4 text-gray-400" />
+            </button>
+          )}
         </div>
 
-        {/* Sort Dropdown */}
-        <div className="flex items-center gap-3">
-          <ArrowUpDown className="h-3.5 w-3.5 text-muted-foreground" />
-          <Select value={sortBy} onValueChange={(v) => onSortChange(v)}>
-            <SelectTrigger className="w-[145px] h-10 rounded-full border-border text-xs font-bold bg-white shadow-sm focus:ring-primary/20 hover:border-primary/30 transition-all" aria-label="Sort by">
-              <SelectValue placeholder="Sort by" />
-            </SelectTrigger>
-            <SelectContent className="rounded-2xl border-border shadow-xl">
-              {SORT_OPTIONS.map((option) => (
-                <SelectItem key={option.value} value={option.value} className="text-xs font-medium focus:bg-primary/5 focus:text-primary">
-                  {option.label}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+        {/* Filter Trigger */}
+        <div className="flex-shrink-0 pr-1.5 pl-1">
+          <button
+            onClick={onToggleFilters}
+            className={`h-9 px-4 flex items-center gap-2 rounded-full transition-all ${
+              showFilters || activeFilterCount > 0
+                ? 'bg-gray-100 text-foreground'
+                : 'bg-transparent text-gray-600 hover:bg-gray-50'
+            }`}
+          >
+            <SlidersHorizontal className="h-3.5 w-3.5" />
+            <span className="text-xs font-bold hidden sm:inline">Filters</span>
+            {activeFilterCount > 0 && (
+              <span className="flex items-center justify-center h-4.5 w-4.5 min-w-[18px] rounded-full bg-foreground text-background text-[10px] font-black">
+                {activeFilterCount}
+              </span>
+            )}
+          </button>
         </div>
       </div>
 
-      {/* Filter Pills */}
+      {/* Advanced Filters Expandable */}
       <AnimatePresence>
         {showFilters && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="overflow-hidden"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="mt-4 p-6 bg-white rounded-2xl border border-border shadow-xl grid grid-cols-1 md:grid-cols-3 gap-8"
           >
-            <div className="pt-4 space-y-4">
-              {/* Room Type */}
-              <div>
-                <p className="text-sm font-medium text-muted-foreground mb-2">Room Type</p>
-                <div className="flex flex-wrap gap-2">
-                  {ROOM_TYPES.map((room) => (
-                    <Button
-                      key={room.value}
-                      onClick={() => onRoomChange(room.value)}
-                      variant={selectedRoom === room.value ? 'default' : 'outline'}
-                      size="sm"
-                      className="rounded-full"
-                      aria-pressed={selectedRoom === room.value}
-                    >
-                      {room.label}
-                      {selectedRoom === room.value && <Check className="ml-1 h-3 w-3" />}
-                    </Button>
-                  ))}
-                </div>
+            {/* Room Type */}
+            <div>
+              <p className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-3">Room Type</p>
+              <div className="flex flex-wrap gap-2">
+                {ROOM_TYPES.slice(0, 12).map((room) => (
+                  <button
+                    key={room.value}
+                    onClick={() => onRoomChange(room.value)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                      selectedRoom === room.value 
+                        ? 'bg-primary text-white' 
+                        : 'bg-secondary/50 text-foreground/70 hover:bg-secondary'
+                    }`}
+                  >
+                    {room.label}
+                  </button>
+                ))}
               </div>
+            </div>
 
-              {/* Style */}
-              <div>
-                <p className="text-sm font-medium text-muted-foreground mb-2">Style</p>
-                <div className="flex flex-wrap gap-2">
-                  {STYLES.map((style) => (
-                    <Button
-                      key={style.value}
-                      onClick={() => onStyleChange(style.value)}
-                      variant={selectedStyle === style.value ? 'default' : 'outline'}
-                      size="sm"
-                      className="rounded-full"
-                      aria-pressed={selectedStyle === style.value}
-                    >
-                      {style.label}
-                      {selectedStyle === style.value && <Check className="ml-1 h-3 w-3" />}
-                    </Button>
-                  ))}
-                </div>
+            {/* Style */}
+            <div>
+              <p className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-3">Style</p>
+              <div className="flex flex-wrap gap-2">
+                {STYLES.map((style) => (
+                  <button
+                    key={style.value}
+                    onClick={() => onStyleChange(style.value)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                      selectedStyle === style.value 
+                        ? 'bg-primary text-white' 
+                        : 'bg-secondary/50 text-foreground/70 hover:bg-secondary'
+                    }`}
+                  >
+                    {style.label}
+                  </button>
+                ))}
               </div>
+            </div>
 
-              {/* Budget Range */}
-              <div>
-                <p className="text-sm font-medium text-muted-foreground mb-2">Budget Range</p>
-                <div className="flex flex-wrap gap-2">
-                  {BUDGET_RANGES.map((budget) => (
-                    <Button
-                      key={budget.value}
-                      onClick={() => onBudgetChange(budget.value)}
-                      variant={selectedBudget === budget.value ? 'default' : 'outline'}
-                      size="sm"
-                      className="rounded-full"
-                      aria-pressed={selectedBudget === budget.value}
-                    >
-                      {budget.label}
-                      {selectedBudget === budget.value && <Check className="ml-1 h-3 w-3" />}
-                    </Button>
-                  ))}
-                </div>
+            {/* Budget */}
+            <div>
+              <p className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-3">Budget Range</p>
+              <div className="flex flex-wrap gap-2">
+                {BUDGET_RANGES.map((budget) => (
+                  <button
+                    key={budget.value}
+                    onClick={() => onBudgetChange(budget.value)}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                      selectedBudget === budget.value 
+                        ? 'bg-primary text-white' 
+                        : 'bg-secondary/50 text-foreground/70 hover:bg-secondary'
+                    }`}
+                  >
+                    {budget.label}
+                  </button>
+                ))}
               </div>
-
-              {/* Clear Filters */}
-              {activeFilterCount > 0 && (
-                <Button
-                  onClick={clearAllFilters}
-                  variant="ghost"
-                  size="sm"
-                  className="w-full"
-                >
-                  Clear all filters
-                </Button>
-              )}
             </div>
           </motion.div>
         )}
@@ -255,4 +236,3 @@ export function DiscoverFilters({
     </div>
   )
 }
-

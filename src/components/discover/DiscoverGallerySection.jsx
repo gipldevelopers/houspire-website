@@ -5,8 +5,8 @@ import { Container } from '@/components/layout/Container'
 import { Button } from '@/components/ui/button'
 import { appDataClient } from '@/lib/static-client'
 import { useToast } from '@/hooks/use-toast'
+import InfiniteScroll from 'react-infinite-scroll-component'
 import { useLikedDesigns } from '@/hooks/useLikedDesigns'
-import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { useGalleryPagination } from '@/hooks/useGalleryPagination'
 import { useGalleryKeyboard } from '@/hooks/useGalleryKeyboard'
 import { useAuth } from '@/contexts/AuthContext'
@@ -190,18 +190,7 @@ export default function Discover() {
     onCloseModal: () => setSelectedDesign(null),
   })
 
-  // Load more trigger with intersection observer
-  const { ref: loadMoreRef, isIntersecting: shouldLoadMore } = useIntersectionObserver({
-    threshold: 0.1,
-    rootMargin: '200px',
-  })
-
-  // Auto-load more when scrolling near bottom
-  useEffect(() => {
-    if (shouldLoadMore && hasMore && !loadingMore && !loading) {
-      loadMore()
-    }
-  }, [shouldLoadMore, hasMore, loadingMore, loading, loadMore])
+  // Load more trigger logic handled by react-infinite-scroll-component
 
   // Update URL params
   const updateParam = useCallback((key, value) => {
@@ -349,57 +338,17 @@ export default function Discover() {
   return (
     <div className="min-h-screen bg-[#f8fafc]">
       {/* Hero Section */}
-      <section className="pt-24 pb-12 md:pt-32 md:pb-20">
+      <section className="pt-24 pb-4 md:pt-28 md:pb-6">
         <Container>
-          <div className="text-center max-w-3xl mx-auto space-y-6">
-            <motion.div
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest"
-            >
-              <Sparkles className="h-3 w-3" />
-              {totalCount > 0 ? `${Math.floor(totalCount / 100) * 100}+ Curated Designs` : '4900+ Curated Designs'}
-            </motion.div>
-            
+          <div className="text-center max-w-4xl mx-auto mb-8">
             <motion.h1 
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-4xl md:text-6xl font-black text-foreground tracking-tighter"
+              className="text-3xl md:text-5xl font-black text-foreground tracking-tighter"
             >
-              Design Gallery
+              Explore real homes by style, room & budget
             </motion.h1>
-            
-            <motion.p 
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2 }}
-              className="text-[#64748b] text-base md:text-lg font-medium"
-            >
-              Discover your perfect space in our collection of professionally designed interiors
-            </motion.p>
-
-            {/* My Collections CTA */}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.3 }}
-              
-            >
-              <Link href="/boards">
-                <div className="group relative inline-flex items-center gap-4 bg-white border border-secondary/50 rounded-[2rem] p-4 pr-10 shadow-sm hover:shadow-xl hover:border-primary/20 transition-all duration-500 overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-r from-primary/5 to-transparent translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-700" />
-                  <div className="relative p-3 rounded-2xl bg-secondary/10 text-primary group-hover:bg-primary group-hover:text-white transition-colors duration-500">
-                    <FolderHeart className="h-6 w-6" />
-                  </div>
-                  <div className="relative text-left">
-                    <h3 className="text-sm font-bold text-foreground leading-none">View My Collections</h3>
-                    <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold mt-1 group-hover:text-primary/70 transition-colors">Personal Inspiration Boards</p>
-                  </div>
-                  <ArrowRight className="absolute right-6 h-4 w-4 text-muted-foreground group-hover:text-primary group-hover:translate-x-1 transition-all" />
-                </div>
-              </Link>
-            </motion.div>
           </div>
 
           <GalleryCtaBanner />
@@ -409,37 +358,7 @@ export default function Discover() {
       <div className="pb-6">
         <Container>
 
-          {/* Trending Topics */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.1 }}
-            className="mt-6 max-w-[980px] mx-auto"
-          >
-            <TrendingTopics
-              activeFilters={{
-                sort: sortBy,
-                style: selectedStyle,
-                budget: selectedBudget,
-                room: selectedRoom,
-                search: searchQuery,
-              }}
-              onTopicClick={(filter) => {
-                const newParams = new URLSearchParams()
-                
-                Object.entries(filter).forEach(([key, value]) => {
-                  if (value) {
-                    if (key === 'sort') newParams.set('sort', value)
-                    else if (key === 'style') newParams.set('style', value)
-                    else if (key === 'budget') newParams.set('budget', value)
-                    else if (key === 'room') newParams.set('room', value)
-                    else if (key === 'search') newParams.set('q', value)
-                  }
-                })
-                router.push(`/discover?${newParams.toString()}`, { scroll: false })
-              }}
-            />
-          </motion.div>
+
 
           {/* Filters */}
           <motion.div
@@ -483,61 +402,70 @@ export default function Discover() {
       {/* Masonry Grid */}
       <Container className="py-6 pb-20">
         {designs.length > 0 ? (
-          <>
-            <div 
-              className={cn(
-                "columns-1 md:columns-2 lg:columns-3 xl:columns-4 transition-all duration-300 gap-4 space-y-4",
-                gridSize === 'compact' && "xl:columns-5",
-                gridSize === 'large' && "lg:columns-2 xl:columns-3"
-              )}
+          <div className="relative">
+            <InfiniteScroll
+              dataLength={designs.length}
+              next={loadMore}
+              hasMore={hasMore}
+              loader={
+                <div className="flex justify-center py-12">
+                  <div className="flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-border/50 shadow-sm text-muted-foreground animate-pulse">
+                    <Loader2 className="h-5 w-5 animate-spin text-primary" />
+                    <span className="text-sm font-bold tracking-tight">Loading magic...</span>
+                  </div>
+                </div>
+              }
+              endMessage={
+                <div className="text-center py-16 border-t border-border/10 mt-10">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-secondary/50 mb-4">
+                    <Sparkles className="h-6 w-6 text-primary/40" />
+                  </div>
+                  <p className="text-lg font-bold text-foreground/60 tracking-tight">You've reached the end of our current inspiration</p>
+                  <p className="text-sm text-muted-foreground mt-1 max-w-sm mx-auto">Check back tomorrow for 100+ new designs added daily</p>
+                </div>
+              }
+              // This prop ensures the infinite scroll works with our layout
+              scrollThreshold={0.8}
             >
-              {designs.map((design, index) => {
-                const isFocused = focusedIndex === index
-
-                return (
-                  <div key={design.id} className="break-inside-avoid">
-                    <BentoCard
-                      design={design}
-                      index={index}
-                      bentoSize={{ cols: 1, rows: 1 }} // Simplified for Masonry
-                      onClick={() => handleDesignClick(design, index)}
-                      isFocused={isFocused}
-                      layout="masonry"
-                    />
-                  </div>
-                )
-              })}
-            </div>
-
-            {/* Load More / Infinite Scroll Trigger */}
-            {hasMore && (
-              <div ref={loadMoreRef} className="flex justify-center py-8">
-                {loadingMore ? (
-                  <div className="flex items-center gap-2 text-muted-foreground">
-                    <Loader2 className="h-5 w-5 animate-spin" />
-                    <span>Loading more designs...</span>
-                  </div>
-                ) : (
-                  <Button
-                    onClick={loadMore}
-                    variant="outline"
-                    className="rounded-full"
-                  >
-                    Load more designs
-                  </Button>
+              <div 
+                className={cn(
+                  "columns-1 md:columns-2 lg:columns-3 xl:columns-4 transition-all duration-300 gap-4 space-y-4",
+                  gridSize === 'compact' && "xl:columns-5",
+                  gridSize === 'large' && "lg:columns-2 xl:columns-3"
                 )}
-              </div>
-            )}
+              >
+                {designs.map((design, index) => {
+                  const isFocused = focusedIndex === index
 
-            {/* Results count & Keyboard hint */}
-            <div className="text-center text-sm text-muted-foreground mt-4 space-y-2">
-              <div>Showing {designs.length} of {Math.floor(totalCount / 100) * 100}+ designs</div>
-              <div className="hidden md:flex items-center justify-center gap-2 text-xs">
-                <Keyboard className="h-3 w-3" />
-                <span>Press J/K to navigate, S to save, Enter to open</span>
+                  return (
+                    <div key={design.id} className="break-inside-avoid">
+                      <BentoCard
+                        design={design}
+                        index={index}
+                        bentoSize={{ cols: 1, rows: 1 }} // Simplified for Masonry
+                        onClick={() => handleDesignClick(design, index)}
+                        isFocused={isFocused}
+                        layout="masonry"
+                      />
+                    </div>
+                  )
+                })}
+              </div>
+            </InfiniteScroll>
+
+            {/* Results count & Keyboard hint - Moved outside to stay visible */}
+            <div className="text-center text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/50 mt-10 space-y-3">
+              <div className="flex items-center justify-center gap-4">
+                <div className="h-px w-8 bg-border/40" />
+                <span>Showing {designs.length} of {Math.floor(totalCount / 100) * 100}+ designs</span>
+                <div className="h-px w-8 bg-border/40" />
+              </div>
+              <div className="hidden md:flex items-center justify-center gap-2.5 opacity-60">
+                <Keyboard className="h-3.5 w-3.5" />
+                <span>J/K Nav • S Save • Enter Open</span>
               </div>
             </div>
-          </>
+          </div>
         ) : (
           <motion.div
             initial={{ opacity: 0 }}
