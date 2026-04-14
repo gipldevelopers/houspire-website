@@ -20,7 +20,7 @@ const problems = [
   {
     icon: Wallet,
     title: 'High Entry Barrier',
-    description: 'Most designers require ₹50,000+ upfront before you see a single concept. We start from ₹999 with a full money-back guarantee.',
+    description: 'Most designers require ₹50,000+ upfront before you see a single concept. We start from ₹499 with a full money-back guarantee.',
     gradient: 'from-purple-500 to-violet-500'
   }
 ];

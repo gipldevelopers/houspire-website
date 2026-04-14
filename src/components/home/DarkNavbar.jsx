@@ -40,7 +40,7 @@ export function DarkNavbar() {
         className={`fixed top-0 left-0 right-0 z-50 h-12 transition-all duration-300 ${
           isScrolled
             ? 'bg-white/[0.72] backdrop-blur-[20px] backdrop-saturate-[180%] border-b border-black/[0.08]'
-            : 'bg-transparent'
+            : 'bg-white border-b border-black/[0.05]'
         }`}
       >
         <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between h-full">

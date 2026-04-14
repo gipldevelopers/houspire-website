@@ -77,7 +77,7 @@ export function DarkPricingSection() {
   const router = useRouter();
 
   return (
-    <section id="pricing" className="bg-[#F5F5F7] py-12 md:py-20 min-h-screen flex items-center">
+    <section id="pricing" className="bg-muted py-12 md:py-20 min-h-screen flex items-center">
       <div className="max-w-[1400px] mx-auto px-6 w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

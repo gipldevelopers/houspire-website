@@ -159,7 +159,7 @@ export function DesignDetailModal({ design, open, onOpenChange }) {
             <div className="space-y-3">
               <Button size="lg" className="w-full" onClick={handleGetThisDesign}>
                 <ShoppingCart className="h-4 w-4 mr-2" />
-                Get This Design - Starting ₹999
+                Get This Design - Starting ₹499
               </Button>
               <div className="flex gap-2">
                 <SaveToBoardButton

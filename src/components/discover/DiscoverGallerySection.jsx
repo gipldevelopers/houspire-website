@@ -5,8 +5,8 @@ import { Container } from '@/components/layout/Container'
 import { Button } from '@/components/ui/button'
 import { appDataClient } from '@/lib/static-client'
 import { useToast } from '@/hooks/use-toast'
-import InfiniteScroll from 'react-infinite-scroll-component'
 import { useLikedDesigns } from '@/hooks/useLikedDesigns'
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { useGalleryPagination } from '@/hooks/useGalleryPagination'
 import { useGalleryKeyboard } from '@/hooks/useGalleryKeyboard'
 import { useAuth } from '@/contexts/AuthContext'
@@ -18,43 +18,42 @@ import { DiscoverSkeleton } from '@/components/discover/DiscoverSkeleton'
 import { BackToTopButton } from '@/components/discover/BackToTopButton'
 import { TrendingTopics } from '@/components/discover/TrendingTopics'
 import { cn } from '@/lib/utils'
-import { Gem, Search, Loader2, Keyboard, Sparkles, X, Plus, LayoutGrid, FolderHeart, ArrowRight } from 'lucide-react'
+import { Gem, Search, Loader2, Keyboard, Sparkles, X, Plus, LayoutGrid, FolderHeart, ArrowRight, MessageCircle } from 'lucide-react'
 import Link from 'next/link'
 
 function GalleryCtaBanner() {
-  const [dismissed, setDismissed] = useState(false)
   const router = useRouter()
-
-  useEffect(() => {
-    if (sessionStorage.getItem('galleryBannerDismissed')) {
-      setDismissed(true)
-    }
-  }, [])
-
-  if (dismissed) return null
 
   return (
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="mt-5 max-w-[760px] mx-auto bg-white border border-[#d9dee5] rounded-full px-4 py-2.5 flex items-center justify-between gap-3 shadow-sm"
+      className="mt-5 max-w-[760px] mx-auto bg-[#fff8f1] border border-[#ff9d4d]/30 rounded-full px-5 py-2.5 flex items-center justify-between gap-3 shadow-sm"
     >
-      <p className="text-xs md:text-sm text-[#334155]">
-        Love a design? Get a personalized version for <strong>YOUR</strong> home - starting at Rs 999
-      </p>
+      <div className="flex items-center gap-2.5">
+        <div className="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center shrink-0">
+          <Sparkles className="h-3.5 w-3.5 text-[#f27405]" />
+        </div>
+        <p className="text-xs md:text-sm text-[#334155] font-medium">
+          Love a design? Get a personalized version for <strong>YOUR</strong> home - <span className="text-[#f27405] font-bold">starting at Rs 499</span>
+        </p>
+      </div>
       <div className="flex items-center gap-2 shrink-0">
-        <Button size="sm" onClick={() => router.push('/style-quiz')} className="rounded-full text-xs h-7 px-3 bg-[#10263d] text-white hover:bg-[#0c2035]">
+        <Button 
+          size="sm" 
+          onClick={() => router.push('/style-quiz')} 
+          className="rounded-full text-xs h-8 px-4 bg-[#f27405] text-white hover:bg-[#d96604] border-none font-bold"
+        >
           Start Now
         </Button>
-        <button
-          onClick={() => {
-            setDismissed(true)
-            sessionStorage.setItem('galleryBannerDismissed', 'true')
-          }}
-          className="text-muted-foreground hover:text-foreground"
+        <Button 
+          size="sm" 
+          variant="outline"
+          onClick={() => router.push('/contact')} 
+          className="rounded-full text-xs h-8 px-4 border-[#f27405] text-[#f27405] hover:bg-orange-50 font-bold hidden sm:flex"
         >
-          <X className="h-3.5 w-3.5" />
-        </button>
+          Talk to a Designer
+        </Button>
       </div>
     </motion.div>
   )
@@ -62,23 +61,32 @@ function GalleryCtaBanner() {
 
 const MOCK_DESIGNS = [
   {
-    id: 'mock-1',
+    id: 'mock-japandi-living',
     design_title: 'Minimalist Japandi Living Room',
-    cover_image_url: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&w=800&q=80',
+    cover_image_url: '/images/living-room.png',
     room_type: 'living_room',
     style_primary: 'minimalist',
-    budget_range: 'mid',
-    view_count: 1250,
+    view_count: 1840,
     save_count: 450,
     is_featured: true,
   },
+  {
+    id: 'mock-scandi-kids',
+    design_title: 'Scandinavian Kids Bedroom',
+    cover_image_url: '/styles/traditional-indian/portfolio-7-kids-bedroom.png',
+    room_type: 'kids_bedroom',
+    style_primary: 'scandinavian',
+    view_count: 1280,
+    save_count: 310,
+    is_featured: false,
+  },
+
   {
     id: 'mock-2',
     design_title: 'Modern Industrial Master Bedroom',
     cover_image_url: 'https://images.unsplash.com/photo-1616137422495-1e9e46e2aa77?auto=format&fit=crop&w=800&q=80',
     room_type: 'master_bedroom',
     style_primary: 'modern',
-    budget_range: 'premium',
     view_count: 890,
     save_count: 230,
     is_featured: false,
@@ -89,7 +97,6 @@ const MOCK_DESIGNS = [
     cover_image_url: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?auto=format&fit=crop&w=800&q=80',
     room_type: 'kitchen',
     style_primary: 'contemporary',
-    budget_range: 'luxury',
     view_count: 2100,
     save_count: 670,
     is_featured: true,
@@ -100,7 +107,6 @@ const MOCK_DESIGNS = [
     cover_image_url: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=800&q=80',
     room_type: 'guest_bedroom',
     style_primary: 'bohemian',
-    budget_range: 'budget',
     view_count: 560,
     save_count: 120,
     is_featured: false,
@@ -111,7 +117,6 @@ const MOCK_DESIGNS = [
     cover_image_url: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?auto=format&fit=crop&w=800&q=80',
     room_type: 'home_office',
     style_primary: 'minimalist',
-    budget_range: 'mid',
     view_count: 1560,
     save_count: 340,
     is_featured: false,
@@ -122,29 +127,17 @@ const MOCK_DESIGNS = [
     cover_image_url: 'https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=800&q=80',
     room_type: 'dining_room',
     style_primary: 'traditional_indian',
-    budget_range: 'premium',
     view_count: 3400,
     save_count: 890,
     is_featured: true,
   },
-  {
-    id: 'mock-7',
-    design_title: 'Scandinavian Kids Bedroom',
-    cover_image_url: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&w=800&q=80',
-    room_type: 'kids_bedroom',
-    style_primary: 'scandinavian',
-    budget_range: 'mid',
-    view_count: 1100,
-    save_count: 310,
-    is_featured: false,
-  },
+
   {
     id: 'mock-8',
     design_title: 'Industrial Style Library',
     cover_image_url: 'https://images.unsplash.com/photo-1618219908412-a29a1bb7b86e?auto=format&fit=crop&w=800&q=80',
     room_type: 'library',
     style_primary: 'industrial',
-    budget_range: 'premium',
     view_count: 1200,
     save_count: 430,
     is_featured: false,
@@ -192,19 +185,10 @@ export default function Discover() {
     totalCount: fetchedTotalCount,
   } = useGalleryPagination(filters)
 
-  // Apply local filtering to mock designs if no database results exist
+  // Use mock designs as fallback if nothing is found and not loading
   const designs = useMemo(() => {
-    if (!loading && fetchedDesigns.length === 0) {
-      return MOCK_DESIGNS.filter(d => {
-        const matchesRoom = selectedRoom === 'all' || d.room_type === selectedRoom
-        const matchesStyle = selectedStyle === 'all' || d.style_primary === selectedStyle
-        const matchesBudget = selectedBudget === 'all' || d.budget_range === selectedBudget
-        const matchesSearch = !searchQuery || 
-          d.design_title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          d.room_type.toLowerCase().includes(searchQuery.toLowerCase())
-        
-        return matchesRoom && matchesStyle && matchesBudget && matchesSearch
-      })
+    if (!loading && fetchedDesigns.length === 0 && !searchQuery && selectedRoom === 'all' && selectedStyle === 'all' && selectedBudget === 'all') {
+      return MOCK_DESIGNS
     }
     return fetchedDesigns
   }, [fetchedDesigns, loading, searchQuery, selectedRoom, selectedStyle, selectedBudget])
@@ -225,7 +209,18 @@ export default function Discover() {
     onCloseModal: () => setSelectedDesign(null),
   })
 
-  // Load more trigger logic handled by react-infinite-scroll-component
+  // Load more trigger with intersection observer
+  const { ref: loadMoreRef, isIntersecting: shouldLoadMore } = useIntersectionObserver({
+    threshold: 0.1,
+    rootMargin: '200px',
+  })
+
+  // Auto-load more when scrolling near bottom
+  useEffect(() => {
+    if (shouldLoadMore && hasMore && !loadingMore && !loading) {
+      loadMore()
+    }
+  }, [shouldLoadMore, hasMore, loadingMore, loading, loadMore])
 
   // Update URL params
   const updateParam = useCallback((key, value) => {
@@ -275,7 +270,7 @@ export default function Discover() {
       .from('gallery_designs')
       .update({ view_count: (design.view_count || 0) + 1 })
       .eq('id', design.id)
-      .then(() => {})
+      .then(() => { })
   }
 
   const handleLike = async (designId, e) => {
@@ -296,7 +291,7 @@ export default function Discover() {
       .from('gallery_designs')
       .update({ save_count: newCount })
       .eq('id', designId)
-      .then(() => {})
+      .then(() => { })
 
     toast({
       title: wasLiked ? 'Removed from favorites' : 'Added to favorites',
@@ -306,7 +301,7 @@ export default function Discover() {
 
   const handleShare = async (design) => {
     const shareUrl = `${window.location.origin}/discover?design=${design.id}`
-    
+
     // Try native share first (works on mobile and some desktop browsers)
     if (navigator.share) {
       try {
@@ -328,7 +323,7 @@ export default function Discover() {
         // Fall through to clipboard copy on other errors
       }
     }
-    
+
     // Fallback: copy to clipboard
     try {
       await navigator.clipboard.writeText(shareUrl)
@@ -371,18 +366,18 @@ export default function Discover() {
   }
 
   return (
-    <div className="min-h-screen bg-[#f8fafc]">
+    <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <section className="pt-24 pb-4 md:pt-28 md:pb-6">
         <Container>
           <div className="text-center max-w-4xl mx-auto mb-8">
-            <motion.h1 
+            <motion.h1
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
               className="text-3xl md:text-5xl font-black text-foreground tracking-tighter"
             >
-              Explore real homes by style, room & budget
+              Explore real homes by <br/> style,  room & budget
             </motion.h1>
           </div>
 
@@ -420,7 +415,7 @@ export default function Discover() {
               activeFilterCount={activeFilterCount}
             />
 
-            <div className="mt-5 flex justify-center">
+            <div className="mt-5 flex flex-col sm:flex-row justify-center gap-3">
               <Button
                 variant="outline"
                 className="rounded-full gap-2.5 h-11 px-6 border-border bg-white text-foreground shadow-sm hover:bg-secondary hover:text-foreground hover:border-primary/30 transition-all font-bold text-xs group"
@@ -428,6 +423,14 @@ export default function Discover() {
               >
                 <span className="text-primary text-lg group-hover:scale-125 transition-transform">♥</span>
                 {user ? 'View my inspiration boards' : 'Sign in to save favorites'}
+              </Button>
+              <Button
+                variant="outline"
+                className="rounded-full gap-2.5 h-11 px-6 border-primary/20 bg-white text-primary shadow-sm hover:bg-primary hover:text-white hover:border-primary transition-all font-bold text-xs"
+                onClick={() => router.push('/contact')}
+              >
+                <MessageCircle className="h-4 w-4" />
+                Talk to a Designer
               </Button>
             </div>
           </motion.div>
@@ -437,70 +440,61 @@ export default function Discover() {
       {/* Masonry Grid */}
       <Container className="py-6 pb-20">
         {designs.length > 0 ? (
-          <div className="relative">
-            <InfiniteScroll
-              dataLength={designs.length}
-              next={loadMore}
-              hasMore={hasMore}
-              loader={
-                <div className="flex justify-center py-12">
-                  <div className="flex items-center gap-3 px-6 py-3 rounded-full bg-white border border-border/50 shadow-sm text-muted-foreground animate-pulse">
-                    <Loader2 className="h-5 w-5 animate-spin text-primary" />
-                    <span className="text-sm font-bold tracking-tight">Loading magic...</span>
-                  </div>
-                </div>
-              }
-              endMessage={
-                <div className="text-center py-16 border-t border-border/10 mt-10">
-                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-secondary/50 mb-4">
-                    <Sparkles className="h-6 w-6 text-primary/40" />
-                  </div>
-                  <p className="text-lg font-bold text-foreground/60 tracking-tight">You've reached the end of our current inspiration</p>
-                  <p className="text-sm text-muted-foreground mt-1 max-w-sm mx-auto">Check back tomorrow for 100+ new designs added daily</p>
-                </div>
-              }
-              // This prop ensures the infinite scroll works with our layout
-              scrollThreshold={0.8}
+          <>
+            <div
+              className={cn(
+                "columns-1 md:columns-2 lg:columns-3 xl:columns-4 transition-all duration-300 gap-4 space-y-4",
+                gridSize === 'compact' && "xl:columns-5",
+                gridSize === 'large' && "lg:columns-2 xl:columns-3"
+              )}
             >
-              <div 
-                className={cn(
-                  "columns-1 md:columns-2 lg:columns-3 xl:columns-4 transition-all duration-300 gap-4 space-y-4",
-                  gridSize === 'compact' && "xl:columns-5",
-                  gridSize === 'large' && "lg:columns-2 xl:columns-3"
+              {designs.map((design, index) => {
+                const isFocused = focusedIndex === index
+
+                return (
+                  <div key={design.id} className="break-inside-avoid">
+                    <BentoCard
+                      design={design}
+                      index={index}
+                      bentoSize={{ cols: 1, rows: 1 }} // Simplified for Masonry
+                      onClick={() => handleDesignClick(design, index)}
+                      isFocused={isFocused}
+                      layout="masonry"
+                    />
+                  </div>
+                )
+              })}
+            </div>
+
+            {/* Load More / Infinite Scroll Trigger */}
+            {hasMore && (
+              <div ref={loadMoreRef} className="flex justify-center py-8">
+                {loadingMore ? (
+                  <div className="flex items-center gap-2 text-muted-foreground">
+                    <Loader2 className="h-5 w-5 animate-spin" />
+                    <span>Loading more designs...</span>
+                  </div>
+                ) : (
+                  <Button
+                    onClick={loadMore}
+                    variant="outline"
+                    className="rounded-full"
+                  >
+                    Load more designs
+                  </Button>
                 )}
-              >
-                {designs.map((design, index) => {
-                  const isFocused = focusedIndex === index
-
-                  return (
-                    <div key={design.id} className="break-inside-avoid">
-                      <BentoCard
-                        design={design}
-                        index={index}
-                        bentoSize={{ cols: 1, rows: 1 }} // Simplified for Masonry
-                        onClick={() => handleDesignClick(design, index)}
-                        isFocused={isFocused}
-                        layout="masonry"
-                      />
-                    </div>
-                  )
-                })}
               </div>
-            </InfiniteScroll>
+            )}
 
-            {/* Results count & Keyboard hint - Moved outside to stay visible */}
-            <div className="text-center text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/50 mt-10 space-y-3">
-              <div className="flex items-center justify-center gap-4">
-                <div className="h-px w-8 bg-border/40" />
-                <span>Showing {designs.length} of {Math.floor(totalCount / 100) * 100}+ designs</span>
-                <div className="h-px w-8 bg-border/40" />
-              </div>
-              <div className="hidden md:flex items-center justify-center gap-2.5 opacity-60">
-                <Keyboard className="h-3.5 w-3.5" />
-                <span>J/K Nav • S Save • Enter Open</span>
+            {/* Results count & Keyboard hint */}
+            <div className="text-center text-sm text-muted-foreground mt-4 space-y-2">
+              <div>Showing {designs.length} of {Math.floor(totalCount / 100) * 100}+ designs</div>
+              <div className="hidden md:flex items-center justify-center gap-2 text-xs">
+                <Keyboard className="h-3 w-3" />
+                <span>Press J/K to navigate, S to save, Enter to open</span>
               </div>
             </div>
-          </div>
+          </>
         ) : (
           <motion.div
             initial={{ opacity: 0 }}

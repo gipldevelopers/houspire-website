@@ -26,7 +26,7 @@ export function HowItWorksSection() {
       icon: CreditCard,
       number: '02',
       title: 'Choose Your Package',
-      description: 'Select a package starting at ₹999 or add optional services. Pay once, no subscriptions or hidden fees',
+      description: 'Select a package starting at ₹499 or add optional services. Pay once, no subscriptions or hidden fees',
       time: '2 minutes',
       color: 'from-blue-500 to-cyan-500'
     },

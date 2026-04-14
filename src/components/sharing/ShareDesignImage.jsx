@@ -186,7 +186,7 @@ export function ShareDesignImage({ open, onOpenChange, beforeImage, afterImage, 
             }
         }
         // Fallback to WhatsApp link
-        const text = encodeURIComponent(`Check out my ${styleName} ${roomType} design by Houspire! 🏠✨\n\nGet your room designed starting at ₹999: https://houspire.com`);
+        const text = encodeURIComponent(`Check out my ${styleName} ${roomType} design by Houspire! 🏠✨\n\nGet your room designed starting at ₹499: https://houspire.com`);
         window.open(`https://wa.me/?text=${text}`, '_blank');
     };
     const handleCopyLink = () => {

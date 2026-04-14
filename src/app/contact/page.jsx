@@ -25,7 +25,7 @@ const localBusinessSchema = {
     addressCountry: 'IN',
   },
   openingHours: 'Mo-Sa 10:00-19:00',
-  priceRange: '₹999 - ₹29,999',
+  priceRange: '₹499 - ₹29,999',
 };
 
 const breadcrumbSchema = {

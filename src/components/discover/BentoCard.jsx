@@ -94,6 +94,11 @@ export function BentoCard({ design, index, onClick, isFocused = false, layout = 
             </div>
           )}
 
+          {/* Pricing Badge - Always visible */}
+          <div className="absolute top-[52px] md:top-[56px] left-3 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-full text-[9px] text-[#f27405] font-black tracking-tight z-10 border border-orange-100 shadow-sm transition-transform duration-300 group-hover:scale-110">
+            Starts ₹499
+          </div>
+
           {/* Actions - Top Right */}
           <div className="absolute top-3 right-3 z-20 flex flex-col gap-2">
             {/* Like Button */}

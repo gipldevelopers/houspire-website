@@ -35,7 +35,7 @@ export function AboutCTA() {
           
           <p className="text-white/80 text-lg md:text-xl mb-10 max-w-xl mx-auto">
             Take our 2-minute style quiz and get matched with your perfect designer. 
-            Your dream home is just ₹999 away.
+            Your dream home is just ₹499 away.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

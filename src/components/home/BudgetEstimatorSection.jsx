@@ -34,7 +34,7 @@ export function BudgetEstimatorSection() {
   };
 
   return (
-    <section id="budget-estimator" className="bg-[#fdfdfd] py-16">
+    <section id="budget-estimator" className="bg-background py-16">
       <div className="max-w-5xl mx-auto px-6">
         
         <div className="flex flex-col lg:flex-row items-stretch gap-8">
@@ -76,13 +76,13 @@ export function BudgetEstimatorSection() {
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: 10 }}
-                    className="absolute top-full left-0 right-0 mt-2 bg-white border border-[#F5F5F7] rounded-xl shadow-2xl z-50 p-2 grid grid-cols-2 gap-1"
+                    className="absolute top-full left-0 right-0 mt-2 bg-background border border-border rounded-xl shadow-2xl z-50 p-2 grid grid-cols-2 gap-1"
                   >
                     {cities.map((c) => (
                       <button
                         key={c}
                         onClick={() => { setCity(c); setIsOpen(false); }}
-                        className="text-left px-4 py-2 rounded-lg text-sm hover:bg-[#F5F5F7] transition-colors"
+                        className="text-left px-4 py-2 rounded-lg text-sm hover:bg-muted transition-colors"
                       >
                         {c}
                       </button>
@@ -93,12 +93,12 @@ export function BudgetEstimatorSection() {
             </motion.div>
 
             {/* Room Count */}
-            <motion.div variants={itemVariants} className="flex items-center justify-between bg-[#F5F5F7] p-4 rounded-2xl">
+            <motion.div variants={itemVariants} className="flex items-center justify-between bg-muted p-4 rounded-2xl">
               <div>
                 <span className="block text-sm font-bold text-[#1D1D1F]">Number of Rooms</span>
                 <span className="text-xs text-[#86868B]">Project Scope</span>
               </div>
-              <div className="flex items-center gap-4 bg-white px-3 py-2 rounded-xl shadow-sm">
+              <div className="flex items-center gap-4 bg-background px-3 py-2 rounded-xl shadow-sm">
                 <button onClick={() => setRooms(Math.max(1, rooms - 1))} className="hover:scale-110 transition-transform"><Minus className="w-4 h-4" /></button>
                 <span className="text-xl font-black min-w-[24px] text-center">{rooms}</span>
                 <button onClick={() => setRooms(Math.min(15, rooms + 1))} className="hover:scale-110 transition-transform"><Plus className="w-4 h-4" /></button>
@@ -115,7 +115,7 @@ export function BudgetEstimatorSection() {
                     onClick={() => setLevel(b.key)}
                     className="relative flex-1 py-3 px-2 rounded-xl text-center group overflow-hidden"
                   >
-                    <div className={`absolute inset-0 transition-colors duration-300 ${level === b.key ? 'bg-[#E8662E]' : 'bg-[#F5F5F7] group-hover:bg-[#E8E8ED]'}`} />
+                    <div className={`absolute inset-0 transition-colors duration-300 ${level === b.key ? 'bg-[#E8662E]' : 'bg-muted group-hover:bg-[#E8E8ED]'}`} />
                     <span className={`relative block text-xs font-bold transition-colors ${level === b.key ? 'text-white' : 'text-[#1D1D1F]'}`}>{b.label}</span>
                   </button>
                 ))}

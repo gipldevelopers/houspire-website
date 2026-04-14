@@ -8,8 +8,8 @@
   :root {
     color-scheme: light;
 
-    /* Houspire brand palette - Premium Navy & Gold Theme */
-    --background: 0 0% 100%;
+    /* Houspire brand palette - Premium Warm Peach & Navy Theme */
+    --background: 34 100% 95%; /* #fff4e6 - Light Peach */
     --foreground: 222 47% 11%;
     --card: 0 0% 100%;
     --card-foreground: 222 47% 11%;
@@ -17,10 +17,10 @@
     --popover-foreground: 222 47% 11%;
     --primary: 222 47% 11%;
     --primary-foreground: 0 0% 100%;
-    --secondary: 210 40% 96%;
+    --secondary: 34 100% 92%; /* Slightly darker peach */
     --secondary-foreground: 222 47% 11%;
-    --muted: 210 40% 96%;
-    --muted-foreground: 240 2% 44%;
+    --muted: 34 100% 92%; /* Consistently warm muted tone */
+    --muted-foreground: 34 30% 40%; /* Warm muted text */
     --accent: 38 43% 54%;
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;

@@ -129,7 +129,7 @@ export default function RefundPolicy() {
                       <div>
                         <p className="font-semibold text-green-800 dark:text-green-200">Full Refund (100%) — No Questions Asked</p>
                         <div className="text-green-700 dark:text-green-300 text-sm mt-2 space-y-1">
-                          <p>• Starter Package (₹999)</p>
+                          <p>• Starter Package (₹499)</p>
                           <p>• Request within 7 days of design delivery</p>
                           <p>• One-time money-back guarantee per customer</p>
                           <p>• Refunded to original payment method, no deductions</p>

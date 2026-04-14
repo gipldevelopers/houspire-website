@@ -29,20 +29,13 @@ export function DarkTransformationSection() {
   return (
     <section 
       id="transformation" 
-      className="py-6 md:py-12 overflow-hidden"
-      // Light orange background - you can adjust the shade by changing the color code
-      style={{ backgroundColor: '#fff4e6' }} // Very light peach/orange
-      // Alternative orange shades:
-      // '#fff0e0' - lighter peach
-      // '#ffe8d9' - slightly deeper peach
-      // '#ffead2' - light apricot
-      // '#fff1e0' - soft orange cream
+      className="py-6 md:py-12 overflow-hidden bg-background"
     >
       <div className="container mx-auto px-6">
         
         {/* Top Label - Warm gray for better contrast on light orange */}
         <div className="text-center mb-2 md:mb-12">
-          <p className="text-sm font-semibold tracking-[0.18em] uppercase text-[#6B4F3F]">
+          <p className="text-sm font-semibold tracking-[0.18em] text-[#6B4F3F]">
             From bare walls to fully designed before you spend a rupee
           </p>
         </div>

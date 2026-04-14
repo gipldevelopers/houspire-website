@@ -13,7 +13,7 @@ const steps = [
 
 export function DarkHowItWorksSection() {
   return (
-    <section className="bg-white py-6 md:py-12">
+    <section className="bg-background py-6 md:py-12">
       <div className="max-w-[1200px] mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

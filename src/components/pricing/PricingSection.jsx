@@ -32,7 +32,7 @@ export function PricingSection() {
             One Price. Everything Included.
           </h2>
           <p className="text-lg text-neutral-600 max-w-2xl mx-auto">
-            No hidden fees, no surprises. Professional design starting at ₹999.
+            No hidden fees, no surprises. Professional design starting at ₹499.
           </p>
         </motion.div>
 
@@ -50,7 +50,7 @@ export function PricingSection() {
                 Complete Design Package
               </h3>
               <div className="text-5xl font-bold text-neutral-900 mb-2">
-                ₹999
+                ₹499
               </div>
               <p className="text-neutral-500">One-time payment, no subscription</p>
             </div>

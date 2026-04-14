@@ -91,9 +91,9 @@ export function Header() {
         <div
           className={`mx-auto max-w-[1400px] px-6 transition-all duration-500 ${
             isScrolled
-              ? 'rounded-[20px] border bg-background/70 backdrop-blur-2xl backdrop-saturate-150 border-b border-border/50 shadow-sm right-[20px] left-[20px]'
+              ? 'rounded-[20px] border bg-white/70 backdrop-blur-2xl backdrop-saturate-150 border-b border-border/50 shadow-sm right-[20px] left-[20px]'
               : isDarkBackground
-                ? 'rounded-none border border-transparent bg-background/90 backdrop-blur-xl'
+                ? 'rounded-none border border-transparent bg-white/90 backdrop-blur-xl'
                 : 'rounded-none border border-transparent bg-transparent'
           }`}
         >
@@ -257,7 +257,7 @@ export function Header() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className={`fixed inset-0 z-40 bg-background/95 backdrop-blur-2xl md:hidden ${
+            className={`fixed inset-0 z-40 bg-white/95 backdrop-blur-2xl md:hidden ${
               isBannerVisible ? 'pt-16' : 'pt-14'
             }`}
           >

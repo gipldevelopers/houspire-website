@@ -5,7 +5,7 @@ import { Clock, Check, Lock, MapPin } from 'lucide-react';
 
 export function DarkTrustBar() {
   return (
-    <section className="bg-white py-10 border-t border-black/[0.06]">
+    <section className="bg-background py-10 border-t border-black/[0.06]">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

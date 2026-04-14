@@ -91,7 +91,7 @@ export function BudgetComfort({ answers, onNext, onBack }) {
         </motion.p>
         <motion.p initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }} className="text-sm text-muted-foreground flex items-center justify-center gap-2">
           <Info className="h-4 w-4"/>
-          Our ₹999 design fee is separate from your budget
+          Our ₹499 design fee is separate from your budget
         </motion.p>
       </div>
 

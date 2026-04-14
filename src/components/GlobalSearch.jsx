@@ -22,7 +22,7 @@ const pages = [
 ];
 const faqItems = [
     { question: 'What is Houspire?', answer: 'Professional interior design service', url: '/faq' },
-    { question: 'How much does it cost?', answer: 'Plans start from ₹999 for a complete design package', url: '/faq' },
+    { question: 'How much does it cost?', answer: 'Plans start from ₹499 for a complete design package', url: '/faq' },
     { question: 'How long does it take?', answer: '72-hour delivery for most projects', url: '/faq' },
     { question: 'Can I request revisions?', answer: 'Yes, revisions are included', url: '/faq' },
 ];

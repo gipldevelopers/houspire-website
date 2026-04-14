@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     q: 'How is this different from hiring a traditional interior designer?',
-    a: 'Traditional designers charge ₹50,000–₹2,00,000+ and take weeks to deliver. Many also earn 15-20% commissions on materials — a hidden cost you never see. Houspire gives you the same deliverables at a flat fee starting at ₹999, with full cost transparency and no hidden markups.',
+    a: 'Traditional designers charge ₹50,000–₹2,00,000+ and take weeks to deliver. Many also earn 15-20% commissions on materials — a hidden cost you never see. Houspire gives you the same deliverables at a flat fee starting at ₹499, with full cost transparency and no hidden markups.',
   },
   {
     q: 'Do you work in my city?',
@@ -35,7 +35,7 @@ export function FAQSection() {
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
-    <section ref={ref} className="bg-white py-[60px] md:py-[80px]">
+    <section ref={ref} className="bg-background py-[60px] md:py-[80px]">
       <div className="max-w-[1200px] mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}

@@ -193,7 +193,7 @@ export default function DiscoverDesignPage() {
               <Card className="p-4 bg-muted/30">
                 <p className="text-sm text-muted-foreground">
                   Get professional 4K renders, a detailed shopping list, and
-                  budget breakdown. Starting at ₹999 per room.
+                  budget breakdown. Starting at ₹499 per room.
                 </p>
               </Card>
             </div>

@@ -663,7 +663,7 @@ export function QuizResults({ answers }) {
             Get Your Personalized Home Design Report
           </h3>
           <p className="text-sm text-muted-foreground mb-6">
-            Starting at ₹999 • Delivered in 72 hours
+            Starting at ₹499 • Delivered in 72 hours
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
             <Button size="lg" onClick={() => navigate('/select-package')} className="w-full sm:w-auto min-w-[260px] h-14 text-lg rounded-xl">

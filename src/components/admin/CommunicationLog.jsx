@@ -34,7 +34,7 @@ export function CommunicationLog({ projectId, userId }) {
                 type: 'system',
                 direction: 'system',
                 subject: 'Payment received',
-                content: 'Payment of ₹999 received via Razorpay',
+                content: 'Payment of ₹499 received via Razorpay',
                 created_at: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(),
                 created_by: 'System',
                 status: 'sent',

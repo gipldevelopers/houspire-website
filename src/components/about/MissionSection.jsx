@@ -12,7 +12,7 @@ const problems = [
 ];
 
 const solutions = [
-  '₹999 flat fee - transparent pricing',
+  '₹499 flat fee - transparent pricing',
   'Zero vendor commissions - shop anywhere',
   '72-hour delivery - time is precious',
   'Professional quality - everyone deserves it',

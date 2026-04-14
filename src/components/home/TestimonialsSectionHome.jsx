@@ -26,7 +26,7 @@ const testimonials = [
   },
   {
     stars: 5,
-    quote: 'I was skeptical about AI-generated designs. But the quality of the renders and the level of detail in the budget breakdown genuinely surprised me. Worth every rupee of the ₹999 plan.',
+    quote: 'I was skeptical about AI-generated designs. But the quality of the renders and the level of detail in the budget breakdown genuinely surprised me. Worth every rupee of the ₹499 plan.',
     name: 'Vikram T.',
     location: 'Andheri West, Mumbai',
     details: '1BHK Studio Apartment',

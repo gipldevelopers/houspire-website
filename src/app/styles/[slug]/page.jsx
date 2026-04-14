@@ -189,7 +189,7 @@ export default function StyleSlugPage() {
               <div className="flex items-center gap-4">
                 <div className="text-right">
                   <p className="text-sm text-muted-foreground">Starting from</p>
-                  <p className="text-2xl font-bold text-foreground">₹999</p>
+                  <p className="text-2xl font-bold text-foreground">₹499</p>
                   <p className="text-sm text-muted-foreground">per room</p>
                 </div>
                 <Button asChild size="lg" className="rounded-xl px-8 h-14">
@@ -422,7 +422,7 @@ export default function StyleSlugPage() {
                         </Badge>
                       </div>
                       <p className="text-3xl font-bold text-foreground mb-2">
-                        ₹999
+                        ₹499
                       </p>
                       <p className="text-sm text-muted-foreground mb-4">
                         1 room • 4K renders • 48hr delivery

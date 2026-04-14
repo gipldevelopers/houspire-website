@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 
-const DEFAULT_TITLE = 'Houspire — Professional Interior Design Starting at ₹999';
+const DEFAULT_TITLE = 'Houspire — Professional Interior Design Starting at ₹499';
 const DEFAULT_DESCRIPTION = 'We use advanced design technology and expert curation to give you everything you need to execute your dream home — photorealistic room designs, itemized budgets, shopping lists, and verified contractor connections — all delivered in 72 hours at a fraction of what traditional designers charge.';
 const DEFAULT_IMAGE = 'https://houspire.com/og-image.jpg';
 const SITE_NAME = 'Houspire';
@@ -121,7 +121,7 @@ export const pageSEO = {
   },
   pricing: {
     title: 'Pricing',
-    description: 'Professional interior design packages from ₹999. Choose from Starter, Home Design, Complete Home, or Premium plans. 72-hour delivery with money-back guarantee.',
+    description: 'Professional interior design packages from ₹499. Choose from Starter, Home Design, Complete Home, or Premium plans. 72-hour delivery with money-back guarantee.',
     keywords: ['interior design pricing', 'affordable design', 'design packages', 'room design cost'],
   },
   dashboard: {

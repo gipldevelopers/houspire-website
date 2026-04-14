@@ -401,7 +401,7 @@ export function ImageDetailModal({
                     size="lg"
                     className="w-full h-12 md:h-14 text-base md:text-lg bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-primary-foreground rounded-xl"
                   >
-                    Get This Design - Starting ₹999
+                    Get This Design - Starting ₹499
                   </Button>
 
                   <div className="flex flex-wrap gap-2">

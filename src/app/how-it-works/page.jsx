@@ -62,7 +62,7 @@ export default function HowItWorks() {
       icon: CreditCard,
       number: '02',
       title: 'Choose Your Package',
-      description: 'Select from our plans starting at ₹999 or full home packages up to ₹14,999. Pay once—no subscriptions or hidden fees.',
+      description: 'Select from our plans starting at ₹499 or full home packages up to ₹14,999. Pay once—no subscriptions or hidden fees.',
       time: '2 minutes',
       color: 'from-blue-500 to-cyan-500'
     },
@@ -173,7 +173,7 @@ export default function HowItWorks() {
                 <p className="text-sm text-muted-foreground mt-1">Hours to Delivery</p>
               </div>
               <div>
-                <p className="text-3xl md:text-4xl font-bold text-foreground">₹999</p>
+                <p className="text-3xl md:text-4xl font-bold text-foreground">₹499</p>
                 <p className="text-sm text-muted-foreground mt-1">Starting Price</p>
               </div>
               <div>
@@ -363,7 +363,7 @@ export default function HowItWorks() {
                 Simple, Transparent Pricing
               </h2>
               <p className="text-lg text-muted-foreground">
-                Professional interior design starting at ₹999. No hidden fees, no subscriptions.
+                Professional interior design starting at ₹499. No hidden fees, no subscriptions.
               </p>
             </motion.div>
 

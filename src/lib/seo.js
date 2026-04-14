@@ -4,7 +4,7 @@ export const organizationSchema = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   name: 'Houspire',
-  description: 'Professional interior design intelligence service. Photorealistic room designs, itemized budgets, and verified contractor connections — starting at ₹999.',
+  description: 'Professional interior design intelligence service. Photorealistic room designs, itemized budgets, and verified contractor connections — starting at ₹499.',
   url: 'https://houspire.com',
   logo: 'https://houspire.com/logo.png',
   image: 'https://houspire.com/og-image.png',

@@ -20,7 +20,7 @@ export function VerifiedContractorsSection() {
   const router = useRouter();
 
   return (
-    <section id="contractors" className="bg-[#F5F5F7] py-[40px] md:py-[60px]">
+    <section id="contractors" className="bg-muted py-[40px] md:py-[60px]">
       <div className="max-w-[1400px] mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
@@ -92,14 +92,14 @@ export function VerifiedContractorsSection() {
                 {areas.map((city) => (
                   <Badge
                     key={city}
-                    className="rounded-full bg-[#F5F5F7] text-[#1D1D1F] border border-black/5 px-3 py-1 text-sm"
+                    className="rounded-full bg-muted text-[#1D1D1F] border border-black/5 px-3 py-1 text-sm"
                   >
                     {city}
                   </Badge>
                 ))}
               </div>
 
-              <div className="mt-6 rounded-2xl bg-[#F5F5F7] border border-black/5 p-4">
+              <div className="mt-6 rounded-2xl bg-background border border-black/5 p-4">
                 <p className="text-sm font-semibold text-[#1D1D1F]">How it works</p>
                 <p className="text-sm text-[#6E6E73] mt-1 leading-relaxed">
                   After your design report is ready, we share a shortlist of vetted pros and help you compare quotes and
