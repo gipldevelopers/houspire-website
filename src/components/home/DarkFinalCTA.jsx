@@ -1,14 +1,18 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
-import { redirectToHouspireHome } from '@/lib/external-links';
+import { PlanningWizardModal } from '@/components/wizard/PlanningWizardModal';
 
 const ease = [0.25, 0.46, 0.45, 0.94];
 
 export function DarkFinalCTA() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
-    <section className="bg-[#1D1D1F] py-20 md:py-32">
+    <>
+      <section className="bg-[#1D1D1F] py-20 md:py-32">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -23,12 +27,14 @@ export function DarkFinalCTA() {
           Know exactly what your home will look like and cost—before you start.
         </p>
         <button
-          onClick={redirectToHouspireHome}
+          onClick={() => setIsModalOpen(true)}
           className="mt-12 px-10 py-5 text-lg font-black bg-[#E8662E] hover:bg-[#D45A1F] text-white rounded-full transition-all duration-300 shadow-2xl shadow-orange-500/20"
         >
           Design my home now →
         </button>
       </motion.div>
-    </section>
+      </section>
+      <PlanningWizardModal open={isModalOpen} onOpenChange={setIsModalOpen} />
+    </>
   );
 }

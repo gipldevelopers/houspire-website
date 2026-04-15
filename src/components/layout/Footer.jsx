@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { ChevronDown, Instagram, Linkedin, Twitter, Youtube } from 'lucide-react';
 import CookiePreferencesDialog from '@/components/CookiePreferencesDialog';
 import { HOUSPIRE_HOME_URL } from '@/lib/external-links';
+import { PlanningWizardModal } from '@/components/wizard/PlanningWizardModal';
 
 const LOGO_SRC = '/icons/logo%20(1).webp';
 
@@ -49,6 +50,7 @@ function MobileLinksSection({ title, links }) {
 
 export function Footer() {
   const [showCookiePreferences, setShowCookiePreferences] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const productLinks = [
     { name: 'How it works', path: '/how-it-works' },
@@ -121,12 +123,13 @@ export function Footer() {
             <h4 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-4">
               Get Started
             </h4>
-            <a
-              href={HOUSPIRE_HOME_URL}
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(true)}
               className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 text-sm font-black bg-[#E8662E] text-white hover:bg-[#D45A1F] rounded-full shadow-lg shadow-orange-500/20 transition-all duration-300"
             >
               Start my home plan
-            </a>
+            </button>
             <p className="mt-4 text-xs text-muted-foreground">Expert curation · Transparency · Speed</p>
           </div>
 
@@ -165,6 +168,7 @@ export function Footer() {
         onClose={() => setShowCookiePreferences(false)}
         onSave={() => setShowCookiePreferences(false)}
       />
+      <PlanningWizardModal open={isModalOpen} onOpenChange={setIsModalOpen} />
     </footer>
   );
 }

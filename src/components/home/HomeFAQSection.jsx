@@ -16,7 +16,7 @@ const HOMEPAGE_FAQS = [
   {
     id: 'faq-1',
     question: 'What exactly do I receive?',
-    answer: 'You receive a Home Design Report — a professional PDF document containing photorealistic visualizations of your rooms from multiple angles, an itemized budget with three pricing tiers (Good / Better / Best), a shopping guide with direct purchase links, verified contractor contacts in your city, and a step-by-step execution roadmap. You can see a sample report before purchasing.',
+    answer: 'You receive a Home Design Report — a professional PDF document containing photorealistic visualizations of your rooms from multiple angles, an itemized budget with three pricing tiers (Good / Better / Best), a shopping guide with direct purchase links, verified vendors contacts in your city, and a step-by-step execution roadmap. You can see a sample report before purchasing.',
   },
   {
     id: 'faq-2',

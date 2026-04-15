@@ -1,10 +1,12 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { Check } from 'lucide-react';
 import { NumberTicker } from '@/components/ui/number-ticker';
 import { ShimmerButton } from '@/components/ui/shimmer-button';
+import { PlanningWizardModal } from '@/components/wizard/PlanningWizardModal';
 
 const ease = [0.25, 0.46, 0.45, 0.94];
 
@@ -75,10 +77,21 @@ const plans = [
 
 export function DarkPricingSection() {
   const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handlePlanClick = (planName) => {
+    if (planName === 'Smart Home' || planName === 'Premium Home' || planName === 'Luxury Home') {
+      setIsModalOpen(true);
+      return;
+    }
+
+    router.push('/style-quiz');
+  };
 
   return (
-    <section id="pricing" className="bg-muted py-12 md:py-20 min-h-screen flex items-center">
-      <div className="max-w-[1400px] mx-auto px-6 w-full">
+    <>
+      <section id="pricing" className="bg-muted py-12 md:py-20 min-h-screen flex items-center">
+        <div className="max-w-[1400px] mx-auto px-6 w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -142,14 +155,14 @@ export function DarkPricingSection() {
               <div className="mt-5">
                 {p.primary ? (
                   <ShimmerButton
-                    onClick={() => router.push('/style-quiz')}
+                    onClick={() => handlePlanClick(p.name)}
                     className="w-full py-2.5 rounded-full text-[15px] bg-primary text-white hover:bg-primary/90 transition-all duration-300"
                   >
                     {p.cta}
                   </ShimmerButton>
                 ) : (
                   <button
-                    onClick={() => router.push('/style-quiz')}
+                    onClick={() => handlePlanClick(p.name)}
                     className="w-full py-2.5 rounded-full text-[15px] border-[1.5px] border-primary text-primary hover:bg-primary/5 transition-all duration-300"
                   >
                     {p.cta}
@@ -169,7 +182,9 @@ export function DarkPricingSection() {
             Contact us for custom quotes.
           </button>
         </p>
-      </div>
-    </section>
+        </div>
+      </section>
+      <PlanningWizardModal open={isModalOpen} onOpenChange={setIsModalOpen} />
+    </>
   );
-}
+}

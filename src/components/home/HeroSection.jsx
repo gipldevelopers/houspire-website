@@ -1,12 +1,12 @@
 'use client';
 
+import { useState } from 'react';
 import Image from 'next/image';
-import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2, Clock, Image as ImageIcon, IndianRupee, ShoppingBag, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { HeroHighlight } from '@/components/ui/hero-highlight';
-import { redirectToHouspireHome } from '@/lib/external-links';
+import { PlanningWizardModal } from '@/components/wizard/PlanningWizardModal';
 
 const ease = [0.25, 0.46, 0.45, 0.94];
 
@@ -52,11 +52,12 @@ function PreviewTile({ src, alt, label }) {
 }
 
 export function HeroSection() {
-  const router = useRouter();
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <HeroHighlight className="bg-background">
-      <section className="relative overflow-hidden pt-20 pb-16 md:pt-24 md:pb-24 flex items-center">
+    <>
+      <HeroHighlight className="bg-background">
+        <section className="relative overflow-hidden pt-20 pb-16 md:pt-24 md:pb-24 flex items-center">
         <div className="absolute inset-0 -z-10">
           <div className="absolute -top-24 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
           <div className="absolute -bottom-28 right-[-120px] h-[520px] w-[520px] rounded-full bg-accent/10 blur-3xl" />
@@ -127,7 +128,7 @@ export function HeroSection() {
               >
                 <Button
                   size="lg"
-                  onClick={redirectToHouspireHome}
+                  onClick={() => setIsModalOpen(true)}
                   className="h-14 rounded-full px-10 text-lg font-bold shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
                 >
                   Start your home plan
@@ -196,7 +197,9 @@ export function HeroSection() {
           </div>
 
         </div>
-      </section>
-    </HeroHighlight>
+        </section>
+      </HeroHighlight>
+      <PlanningWizardModal open={isModalOpen} onOpenChange={setIsModalOpen} />
+    </>
   );
 }

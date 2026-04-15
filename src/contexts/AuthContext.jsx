@@ -69,6 +69,29 @@ export function AuthProvider({ children }) {
     }
   };
 
+  const signup = async ({ email, password, name }) => {
+    const result = await signUp(email, password, name);
+
+    if (result?.error) {
+      return {
+        success: false,
+        message: result.error.message || 'Signup failed',
+      };
+    }
+
+    return {
+      success: true,
+      data: {
+        requiresVerification: false,
+        isExistingUser: false,
+      },
+    };
+  };
+
+  const verifyOtp = async () => ({
+    success: true,
+  });
+
   const signOut = async () => {
     localStorage.removeItem('token');
     setUser(null);
@@ -82,6 +105,8 @@ export function AuthProvider({ children }) {
         user,
         signIn,
         signUp,
+        signup,
+        verifyOtp,
         signOut,
         loading,
         isAdmin,

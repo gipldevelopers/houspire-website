@@ -15,6 +15,7 @@ import { SEOHead } from '@/components/SEOHead';
 import { Suspense } from 'react';
 import { useScroll, useSpring } from 'framer-motion';
 import Image from 'next/image';
+import { PlanningWizardModal } from '@/components/wizard/PlanningWizardModal';
 
 function SelectPackageContent() {
   const { scrollYProgress } = useScroll();
@@ -35,6 +36,7 @@ function SelectPackageContent() {
   const [loading, setLoading] = useState(true);
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [styleName, setStyleName] = useState('');
+  const [isWizardOpen, setIsWizardOpen] = useState(false);
 
   useEffect(() => {
     fetchPackages();
@@ -79,6 +81,20 @@ function SelectPackageContent() {
 
   const handleSelectPackage = (pkg) => {
     setSelectedPackage(pkg);
+  };
+
+  const shouldOpenWizard = (pkg) => {
+    const slug = pkg?.slug?.toLowerCase();
+    return slug === 'smart' || slug === 'premium' || slug === 'luxury';
+  };
+
+  const handlePackageAction = (pkg) => {
+    if (shouldOpenWizard(pkg)) {
+      setIsWizardOpen(true);
+      return;
+    }
+
+    handleSelectPackage(pkg);
   };
 
   const handleContinue = () => {
@@ -183,7 +199,7 @@ function SelectPackageContent() {
                     pkg={pkg}
                     index={index}
                     selected={selectedPackage?.id === pkg.id}
-                    onSelect={handleSelectPackage}
+                    onSelect={handlePackageAction}
                     vertical
                   />
                 ))}
@@ -255,6 +271,7 @@ function SelectPackageContent() {
         >
           <span className="text-xl">↑</span>
         </motion.button>
+        <PlanningWizardModal open={isWizardOpen} onOpenChange={setIsWizardOpen} />
       </div>
     </>
   );
@@ -349,7 +366,11 @@ function PackageCard({ pkg, index, selected, onSelect, vertical = false }) {
             ))}
           </ul>
           
-          <Button 
+          <Button
+            onClick={(event) => {
+              event.stopPropagation();
+              onSelect(pkg);
+            }}
             className={`w-full font-bold h-11 transition-all ${
               selected 
                 ? 'bg-black text-white hover:bg-black/90' 
