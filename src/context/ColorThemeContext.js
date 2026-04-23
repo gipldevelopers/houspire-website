@@ -48,7 +48,13 @@ export function ColorThemeProvider({ children }) {
     const savedPalette = localStorage.getItem('housepire-custom-palette');
     if (savedPalette) {
       try {
-        const parsed = JSON.parse(savedPalette);
+        let parsed = JSON.parse(savedPalette);
+        
+        // --- Migration logic: Force-update old Mocha Beige to the new Ivory ---
+        if (parsed.card === "#BB9480" || parsed.card === "#F1E9E4") {
+          parsed.card = "#FAF9F6";
+        }
+        
         setPalette(parsed);
       } catch (e) {
         console.error("Failed to parse saved palette", e);

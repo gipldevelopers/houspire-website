@@ -4,7 +4,7 @@ export const defaultPalette = {
   secondary: "#2C5A52",
   accent: "#FFCF69",
   background: "#FDFBF7",
-  card: "#BB9480",
+  card: "#FAF9F6",
   heading: "#1E2A38",
   text: "#1E2A38",
   border: "#E2DACF",

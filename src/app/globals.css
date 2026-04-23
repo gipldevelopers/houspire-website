@@ -37,7 +37,7 @@
     
     /* Typography */
     --color-text-main: var(--color-text);
-    --color-text-muted: var(--color-card);
+    --color-text-muted: color-mix(in srgb, var(--color-text), var(--color-background) 40%);
     --color-text-on-dark: var(--color-background);
     
     /* Buttons & Actions */
