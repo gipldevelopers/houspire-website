@@ -78,10 +78,10 @@ export default function Privacy() {
               className="text-center max-w-2xl mx-auto"
             >
               <div className="flex items-center justify-center gap-2 mb-4">
-                <Shield className="h-6 w-6 text-primary" />
-                <Badge className="bg-accent/10 text-accent border-0">Legal</Badge>
+                <Shield className="h-6 w-6" style={{ color: 'var(--color-primary)' }} />
+                <Badge className="border-0" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)', color: 'var(--color-primary)' }}>Legal</Badge>
               </div>
-              <h1 className="text-4xl md:text-5xl font-semibold text-foreground tracking-tight mb-4">
+              <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-4" style={{ color: 'var(--color-heading-main)' }}>
                 Privacy Policy
               </h1>
               <p className="text-muted-foreground">Effective Date: February 2026</p>
@@ -105,9 +105,10 @@ export default function Privacy() {
                         onClick={() => scrollToSection(section.id)}
                         className={`block w-full text-left text-xs py-1.5 px-2 rounded transition-colors ${
                           activeSection === section.id
-                            ? 'bg-primary/10 text-primary font-medium'
-                            : 'text-muted-foreground hover:bg-muted'
+                            ? 'font-medium'
+                            : 'opacity-60 hover:bg-muted'
                         }`}
+                        style={activeSection === section.id ? { backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)', color: 'var(--color-primary)' } : { color: 'var(--color-description)' }}
                       >
                         {section.title}
                       </button>
@@ -118,9 +119,9 @@ export default function Privacy() {
 
               {/* Main Content */}
               <main className="flex-1 max-w-3xl">
-                <Alert className="mb-8 border-primary/20 bg-primary/5">
-                  <Info className="h-4 w-4 text-primary" />
-                  <AlertDescription className="text-foreground">
+                <Alert className="mb-8 border-none" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 5%, var(--color-bg))' }}>
+                  <Info className="h-4 w-4" style={{ color: 'var(--color-primary)' }} />
+                  <AlertDescription style={{ color: 'var(--color-heading-secondary)' }}>
                     <strong>Your Privacy Matters:</strong> This Privacy Policy explains how Houspire (brand of ARMISHQ DESIGN PRIVATE LIMITED) collects, uses, stores, and protects your personal data in compliance with the Digital Personal Data Protection Act, 2023 ("DPDP Act") and other applicable laws of India.
                   </AlertDescription>
                 </Alert>
@@ -168,21 +169,21 @@ export default function Privacy() {
                           <Mail className="h-5 w-5 text-muted-foreground" />
                           <div>
                             <p className="text-sm font-medium">Privacy Questions</p>
-                            <a href="mailto:privacy@houspire.ai" className="text-primary hover:underline text-sm">privacy@houspire.ai</a>
+                            <a href="mailto:privacy@houspire.ai" className="hover:underline text-sm" style={{ color: 'var(--color-primary)' }}>privacy@houspire.ai</a>
                           </div>
                         </div>
                         <div className="flex items-center gap-3">
                           <Mail className="h-5 w-5 text-muted-foreground" />
                           <div>
                             <p className="text-sm font-medium">General Inquiries</p>
-                            <a href="mailto:contact@houspire.ai" className="text-primary hover:underline text-sm">contact@houspire.ai</a>
+                            <a href="mailto:contact@houspire.ai" className="hover:underline text-sm" style={{ color: 'var(--color-primary)' }}>contact@houspire.ai</a>
                           </div>
                         </div>
                         <div className="flex items-center gap-3">
                           <Mail className="h-5 w-5 text-muted-foreground" />
                           <div>
                             <p className="text-sm font-medium">Grievances</p>
-                            <a href="mailto:grievance@houspire.ai" className="text-primary hover:underline text-sm">grievance@houspire.ai</a>
+                            <a href="mailto:grievance@houspire.ai" className="hover:underline text-sm" style={{ color: 'var(--color-primary)' }}>grievance@houspire.ai</a>
                           </div>
                         </div>
                         <div className="flex items-start gap-3">

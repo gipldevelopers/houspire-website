@@ -15,7 +15,7 @@ export default function AboutHero() {
   ];
 
   return (
-    <section className="relative pt-12 md:pt-20 pb-16 bg-white overflow-hidden">
+    <section className="relative pt-12 md:pt-20 pb-16 overflow-hidden" style={{ backgroundColor: 'var(--color-bg)' }}>
       <div className="max-w-7xl mx-auto px-6 text-center">
         {/* Heading Section */}
         <motion.div
@@ -23,7 +23,7 @@ export default function AboutHero() {
           animate={{ opacity: 1, y: 0 }}
           className="max-w-4xl mx-auto space-y-5"
         >
-          <h1 className="text-2xl md:text-6xl font-bold text-[#1a1a1a] leading-[1.1] tracking-tight">
+          <h1 className="text-2xl md:text-6xl font-bold leading-[1.1] tracking-tight" style={{ color: 'var(--color-heading-main)' }}>
             Elevate Your <span className="relative inline-block">
               Living
               <motion.svg
@@ -31,7 +31,8 @@ export default function AboutHero() {
                 animate={{ pathLength: 1 }}
                 transition={{ duration: 1, delay: 0.5 }}
                 viewBox="0 0 100 20"
-                className="absolute -bottom-1 md:-bottom-2 left-0 w-full h-4 md:h-8 text-[#f27405] pointer-events-none fill-none stroke-[3] stroke-current stroke-round"
+                className="absolute -bottom-1 md:-bottom-2 left-0 w-full h-4 md:h-8 pointer-events-none fill-none stroke-[3] stroke-current stroke-round"
+                style={{ color: 'var(--color-primary)' }}
                 preserveAspectRatio="none"
               >
                 <path d="M5 15 Q 50 18 95 15" />
@@ -49,7 +50,7 @@ export default function AboutHero() {
                 </div>
               ))}
               <div className="pl-3 md:pl-5 flex flex-col items-start gap-0.5">
-                <div className="flex gap-0.5 text-[#f27405]">
+                <div className="flex gap-0.5" style={{ color: 'var(--color-primary)' }}>
                   {[1, 2, 3, 4, 5].map((s) => <Star key={s} size={10} fill="currentColor" />)}
                 </div>
                 <p className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.15em]">
@@ -62,7 +63,7 @@ export default function AboutHero() {
           <div className="pt-2 md:pt-4">
             <Link 
               href="#work" 
-              className="inline-block px-10 py-4 bg-[#f27405] text-white rounded-full font-bold text-xs tracking-widest transition-all hover:scale-105 shadow-xl shadow-orange-500/10"
+              className="btn-primary inline-flex items-center px-10 py-4 text-white rounded-full font-bold text-xs tracking-widest transition-all hover:scale-105 shadow-xl shadow-black/5"
             >
               Explore Our Work
             </Link>

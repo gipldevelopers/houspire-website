@@ -138,15 +138,15 @@ export default function FAQ() {
             animate={{ opacity: 1, y: 0 }}
             className="text-center mb-10"
           >
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-primary/10 rounded-full mb-6">
-              <HelpCircle className="h-8 w-8 text-primary" />
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full mb-6" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)' }}>
+              <HelpCircle className="h-8 w-8" style={{ color: 'var(--color-primary)' }} />
             </div>
 
-            <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
+            <h1 className="text-4xl md:text-5xl font-bold mb-4" style={{ color: 'var(--color-heading-main)' }}>
               Help Center
             </h1>
 
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="text-lg max-w-2xl mx-auto opacity-60" style={{ color: 'var(--color-description)' }}>
               Everything you need to know about Houspire and our services. 
               Can't find what you're looking for? Ask our AI assistant!
             </p>
@@ -251,14 +251,14 @@ export default function FAQ() {
                   >
                     {/* Category Header */}
                     <div className="flex items-center gap-3 mb-4">
-                      <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
-                        <category.icon className="h-5 w-5 text-primary" />
+                      <div className="w-10 h-10 rounded-lg flex items-center justify-center" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)' }}>
+                        <category.icon className="h-5 w-5" style={{ color: 'var(--color-primary)' }} />
                       </div>
                       <div>
-                        <h2 className="text-xl font-semibold text-foreground">
+                        <h2 className="text-xl font-semibold" style={{ color: 'var(--color-heading-secondary)' }}>
                           {category.name}
                         </h2>
-                        <p className="text-sm text-muted-foreground">
+                        <p className="text-sm opacity-60" style={{ color: 'var(--color-description)' }}>
                           {category.description}
                         </p>
                       </div>
@@ -289,20 +289,20 @@ export default function FAQ() {
                 transition={{ delay: 0.4 }}
                 className="mt-12"
               >
-                <Card className="p-8 bg-primary/5 border-primary/20">
+                <Card className="p-8 border-none" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 5%, var(--color-bg))' }}>
                   <div className="text-center">
-                    <HelpCircle className="h-12 w-12 text-primary mx-auto mb-4" />
-                    <h2 className="text-2xl font-bold text-foreground mb-2">
+                    <HelpCircle className="h-12 w-12 mx-auto mb-4" style={{ color: 'var(--color-primary)' }} />
+                    <h2 className="text-2xl font-bold mb-2" style={{ color: 'var(--color-heading-main)' }}>
                       Still Have Questions?
                     </h2>
-                    <p className="text-muted-foreground mb-6 max-w-md mx-auto">
+                    <p className="mb-6 max-w-md mx-auto opacity-60" style={{ color: 'var(--color-description)' }}>
                       Can't find the answer you're looking for? Our support team is here to help!
                     </p>
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                       <Button
                         onClick={() => window.location.href = 'mailto:support@houspire.com'}
-                        className="h-12 px-6"
+                        className="h-12 px-6 btn-primary"
                       >
                         <Mail className="h-5 w-5 mr-2" />
                         Email Support

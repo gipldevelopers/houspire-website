@@ -149,6 +149,9 @@ function createChannel() {
     subscribe() {
       return this;
     },
+    unsubscribe() {
+      return this;
+    },
   };
 }
 

@@ -132,14 +132,14 @@ export default function HowItWorks() {
               transition={{ duration: 0.6 }}
               className="text-center max-w-4xl mx-auto"
             >
-              <Badge className="mb-6 bg-accent/10 text-accent border-accent/20">
+              <Badge className="mb-6 border-[var(--color-border)]" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)', color: 'var(--color-primary)' }}>
                 Simple 5-Step Process
               </Badge>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight text-foreground mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-6" style={{ color: 'var(--color-heading-main)' }}>
                 From Quiz to Dream Room
-                <span className="block text-accent">in 72 Hours</span>
+                <span className="block" style={{ color: 'var(--color-heading-main-highlight)' }}>in 72 Hours</span>
               </h1>
-              <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
+              <p className="text-xl max-w-2xl mx-auto mb-8 opacity-60" style={{ color: 'var(--color-description)' }}>
                 Professional interior design made simple. Answer a few questions, share your space, 
                 and get stunning designs delivered to your inbox.
               </p>
@@ -164,21 +164,21 @@ export default function HowItWorks() {
         <section className="py-12 border-y border-border/50 bg-secondary/20">
           <div className="container mx-auto px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-              <div>
-                <p className="text-3xl md:text-4xl font-bold text-foreground">~15</p>
-                <p className="text-sm text-muted-foreground mt-1">Minutes to Start</p>
+               <div>
+                <p className="text-3xl md:text-4xl font-bold" style={{ color: 'var(--color-heading-main)' }}>~15</p>
+                <p className="text-sm mt-1 opacity-60" style={{ color: 'var(--color-description)' }}>Minutes to Start</p>
               </div>
               <div>
-                <p className="text-3xl md:text-4xl font-bold text-accent">72</p>
-                <p className="text-sm text-muted-foreground mt-1">Hours to Delivery</p>
+                <p className="text-3xl md:text-4xl font-bold" style={{ color: 'var(--color-primary)' }}>72</p>
+                <p className="text-sm mt-1 opacity-60" style={{ color: 'var(--color-description)' }}>Hours to Delivery</p>
               </div>
               <div>
-                <p className="text-3xl md:text-4xl font-bold text-foreground">₹499</p>
-                <p className="text-sm text-muted-foreground mt-1">Starting Price</p>
+                <p className="text-3xl md:text-4xl font-bold" style={{ color: 'var(--color-heading-main)' }}>₹499</p>
+                <p className="text-sm mt-1 opacity-60" style={{ color: 'var(--color-description)' }}>Starting Price</p>
               </div>
               <div>
-                <p className="text-3xl md:text-4xl font-bold text-foreground">100%</p>
-                <p className="text-sm text-muted-foreground mt-1">Money-Back Guarantee</p>
+                <p className="text-3xl md:text-4xl font-bold" style={{ color: 'var(--color-heading-main)' }}>100%</p>
+                <p className="text-sm mt-1 opacity-60" style={{ color: 'var(--color-description)' }}>Money-Back Guarantee</p>
               </div>
             </div>
           </div>
@@ -193,10 +193,10 @@ export default function HowItWorks() {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground mb-4">
+              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4" style={{ color: 'var(--color-heading-main)' }}>
                 The Process
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-lg max-w-2xl mx-auto opacity-60" style={{ color: 'var(--color-description)' }}>
                 Five simple steps from inspiration to transformation
               </p>
             </motion.div>
@@ -231,15 +231,11 @@ export default function HowItWorks() {
                       {/* Content */}
                       <div className="flex-1">
                         <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
-                          <h3 className="text-xl font-semibold text-foreground">
+                          <h3 className="text-xl font-semibold" style={{ color: 'var(--color-heading-secondary)' }}>
                             {step.title}
                           </h3>
-                          <Badge variant="secondary" className="text-xs">
-                            <Clock className="h-3 w-3 mr-1" />
-                            {step.time}
-                          </Badge>
                         </div>
-                        <p className="text-muted-foreground">
+                        <p className="opacity-60" style={{ color: 'var(--color-description)' }}>
                           {step.description}
                         </p>
                       </div>
@@ -267,10 +263,10 @@ export default function HowItWorks() {
               viewport={{ once: true }}
               className="text-center mb-16"
             >
-              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground mb-4">
+               <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4" style={{ color: 'var(--color-heading-main)' }}>
                 What You'll Receive
               </h2>
-              <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              <p className="text-lg max-w-2xl mx-auto opacity-60" style={{ color: 'var(--color-description)' }}>
                 Everything you need to transform your space, delivered digitally
               </p>
             </motion.div>
@@ -307,10 +303,10 @@ export default function HowItWorks() {
               className="max-w-4xl mx-auto"
             >
               <div className="text-center mb-12">
-                <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground mb-4">
+                <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4" style={{ color: 'var(--color-heading-main)' }}>
                   72-Hour Delivery Guarantee
                 </h2>
-                <p className="text-lg text-muted-foreground">
+                <p className="text-lg opacity-60" style={{ color: 'var(--color-description)' }}>
                   Here's exactly what happens after you submit your project
                 </p>
               </div>
@@ -318,29 +314,29 @@ export default function HowItWorks() {
               <Card className="p-8 border-2 border-accent/30 bg-accent/5">
                 <div className="grid md:grid-cols-3 gap-8">
                   <div className="text-center">
-                    <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl font-bold text-accent">0-24h</span>
+                    <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 20%, transparent)' }}>
+                      <span className="text-2xl font-bold" style={{ color: 'var(--color-primary)' }}>0-24h</span>
                     </div>
-                    <h4 className="font-semibold text-foreground mb-2">Designer Assignment</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <h4 className="font-semibold mb-2" style={{ color: 'var(--color-heading-secondary)' }}>Designer Assignment</h4>
+                    <p className="text-sm opacity-60" style={{ color: 'var(--color-description)' }}>
                       Your project is matched with the perfect designer based on your style preferences
                     </p>
                   </div>
                   <div className="text-center">
-                    <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl font-bold text-accent">24-48h</span>
+                    <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 20%, transparent)' }}>
+                      <span className="text-2xl font-bold" style={{ color: 'var(--color-primary)' }}>24-48h</span>
                     </div>
-                    <h4 className="font-semibold text-foreground mb-2">Design Creation</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <h4 className="font-semibold mb-2" style={{ color: 'var(--color-heading-secondary)' }}>Design Creation</h4>
+                    <p className="text-sm opacity-60" style={{ color: 'var(--color-description)' }}>
                       Your designer creates concepts, sources products, and prepares photorealistic room designs
                     </p>
                   </div>
                   <div className="text-center">
-                    <div className="w-16 h-16 rounded-full bg-accent/20 flex items-center justify-center mx-auto mb-4">
-                      <span className="text-2xl font-bold text-accent">48-72h</span>
+                    <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 20%, transparent)' }}>
+                      <span className="text-2xl font-bold" style={{ color: 'var(--color-primary)' }}>48-72h</span>
                     </div>
-                    <h4 className="font-semibold text-foreground mb-2">Quality Review</h4>
-                    <p className="text-sm text-muted-foreground">
+                    <h4 className="font-semibold mb-2" style={{ color: 'var(--color-heading-secondary)' }}>Quality Review</h4>
+                    <p className="text-sm opacity-60" style={{ color: 'var(--color-description)' }}>
                       Final review, packaging, and delivery of your complete design package
                     </p>
                   </div>
@@ -359,10 +355,10 @@ export default function HowItWorks() {
               viewport={{ once: true }}
               className="text-center mb-12"
             >
-              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground mb-4">
+              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4" style={{ color: 'var(--color-heading-main)' }}>
                 Simple, Transparent Pricing
               </h2>
-              <p className="text-lg text-muted-foreground">
+              <p className="text-lg opacity-60" style={{ color: 'var(--color-description)' }}>
                 Professional interior design starting at ₹499. No hidden fees, no subscriptions.
               </p>
             </motion.div>
@@ -410,12 +406,12 @@ export default function HowItWorks() {
                         </Badge>
                       )}
 
-                      <h3 className="font-semibold text-foreground">{pkg.name}</h3>
-                      <p className="text-sm text-muted-foreground mb-3">{pkg.tagline}</p>
+                      <h3 className="font-semibold" style={{ color: 'var(--color-heading-secondary)' }}>{pkg.name}</h3>
+                      <p className="text-sm mb-3 opacity-60" style={{ color: 'var(--color-description)' }}>{pkg.tagline}</p>
 
                       <div className="mb-3">
-                        <span className="text-3xl font-bold text-foreground">₹{formatPrice(pkg.price)}</span>
-                        <p className="text-sm text-muted-foreground">{pkg.roomCountDisplay}</p>
+                        <span className="text-3xl font-bold" style={{ color: 'var(--color-heading-main)' }}>₹{formatPrice(pkg.price)}</span>
+                        <p className="text-sm opacity-60" style={{ color: 'var(--color-description)' }}>{pkg.roomCountDisplay}</p>
                       </div>
 
                       <ul className="space-y-1.5 flex-1 mb-4">
@@ -475,10 +471,10 @@ export default function HowItWorks() {
               viewport={{ once: true }}
               className="text-center max-w-3xl mx-auto"
             >
-              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight text-foreground mb-4">
+               <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4" style={{ color: 'var(--color-heading-main)' }}>
                 Ready to Transform Your Space?
               </h2>
-              <p className="text-lg text-muted-foreground mb-8">
+              <p className="text-lg mb-8 opacity-60" style={{ color: 'var(--color-description)' }}>
                 Take our 2-minute style quiz and discover your design personality
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

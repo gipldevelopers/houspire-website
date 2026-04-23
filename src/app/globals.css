@@ -8,42 +8,85 @@
   :root {
     color-scheme: light;
 
-    /* Houspire brand palette - Premium Warm Peach & Navy Theme */
-    --background: 34 100% 95%; /* #fff4e6 - Light Peach */
-    --foreground: 222 47% 11%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
-    --primary: 222 47% 11%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 34 100% 92%; /* Slightly darker peach */
-    --secondary-foreground: 222 47% 11%;
-    --muted: 34 100% 92%; /* Consistently warm muted tone */
-    --muted-foreground: 34 30% 40%; /* Warm muted text */
-    --accent: 38 43% 54%;
+    /* --- Brand Palette (Central Management) --- */
+    
+    /* Primary Colors - Layout & Core Identity */
+    --color-primary-1: #FDFBF7; /* Warm Ivory - Main Background */
+    --color-primary-2: #1E2A38; /* Midnight Steel - Text & Dark Sections */
+    --color-primary-3: #EC7446; /* Terracotta Flame - Primary CTA */
+    --color-primary-4: #BB9480; /* Mocha Beige - Subtle Accents */
+
+    /* Secondary Colors - Components & Sections */
+    --color-secondary-1: #E2DACF; /* Soft Taupe - Section Backgrounds */
+    --color-secondary-2: #90AAAB; /* Sage Blue-Green - Highlights */
+    --color-secondary-3: #2C5A52; /* Forest Teal - Icons / UI Elements */
+    --color-secondary-4: #734443; /* Mahogany Plum - Accent Depth */
+
+    /* Tertiary Colors - Feedback & Small Details */
+    --color-tertiary-1: #FFCF69; /* Sun Amber - Highlights */
+    --color-tertiary-2: #8CBC9D; /* Mint Verdure - Success States */
+    --color-tertiary-3: #385183; /* Royal Slate Blue - Links */
+    --color-tertiary-4: #3D6E70; /* Urban Mist Grey - Borders / Dividers */
+
+    /* --- Semantic Variables (Mapped to Palette) --- */
+    
+    /* Backgrounds */
+    --color-bg-main: var(--color-background);
+    --color-bg-alt: var(--color-secondary);
+    --color-bg-dark: var(--color-secondary);
+    
+    /* Typography */
+    --color-text-main: var(--color-text);
+    --color-text-muted: var(--color-card);
+    --color-text-on-dark: var(--color-background);
+    
+    /* Buttons & Actions */
+    --color-btn-primary: var(--color-button);
+    --color-btn-primary-hover: var(--color-button-hover);
+    --color-btn-secondary: var(--color-secondary);
+    
+    /* Borders & Utilities */
+    --color-border: var(--color-tertiary-4);
+    --color-link: var(--color-tertiary-3);
+    --color-success: var(--color-tertiary-2);
+
+    /* --- Tailwind Integration (HSL conversion for opacity support) --- */
+    /* If you update the hex values above, update these HSL components too */
+    --background: 40 43% 98%;    /* Maps to --color-primary-1 */
+    --foreground: 212 30% 17%;   /* Maps to --color-primary-2 */
+    --card: 40 43% 99%;          /* Warm Ivory cards */
+    --card-foreground: 212 30% 17%;
+    --popover: 40 43% 99%;
+    --popover-foreground: 212 30% 17%;
+    --primary: 17 82% 60%;       /* Maps to --color-primary-3 Terracotta */
+    --primary-foreground: 40 43% 98%;
+    --secondary: 35 22% 85%;     /* Maps to --color-secondary-1 Soft Taupe */
+    --secondary-foreground: 212 30% 17%;
+    --muted: 35 22% 90%;         /* Lighter taupe for muted bg */
+    --muted-foreground: 21 29% 62%;  /* Maps to --color-primary-4 Mocha Beige */
+    --accent: 182 12% 61%;       /* Maps to --color-secondary-2 Sage Blue-Green */
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --success: 145 63% 42%;
-    --success-foreground: 0 0% 100%;
-    --warning: 38 92% 50%;
-    --warning-foreground: 0 0% 100%;
-    --info: 222 47% 11%;
+    --success: 141 26% 64%;      /* Maps to --color-tertiary-2 Mint Verdure */
+    --success-foreground: 169 34% 15%;
+    --warning: 41 100% 71%;      /* Maps to --color-tertiary-1 Sun Amber */
+    --warning-foreground: 212 30% 17%;
+    --info: 220 40% 37%;         /* Maps to --color-tertiary-3 Royal Slate Blue */
     --info-foreground: 0 0% 100%;
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 222 47% 11%;
+    --border: 35 22% 84%;        /* Light warm taupe — subtle borders */
+    --input: 35 22% 84%;
+    --ring: 17 82% 60%;
     --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 210 29% 20%;
-    --sidebar-primary: 28 96% 47%;
+    --sidebar-background: 40 43% 98%;
+    --sidebar-foreground: 212 30% 25%;
+    --sidebar-primary: 17 82% 60%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 96%;
-    --sidebar-accent-foreground: 210 29% 15%;
-    --sidebar-border: 0 0% 92%;
-    --sidebar-ring: 28 96% 47%;
+    --sidebar-accent: 35 26% 85%;
+    --sidebar-accent-foreground: 212 30% 17%;   
+    --sidebar-border: 182 30% 85%;
+    --sidebar-ring: 17 82% 60%;
   }
 
   * {
@@ -53,7 +96,9 @@
   }
 
   body {
-    @apply bg-background text-foreground antialiased;
+    background-color: var(--color-bg-main);
+    color: var(--color-text-main);
+    @apply antialiased;
     font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
@@ -161,6 +206,18 @@
   /* Apple-style sections */
   .section-apple {
     @apply py-12 md:py-12 lg:py-20;
+    background-color: var(--color-bg-main);
+  }
+
+  .section-alt {
+    @apply section-apple;
+    background-color: var(--color-bg-alt);
+  }
+
+  .section-dark {
+    @apply section-apple;
+    background-color: var(--color-bg-dark);
+    color: var(--color-text-on-dark);
   }
 
   /* Apple-style typography */
@@ -172,21 +229,108 @@
     @apply text-xl md:text-2xl font-normal text-muted-foreground leading-relaxed;
   }
 
-  /* Apple-style buttons */
-  .btn-apple {
-    @apply inline-flex items-center justify-center h-12 px-6 text-base font-medium rounded-full transition-all duration-300;
-    @apply bg-foreground text-background hover:bg-foreground/90;
-    @apply active:scale-[0.98];
-  }
+  /* ================================================
+     Houspire 3-Button System
+     Use .btn-primary / .btn-secondary / .btn-highlight
+     Add .btn-sm or .btn-lg to change size only.
+     ================================================ */
 
-  .btn-apple-outline {
-    @apply inline-flex items-center justify-center h-12 px-6 text-base font-medium rounded-full transition-all duration-300;
-    @apply bg-transparent text-foreground border border-foreground/20 hover:bg-foreground/5;
-    @apply active:scale-[0.98];
+  /* --- Primary: Dynamic Fill --- */
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.75rem;
+    padding: 0 1.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 9999px;
+    cursor: pointer;
+    border: 1.5px solid var(--color-btn-primary-border);
+    color: var(--color-btn-primary-text);
+    background-color: var(--color-btn-primary-bg);
+    box-shadow: 0 4px 16px color-mix(in srgb, var(--color-btn-primary-bg) 15%, transparent);
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    user-select: none;
+    text-decoration: none;
   }
+  .btn-primary:hover {
+    background-color: var(--color-btn-primary-hover-bg);
+    color: var(--color-btn-primary-hover-text);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--color-btn-primary-hover-bg) 25%, transparent);
+  }
+  .btn-primary:active { transform: scale(0.97); box-shadow: none; }
+  .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
+  /* --- Secondary: Dynamic Outline --- */
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.75rem;
+    padding: 0 1.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 9999px;
+    cursor: pointer;
+    border: 1.5px solid var(--color-btn-secondary-border);
+    color: var(--color-btn-secondary-text);
+    background-color: var(--color-btn-secondary-bg);
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    user-select: none;
+    text-decoration: none;
+  }
+  .btn-secondary:hover {
+    background-color: var(--color-btn-secondary-hover-bg);
+    color: var(--color-btn-secondary-hover-text);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 24px color-mix(in srgb, var(--color-btn-secondary-hover-bg) 20%, transparent);
+  }
+  .btn-secondary:active { transform: scale(0.97); }
+  .btn-secondary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+
+  /* --- Highlight: Warm Ivory fill → for use ON dark sections --- */
+  .btn-highlight {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.75rem;
+    padding: 0 1.75rem;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    background-color: var(--color-primary-1);
+    color: var(--color-primary-2);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.22);
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    user-select: none;
+    text-decoration: none;
+  }
+  .btn-highlight:hover {
+    background-color: var(--color-secondary-1);
+    transform: translateY(-1px);
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.32);
+  }
+  .btn-highlight:active { transform: scale(0.97); }
+
+  /* --- Size Modifiers (combine with any btn-* class) --- */
+  .btn-sm { height: 2.25rem !important; padding: 0 1.25rem !important; font-size: 0.875rem !important; }
+  .btn-lg { height: 3.5rem !important;  padding: 0 2.5rem !important;  font-size: 1.125rem !important; }
+
+  /* Legacy aliases — kept for backward compat */
+  .btn-apple { @apply btn-primary; }
+  .btn-apple-secondary { @apply btn-primary; background-color: var(--color-btn-secondary); }
+  .btn-apple-outline { @apply btn-secondary; }
   .btn-apple-link {
-    @apply inline-flex items-center text-accent hover:text-accent/80 font-medium transition-colors;
+    @apply inline-flex items-center font-medium transition-colors;
+    color: var(--color-link);
+    @apply hover:brightness-110;
   }
 
   /* Apple-style cards */

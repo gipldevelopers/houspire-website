@@ -32,9 +32,10 @@ export function LiveTrackingBanner() {
     if (!user) return;
 
     try {
-      const orderData = await dataGet('/orders?status=paid,in_progress,design_ready,revision_requested&limit=3');
+      const response = await dataGet('/orders?status=paid,in_progress,design_ready,revision_requested&limit=3');
+      const orderData = response?.orders || [];
 
-      if (!orderData || orderData.length === 0) {
+      if (orderData.length === 0) {
         setOrders([]);
         setLoading(false);
         return;
@@ -203,7 +204,7 @@ export function LiveTrackingBanner() {
                     </div>
 
                     <p className="text-[11px] text-muted-foreground mt-1">
-                      Updated {formatDistanceToNow(new Date(order.updated_at || order.created_at), { addSuffix: true })}
+                      Updated {formatDistanceToNow(new Date(order.updated_at || order.updatedAt || order.created_at || order.createdAt || new Date()), { addSuffix: true })}
                     </p>
                   </div>
 

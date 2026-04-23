@@ -35,7 +35,7 @@ export function FAQSection() {
   const isInView = useInView(ref, { once: true, amount: 0.2 });
 
   return (
-    <section ref={ref} className="bg-background py-[60px] md:py-[80px]">
+    <section ref={ref} className="bg-background py-[20px] md:py-[40px]">
       <div className="max-w-[1200px] mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -43,10 +43,10 @@ export function FAQSection() {
           transition={{ duration: 0.8, ease }}
           className="text-center mb-14"
         >
-          <p className="text-[13px] font-semibold tracking-[0.06em] uppercase text-[#6E6E73] mb-3">
+          <p className="text-[13px] font-semibold tracking-[0.06em] uppercase opacity-40 mb-3" style={{ color: 'var(--color-description)' }}>
             Common Questions
           </p>
-          <h2 className="text-[clamp(32px,5vw,48px)] font-bold tracking-[-0.025em] leading-[1.07] text-[#1D1D1F]">
+          <h2 className="text-[clamp(32px,5vw,48px)] font-bold tracking-[-0.025em] leading-[1.07]" style={{ color: 'var(--color-heading-main)' }}>
             Everything you'd want to know.
           </h2>
         </motion.div>
@@ -58,15 +58,15 @@ export function FAQSection() {
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, ease, delay: i * 0.05 }}
-              className="border-b border-[#D2D2D7]"
+              className="border-b border-border"
             >
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
                 className="w-full flex items-center justify-between py-5 text-left"
               >
-                <span className="text-[18px] font-semibold text-[#1D1D1F] pr-4">{faq.q}</span>
+                <span className="text-[18px] font-semibold pr-4" style={{ color: 'var(--color-heading-secondary)' }}>{faq.q}</span>
                 <ChevronDown
-                  className={`w-5 h-5 text-[#86868B] flex-shrink-0 transition-transform duration-300 ${
+                  className={`w-5 h-5 text-muted-foreground flex-shrink-0 transition-transform duration-300 ${
                     openIndex === i ? 'rotate-180' : ''
                   }`}
                 />
@@ -80,7 +80,7 @@ export function FAQSection() {
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
                     className="overflow-hidden"
                   >
-                    <p className="text-[16px] text-[#6E6E73] leading-[1.6] pb-5">
+                    <p className="text-[16px] leading-[1.6] pb-5 opacity-60" style={{ color: 'var(--color-description)' }}>
                       {faq.a}
                     </p>
                   </motion.div>

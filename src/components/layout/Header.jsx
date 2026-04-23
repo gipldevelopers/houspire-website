@@ -155,13 +155,12 @@ export function Header() {
                       Admin
                     </Button>
                   )}
-                  <Button
-                    variant="ghost"
+                  <button
                     onClick={() => router.push('/dashboard')}
-                    className="text-sm font-medium text-foreground/70 hover:text-foreground hover:bg-transparent transition-all duration-300"
+                    className="btn-secondary btn-sm"
                   >
                     Dashboard
-                  </Button>
+                  </button>
                   {/* <NotificationBell /> */}
                   <Button
                     variant="ghost"
@@ -207,12 +206,12 @@ export function Header() {
                   >
                     Sign in
                   </Button>
-                  <Button
+                  <button
                     onClick={() => setIsModalOpen(true)}
-                    className="h-9 px-5 text-sm font-medium bg-foreground text-background hover:bg-foreground/90 rounded-full transition-all duration-300 hover:shadow-lg hover:shadow-foreground/10 active:scale-[0.98]"
+                    className="btn-primary btn-sm"
                   >
                     Get started
-                  </Button>
+                  </button>
                 </>
               )}
             </div>
@@ -311,75 +310,65 @@ export function Header() {
                         Admin Panel
                       </Button>
                     )}
-                    <Button
-                      size="lg"
+                    <button
                       onClick={() => {
                         router.push('/dashboard');
                         setIsMobileMenuOpen(false);
                       }}
-                      className="w-full h-14 text-lg bg-foreground hover:bg-foreground/90 text-background rounded-full transition-all duration-300"
+                      className="btn-primary btn-lg w-full"
                     >
                       Dashboard
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="lg"
+                    </button>
+                    <button
                       onClick={() => {
                         router.push('/dashboard/inspiration');
                         setIsMobileMenuOpen(false);
                       }}
-                      className="w-full h-14 text-lg rounded-full border-2 transition-all duration-300"
+                      className="btn-secondary btn-lg w-full gap-2"
                     >
-                      <Heart className="h-5 w-5 mr-2" />
+                      <Heart className="h-5 w-5" />
                       My Boards
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="lg"
+                    </button>
+                    <button
                       onClick={() => {
                         router.push('/settings');
                         setIsMobileMenuOpen(false);
                       }}
-                      className="w-full h-14 text-lg rounded-full border-2 transition-all duration-300"
+                      className="btn-secondary btn-lg w-full gap-2"
                     >
-                      <Settings className="h-5 w-5 mr-2" />
+                      <Settings className="h-5 w-5" />
                       Settings
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="lg"
+                    </button>
+                    <button
                       onClick={() => {
                         handleSignOut();
                         setIsMobileMenuOpen(false);
                       }}
-                      className="w-full h-14 text-lg rounded-full border-2 transition-all duration-300"
+                      className="btn-secondary btn-lg w-full"
                     >
                       Sign out
-                    </Button>
+                    </button>
                   </>
                 ) : (
                   <>
-                    <Button
-                      size="lg"
+                    <button
                       onClick={() => {
                         setIsModalOpen(true);
                         setIsMobileMenuOpen(false);
                       }}
-                      className="w-full h-14 text-lg bg-foreground hover:bg-foreground/90 text-background rounded-full transition-all duration-300"
+                      className="btn-primary btn-lg w-full"
                     >
                       Get started
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="lg"
+                    </button>
+                    <button
                       onClick={() => {
                         redirectToHouspireSignIn();
                         setIsMobileMenuOpen(false);
                       }}
-                      className="w-full h-14 text-lg rounded-full border-2 transition-all duration-300"
+                      className="btn-secondary btn-lg w-full"
                     >
                       Sign in
-                    </Button>
+                    </button>
                   </>
                 )}
               </motion.div>

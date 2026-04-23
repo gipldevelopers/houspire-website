@@ -12,7 +12,7 @@ export function DarkFinalCTA() {
 
   return (
     <>
-      <section className="bg-[#1D1D1F] py-20 md:py-32">
+      <section className="bg-[#0c0c0e] py-20 md:py-24">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -23,12 +23,13 @@ export function DarkFinalCTA() {
         <h2 className="text-[clamp(36px,5vw,60px)] font-black tracking-[-0.03em] leading-[1.05] text-white">
           <TextGenerateEffect words="Don’t spend lakhs on your home without a clear plan." />
         </h2>
-        <p className="text-xl md:text-2xl text-white/60 mt-8 font-medium leading-relaxed">
+        <p className="text-xl md:text-2xl mt-8 font-medium leading-relaxed text-white/70">
           Know exactly what your home will look like and cost—before you start.
         </p>
         <button
           onClick={() => setIsModalOpen(true)}
-          className="mt-12 px-10 py-5 text-lg font-black bg-[#E8662E] hover:bg-[#D45A1F] text-white rounded-full transition-all duration-300 shadow-2xl shadow-orange-500/20"
+          className="mt-12 px-10 py-5 text-lg font-black text-white rounded-full transition-all duration-300 shadow-2xl btn-primary"
+          style={{ boxShadow: '0 25px 50px -12px color-mix(in srgb, var(--color-primary) 20%, transparent)' }}
         >
           Design my home now →
         </button>

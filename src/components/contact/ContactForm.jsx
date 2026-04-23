@@ -77,14 +77,14 @@ export function ContactForm() {
 
   if (submitted) {
     return (
-      <Card className="p-8 md:p-12 border-border/50 bg-gradient-to-br from-green-500/5 to-green-500/10">
+      <Card className="p-8 md:p-12 border-none" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 5%, var(--color-bg))' }}>
         <motion.div
           initial={{ opacity: 0, scale: 0.95 }}
           animate={{ opacity: 1, scale: 1 }}
           className="text-center"
         >
-          <div className="w-20 h-20 rounded-full bg-green-500/10 flex items-center justify-center mx-auto mb-6">
-            <CheckCircle className="h-10 w-10 text-green-600" />
+          <div className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)' }}>
+            <CheckCircle className="h-10 w-10" style={{ color: 'var(--color-primary)' }} />
           </div>
           <h2 className="text-2xl md:text-3xl font-semibold text-foreground mb-4">
             Message Received! 🎉
@@ -106,16 +106,16 @@ export function ContactForm() {
   }
 
   return (
-    <Card className="p-6 md:p-8 border-border/60 bg-gradient-to-br from-background via-amber-50/30 to-orange-50/40 shadow-sm">
+    <Card className="p-6 md:p-8 border-[var(--color-border)] shadow-sm" style={{ backgroundColor: 'var(--color-bg)' }}>
       <div className="flex items-center gap-3 mb-8">
-        <div className="w-12 h-12 rounded-2xl bg-orange-100 flex items-center justify-center">
-          <MessageSquare className="h-6 w-6 text-accent" />
+        <div className="w-12 h-12 rounded-2xl flex items-center justify-center" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)' }}>
+          <MessageSquare className="h-6 w-6" style={{ color: 'var(--color-primary)' }} />
         </div>
         <div>
-          <h2 className="text-xl font-semibold text-foreground">
+          <h2 className="text-xl font-semibold" style={{ color: 'var(--color-heading-secondary)' }}>
             Send us a message
           </h2>
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm opacity-60" style={{ color: 'var(--color-description)' }}>
             We'd love to hear from you
           </p>
         </div>
@@ -280,7 +280,7 @@ export function ContactForm() {
         <Button
           type="submit"
           disabled={isSubmitting}
-          className="w-full h-14 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white rounded-xl text-base font-semibold shadow-lg shadow-orange-500/20"
+          className="w-full h-14 text-white rounded-xl text-base font-semibold shadow-lg btn-primary"
         >
           {isSubmitting ? (
             <>

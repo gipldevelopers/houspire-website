@@ -6,6 +6,11 @@ const BLOCKED_SHORTCUTS = new Set(["s", "u"]);
 
 export function ContentProtection() {
   useEffect(() => {
+    // Only enable protection in production to allow development inspection
+    if (process.env.NODE_ENV !== "production") {
+      return;
+    }
+
     const preventContextMenu = (event) => {
       event.preventDefault();
     };

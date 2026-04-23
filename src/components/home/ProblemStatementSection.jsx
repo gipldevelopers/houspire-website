@@ -9,19 +9,19 @@ const problems = [
     icon: Clock,
     title: 'Weeks of Waiting',
     description: 'Traditional designers take 3–6 weeks for initial concepts. You receive yours in 72 hours.',
-    gradient: 'from-orange-500 to-pink-500'
+    gradient: 'from-[#EC7446] to-[#734443]'  /* Terracotta → Mahogany */
   },
   {
     icon: Eye,
     title: 'Opaque Pricing',
     description: 'Material markups, vendor commissions, and revision fees add up. We show you exactly what everything costs.',
-    gradient: 'from-blue-500 to-cyan-500'
+    gradient: 'from-[#385183] to-[#90AAAB]'  /* Royal Slate → Sage */
   },
   {
     icon: Wallet,
     title: 'High Entry Barrier',
     description: 'Most designers require ₹50,000+ upfront before you see a single concept. We start from ₹499 with a full money-back guarantee.',
-    gradient: 'from-purple-500 to-violet-500'
+    gradient: 'from-[#2C5A52] to-[#3D6E70]'  /* Forest Teal → Urban Mist */
   }
 ];
 

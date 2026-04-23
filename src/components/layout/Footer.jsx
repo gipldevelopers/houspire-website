@@ -85,7 +85,7 @@ export function Footer() {
   ];
 
   return (
-    <footer className="bg-white text-foreground border-t border-border">
+    <footer className="bg-background text-foreground border-t border-border">
       <div className="container mx-auto px-6">
         <div className="py-12 md:py-14 grid grid-cols-1 md:grid-cols-12 gap-10 md:gap-8">
           <div className="md:col-span-4">
@@ -126,7 +126,7 @@ export function Footer() {
             <button
               type="button"
               onClick={() => setIsModalOpen(true)}
-              className="w-full sm:w-auto inline-flex items-center justify-center px-6 py-3 text-sm font-black bg-[#E8662E] text-white hover:bg-[#D45A1F] rounded-full shadow-lg shadow-orange-500/20 transition-all duration-300"
+              className="btn-primary btn-sm"
             >
               Start my home plan
             </button>

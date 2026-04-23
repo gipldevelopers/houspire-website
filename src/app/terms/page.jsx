@@ -62,10 +62,10 @@ export default function Terms() {
               transition={{ duration: 0.6 }}
               className="text-center max-w-2xl mx-auto"
             >
-              <Badge className="mb-4 bg-accent/10 text-accent border-0">Legal</Badge>
+              <Badge className="mb-4 border-0" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)', color: 'var(--color-primary)' }}>Legal</Badge>
               <div className="flex items-center justify-center gap-3 mb-4">
-                <Scale className="h-8 w-8 text-accent" />
-                <h1 className="text-4xl md:text-5xl font-semibold text-foreground tracking-tight">
+                <Scale className="h-8 w-8" style={{ color: 'var(--color-primary)' }} />
+                <h1 className="text-4xl md:text-5xl font-semibold tracking-tight" style={{ color: 'var(--color-heading-main)' }}>
                   Terms and Conditions
                 </h1>
               </div>
@@ -90,9 +90,10 @@ export default function Terms() {
                         onClick={() => scrollToSection(section.id)}
                         className={`block w-full text-left text-xs py-1 px-2 rounded transition-colors ${
                           activeSection === section.id
-                            ? 'bg-accent/10 text-accent font-semibold'
-                            : 'text-muted-foreground hover:bg-secondary'
+                            ? 'font-semibold'
+                            : 'opacity-60 hover:bg-secondary'
                         }`}
+                        style={activeSection === section.id ? { backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)', color: 'var(--color-primary)' } : { color: 'var(--color-description)' }}
                       >
                         {section.title}
                       </button>
@@ -108,9 +109,9 @@ export default function Terms() {
                 transition={{ duration: 0.6 }}
                 className="flex-1 prose prose-neutral max-w-none"
               >
-                <Alert className="mb-8 border-accent/20 bg-accent/5">
-                  <AlertTriangle className="h-4 w-4 text-accent" />
-                  <AlertDescription className="text-foreground">
+                <Alert className="mb-8 border-none" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 5%, var(--color-bg))' }}>
+                  <AlertTriangle className="h-4 w-4" style={{ color: 'var(--color-primary)' }} />
+                  <AlertDescription style={{ color: 'var(--color-heading-secondary)' }}>
                     <strong>Important:</strong> Please read these Terms and Conditions carefully before using our services. By accessing or using the Houspire platform, you agree to be bound by these terms.
                   </AlertDescription>
                 </Alert>

@@ -126,8 +126,8 @@ function SelectPackageContent() {
       <div className="min-h-screen bg-white font-outfit pt-24 pb-32 relative">
         {/* Progress Bar */}
         <motion.div
-          className="fixed top-0 left-0 right-0 h-1.5 bg-[#f27405] z-[100] origin-left"
-          style={{ scaleX }}
+          className="fixed top-0 left-0 right-0 h-1.5 z-[100] origin-left"
+          style={{ backgroundColor: 'var(--color-primary)', scaleX }}
         />
         <div className="container mx-auto px-4 max-w-7xl">
           <Button asChild variant="ghost" className="mb-6">
@@ -143,13 +143,13 @@ function SelectPackageContent() {
             className="text-center mb-16 space-y-6"
           >
             {styleName && (
-              <Badge variant="secondary" className="mb-4 bg-orange-100 text-[#f27405] border-none px-4 py-1">
+              <Badge variant="secondary" className="mb-4 border-none px-4 py-1" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)', color: 'var(--color-primary)' }}>
                 <Sparkles className="h-3 w-3 mr-1" />
                 {styleName} Style Selected
               </Badge>
             )}
             
-            <h1 className="text-4xl md:text-6xl font-black text-[#1a1a1a] leading-tight tracking-tight max-w-4xl mx-auto">
+            <h1 className="text-4xl md:text-6xl font-black leading-tight tracking-tight max-w-4xl mx-auto" style={{ color: 'var(--color-heading-main)' }}>
               Choose Your <span className="relative inline-block">
                 Package
                 <motion.svg
@@ -157,7 +157,8 @@ function SelectPackageContent() {
                   animate={{ pathLength: 1 }}
                   transition={{ duration: 1, delay: 0.5 }}
                   viewBox="0 0 100 20"
-                  className="absolute -bottom-1 md:-bottom-2 left-0 w-full h-4 md:h-8 text-[#f27405] pointer-events-none fill-none stroke-[3] stroke-current stroke-round"
+                  className="absolute -bottom-1 md:-bottom-2 left-0 w-full h-4 md:h-8 pointer-events-none fill-none stroke-[3] stroke-current stroke-round"
+                  style={{ color: 'var(--color-primary)' }}
                   preserveAspectRatio="none"
                 >
                   <path d="M5 15 Q 50 18 95 15" />
@@ -230,27 +231,27 @@ function SelectPackageContent() {
             <div className="container mx-auto max-w-7xl">
               <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center">
-                    <Check className="h-6 w-6 text-[#f27405]" />
+                  <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)' }}>
+                    <Check className="h-6 w-6" style={{ color: 'var(--color-primary)' }} />
                   </div>
                   <div>
-                    <p className="font-semibold text-[#1a1a1a]">
+                    <p className="font-semibold" style={{ color: 'var(--color-heading-secondary)' }}>
                       {selectedPackage.name} Selected
                     </p>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm opacity-60" style={{ color: 'var(--color-description)' }}>
                       {selectedPackage.roomCountDisplay || selectedPackage.room_count_display} •{' '}
                       {selectedPackage.revisionsDisplay || selectedPackage.revisions_display || '1 revision'}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-6">
-                  <div className="text-right text-[#1a1a1a]">
-                    <p className="text-sm text-muted-foreground">Starting at</p>
-                    <p className="text-2xl font-bold">
+                  <div className="text-right">
+                    <p className="text-sm opacity-60" style={{ color: 'var(--color-description)' }}>Starting at</p>
+                    <p className="text-2xl font-bold" style={{ color: 'var(--color-heading-main)' }}>
                       ₹{formatPrice(selectedPackage.price)}
                     </p>
                   </div>
-                  <Button size="lg" onClick={handleContinue} className="gap-2 bg-[#f27405] hover:bg-[#d96604] text-white rounded-full px-8">
+                  <Button size="lg" onClick={handleContinue} className="gap-2 text-white rounded-full px-8 btn-primary">
                     Continue
                     <ArrowRight className="h-4 w-4" />
                   </Button>
@@ -267,7 +268,8 @@ function SelectPackageContent() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-24 right-8 w-14 h-14 rounded-full bg-[#1a1a1a] text-white shadow-2xl flex items-center justify-center z-40 hover:bg-[#f27405] transition-colors"
+          className="fixed bottom-24 right-8 w-14 h-14 rounded-full text-white shadow-2xl flex items-center justify-center z-40 transition-colors"
+          style={{ backgroundColor: 'var(--color-secondary)', hover: { backgroundColor: 'var(--color-primary)' } }}
         >
           <span className="text-xl">↑</span>
         </motion.button>
@@ -326,7 +328,7 @@ function PackageCard({ pkg, index, selected, onSelect, vertical = false }) {
       >
         {isPopular && (
           <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-            <Badge className="bg-[#ff5a1f] text-[10px] font-bold py-1 px-3 rounded-full flex items-center gap-1 shadow-lg border-none">
+            <Badge className="text-[10px] font-bold py-1 px-3 rounded-full flex items-center gap-1 shadow-lg border-none text-white" style={{ backgroundColor: 'var(--color-primary)' }}>
               <Star className="w-3 h-3 fill-white" /> MOST POPULAR
             </Badge>
           </div>
@@ -335,10 +337,10 @@ function PackageCard({ pkg, index, selected, onSelect, vertical = false }) {
         <div className="p-6 flex flex-col flex-1">
           <div className="flex items-center gap-3 mb-4">
             {getIcon()}
-            <h3 className="text-lg font-bold text-foreground leading-tight">{pkg.name}</h3>
+            <h3 className="text-lg font-bold leading-tight" style={{ color: 'var(--color-heading-secondary)' }}>{pkg.name}</h3>
           </div>
           
-          <p className="text-xs text-muted-foreground mb-4">{pkg.tagline}</p>
+          <p className="text-xs mb-4 opacity-60" style={{ color: 'var(--color-description)' }}>{pkg.tagline}</p>
           
           <div className="mb-4">
             <div className="flex items-center gap-2 mb-1">
@@ -374,8 +376,9 @@ function PackageCard({ pkg, index, selected, onSelect, vertical = false }) {
             className={`w-full font-bold h-11 transition-all ${
               selected 
                 ? 'bg-black text-white hover:bg-black/90' 
-                : 'bg-[#ff5a1f] hover:bg-[#e64d1a] text-white'
+                : 'text-white'
             }`}
+            style={!selected ? { backgroundColor: 'var(--color-primary)' } : {}}
           >
             {selected ? (
               <span className="flex items-center gap-2">
@@ -452,8 +455,8 @@ function PricingComparisonTable() {
   return (
     <section className="mt-20 mb-32 relative">
       <div className="text-center mb-16">
-        <h2 className="text-3xl md:text-4xl font-black text-foreground mb-4">Complete Feature Comparison</h2>
-        <p className="text-muted-foreground text-sm max-w-xl mx-auto">Compare our plans to find the perfect fit for your vision</p>
+        <h2 className="text-3xl md:text-4xl font-black mb-4" style={{ color: 'var(--color-heading-main)' }}>Complete Feature Comparison</h2>
+        <p className="text-sm max-w-xl mx-auto opacity-60" style={{ color: 'var(--color-description)' }}>Compare our plans to find the perfect fit for your vision</p>
       </div>
 
       <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
@@ -461,18 +464,19 @@ function PricingComparisonTable() {
           <table className="w-full text-left border-collapse">
             <thead>
               <tr>
-                <th className="p-6 border-b border-[#eaeaea] font-bold text-sm text-foreground w-[200px]">Feature</th>
+                <th className="p-6 border-b border-[#eaeaea] font-bold text-sm w-[200px]" style={{ color: 'var(--color-heading-secondary)' }}>Feature</th>
                 {headers.map((h, i) => (
                   <th 
                     key={i} 
                     className={`p-6 border-b border-[#eaeaea] text-center w-[175px] transition-all duration-300 ${
                       h.highlighted 
-                        ? 'bg-[#ff5a1f] text-white' 
+                        ? 'text-white' 
                         : 'bg-white text-foreground'
                     }`}
+                    style={h.highlighted ? { backgroundColor: 'var(--color-primary)' } : {}}
                   >
                     <div className="text-[13px] font-bold mb-1 opacity-90">{h.name}</div>
-                    <div className={`text-xl font-black ${h.highlighted ? 'text-white' : 'text-foreground'}`}>{h.price}</div>
+                    <div className="text-xl font-black">{h.price}</div>
                   </th>
                 ))}
               </tr>

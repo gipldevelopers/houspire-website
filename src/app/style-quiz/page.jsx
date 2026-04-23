@@ -104,13 +104,12 @@ export default function StyleQuizPage() {
                 {STEPS.slice(1, -1).map((s, i) => (
                   <div
                     key={s.id}
-                    className={`h-1.5 w-8 rounded-full transition-colors ${
-                      i + 1 <= step ? 'bg-primary' : 'bg-muted'
-                    }`}
+                    className="h-1.5 w-8 rounded-full transition-colors"
+                    style={{ backgroundColor: i + 1 <= step ? 'var(--color-primary)' : 'var(--color-border)' }}
                   />
                 ))}
               </div>
-              <span className="text-xs text-muted-foreground w-16 text-right">
+              <span className="text-xs w-16 text-right opacity-60" style={{ color: 'var(--color-description)' }}>
                 {step}/{STEPS.length - 2}
               </span>
             </div>
@@ -135,10 +134,10 @@ export default function StyleQuizPage() {
               </Badge>
 
               {/* Title */}
-              <h1 className="text-3xl md:text-4xl lg:text-[2.5rem] font-bold tracking-tight text-foreground mb-4 leading-tight">
+              <h1 className="text-3xl md:text-4xl lg:text-[2.5rem] font-bold tracking-tight mb-4 leading-tight" style={{ color: 'var(--color-heading-main)' }}>
                 Discover Your Perfect Design Style
               </h1>
-              <p className="text-muted-foreground text-base md:text-lg mb-8 max-w-xl mx-auto">
+              <p className="text-base md:text-lg mb-8 max-w-xl mx-auto opacity-60" style={{ color: 'var(--color-description)' }}>
                 Take our visual style quiz and unlock personalized design recommendations tailored to your taste, lifestyle, and budget.
               </p>
 
@@ -168,8 +167,8 @@ export default function StyleQuizPage() {
                   <Card key={title} className="p-5 border-border bg-card rounded-xl">
                     <div className="items-start gap-4">
                       <div className="rounded-xl bg-muted p-3 shrink-0">
-                        <div className="rounded-lg bg-muted-foreground/10 p-2 flex items-center justify-center">
-                          <Icon className="h-6 w-6 text-primary" />
+                        <div className="rounded-lg p-2 flex items-center justify-center" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)' }}>
+                          <Icon className="h-6 w-6" style={{ color: 'var(--color-primary)' }} />
                         </div>
                       </div>
                       <div>
@@ -222,7 +221,7 @@ export default function StyleQuizPage() {
               {/* CTA */}
               <Button
                 size="lg"
-                className="gap-2 text-base px-8 bg-foreground hover:bg-foreground/90 text-primary-foreground rounded-lg font-medium"
+                className="gap-2 text-base px-8 text-white rounded-lg font-medium btn-primary"
                 onClick={() => handleNext()}
               >
                 <Plus className="h-5 w-5" />

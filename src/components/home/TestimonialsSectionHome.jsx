@@ -48,7 +48,10 @@ const singleRow = testimonials;
 
 function ReviewCard({ item }) {
   return (
-    <article className="w-[280px] shrink-0 overflow-hidden rounded-2xl border border-border/40 bg-white shadow-[0_4px_20px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] hover:-translate-y-1.5 group md:w-[290px]">
+    <article 
+      className="w-[280px] shrink-0 overflow-hidden rounded-2xl border border-[var(--color-border)] shadow-[0_4px_20px_rgba(0,0,0,0.04)] transition-all duration-500 hover:shadow-[0_20px_40px_rgba(0,0,0,0.10)] hover:-translate-y-1.5 group md:w-[290px]"
+      style={{ backgroundColor: 'var(--color-card)' }}
+    >
       {/* Home Image Container */}
       <div className="relative aspect-[3/2] overflow-hidden">
         <img 
@@ -61,13 +64,13 @@ function ReviewCard({ item }) {
         {/* Project Link Overlay */}
         <Link 
           href={`/discover?q=${item.slug}`}
-          className="absolute bottom-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white text-primary shadow-xl opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 hover:bg-primary hover:text-white"
+          className="absolute bottom-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-background text-primary shadow-xl opacity-0 translate-y-4 transition-all duration-300 group-hover:opacity-100 group-hover:translate-y-0 hover:bg-primary hover:text-white"
         >
           <ArrowUpRight className="h-4 w-4" />
         </Link>
 
-        {/* Home Detail Badge */}
-        <div className="absolute top-3 left-3 rounded-full bg-white/30 backdrop-blur-md px-2.5 py-1 text-[9px] font-bold text-white uppercase tracking-widest border border-white/10">
+        {/* Home Detail Badge - Now dynamic visibility */}
+        <div className="absolute top-3 left-3 rounded-full bg-[var(--color-primary)] px-2.5 py-1 text-[9px] font-bold text-white uppercase tracking-widest shadow-sm">
           {item.details}
         </div>
       </div>
@@ -75,22 +78,22 @@ function ReviewCard({ item }) {
       <div className="p-5">
         <div className="mb-3 flex gap-0.5">
           {Array.from({ length: item.stars }).map((_, i) => (
-            <Star key={i} className="h-3 w-3 fill-primary text-primary" />
+            <Star key={i} className="h-3 w-3 fill-[var(--color-accent)] text-[var(--color-accent)]" />
           ))}
         </div>
         
-        <p className="mb-4 line-clamp-3 min-h-[60px] text-[14px] leading-relaxed text-foreground/80">
+        <p className="mb-4 line-clamp-3 min-h-[60px] text-[14px] leading-relaxed" style={{ color: 'var(--color-text)' }}>
           "{item.quote}"
         </p>
 
-        <div className="flex items-center justify-between border-t border-border/40 pt-4">
+        <div className="flex items-center justify-between border-t border-[var(--color-border)] pt-4">
           <div className="flex items-center gap-2.5">
-             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-secondary text-[10px] font-bold text-primary border border-primary/10">
+             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[var(--color-primary)]/10 text-[10px] font-bold" style={{ color: 'var(--color-primary)' }}>
               {item.initials || item.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
             </div>
             <div>
-              <p className="text-xs font-bold text-foreground">{item.name}</p>
-              <div className="flex items-center gap-1 text-[10px] text-muted-foreground font-medium">
+              <p className="text-xs font-bold" style={{ color: 'var(--color-heading)' }}>{item.name}</p>
+              <div className="flex items-center gap-1 text-[10px] opacity-60">
                 <MapPin className="h-2.5 w-2.5" />
                 {item.location}
               </div>
@@ -99,7 +102,8 @@ function ReviewCard({ item }) {
           
           <Link 
             href={`/discover?q=${item.slug}`}
-            className="text-[9px] font-black uppercase tracking-widest text-primary hover:underline underline-offset-4 text-right leading-[1.1]"
+            className="text-[9px] font-black uppercase tracking-widest transition-colors hover:underline underline-offset-4 text-right leading-[1.1]"
+            style={{ color: 'var(--color-primary)' }}
           >
             Project<br />Detail
           </Link>
@@ -137,20 +141,20 @@ export function TestimonialsSectionHome() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-[#fffaf5] py-16 md:py-24">
+    <section className="relative overflow-hidden py-10 md:py-10" style={{ backgroundColor: 'var(--color-primary-1)' }}>
       <div className="relative mx-auto max-w-[1400px] px-6 md:px-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, ease: 'easeOut' }}
-          className="mb-12 text-center md:mb-16"
+          className="mb-6 text-center md:mb-6"
         >
 
-          <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl mb-4">
-             From confusion to clarity <span className="text-primary italic">200+ homes</span> and counting
+          <h2 className="text-2xl font-bold tracking-tight md:text-4xl lg:text-5xl mb-4" style={{ color: 'var(--color-heading-main)' }}>
+             From confusion to clarity <span style={{ color: 'var(--color-heading-main-highlight)' }}>200+ homes</span> and counting
           </h2>
-          <p className="mx-auto max-w-2xl text-sm text-muted-foreground/80 font-medium md:text-base">
+          <p className="mx-auto max-w-2xl text-sm font-medium md:text-base opacity-60" style={{ color: 'var(--color-description)' }}>
             Real reviews from homeowners who used Houspire to plan, budget, and execute their dream interiors without the stress.
           </p>
         </motion.div>

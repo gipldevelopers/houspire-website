@@ -6,9 +6,9 @@ import Link from "next/link";
 
 export default function AboutContactCTA() {
   return (
-    <section className="py-20 bg-white overflow-hidden relative">
+    <section className="py-20 overflow-hidden relative" style={{ backgroundColor: 'var(--color-bg)' }}>
       <div className="max-w-7xl mx-auto px-6">
-        <div className="relative min-h-[500px] rounded-[3rem] overflow-hidden bg-[rgb(23,15,15)] flex items-center">
+        <div className="relative min-h-[500px] rounded-[3rem] overflow-hidden bg-[#0c0c0e] flex items-center">
           {/* Subtle Noise Texture Overlay */}
           <div className="absolute inset-0 opacity-[0.05] mix-blend-overlay pointer-events-none bg-[url('/images/noise.png')]" />
           
@@ -43,7 +43,8 @@ export default function AboutContactCTA() {
               >
                 <Link 
                   href="/contact" 
-                  className="inline-block px-12 py-5 bg-primary text-white rounded-full font-bold text-sm tracking-widest transition-all hover:scale-105 hover:bg-white hover:text-black shadow-2xl shadow-orange-500/20"
+                  className="inline-block px-12 py-5 text-white rounded-full font-bold text-sm tracking-widest transition-all hover:scale-105 hover:bg-white hover:text-black shadow-2xl"
+                  style={{ backgroundColor: 'var(--color-primary)', boxShadow: '0 20px 40px -10px var(--color-primary-60)' }}
                 >
                   Discover the Insights
                 </Link>

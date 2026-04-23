@@ -1,0 +1,30 @@
+:root {
+  --color-primary: #EC7446;
+  --color-secondary: #2C5A52;
+  --color-accent: #FFCF69;
+
+  --color-bg: #FDFBF7;
+  --color-card: #BB9480;
+
+  --color-heading: #1E2A38;
+  --color-text: #1E2A38;
+
+  --color-border: #E2DACF;
+
+  --color-button: #EC7446;
+  --color-button-hover: #2C5A52;
+}
+
+/* Global Utility Mappings */
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--color-heading);
+}
+
+a {
+  color: var(--color-primary);
+}

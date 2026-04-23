@@ -48,26 +48,26 @@ export function BudgetEstimatorSection() {
             className="flex-1 space-y-8"
           >
             <motion.div variants={itemVariants}>
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#E8662E]/10 text-[#E8662E] text-[10px] font-bold uppercase tracking-widest mb-4">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest mb-4">
                 <Zap className="w-3 h-3 fill-current" />
                 <span>Smart Calc</span>
               </div>
-              <h2 className="text-4xl font-bold tracking-tight text-[#1D1D1F]">
+              <h2 className="text-4xl font-bold tracking-tight text-foreground">
                 Estimate your cost.
               </h2>
             </motion.div>
 
             {/* City Selection */}
             <motion.div variants={itemVariants} className="relative">
-              <label className="text-[11px] font-bold uppercase text-[#86868B] mb-2 block">City</label>
+              <label className="text-[11px] font-bold uppercase text-muted-foreground mb-2 block">City</label>
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="w-full flex items-center justify-between border-b-2 border-[#D2D2D7] py-3 text-xl transition-all hover:border-[#E8662E] group"
+                className="w-full flex items-center justify-between border-b-2 border-border py-3 text-xl transition-all hover:border-primary group"
               >
-                <span className={city ? 'text-[#1D1D1F]' : 'text-[#D2D2D7]'}>
+                <span className={city ? 'text-foreground' : 'text-muted-foreground'}>
                   {city || 'Select Location'}
                 </span>
-                <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isOpen ? 'rotate-180 text-[#E8662E]' : ''}`} />
+                <ChevronDown className={`w-5 h-5 transition-transform duration-300 ${isOpen ? 'rotate-180 text-primary' : ''}`} />
               </button>
               
               <AnimatePresence>
@@ -95,8 +95,8 @@ export function BudgetEstimatorSection() {
             {/* Room Count */}
             <motion.div variants={itemVariants} className="flex items-center justify-between bg-muted p-4 rounded-2xl">
               <div>
-                <span className="block text-sm font-bold text-[#1D1D1F]">Number of Rooms</span>
-                <span className="text-xs text-[#86868B]">Project Scope</span>
+                <span className="block text-sm font-bold text-foreground">Number of Rooms</span>
+                <span className="text-xs text-muted-foreground">Project Scope</span>
               </div>
               <div className="flex items-center gap-4 bg-background px-3 py-2 rounded-xl shadow-sm">
                 <button onClick={() => setRooms(Math.max(1, rooms - 1))} className="hover:scale-110 transition-transform"><Minus className="w-4 h-4" /></button>
@@ -107,7 +107,7 @@ export function BudgetEstimatorSection() {
 
             {/* Quality Level */}
             <motion.div variants={itemVariants}>
-              <label className="text-[11px] font-bold uppercase text-[#86868B] mb-3 block">Material Grade</label>
+              <label className="text-[11px] font-bold uppercase text-muted-foreground mb-3 block">Material Grade</label>
               <div className="flex gap-2">
                 {budgetLevels.map((b) => (
                   <button
@@ -115,8 +115,8 @@ export function BudgetEstimatorSection() {
                     onClick={() => setLevel(b.key)}
                     className="relative flex-1 py-3 px-2 rounded-xl text-center group overflow-hidden"
                   >
-                    <div className={`absolute inset-0 transition-colors duration-300 ${level === b.key ? 'bg-[#E8662E]' : 'bg-muted group-hover:bg-[#E8E8ED]'}`} />
-                    <span className={`relative block text-xs font-bold transition-colors ${level === b.key ? 'text-white' : 'text-[#1D1D1F]'}`}>{b.label}</span>
+                    <div className={`absolute inset-0 transition-colors duration-300 ${level === b.key ? 'bg-primary' : 'bg-muted group-hover:bg-secondary'}`} />
+                    <span className={`relative block text-xs font-bold transition-colors ${level === b.key ? 'text-white' : 'text-foreground'}`}>{b.label}</span>
                   </button>
                 ))}
               </div>
@@ -127,13 +127,14 @@ export function BudgetEstimatorSection() {
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            className="lg:w-[320px] bg-[#1D1D1F] rounded-[32px] p-8 text-white flex flex-col justify-between relative overflow-hidden"
+            className="lg:w-[320px] rounded-[32px] p-8 text-white flex flex-col justify-between relative overflow-hidden"
+            style={{ backgroundColor: 'var(--color-primary-2)' }}
           >
             {/* Visual Flare */}
-            <div className="absolute top-0 right-0 w-32 h-32 bg-[#E8662E] blur-[80px] opacity-20" />
+            <div className="absolute top-0 right-0 w-32 h-32 bg-primary blur-[80px] opacity-20" />
             
             <div className="relative">
-              <Calculator className="w-8 h-8 text-[#E8662E] mb-6" />
+              <Calculator className="w-8 h-8 text-primary mb-6" />
               <div className="space-y-4">
                 <div className="flex justify-between items-end border-b border-white/10 pb-4">
                   <span className="text-white/50 text-xs">Project Summary</span>
@@ -142,7 +143,7 @@ export function BudgetEstimatorSection() {
                   <p className="text-2xl font-bold">{rooms} Rooms</p>
                   <p className="text-sm text-white/60">{city || 'Location Pending'}</p>
                 </div>
-                <div className="inline-block px-3 py-1 rounded-full border border-white/20 text-[10px] font-bold uppercase tracking-widest text-[#E8662E]">
+                <div className="inline-block px-3 py-1 rounded-full border border-white/20 text-[10px] font-bold uppercase tracking-widest text-primary">
                   {level} Quality
                 </div>
               </div>
@@ -152,10 +153,10 @@ export function BudgetEstimatorSection() {
               whileHover={{ y: -2 }}
               whileTap={{ scale: 0.98 }}
               onClick={() => router.push('/budget-calculator')}
-              className="relative w-full py-4 bg-[#E8662E] text-white font-bold rounded-2xl shadow-lg shadow-[#E8662E]/20 mt-8 overflow-hidden"
+              className="btn-primary w-full mt-8"
             >
               Get Detailed Quote
-            </motion.button>/
+            </motion.button>
           </motion.div>
 
         </div>

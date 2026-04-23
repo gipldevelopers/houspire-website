@@ -24,7 +24,8 @@ export function PendingOrdersCard() {
 
   const fetchPendingOrders = async () => {
     try {
-      const data = await dataGet('/orders?status=payment_pending,pending&limit=5');
+      const response = await dataGet('/orders?status=payment_pending,pending&limit=5');
+      const data = response?.orders || [];
       
       // Deduplicate accidental duplicate payment attempts (keep newest per status+package)
       const deduped = [];

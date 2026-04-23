@@ -41,17 +41,17 @@ export function FAQSidebar({
             onClick={() => onCategoryClick(category.name)}
             className={cn(
               'w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left transition-all duration-200',
-              'hover:bg-accent/50 focus:outline-none focus:ring-2 focus:ring-primary/20',
-              isActive
-                ? 'bg-primary/10 text-primary font-medium'
-                : 'text-muted-foreground hover:text-foreground'
+              'hover:bg-accent/50 focus:outline-none focus:ring-2'
             )}
+            style={isActive ? { 
+              backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)',
+              color: 'var(--color-primary)'
+            } : {}}
             aria-current={isActive ? 'true' : undefined}
           >
             <Icon className={cn(
-              'h-5 w-5 flex-shrink-0 transition-colors',
-              isActive ? 'text-primary' : 'text-muted-foreground'
-            )} />
+              'h-5 w-5 flex-shrink-0 transition-colors'
+            )} style={isActive ? { color: 'var(--color-primary)' } : { color: 'hsl(var(--muted-foreground))' }} />
 
             <div className="flex-1 min-w-0">
               <span className="block truncate">{category.name}</span>
@@ -63,7 +63,7 @@ export function FAQSidebar({
             </div>
 
             {isActive && (
-              <ChevronRight className="h-4 w-4 text-primary flex-shrink-0" />
+              <ChevronRight className="h-4 w-4 flex-shrink-0" style={{ color: 'var(--color-primary)' }} />
             )}
           </button>
         )
@@ -98,11 +98,12 @@ export function FAQCategoryPills({
             aria-selected={isActive}
             className={cn(
               'flex items-center gap-2 px-4 py-2.5 rounded-full whitespace-nowrap transition-all duration-200',
-              'min-h-[44px] focus:outline-none focus:ring-2 focus:ring-primary/20',
-              isActive
-                ? 'bg-primary text-primary-foreground font-medium shadow-sm'
-                : 'bg-muted text-muted-foreground hover:bg-accent hover:text-foreground'
+              'min-h-[44px] focus:outline-none focus:ring-2'
             )}
+            style={isActive ? {
+              backgroundColor: 'var(--color-primary)',
+              color: '#ffffff'
+            } : {}}
           >
             <Icon className="h-4 w-4" />
             <span>{category.name}</span>

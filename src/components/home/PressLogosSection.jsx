@@ -18,13 +18,14 @@ export function PressLogosSection() {
   ];
 
   return (
-    <section ref={ref} className="py-12 md:py-16 bg-secondary/20 border-y border-border/30">
+    <section ref={ref} className="py-12 md:py-16 border-y" style={{ backgroundColor: 'var(--color-bg)', borderColor: 'var(--color-border)' }}>
       <div className="container mx-auto px-6">
         <motion.p
           initial={{ opacity: 0, y: 10 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.5 }}
-          className="text-center text-sm text-muted-foreground mb-8"
+          className="text-center text-sm mb-8 opacity-60"
+          style={{ color: 'var(--color-description)' }}
         >
           Featured in leading publications
         </motion.p>
@@ -39,7 +40,7 @@ export function PressLogosSection() {
               className="group cursor-default"
             >
               {/* Text-based logo placeholder */}
-              <div className="flex items-center justify-center h-10 px-4 text-muted-foreground/50 group-hover:text-muted-foreground transition-colors duration-300">
+              <div className="flex items-center justify-center h-10 px-4 opacity-40 group-hover:opacity-100 transition-opacity duration-300" style={{ color: 'var(--color-description)' }}>
                 <span className="text-lg md:text-xl font-semibold tracking-tight whitespace-nowrap">
                   {logo.abbr}
                 </span>
@@ -52,7 +53,8 @@ export function PressLogosSection() {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ duration: 0.5, delay: 0.6 }}
-          className="text-center text-xs text-muted-foreground/60 mt-8"
+          className="text-center text-xs mt-8 opacity-40"
+          style={{ color: 'var(--color-description)' }}
         >
           Trusted by 1,000+ homeowners across India
         </motion.p>

@@ -223,15 +223,15 @@ export function GalleryPreviewSection() {
           className="mb-5 grid gap-4 lg:grid-cols-[1.1fr_0.9fr] lg:items-end"
         >
           <div>
-            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted-foreground">Home discovery engine</p>
-            <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl lg:text-5xl">
+            <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] opacity-40" style={{ color: 'var(--color-description)' }}>Home discovery engine</p>
+            <h2 className="text-3xl font-semibold tracking-tight md:text-4xl lg:text-5xl" style={{ color: 'var(--color-heading-main)' }}>
               Explore homes designed 
               <br />
-              <span className="text-muted-foreground">with actual budgets</span>
+              <span style={{ color: 'var(--color-heading-main-highlight)' }}>with actual budgets</span>
             </h2>
           </div>
           <div className="lg:pl-8">
-            <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
+            <p className="text-sm leading-relaxed md:text-base opacity-90" style={{ color: 'var(--color-description)' }}>
               Browse completed projects and find inspiration for your space. Each card includes room type, style, and budget range.
             </p>
           </div>
@@ -310,9 +310,9 @@ export function GalleryPreviewSection() {
                           draggable={false}
                         />
                         <div className="min-w-0 flex-1">
-                          <p className="truncate text-xs text-muted-foreground">{design.style_primary}</p>
-                          <p className="line-clamp-2 text-sm font-medium text-foreground">{design.design_title}</p>
-                          <p className="mt-1 text-[11px] text-muted-foreground">
+                          <p className="truncate text-xs opacity-60" style={{ color: 'var(--color-primary)' }}>{design.style_primary}</p>
+                          <p className="line-clamp-2 text-sm font-medium" style={{ color: 'var(--color-heading)' }}>{design.design_title}</p>
+                          <p className="mt-1 text-[11px] font-bold" style={{ color: 'var(--color-primary)' }}>
                             {formatBudget(design.estimated_budget_min ?? 0, design.estimated_budget_max ?? 0)}
                           </p>
                         </div>
@@ -393,15 +393,13 @@ export function GalleryPreviewSection() {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="mt-6 text-center"
         >
-          <Button
-            variant="outline"
-            size="lg"
+          <button
             onClick={() => router.push('/discover')}
-            className="group h-11 rounded-full px-7 transition-all duration-300 hover:bg-foreground hover:text-background"
+            className="btn-secondary gap-2 group"
           >
             Explore Gallery
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Button>
+            <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+          </button>
         </motion.div>
       </div>
     </section>

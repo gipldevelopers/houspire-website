@@ -90,7 +90,7 @@ export function DarkPricingSection() {
 
   return (
     <>
-      <section id="pricing" className="bg-muted py-12 md:py-20 min-h-screen flex items-center">
+      <section id="pricing" className="bg-background py-12 md:py-20 min-h-screen flex items-center">
         <div className="max-w-[1400px] mx-auto px-6 w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -99,11 +99,11 @@ export function DarkPricingSection() {
           viewport={{ once: true, amount: 0.2 }}
           className="text-center mb-12"
         >
-          <p className="text-xs font-semibold tracking-[0.04em] uppercase text-muted-foreground mb-2">Pricing</p>
-          <h2 className="text-[clamp(28px,4vw,44px)] font-bold tracking-[-0.025em] leading-[1.1] text-foreground">
-            Transparent pricing. <span className="text-muted-foreground">Zero hidden commissions.</span>
+          <p className="text-xs font-semibold tracking-[0.04em] uppercase opacity-40 mb-2" style={{ color: 'var(--color-description)' }}>Pricing</p>
+          <h2 className="text-[clamp(28px,4vw,44px)] font-bold tracking-[-0.025em] leading-[1.1]" style={{ color: 'var(--color-heading-main)' }}>
+            Transparent pricing. <span style={{ color: 'var(--color-heading-main-highlight)' }}>Zero hidden commissions.</span>
           </h2>
-          <p className="text-[16px] md:text-[18px] text-muted-foreground leading-[1.4] mt-1">
+          <p className="text-[16px] md:text-[18px] opacity-60 mt-1" style={{ color: 'var(--color-description)' }}>
             Choose the plan that fits your vision.
           </p>
         </motion.div>
@@ -116,7 +116,7 @@ export function DarkPricingSection() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease, delay: i * 0.05 }}
               viewport={{ once: true, amount: 0.2 }}
-              className={`relative bg-white rounded-[16px] p-5 md:p-6 flex flex-col ${
+              className={`relative bg-card rounded-[16px] p-5 md:p-6 flex flex-col ${
                 p.popular ? 'md:scale-[1.02] border-2 border-primary' : ''
               }`}
               style={{
@@ -131,23 +131,24 @@ export function DarkPricingSection() {
                 </div>
               )}
 
-              <h3 className="text-xl font-bold text-foreground">{p.name}</h3>
-              <p className="text-xs text-muted-foreground mt-0.5">{p.subtitle}</p>
+              <h3 className="text-xl font-bold" style={{ color: 'var(--color-heading-secondary)' }}>{p.name}</h3>
+              <p className="text-xs mt-0.5 opacity-60" style={{ color: 'var(--color-description)' }}>{p.subtitle}</p>
 
               <div className="mt-4 mb-4 flex items-center">
                 <NumberTicker
                   value={p.price}
                   prefix="₹"
-                  className="text-[36px] font-bold text-foreground leading-none"
+                  className="text-[36px] font-bold leading-none"
+                  style={{ color: 'var(--color-heading-main)' }}
                 />
-                <span className="text-xs text-muted-foreground/80 ml-1.5">one-time</span>
+                <span className="text-xs ml-1.5 opacity-40" style={{ color: 'var(--color-description)' }}>one-time</span>
               </div>
 
               <ul className="space-y-2 flex-1">
                 {p.features.map((f) => (
                   <li key={f} className="flex items-start gap-2">
-                    <Check className="w-3.5 h-3.5 text-primary mt-0.5 flex-shrink-0" />
-                    <span className="text-[13px] text-muted-foreground leading-tight">{f}</span>
+                    <Check className="w-3.5 h-3.5 mt-0.5 flex-shrink-0" style={{ color: 'var(--color-primary)' }} />
+                    <span className="text-[13px] leading-tight opacity-60" style={{ color: 'var(--color-description)' }}>{f}</span>
                   </li>
                 ))}
               </ul>
@@ -156,14 +157,14 @@ export function DarkPricingSection() {
                 {p.primary ? (
                   <ShimmerButton
                     onClick={() => handlePlanClick(p.name)}
-                    className="w-full py-2.5 rounded-full text-[15px] bg-primary text-white hover:bg-primary/90 transition-all duration-300"
+                    className="btn-primary w-full"
                   >
                     {p.cta}
                   </ShimmerButton>
                 ) : (
                   <button
                     onClick={() => handlePlanClick(p.name)}
-                    className="w-full py-2.5 rounded-full text-[15px] border-[1.5px] border-primary text-primary hover:bg-primary/5 transition-all duration-300"
+                    className="btn-secondary w-full"
                   >
                     {p.cta}
                   </button>

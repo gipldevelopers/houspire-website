@@ -28,21 +28,25 @@ function GalleryCtaBanner() {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="mt-5 max-w-[760px] mx-auto bg-[#fff8f1] border border-[#ff9d4d]/30 rounded-full px-5 py-2.5 flex items-center justify-between gap-3 shadow-sm"
+      className="mt-5 max-w-[760px] mx-auto border rounded-full px-5 py-2.5 flex items-center justify-between gap-3 shadow-sm"
+      style={{ 
+        backgroundColor: 'color-mix(in srgb, var(--color-primary) 5%, var(--color-bg))',
+        borderColor: 'color-mix(in srgb, var(--color-primary) 30%, transparent)' 
+      }}
     >
       <div className="flex items-center gap-2.5">
-        <div className="w-6 h-6 rounded-full bg-orange-100 flex items-center justify-center shrink-0">
-          <Sparkles className="h-3.5 w-3.5 text-[#f27405]" />
+        <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)' }}>
+          <Sparkles className="h-3.5 w-3.5" style={{ color: 'var(--color-primary)' }} />
         </div>
-        <p className="text-xs md:text-sm text-[#334155] font-medium">
-          Love a design? Get a personalized version for <strong>YOUR</strong> home - <span className="text-[#f27405] font-bold">starting at Rs 499</span>
+        <p className="text-xs md:text-sm font-medium" style={{ color: 'var(--color-heading-secondary)' }}>
+          Love a design? Get a personalized version for <strong>YOUR</strong> home - <span className="font-bold" style={{ color: 'var(--color-primary)' }}>starting at Rs 499</span>
         </p>
       </div>
       <div className="flex items-center gap-2 shrink-0">
         <Button 
           size="sm" 
           onClick={() => router.push('/style-quiz')} 
-          className="rounded-full text-xs h-8 px-4 bg-[#f27405] text-white hover:bg-[#d96604] border-none font-bold"
+          className="rounded-full text-xs h-8 px-4 border-none font-bold btn-primary"
         >
           Start Now
         </Button>
@@ -50,7 +54,8 @@ function GalleryCtaBanner() {
           size="sm" 
           variant="outline"
           onClick={() => router.push('/contact')} 
-          className="rounded-full text-xs h-8 px-4 border-[#f27405] text-[#f27405] hover:bg-orange-50 font-bold hidden sm:flex"
+          className="rounded-full text-xs h-8 px-4 font-bold hidden sm:flex bg-white"
+          style={{ borderColor: 'var(--color-primary)', color: 'var(--color-primary)' }}
         >
           Talk to a Designer
         </Button>
@@ -375,7 +380,8 @@ export default function Discover() {
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-3xl md:text-5xl font-black text-foreground tracking-tighter"
+              className="text-3xl md:text-5xl font-black tracking-tighter"
+              style={{ color: 'var(--color-heading-main)' }}
             >
               Explore real homes by <br/> style,  room & budget
             </motion.h1>
@@ -421,12 +427,13 @@ export default function Discover() {
                 className="rounded-full gap-2.5 h-11 px-6 border-border bg-white text-foreground shadow-sm hover:bg-secondary hover:text-foreground hover:border-primary/30 transition-all font-bold text-xs group"
                 onClick={() => router.push(user ? '/dashboard/inspiration' : '/login')}
               >
-                <span className="text-primary text-lg group-hover:scale-125 transition-transform">♥</span>
+                <span className="text-lg group-hover:scale-125 transition-transform" style={{ color: 'var(--color-primary)' }}>♥</span>
                 {user ? 'View my inspiration boards' : 'Sign in to save favorites'}
               </Button>
               <Button
                 variant="outline"
-                className="rounded-full gap-2.5 h-11 px-6 border-primary/20 bg-white text-primary shadow-sm hover:bg-primary hover:text-white hover:border-primary transition-all font-bold text-xs"
+                className="rounded-full gap-2.5 h-11 px-6 bg-white shadow-sm transition-all font-bold text-xs"
+                style={{ borderColor: 'color-mix(in srgb, var(--color-primary) 20%, transparent)', color: 'var(--color-primary)' }}
                 onClick={() => router.push('/contact')}
               >
                 <MessageCircle className="h-4 w-4" />

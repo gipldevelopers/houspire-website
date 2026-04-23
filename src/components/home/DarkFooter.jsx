@@ -38,18 +38,18 @@ const socials = ['Instagram', 'Twitter', 'LinkedIn', 'YouTube'];
 
 export function DarkFooter() {
   return (
-    <footer className="bg-[#F5F5F7] border-t border-[#D2D2D7]">
+    <footer className="bg-background border-t border-border">
       <div className="max-w-[1200px] mx-auto px-6 md:px-12 py-10">
         <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
           <div className="md:col-span-2">
             <img src={LOGO_SRC} alt="Houspire" className="h-7 w-auto object-contain" />
-            <p className="text-xs text-[#6E6E73] mt-2 max-w-xs leading-relaxed">
+            <p className="text-xs text-muted-foreground mt-2 max-w-xs leading-relaxed">
               Professional design intelligence for Indian homeowners. Photorealistic room designs, itemized budgets, and verified contractors — delivered in 72 hours.
             </p>
           </div>
           {columns.map((col) => (
             <div key={col.title}>
-              <h4 className="text-xs font-semibold text-[#1D1D1F] mb-3">
+              <h4 className="text-xs font-semibold text-foreground mb-3">
                 {col.title}
               </h4>
               <ul className="space-y-2">
@@ -57,7 +57,7 @@ export function DarkFooter() {
                   <li key={link.path}>
                     <Link
                       href={link.path}
-                      className="text-xs text-[#6E6E73] hover:text-[#1D1D1F] transition-colors"
+                      className="text-xs text-muted-foreground hover:text-foreground transition-colors"
                     >
                       {link.name}
                     </Link>
@@ -68,15 +68,15 @@ export function DarkFooter() {
           ))}
         </div>
 
-        <div className="border-t border-[#D2D2D7] mt-8 pt-6 flex flex-col md:flex-row items-center justify-between gap-3">
-          <p className="text-xs text-[#86868B]">
+        <div className="border-t border-border mt-8 pt-6 flex flex-col md:flex-row items-center justify-between gap-3">
+          <p className="text-xs text-muted-foreground">
             © 2026 Houspire. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
-            <span className="text-xs text-[#86868B]">Made with ♥ in India</span>
-            <span className="text-xs text-[#D2D2D7]">·</span>
+            <span className="text-xs text-muted-foreground">Made with ♥ in India</span>
+            <span className="text-xs text-border">·</span>
             {socials.map((s) => (
-              <span key={s} className="text-xs text-[#86868B] hover:text-[#1D1D1F] cursor-pointer transition-colors">
+              <span key={s} className="text-xs text-muted-foreground hover:text-foreground cursor-pointer transition-colors">
                 {s}
               </span>
             ))}

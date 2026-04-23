@@ -20,7 +20,7 @@ export function HowItWorksSection() {
       title: 'Take Style Quiz',
       description: 'Answer fun visual questions to discover your design personality and get matched with the perfect designer',
       time: '2 minutes',
-      color: 'from-purple-500 to-pink-500'
+      color: 'from-[#2C5A52] to-[#3D6E70]'   /* Forest Teal → Urban Mist */
     },
     {
       icon: CreditCard,
@@ -28,7 +28,7 @@ export function HowItWorksSection() {
       title: 'Choose Your Package',
       description: 'Select a package starting at ₹499 or add optional services. Pay once, no subscriptions or hidden fees',
       time: '2 minutes',
-      color: 'from-blue-500 to-cyan-500'
+      color: 'from-[#385183] to-[#90AAAB]'   /* Royal Slate → Sage Blue-Green */
     },
     {
       icon: Home,
@@ -36,7 +36,7 @@ export function HowItWorksSection() {
       title: 'Share Room Details',
       description: 'Upload photos, dimensions, and preferences. Tell us what you love and what you want to avoid',
       time: '10 minutes',
-      color: 'from-green-500 to-emerald-500'
+      color: 'from-[#8CBC9D] to-[#2C5A52]'   /* Mint Verdure → Forest Teal */
     },
     {
       icon: Eye,
@@ -44,7 +44,7 @@ export function HowItWorksSection() {
       title: 'Review Your Design',
       description: 'Get 3D renders, budget breakdown, and shopping list in 72 hours. Provide feedback and request changes',
       time: '72 hours',
-      color: 'from-orange-500 to-red-500'
+      color: 'from-[#EC7446] to-[#734443]'   /* Terracotta Flame → Mahogany Plum */
     },
     {
       icon: Download,
@@ -52,7 +52,7 @@ export function HowItWorksSection() {
       title: 'Download & Execute',
       description: 'Get your complete design package, shop for products, and transform your space with our guides',
       time: 'Your pace',
-      color: 'from-indigo-500 to-purple-500'
+      color: 'from-[#385183] to-[#2C5A52]'   /* Royal Slate → Forest Teal */
     },
   ];
 
@@ -66,7 +66,7 @@ export function HowItWorksSection() {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <Badge className="mb-4 bg-secondary/10 text-secondary border-secondary/20">
+          <Badge className="mb-4 bg-primary/10 text-primary border-primary/20">
             Simple Process
           </Badge>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground mb-4">
@@ -122,8 +122,8 @@ export function HowItWorksSection() {
 
                   {/* Arrow */}
                   {index < steps.length - 1 && (
-                    <div className="hidden lg:flex items-center justify-center w-10 h-10 rounded-full bg-secondary/10">
-                      <ArrowRight className="h-5 w-5 text-secondary rotate-90" />
+                    <div className="hidden lg:flex items-center justify-center w-10 h-10 rounded-full bg-primary/10">
+                      <ArrowRight className="h-5 w-5 text-primary rotate-90" />
                     </div>
                   )}
                 </div>

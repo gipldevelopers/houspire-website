@@ -35,7 +35,7 @@ export function DarkTransformationSection() {
         
         {/* Top Label - Warm gray for better contrast on light orange */}
         <div className="text-center mb-2 md:mb-12">
-          <p className="text-sm font-semibold tracking-[0.18em] text-[#6B4F3F]">
+          <p className="text-sm font-semibold tracking-[0.18em] opacity-60" style={{ color: 'var(--color-heading)' }}>
             From bare walls to fully designed before you spend a rupee
           </p>
         </div>
@@ -58,7 +58,7 @@ export function DarkTransformationSection() {
             {/* CENTER: The Image Slider */}
             <div className="relative w-full lg:w-4/6 max-w-4xl">
               {/* Orange-tinted gradient overlay */}
-              <div className="absolute -inset-6 rounded-[32px] bg-gradient-to-b from-[#ff8c42]/10 via-transparent to-transparent blur-2xl" />
+              <div className="absolute -inset-6 rounded-[32px] bg-[var(--color-primary)]/5 blur-2xl" />
               
               <div
                 ref={containerRef}
@@ -81,10 +81,10 @@ export function DarkTransformationSection() {
                   />
                 </div>
 
-                {/* Slider Handle & Line - Updated to orange to match theme */}
-                <div className="absolute top-0 bottom-0 w-[2px] bg-[#ff8c42] z-10" style={{ left: `${position}%`, transform: 'translateX(-50%)' }} />
+                {/* Slider Handle & Line - Dynamic */}
+                <div className="absolute top-0 bottom-0 w-[2px] bg-[var(--color-primary)] z-10" style={{ left: `${position}%`, transform: 'translateX(-50%)' }} />
                 <div 
-                  className="absolute top-1/2 z-20 w-10 h-10 bg-[#ff8c42] rounded-full flex items-center justify-center shadow-xl shadow-[#ff8c42]/30"
+                  className="absolute top-1/2 z-20 w-10 h-10 bg-[var(--color-primary)] rounded-full flex items-center justify-center shadow-xl shadow-[var(--color-primary)]/30"
                   style={{ left: `${position}%`, transform: 'translateX(-50%) translateY(-50%)' }}
                 >
                   <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
@@ -111,18 +111,18 @@ export function DarkTransformationSection() {
           </div>
         </div>
 
-        {/* Bottom Navigation - Updated with orange accents */}
-        <div className="mt-6 text-center">
+        {/* Bottom Navigation - Now dynamic */}
+        <div className="mt-12 text-center">
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button 
               onClick={() => router.push('/style-quiz')} 
-              className="px-8 py-4 bg-[#ff8c42] text-white font-medium rounded-full hover:bg-[#ff6b1a] transition-colors shadow-md shadow-[#ff8c42]/30"
+              className="btn-primary btn-lg min-w-[220px]"
             >
               Design my room
             </button>
             <button 
               onClick={() => router.push('/discover')} 
-              className="px-8 py-4 border-2 border-[#ff8c42] text-[#ff8c42] font-medium rounded-full hover:bg-[#ff8c42] hover:text-white transition-colors"
+              className="btn-secondary btn-lg min-w-[220px]"
             >
               See more transformations
             </button>

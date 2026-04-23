@@ -52,7 +52,10 @@ export function BentoCard({ design, index, onClick, isFocused = false, layout = 
 
           {/* Watermark overlay */}
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none z-10">
-            <span className="text-4xl md:text-5xl font-semibold tracking-tight text-transparent select-none [text-shadow:0_1px_12px_rgba(0,0,0,0.12)] [-webkit-text-stroke:2px_rgba(249,115,22,0.28)]">
+            <span 
+              className="text-4xl md:text-5xl font-semibold tracking-tight text-transparent select-none [text-shadow:0_1px_12px_rgba(0,0,0,0.12)]"
+              style={{ WebkitTextStroke: '2px color-mix(in srgb, var(--color-primary) 30%, transparent)' }}
+            >
               Houspire
             </span>
           </div>
@@ -88,14 +91,15 @@ export function BentoCard({ design, index, onClick, isFocused = false, layout = 
 
           {/* Featured Badge - Top Left (Matching brand color) */}
           {(design.is_featured) && (
-            <div className="absolute top-3 left-3 flex items-center gap-1.5 bg-gradient-to-r from-orange-500 to-primary text-primary-foreground px-3 py-1.5 rounded-full text-[10px] font-bold shadow-lg z-20">
+            <div className="absolute top-3 left-3 flex items-center gap-1.5 text-white px-3 py-1.5 rounded-full text-[10px] font-bold shadow-lg z-20" style={{ backgroundColor: 'var(--color-primary)' }}>
               <Star className="h-3 w-3 fill-current" />
               <span>Featured</span>
             </div>
           )}
 
           {/* Pricing Badge - Always visible */}
-          <div className="absolute top-[52px] md:top-[56px] left-3 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-full text-[9px] text-[#f27405] font-black tracking-tight z-10 border border-orange-100 shadow-sm transition-transform duration-300 group-hover:scale-110">
+          <div className="absolute top-[52px] md:top-[56px] left-3 bg-white/90 backdrop-blur-md px-2.5 py-1 rounded-full text-[9px] font-black tracking-tight z-10 border shadow-sm transition-transform duration-300 group-hover:scale-110"
+               style={{ color: 'var(--color-primary)', borderColor: 'color-mix(in srgb, var(--color-primary) 20%, transparent)' }}>
             Starts ₹499
           </div>
 
@@ -138,7 +142,7 @@ export function BentoCard({ design, index, onClick, isFocused = false, layout = 
              <h3 className="text-white text-base font-bold line-clamp-2 leading-tight mb-4">
               {design.design_title}
             </h3>
-            <button className="w-full bg-white text-primary text-xs font-black py-3 rounded-xl hover:bg-orange-500 hover:text-white transition-all shadow-xl uppercase tracking-wider">
+            <button className="w-full text-xs font-black py-3 rounded-xl transition-all shadow-xl uppercase tracking-wider btn-primary">
               Plan my home like this
             </button>
           </div>

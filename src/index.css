@@ -8,42 +8,42 @@
   :root {
     color-scheme: light;
 
-    /* Houspire brand palette - Orange Theme */
-    --background: 0 0% 100%;
-    --foreground: 210 29% 15%;
-    --card: 0 0% 100%;
-    --card-foreground: 210 29% 15%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 210 29% 15%;
-    --primary: 28 96% 47%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 210 29% 15%;
-    --muted: 0 0% 96%;
-    --muted-foreground: 210 6% 47%;
-    --accent: 39 89% 50%;
+    /* Houspire Brand Palette — New Color System */
+    --background: 40 43% 98%;    /* Warm Ivory #FDFBF7 */
+    --foreground: 212 30% 17%;   /* Midnight Steel #1E2A38 */
+    --card: 40 43% 99%;
+    --card-foreground: 212 30% 17%;
+    --popover: 40 43% 99%;
+    --popover-foreground: 212 30% 17%;
+    --primary: 17 82% 60%;       /* Terracotta Flame #EC7446 */
+    --primary-foreground: 40 43% 98%;
+    --secondary: 35 22% 85%;     /* Soft Taupe #E2DACF */
+    --secondary-foreground: 212 30% 17%;
+    --muted: 35 22% 90%;
+    --muted-foreground: 21 29% 62%;  /* Mocha Beige #BB9480 */
+    --accent: 182 12% 61%;       /* Sage Blue-Green #90AAAB */
     --accent-foreground: 0 0% 100%;
     --destructive: 0 84% 60%;
     --destructive-foreground: 0 0% 100%;
-    --success: 145 63% 42%;
-    --success-foreground: 0 0% 100%;
-    --warning: 30 90% 50%;
-    --warning-foreground: 0 0% 100%;
-    --info: 28 96% 47%;
+    --success: 141 26% 64%;      /* Mint Verdure #8CBC9D */
+    --success-foreground: 169 34% 15%;
+    --warning: 41 100% 71%;      /* Sun Amber #FFCF69 */
+    --warning-foreground: 212 30% 17%;
+    --info: 220 40% 37%;         /* Royal Slate Blue #385183 */
     --info-foreground: 0 0% 100%;
-    --border: 0 0% 90%;
-    --input: 0 0% 90%;
-    --ring: 28 96% 47%;
+    --border: 35 22% 84%;        /* Light warm taupe */
+    --input: 35 22% 84%;
+    --ring: 17 82% 60%;
     --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
-    --sidebar-foreground: 210 29% 20%;
-    --sidebar-primary: 28 96% 47%;
+    --sidebar-background: 40 43% 98%;
+    --sidebar-foreground: 212 30% 25%;
+    --sidebar-primary: 17 82% 60%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 0 0% 96%;
-    --sidebar-accent-foreground: 210 29% 15%;
-    --sidebar-border: 0 0% 92%;
-    --sidebar-ring: 28 96% 47%;
+    --sidebar-accent: 35 22% 85%;
+    --sidebar-accent-foreground: 212 30% 17%;
+    --sidebar-border: 35 22% 88%;
+    --sidebar-ring: 17 82% 60%;
   }
 
   * {
@@ -170,8 +170,9 @@
   /* Apple-style buttons */
   .btn-apple {
     @apply inline-flex items-center justify-center h-12 px-6 text-base font-medium rounded-full transition-all duration-300;
-    @apply bg-foreground text-background hover:bg-foreground/90;
-    @apply active:scale-[0.98];
+    background-color: var(--color-primary-3, hsl(17 82% 60%));
+    color: white;
+    @apply hover:brightness-110 active:scale-[0.98];
   }
 
   .btn-apple-outline {
@@ -181,7 +182,9 @@
   }
 
   .btn-apple-link {
-    @apply inline-flex items-center text-accent hover:text-accent/80 font-medium transition-colors;
+    @apply inline-flex items-center font-medium transition-colors;
+    color: hsl(var(--info));
+    @apply hover:brightness-110;
   }
 
   /* Apple-style cards */
@@ -201,9 +204,9 @@
     @apply transition-all duration-500 ease-out;
   }
 
-  /* Apple-style gradient text */
+  /* Brand gradient text */
   .text-gradient-apple {
-    @apply bg-gradient-to-r from-accent via-purple-500 to-pink-500;
+    background: linear-gradient(to right, var(--color-primary-3, #EC7446), var(--color-secondary-4, #734443));
     @apply bg-clip-text text-transparent;
   }
 
@@ -336,9 +339,10 @@
     @apply focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:outline-none;
   }
 
-  /* Gradient text */
+  /* Brand gradient text */
   .text-gradient {
-    @apply bg-gradient-to-r from-accent via-purple-500 to-pink-500 bg-clip-text text-transparent;
+    background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--info)));
+    @apply bg-clip-text text-transparent;
   }
 
   /* Card hover glow */
@@ -348,7 +352,8 @@
 
   .card-glow::before {
     content: '';
-    @apply absolute -inset-0.5 rounded-2xl bg-gradient-to-r from-accent/20 to-purple-500/20 opacity-0 transition-opacity duration-500 -z-10 blur-xl;
+    @apply absolute -inset-0.5 rounded-2xl opacity-0 transition-opacity duration-500 -z-10 blur-xl;
+    background: linear-gradient(to right, hsl(var(--primary) / 0.2), hsl(var(--info) / 0.2));
   }
 
   .card-glow:hover::before {

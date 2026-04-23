@@ -9,25 +9,25 @@ const valueCards = [
     icon: Image,
     title: 'Photorealistic Designs',
     description: 'See your rooms designed before spending anything',
-    gradient: 'from-accent to-accent/80',
+    gradient: 'from-[#90AAAB] to-[#2C5A52]',  /* Sage → Forest Teal */
   },
   {
     icon: IndianRupee,
     title: 'Complete Budget Plan',
     description: 'Good / Better / Best pricing for every item',
-    gradient: 'from-emerald-500 to-emerald-600',
+    gradient: 'from-[#8CBC9D] to-[#2C5A52]',  /* Mint Verdure → Forest Teal */
   },
   {
     icon: ShoppingBag,
     title: 'Shopping Lists',
     description: 'Direct links to buy everything you need',
-    gradient: 'from-blue-500 to-blue-600',
+    gradient: 'from-[#385183] to-[#90AAAB]',  /* Royal Slate → Sage */
   },
   {
     icon: Users,
     title: 'Verified Contractors',
     description: 'Trusted local pros to execute the design',
-    gradient: 'from-purple-500 to-purple-600',
+    gradient: 'from-[#734443] to-[#EC7446]',  /* Mahogany → Terracotta */
   },
 ];
 
@@ -61,7 +61,7 @@ export function WhyHouspireSection() {
               initial={{ opacity: 0, y: 24 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: idx * 0.08, ease: [0.25, 0.1, 0.25, 1] }}
-              className="bg-background border border-border/50 rounded-2xl p-6 text-center hover:border-accent/20 hover:shadow-lg hover:-translate-y-1 transition-all duration-500"
+              className="bg-background border border-border rounded-2xl p-6 text-center hover:border-primary/30 hover:shadow-lg hover:-translate-y-1 transition-all duration-500"
             >
               <div className={`w-14 h-14 mx-auto mb-4 rounded-2xl bg-gradient-to-br ${card.gradient} flex items-center justify-center shadow-lg`}>
                 <card.icon className="w-7 h-7 text-white" />

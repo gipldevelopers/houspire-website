@@ -80,8 +80,8 @@ export function HeroSection() {
                 transition={{ duration: 0.8, ease, delay: 0.1 }}
                 className="flex items-center gap-2 mb-6"
               >
-                <span className="h-2 w-2 rounded-full bg-[#ff8c42] shadow-[0_0_12px_rgba(255,140,66,0.5)]" />
-                <span className="text-[11px] font-black uppercase tracking-[0.2em] text-[#ff8c42]">
+                <span className="h-2 w-2 rounded-full bg-[var(--color-primary)] shadow-[0_0_12px_rgba(236,116,70,0.5)]" />
+                <span className="text-[11px] font-black uppercase tracking-[0.2em]" style={{ color: 'var(--color-primary)' }}>
                   Delivered in 72 hours
                 </span>
               </motion.div>
@@ -90,9 +90,10 @@ export function HeroSection() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease, delay: 0.15 }}
                 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.35]"
+                style={{ color: 'var(--color-heading-main)' }}
               >
                 Design your home in <br className="hidden lg:block" />
-                <span className="text-orange-600">3 days</span>{' '}
+                <span style={{ color: 'var(--color-heading-main-highlight)' }}>3 days</span>{' '}
                 not 3 months.
               </motion.h1>
 
@@ -103,19 +104,19 @@ export function HeroSection() {
                 className="mt-8 space-y-4"
               >
                 <div className="flex items-start gap-4">
-                  <div className="mt-1 h-6 w-6 rounded-full bg-muted-foreground/10 flex items-center justify-center flex-shrink-0">
-                    <CheckCircle2 className="h-4 w-4 text-muted-foreground" />
+                  <div className="mt-1 h-6 w-6 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center flex-shrink-0">
+                    <CheckCircle2 className="h-4 w-4" style={{ color: 'var(--color-primary)' }} />
                   </div>
-                  <p className="text-lg md:text-xl text-foreground font-normal">
-                    See your exact home before you commit a single rupee <span className="text-muted-foreground">before work begins.</span>
+                  <p className="text-lg md:text-xl font-normal" style={{ color: 'var(--color-heading-secondary)' }}>
+                    See your exact home before you commit a single rupee <span style={{ color: 'var(--color-heading-secondary-highlight)' }}>before work begins.</span>
                   </p>
                 </div>
                 <div className="flex items-start gap-4">
-                  <div className="mt-1 h-6 w-6 rounded-full bg-muted-foreground/10 flex items-center justify-center flex-shrink-0">
-                    <CheckCircle2 className="h-4 w-4 text-muted-foreground" />
+                  <div className="mt-1 h-6 w-6 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center flex-shrink-0">
+                    <CheckCircle2 className="h-4 w-4" style={{ color: 'var(--color-primary)' }} />
                   </div>
-                  <p className="text-lg md:text-xl text-foreground font-normal">
-                    Know where every rupee goes <span className="text-muted-foreground">before work begins.</span>
+                  <p className="text-lg md:text-xl font-normal" style={{ color: 'var(--color-heading-secondary)' }}>
+                    Know where every rupee goes <span style={{ color: 'var(--color-heading-secondary-highlight)' }}>before work begins.</span>
                   </p>
                 </div>
               </motion.div>
@@ -126,14 +127,13 @@ export function HeroSection() {
                 transition={{ duration: 0.8, ease, delay: 0.35 }}
                 className="mt-10"
               >
-                <Button
-                  size="lg"
+                <button
                   onClick={() => setIsModalOpen(true)}
-                  className="h-14 rounded-full px-10 text-lg font-bold shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+                  className="btn-primary btn-lg gap-2"
                 >
                   Start your home plan
-                  <ArrowRight className="ml-2 h-5 w-5" />
-                </Button>
+                  <ArrowRight className="h-5 w-5" />
+                </button>
               </motion.div>
 
               <motion.div
@@ -145,11 +145,11 @@ export function HeroSection() {
                 {includedTiles.map((item) => (
                   <div
                     key={item.title}
-                    className="rounded-xl border border-border/50 bg-background/50 backdrop-blur-sm p-3 hover:border-primary/20 transition-colors"
+                    className="rounded-xl border border-[var(--color-border)] bg-background/50 backdrop-blur-sm p-3 hover:border-[var(--color-primary)]/20 transition-colors"
                   >
-                    <item.icon className="h-4 w-4 text-primary" />
-                    <div className="mt-1.5 text-[13px] font-bold text-foreground leading-snug">{item.title}</div>
-                    <div className="mt-0.5 text-[11px] text-muted-foreground leading-snug">{item.desc}</div>
+                    <item.icon className="h-4 w-4" style={{ color: 'var(--color-primary)' }} />
+                    <div className="mt-1.5 text-[13px] font-bold leading-snug" style={{ color: 'var(--color-heading-secondary)' }}>{item.title}</div>
+                    <div className="mt-0.5 text-[11px] leading-snug opacity-60" style={{ color: 'var(--color-description)' }}>{item.desc}</div>
                   </div>
                 ))}
               </motion.div>

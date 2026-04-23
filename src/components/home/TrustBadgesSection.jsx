@@ -13,29 +13,29 @@ export function TrustBadgesSection() {
       icon: Clock,
       title: '72-Hour Delivery',
       subtitle: 'Or money back guaranteed',
-      gradient: 'from-emerald-500/20 to-emerald-500/5',
-      iconColor: 'text-emerald-600'
+      gradient: 'from-[#8CBC9D]/20 to-[#8CBC9D]/5',  /* Mint Verdure */
+      iconColor: 'text-[#2C5A52]'                     /* Forest Teal */
     },
     {
       icon: Lock,
       title: '100% Secure',
       subtitle: 'Bank-level encryption',
-      gradient: 'from-blue-500/20 to-blue-500/5',
-      iconColor: 'text-blue-600'
+      gradient: 'from-[#385183]/20 to-[#385183]/5',  /* Royal Slate Blue */
+      iconColor: 'text-[#385183]'
     },
     {
       icon: Shield,
       title: 'Money-Back Guarantee',
       subtitle: 'Full refund if not delivered',
-      gradient: 'from-amber-500/20 to-amber-500/5',
-      iconColor: 'text-amber-600'
+      gradient: 'from-[#FFCF69]/30 to-[#FFCF69]/5',  /* Sun Amber */
+      iconColor: 'text-[#734443]'                      /* Mahogany Plum */
     },
     {
       icon: CreditCard,
       title: 'Secured by Razorpay',
       subtitle: 'Safe & trusted payments',
-      gradient: 'from-purple-500/20 to-purple-500/5',
-      iconColor: 'text-purple-600'
+      gradient: 'from-[#EC7446]/20 to-[#EC7446]/5',  /* Terracotta Flame */
+      iconColor: 'text-[#1E2A38]'                     /* Midnight Steel */
     }
   ];
 

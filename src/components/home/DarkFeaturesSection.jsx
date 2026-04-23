@@ -49,7 +49,7 @@ export function DarkFeaturesSection() {
   return (
     <section
       id="features"
-      className="relative overflow-hidden bg-gradient-to-b from-[#F5F5F7] to-white py-14 md:py-6"
+      className="relative overflow-hidden py-14 md:py-6" style={{ background: 'var(--color-primary-1)' }}
     >
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute -top-20 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" />
@@ -62,19 +62,19 @@ export function DarkFeaturesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease }}
           viewport={{ once: true, amount: 0.2 }}
-          className="mx-auto mb-8 max-w-3xl text-center md:mb-10"
+          className="mx-auto mb-4 max-w-3xl text-center md:mb-6"
         >
-          <div className="inline-flex items-center gap-2 rounded-full border border-border/70 bg-white/70 backdrop-blur px-3 py-1 text-xs font-semibold tracking-[0.08em] uppercase text-muted-foreground">
-            <span className="h-1.5 w-1.5 rounded-full bg-primary" />
+          <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] backdrop-blur px-3 py-1 text-xs font-semibold tracking-[0.08em] uppercase" style={{ color: 'var(--color-primary)', backgroundColor: 'var(--color-bg)' }}>
+            <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: 'var(--color-primary)' }} />
             What you get
           </div>
 
-          <h2 className="mt-4 text-4xl sm:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.05] text-[#1D1D1F]">
+          <h2 className="mt-4 text-4xl sm:text-5xl lg:text-5xl font-semibold tracking-tight leading-[1.05]" style={{ color: 'var(--color-heading-main)' }}>
             Design, budget, and execution clarity
-            <span className="block text-[#6E6E73] font-medium">in just 3 days</span>
+            <span style={{ color: 'var(--color-heading-main-highlight)' }}> in just 3 days</span>
           </h2>
 
-          <p className="mt-4 text-base sm:text-lg text-muted-foreground leading-relaxed">
+          <p className="mt-2 text-base sm:text-lg opacity-60" style={{ color: 'var(--color-description)' }}>
             Here’s how you go from confusion → clarity → execution
           </p>
         </motion.div>
@@ -88,7 +88,7 @@ export function DarkFeaturesSection() {
               transition={{ duration: 0.8, ease, delay: i * 0.08 }}
               viewport={{ once: true, amount: 0.2 }}
               onClick={() => handleCardRedirect(card)}
-              className="group relative cursor-pointer overflow-hidden rounded-3xl border border-black/5 bg-white shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-black/5"
+              className="group relative cursor-pointer overflow-hidden rounded-3xl border border-border/30 bg-card shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-xl hover:shadow-foreground/5"
             >
               <div className="absolute inset-0">
                 <img
@@ -103,7 +103,7 @@ export function DarkFeaturesSection() {
 
               <div className="relative flex min-h-[320px] flex-col justify-between p-6">
                 <div>
-                  <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur px-3 py-1 text-xs font-medium text-white/90">
+                  <div className="inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-medium text-white/90" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary-3) 20%, transparent)' }}>
                     <card.icon className="h-4 w-4" />
                     Included
                   </div>

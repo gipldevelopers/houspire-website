@@ -34,8 +34,8 @@ export function ActiveOrdersCard() {
 
   const fetchActiveOrders = async () => {
     try {
-      const data = await dataGet('/orders?status=paid,in_progress,design_ready,revision_requested&limit=5');
-      setOrders(data || []);
+      const response = await dataGet('/orders?status=paid,in_progress,design_ready,revision_requested&limit=5');
+      setOrders(response?.orders || []);
     } catch (error) {
       console.error('Failed to fetch active orders:', error);
     } finally {

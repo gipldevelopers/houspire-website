@@ -39,9 +39,10 @@ export function DarkNavbar() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 h-12 transition-all duration-300 ${
           isScrolled
-            ? 'bg-white/[0.72] backdrop-blur-[20px] backdrop-saturate-[180%] border-b border-black/[0.08]'
-            : 'bg-white border-b border-black/[0.05]'
+            ? 'backdrop-blur-[20px] backdrop-saturate-[180%] border-b border-border/50'
+            : 'border-b border-border/30'
         }`}
+        style={{ backgroundColor: isScrolled ? 'color-mix(in srgb, var(--color-primary-1) 72%, transparent)' : 'var(--color-primary-1)' }}
       >
         <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between h-full">
           <Link href="/" className="flex items-center">
@@ -53,7 +54,7 @@ export function DarkNavbar() {
               <Link
                 key={l.path}
                 href={l.path}
-                className="text-[13px] text-[#1D1D1F]/80 hover:text-[#1D1D1F] transition-colors"
+                className="text-[13px] text-foreground/80 hover:text-foreground transition-colors"
               >
                 {l.name}
               </Link>
@@ -63,22 +64,22 @@ export function DarkNavbar() {
           <div className="hidden md:flex items-center gap-3">
             {user ? (
               <>
-                <button onClick={() => router.push('/dashboard')} className="text-[13px] text-[#1D1D1F]/80 hover:text-[#1D1D1F] transition-colors">
+                <button onClick={() => router.push('/dashboard')} className="text-[13px] text-foreground/80 hover:text-foreground transition-colors">
                   Dashboard
                 </button>
                 {isAdmin && (
-                  <button onClick={() => router.push('/admin')} className="text-[13px] text-[#1D1D1F]/80 hover:text-[#1D1D1F] transition-colors">
+                  <button onClick={() => router.push('/admin')} className="text-[13px] text-foreground/80 hover:text-foreground transition-colors">
                     Admin
                   </button>
                 )}
-                <button onClick={() => signOut()} className="text-[13px] text-[#1D1D1F]/80 hover:text-[#1D1D1F] transition-colors">
+                <button onClick={() => signOut()} className="text-[13px] text-foreground/80 hover:text-foreground transition-colors">
                   Sign out
                 </button>
               </>
             ) : (
               <button
                 onClick={redirectToHouspireHome}
-                className="px-[22px] py-2 text-[14px] font-medium text-white bg-[#E8662E] hover:bg-[#D45A1F] rounded-[980px] transition-all duration-300"
+                className="btn-primary btn-sm"
               >
                 Get Started
               </button>
@@ -87,7 +88,7 @@ export function DarkNavbar() {
 
           <button
             onClick={() => setIsMobileOpen(!isMobileOpen)}
-            className="md:hidden p-2 text-[#1D1D1F]"
+            className="md:hidden p-2 text-foreground"
           >
             {isMobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
           </button>
@@ -100,7 +101,8 @@ export function DarkNavbar() {
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="fixed inset-0 z-40 bg-white/95 backdrop-blur-2xl pt-16 md:hidden"
+            className="fixed inset-0 z-40 backdrop-blur-2xl pt-16 md:hidden"
+            style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary-1) 95%, transparent)' }}
           >
             <div className="px-6 py-8 space-y-1">
               {navLinks.map((l) => (
@@ -108,7 +110,7 @@ export function DarkNavbar() {
                   key={l.path}
                   href={l.path}
                   onClick={() => setIsMobileOpen(false)}
-                  className="block text-2xl font-semibold text-[#1D1D1F] py-4 border-b border-[#D2D2D7]"
+                  className="block text-2xl font-semibold text-foreground py-4 border-b border-border"
                 >
                   {l.name}
                 </Link>
@@ -118,13 +120,13 @@ export function DarkNavbar() {
                   <>
                     <button
                       onClick={() => { router.push('/dashboard'); setIsMobileOpen(false); }}
-                      className="w-full py-4 text-lg font-medium text-white bg-[#E8662E] rounded-full"
+                      className="btn-primary btn-lg w-full"
                     >
                       Dashboard
                     </button>
                     <button
                       onClick={() => { signOut(); setIsMobileOpen(false); }}
-                      className="w-full py-4 text-lg font-medium text-[#1D1D1F] border border-[#D2D2D7] rounded-full"
+                      className="btn-secondary btn-lg w-full"
                     >
                       Sign out
                     </button>
@@ -132,7 +134,7 @@ export function DarkNavbar() {
                 ) : (
                   <button
                     onClick={() => { redirectToHouspireHome(); setIsMobileOpen(false); }}
-                    className="w-full py-4 text-lg font-medium text-white bg-[#E8662E] rounded-[980px]"
+                    className="btn-primary btn-lg w-full"
                   >
                     Get Started
                   </button>

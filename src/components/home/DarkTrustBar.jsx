@@ -13,8 +13,8 @@ export function DarkTrustBar() {
         viewport={{ once: true, amount: 0.2 }}
         className="max-w-[1200px] mx-auto px-6 text-center"
       >
-        <div className="inline-flex items-center gap-4 text-xl md:text-2xl font-bold text-foreground">
-          <Clock className="h-6 w-6 text-primary" />
+        <div className="inline-flex items-center gap-4 text-xl md:text-2xl font-bold" style={{ color: 'var(--color-heading-main)' }}>
+          <Clock className="h-6 w-6" style={{ color: 'var(--color-primary)' }} />
           <span>Delivered in 72 hours or your money back. No questions asked.</span>
         </div>
       </motion.div>

@@ -57,15 +57,16 @@ export default function OurJourney() {
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="text-primary-orange font-bold text-[8px] uppercase tracking-[0.4em] mb-2"
+            className="font-bold text-[8px] uppercase tracking-[0.4em] mb-2"
+            style={{ color: 'var(--color-primary)' }}
           >
             Evolutionary Curation
           </motion.p>
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="text-3xl md:text-5xl font-medium text-soft-black italic font-serif leading-tight"
-            style={{ fontFamily: "'Cormorant Garamond', serif" }}
+            className="text-3xl md:text-5xl font-medium italic font-serif leading-tight"
+            style={{ color: 'var(--color-heading-main)', fontFamily: "'Cormorant Garamond', serif" }}
           >
             The Path of <br /> <span className="not-italic">Modern Distinction</span>
           </motion.h2>
@@ -75,14 +76,14 @@ export default function OurJourney() {
           {/* Central Vertical Line Decor - Progress bar style */}
           <div className="absolute left-6 md:left-[50%] top-0 bottom-0 w-px bg-slate-200 md:-translate-x-1/2" />
           <motion.div 
-            className="absolute left-6 md:left-[50%] top-0 bottom-0 w-px bg-primary-orange md:-translate-x-1/2 origin-top hidden md:block"
-            style={{ scaleY }}
+            className="absolute left-6 md:left-[50%] top-0 bottom-0 w-px md:-translate-x-1/2 origin-top hidden md:block"
+            style={{ backgroundColor: 'var(--color-primary)', scaleY }}
           />
 
           {/* Scrolling Dot */}
           <motion.div 
-            className="absolute left-[50%] -translate-x-1/2 w-3 h-3 rounded-full bg-primary border-[2px] border-white shadow-md z-30 hidden md:block"
-            style={{ top: dotTop }}
+            className="absolute left-[50%] -translate-x-1/2 w-3 h-3 rounded-full border-[2px] border-white shadow-md z-30 hidden md:block"
+            style={{ backgroundColor: 'var(--color-primary)', top: dotTop }}
           />
 
           <div className="space-y-10 md:space-y-20">
@@ -92,7 +93,7 @@ export default function OurJourney() {
                 className={`flex flex-col md:flex-row items-center gap-6 md:gap-16 relative ${i % 2 === 0 ? '' : 'md:flex-row-reverse'}`}
               >
                 {/* Visual Connector Node */}
-                <div className="absolute left-6 md:left-1/2 top-0 w-2 h-2 bg-primary-orange rounded-full -translate-x-1/2 hidden md:block z-20" />
+                <div className="absolute left-6 md:left-1/2 top-0 w-2 h-2 rounded-full -translate-x-1/2 hidden md:block z-20" style={{ backgroundColor: 'var(--color-primary)' }} />
 
                 {/* Arched Image Side */}
                 <motion.div 
@@ -127,25 +128,25 @@ export default function OurJourney() {
                    className={`flex-1 space-y-3 pl-10 md:pl-0 ${i % 2 === 0 ? 'text-left md:pr-8' : 'text-left md:pl-8 md:text-right'}`}
                 >
                   <div className={`flex items-baseline gap-2.5 ${i % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
-                    <span className="text-4xl md:text-[3rem] lg:text-[4rem] font-medium text-primary-orange/10 font-serif italic leading-[0.8]" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                    <span className="text-4xl md:text-[3rem] lg:text-[4rem] font-medium font-serif italic leading-[0.8]" style={{ color: 'color-mix(in srgb, var(--color-primary) 10%, transparent)', fontFamily: "'Cormorant Garamond', serif" }}>
                       {m.year}
                     </span>
-                    <div className="h-0.5 w-8 bg-primary-orange/30" />
+                    <div className="h-0.5 w-8" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 30%, transparent)' }} />
                   </div>
                   
                   <div className="space-y-2">
-                    <h3 className="text-xl md:text-2xl lg:text-[1.75rem] font-black text-soft-black tracking-tight leading-none uppercase">
+                    <h3 className="text-xl md:text-2xl lg:text-[1.75rem] font-black tracking-tight leading-none uppercase" style={{ color: 'var(--color-heading-secondary)' }}>
                       {m.event}
                     </h3>
-                    <div className={`h-1 w-8 bg-primary-orange/20 ${i % 2 === 0 ? '' : 'md:ml-auto'}`} />
+                    <div className={`h-1 w-8 ${i % 2 === 0 ? '' : 'md:ml-auto'}`} style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 20%, transparent)' }} />
                   </div>
                   
-                  <p className="text-slate-500 font-medium leading-relaxed max-w-[280px] md:ml-auto md:mr-0 text-[10px] md:text-xs">
+                  <p className="font-medium leading-relaxed max-w-[280px] md:ml-auto md:mr-0 text-[10px] md:text-xs opacity-60" style={{ color: 'var(--color-description)' }}>
                     {m.desc}
                   </p>
 
                   <div className={`flex ${i % 2 === 0 ? 'justify-start' : 'md:justify-end'}`}>
-                     <div className="px-4 py-1 bg-primary text-white rounded-full text-[7px] font-bold shadow-md shadow-black/10 uppercase tracking-[0.2em]">
+                     <div className="px-4 py-1 text-white rounded-full text-[7px] font-bold shadow-md shadow-black/10 uppercase tracking-[0.2em]" style={{ backgroundColor: 'var(--color-primary)' }}>
                         Step 0{i+1}
                      </div>
                   </div>
