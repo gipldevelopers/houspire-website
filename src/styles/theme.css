@@ -1,18 +1,25 @@
 :root {
-  --color-primary: #EC7446;
-  --color-secondary: #2C5A52;
-  --color-accent: #FFCF69;
+  --color-primary: var(--color-primary-3);
+  --color-secondary: var(--color-secondary-3);
+  --color-accent: var(--color-tertiary-1);
 
-  --color-bg: #FDFBF7;
-  --color-card: #BB9480;
+  --color-bg: var(--color-primary-1);
+  --color-card: var(--color-secondary-1);
 
-  --color-heading: #1E2A38;
-  --color-text: #1E2A38;
+  --color-heading: var(--color-primary-2);
+  --color-text: var(--color-primary-2);
+  --color-border: var(--color-secondary-1);
 
-  --color-border: #E2DACF;
+  --color-button: var(--color-primary-3);
+  --color-button-hover: #f08a5d;
 
-  --color-button: #EC7446;
-  --color-button-hover: #2C5A52;
+  /* Semantic aliases used across route-level pages */
+  --color-heading-main: var(--color-primary-2);
+  --color-heading-main-highlight: var(--color-primary-3);
+  --color-heading-secondary: color-mix(in srgb, var(--color-primary-2) 90%, white);
+  --color-heading-secondary-highlight: var(--color-primary-3);
+  --color-description: color-mix(in srgb, var(--color-primary-2) 62%, white);
+  --color-primary-60: rgba(236, 116, 70, 0.6);
 }
 
 /* Global Utility Mappings */

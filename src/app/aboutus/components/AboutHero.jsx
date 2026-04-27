@@ -4,101 +4,119 @@ import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { Star } from "lucide-react";
+import { ArrowRight, Sparkles, Star } from "lucide-react";
 
 export default function AboutHero() {
   const archedImages = [
-    { src: "/images/living-room.png", alt: "Living Room Design", delay: 0.1 },
-    { src: "/images/detail.png", alt: "Material Detail", delay: 0.2 },
-    { src: "/images/office.png", alt: "Office Space", delay: 0.3 },
-    { src: "/images/exterior.png", alt: "Architectural Exterior", delay: 0.4 },
+    { src: "/images/living-room.png", alt: "Living room design", delay: 0.1 },
+    { src: "/images/detail.png", alt: "Material detail", delay: 0.2 },
+    { src: "/images/office.png", alt: "Office space", delay: 0.3 },
+    { src: "/images/exterior.png", alt: "Architectural exterior", delay: 0.4 },
   ];
 
   return (
-    <section className="relative pt-12 md:pt-20 pb-16 overflow-hidden" style={{ backgroundColor: 'var(--color-bg)' }}>
-      <div className="max-w-7xl mx-auto px-6 text-center">
-        {/* Heading Section */}
+    <section
+      className="relative overflow-hidden pb-6 pt-14 md:pt-20"
+      style={{ backgroundColor: "var(--color-primary-1)" }}
+    >
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-1/2 top-0 h-72 w-72 -translate-x-1/2 rounded-full bg-[var(--color-primary)]/10 blur-3xl" />
+        <div className="absolute right-[-6rem] top-40 h-80 w-80 rounded-full bg-[var(--color-secondary-2)]/10 blur-3xl" />
+      </div>
+
+      <div className="relative mx-auto max-w-7xl px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="max-w-4xl mx-auto space-y-5"
+          className="mx-auto max-w-5xl text-center"
         >
-          <h1 className="text-2xl md:text-6xl font-bold leading-[1.1] tracking-tight" style={{ color: 'var(--color-heading-main)' }}>
-            Elevate Your <span className="relative inline-block">
-              Living
-              <motion.svg
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 1, delay: 0.5 }}
-                viewBox="0 0 100 20"
-                className="absolute -bottom-1 md:-bottom-2 left-0 w-full h-4 md:h-8 pointer-events-none fill-none stroke-[3] stroke-current stroke-round"
-                style={{ color: 'var(--color-primary)' }}
-                preserveAspectRatio="none"
-              >
-                <path d="M5 15 Q 50 18 95 15" />
-              </motion.svg>
-            </span> <br /> 
-            and Achieve Your Dreams
+          {/* <div className="mb-6 inline-flex items-center gap-3 rounded-full border border-[var(--color-border)] bg-white/70 px-4 py-2 shadow-sm backdrop-blur-sm">
+            <span className="h-2 w-2 rounded-full bg-[var(--color-primary)] shadow-[0_0_12px_rgba(236,116,70,0.45)]" />
+            <span
+              className="text-[11px] font-black uppercase tracking-[0.2em]"
+              style={{ color: "var(--color-primary)" }}
+            >
+              About Houspire
+            </span>
+          </div> */}
+
+          <h1
+            className="mx-auto max-w-4xl text-4xl font-bold leading-[1.05] tracking-tight sm:text-5xl md:text-5xl"
+            style={{ color: "var(--color-heading-main)" }}
+          >
+            Elevate your living with
+            <span style={{ color: "var(--color-heading-main-highlight)" }}>
+              {" "}design clarity{" "}
+            </span>
+            that feels personal.
           </h1>
 
-          {/* Social Proof */}
-          <div className="flex flex-col items-center gap-2">
+          {/* <p
+            className="mx-auto mt-6 max-w-3xl text-lg leading-relaxed md:text-l"
+            style={{ color: "var(--color-description)" }}
+          >
+            We help homeowners make faster, smarter design decisions with the
+            same mix of visual clarity, budget awareness, and execution focus
+            that drives the home page.
+          </p> */}
+
+          <div className="mt-4 flex flex-col items-center gap-3">
             <div className="flex -space-x-3 items-center">
               {[1, 2, 3].map((i) => (
-                <div key={i} className="w-8 h-8 md:w-10 md:h-10 rounded-full border-2 border-white overflow-hidden relative shadow-sm">
-                  <Image src="/images/detail.png" alt="User" fill className="object-cover" />
+                <div
+                  key={i}
+                  className="relative h-10 w-10 overflow-hidden rounded-full border-2 border-white shadow-sm"
+                >
+                  <Image src="/images/detail.png" alt="Customer" fill className="object-cover" />
                 </div>
               ))}
-              <div className="pl-3 md:pl-5 flex flex-col items-start gap-0.5">
-                <div className="flex gap-0.5" style={{ color: 'var(--color-primary)' }}>
-                  {[1, 2, 3, 4, 5].map((s) => <Star key={s} size={10} fill="currentColor" />)}
+              <div className="pl-5 text-left">
+                <div className="flex gap-0.5" style={{ color: "var(--color-primary)" }}>
+                  {[1, 2, 3, 4, 5].map((s) => (
+                    <Star key={s} size={12} fill="currentColor" />
+                  ))}
                 </div>
-                <p className="text-[9px] font-bold text-slate-400 uppercase tracking-[0.15em]">
-                  Trusted by 5k+ Homeowners
+                <p className="mt-1 text-[11px] font-bold uppercase tracking-[0.18em] text-[#8c8378]">
+                  Trusted by 5k+ homeowners
                 </p>
               </div>
             </div>
           </div>
 
-          <div className="pt-2 md:pt-4">
-            <Link 
-              href="#work" 
-              className="btn-primary inline-flex items-center px-10 py-4 text-white rounded-full font-bold text-xs tracking-widest transition-all hover:scale-105 shadow-xl shadow-black/5"
-            >
-              Explore Our Work
+          <div className="mt-4 flex flex-col justify-center gap-4 sm:flex-row">
+            <Link href="#journey" className="btn-primary btn-lg gap-2">
+              <Sparkles className="h-5 w-5" />
+              Explore our story
+            </Link>
+            <Link href="/contact" className="btn-secondary btn-lg gap-2">
+              Talk to our team
+              <ArrowRight className="h-5 w-5" />
             </Link>
           </div>
         </motion.div>
 
-        {/* Arched Images Row - FIXED MOBILE OVERLAP */}
-        <div className="mt-16 md:mt-16 grid grid-cols-2 md:grid-cols-4 gap-x-8 gap-y-16 md:gap-6 items-center relative max-w-[400px] md:max-w-none mx-auto">
+        <div className="mx-auto mt-10 grid max-w-[420px] grid-cols-2 items-center gap-x-8 gap-y-12 md:mt-16 md:max-w-none md:grid-cols-4 md:gap-6">
           {archedImages.map((img, i) => (
             <motion.div
-              key={i}
+              key={img.alt}
               initial={{ opacity: 0, y: 60 }}
-              whileInView={{ 
-                opacity: 1, 
-                // Desktop: Keep perfect -40/10
-                // Mobile: Smaller offset to prevent text collision
-                y: (i === 1 || i === 2) 
-                  ? [ -20, -40 ] 
-                  : [ 0, 10 ] 
-              }}
-              viewport={{ once: true }}
-              transition={{ delay: img.delay, duration: 0.8 }}
-              /* 1. aspect-[2/3] forces them to be tall capsules, not circles.
-                2. max-w-[140px] ensures they don't grow too wide on big phones.
-              */
-              className="relative w-full aspect-[2/3] md:h-[320px] mx-auto group"
+              whileInView={{
+                opacity: 1,
+                y: i === 1 || i === 2 ? [-20, -40] : [0, 10],
+               }}
+               viewport={{ once: true }}
+               transition={{ delay: img.delay, duration: 0.8 }}
+              className="group relative mx-auto aspect-square w-full max-w-[210px] md:max-w-[260px]"
             >
-              <div className="relative w-full h-full rounded-full overflow-hidden border border-slate-50 shadow-xl transition-transform duration-500 group-hover:-translate-y-2">
-                <Image 
-                  src={img.src} 
-                  alt={img.alt} 
-                  fill 
-                  className="object-cover transition-transform duration-700 group-hover:scale-110" 
+              <div className="absolute -inset-3 rounded-full bg-[var(--color-primary)]/8 blur-2xl" />
+              <div className="relative h-full w-full overflow-hidden rounded-full border border-[var(--color-border)] bg-white shadow-[0_20px_50px_rgba(30,42,56,0.08)] transition-transform duration-500 group-hover:-translate-y-2">
+                <Image
+                  src={img.src}
+                  alt={img.alt}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-black/5" />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.02),rgba(30,42,56,0.12))]" />
               </div>
             </motion.div>
           ))}

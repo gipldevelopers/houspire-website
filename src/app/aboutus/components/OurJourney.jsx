@@ -5,29 +5,29 @@ import Image from "next/image";
 import { useRef } from "react";
 
 const milestones = [
-  { 
-    year: "2021", 
-    event: "The Genesis", 
-    desc: "Housepire was born from a vision to redefine spatial narratives, beginning as a studio of three visionaries dedicated to craft and architectural precision.",
-    image: "/images/detail.png"
+  {
+    year: "2021",
+    event: "The Genesis",
+    desc: "Houspire started with a simple premise: homeowners should see clear design direction before money and execution start pulling in different directions.",
+    image: "/images/detail.png",
   },
-  { 
-    year: "2022", 
-    event: "Expanding Horizons", 
-    desc: "Achieved our first 100+ bespoke designs, scaling our reach while maintaining the meticulous attention to detail that defines our brand identity.",
-    image: "/images/living-room.png"
+  {
+    year: "2022",
+    event: "Expanding Horizons",
+    desc: "We scaled our reach while staying obsessive about clarity, building a process that keeps design, budget, and execution tied together.",
+    image: "/images/living-room.png",
   },
-  { 
-    year: "2023", 
-    event: "Technological Edge", 
-    desc: "Launched our proprietary 3D visualization platform, an industry-first tool that allows our clients to inhabit their future spaces digitally.",
-    image: "/images/office.png"
+  {
+    year: "2023",
+    event: "Technological Edge",
+    desc: "Visualization and planning tools became central to our workflow so clients could understand their future spaces faster and with fewer surprises.",
+    image: "/images/office.png",
   },
-  { 
-    year: "2024", 
-    event: "Global Distinction", 
-    desc: "Recognized internationally for sustainable innovation and ultra-fast delivery, firmly establishing Housepire as a leader in high-end design.",
-    image: "/images/exterior.png"
+  {
+    year: "2024",
+    event: "Built for Real Homes",
+    desc: "The focus sharpened around speed, transparency, and practical execution, bringing the same promise you see across the home page into every project.",
+    image: "/images/exterior.png",
   },
 ];
 
@@ -35,120 +35,131 @@ export default function OurJourney() {
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start center", "end center"]
+    offset: ["start center", "end center"],
   });
 
   const scaleY = useSpring(scrollYProgress, {
     stiffness: 100,
     damping: 30,
-    restDelta: 0.001
+    restDelta: 0.001,
   });
 
   const dotTop = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
-    <section ref={containerRef} className="py-12 lg:py-16 bg-slate-50 relative overflow-hidden font-outfit">
-      {/* Subtle Noise Texture Overlay */}
-      <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none bg-[url('/images/noise.png')]" />
+    <section
+      id="journey"
+      ref={containerRef}
+      className="relative overflow-hidden py-6 lg:py-10"
+      style={{ backgroundColor: "var(--color-background)" }}
+    >
+      <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none bg-background" />
 
-      <div className="max-w-7xl mx-auto px-6 relative">
-        {/* Section Header */}
-        <div className="text-center mb-12">
-          <motion.p
+      <div className="relative mx-auto max-w-7xl px-6">
+        <div className="mb-14 text-center">
+          {/* <motion.div
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="font-bold text-[8px] uppercase tracking-[0.4em] mb-2"
-            style={{ color: 'var(--color-primary)' }}
+            className="inline-flex items-center gap-3 rounded-full border border-[var(--color-border)] bg-white/70 px-4 py-2 shadow-sm"
           >
-            Evolutionary Curation
-          </motion.p>
-          <motion.h2 
+            <span className="h-2 w-2 rounded-full bg-[var(--color-primary)]" />
+            <span
+              className="text-[11px] font-black uppercase tracking-[0.2em]"
+              style={{ color: "var(--color-primary)" }}
+            >
+              Our Journey
+            </span>
+          </motion.div> */}
+          <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className="text-3xl md:text-5xl font-medium italic font-serif leading-tight"
-            style={{ color: 'var(--color-heading-main)', fontFamily: "'Cormorant Garamond', serif" }}
+            className="mx-auto mt-5 max-w-4xl text-3xl font-semibold tracking-tight md:text-5xl"
+            style={{ color: "var(--color-heading-main)" }}
           >
-            The Path of <br /> <span className="not-italic">Modern Distinction</span>
+            Built around
+            <span style={{ color: "var(--color-heading-main-highlight)" }}>
+              {" "}speed, clarity, and execution
+            </span>
+            .
           </motion.h2>
+          <p
+            className="mx-auto mt-4 max-w-2xl text-lg leading-relaxed"
+            style={{ color: "var(--color-description)" }}
+          >
+            The visuals have evolved, but the core idea has stayed the same:
+            design should help people move forward with confidence.
+          </p>
         </div>
 
         <div className="relative">
-          {/* Central Vertical Line Decor - Progress bar style */}
-          <div className="absolute left-6 md:left-[50%] top-0 bottom-0 w-px bg-slate-200 md:-translate-x-1/2" />
-          <motion.div 
-            className="absolute left-6 md:left-[50%] top-0 bottom-0 w-px md:-translate-x-1/2 origin-top hidden md:block"
-            style={{ backgroundColor: 'var(--color-primary)', scaleY }}
+          <div className="absolute left-6 top-0 bottom-0 hidden w-px bg-[var(--color-border)] md:left-1/2 md:block md:-translate-x-1/2" />
+          <motion.div
+            className="absolute left-6 top-0 bottom-0 hidden w-px origin-top md:left-1/2 md:block md:-translate-x-1/2"
+            style={{ backgroundColor: "var(--color-primary)", scaleY }}
+          />
+          <motion.div
+            className="absolute left-1/2 hidden h-3 w-3 -translate-x-1/2 rounded-full border-2 border-white shadow-md md:block"
+            style={{ backgroundColor: "var(--color-primary)", top: dotTop }}
           />
 
-          {/* Scrolling Dot */}
-          <motion.div 
-            className="absolute left-[50%] -translate-x-1/2 w-3 h-3 rounded-full border-[2px] border-white shadow-md z-30 hidden md:block"
-            style={{ backgroundColor: 'var(--color-primary)', top: dotTop }}
-          />
-
-          <div className="space-y-10 md:space-y-20">
+          <div className="space-y-8 md:space-y-12">
             {milestones.map((m, i) => (
               <div
                 key={m.year}
-                className={`flex flex-col md:flex-row items-center gap-6 md:gap-16 relative ${i % 2 === 0 ? '' : 'md:flex-row-reverse'}`}
+                className={`relative flex flex-col gap-6 md:flex-row md:items-center md:gap-12 ${i % 2 === 0 ? "" : "md:flex-row-reverse"}`}
               >
-                {/* Visual Connector Node */}
-                <div className="absolute left-6 md:left-1/2 top-0 w-2 h-2 rounded-full -translate-x-1/2 hidden md:block z-20" style={{ backgroundColor: 'var(--color-primary)' }} />
+                <div
+                  className="absolute left-6 top-10 hidden h-3 w-3 -translate-x-1/2 rounded-full border-2 border-white shadow-sm md:left-1/2 md:block"
+                  style={{ backgroundColor: "var(--color-primary)" }}
+                />
 
-                {/* Arched Image Side */}
-                <motion.div 
-                  initial={{ opacity: 0, scale: 0.9, x: i % 2 === 0 ? -40 : 40 }}
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95, x: i % 2 === 0 ? -30 : 30 }}
                   whileInView={{ opacity: 1, scale: 1, x: 0 }}
-                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                  viewport={{ once: true, margin: "-50px" }}
-                  className="flex-1 w-full pl-10 md:pl-0"
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  className="flex-1"
                 >
-                  <div className={`relative h-[180px] lg:h-[280px] w-full max-w-[220px] ${i % 2 === 0 ? 'md:ml-auto' : 'md:mr-auto'} rounded-t-full rounded-b-full overflow-hidden shadow-lg group cursor-crosshair border-[6px] border-white shadow-black/5`}>
-                    <Image 
-                      src={m.image} 
-                      alt={m.event} 
-                      fill 
-                      className="object-cover transition-transform duration-1000 group-hover:scale-110" 
-                    />
-                    <div className="absolute inset-0 bg-soft-black/20 group-hover:bg-transparent transition-colors duration-500" />
-                    
-                    {/* Year badge on image for mobile */}
-                    <div className="absolute bottom-3 left-1/2 -translate-x-1/2 bg-white/95 backdrop-blur px-3 py-1 rounded-full shadow-md md:hidden">
-                       <span className="text-xs font-black text-soft-black tracking-tighter">{m.year}</span>
+                  <div className={`relative h-[240px] w-full max-w-[280px] overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-white shadow-[0_24px_60px_rgba(30,42,56,0.08)] ${i % 2 === 0 ? "md:ml-auto" : "md:mr-auto"}`}>
+                    <Image src={m.image} alt={m.event} fill className="object-cover transition-transform duration-700 hover:scale-105" />
+                    <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.02),rgba(30,42,56,0.16))]" />
+                    <div className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[11px] font-bold uppercase tracking-[0.18em] shadow-sm" style={{ color: "var(--color-primary)" }}>
+                      {m.year}
                     </div>
                   </div>
                 </motion.div>
 
-                {/* Text Content Side */}
-                <motion.div 
-                   initial={{ opacity: 0, x: i % 2 === 0 ? 40 : -40 }}
-                   whileInView={{ opacity: 1, x: 0 }}
-                   transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-                   viewport={{ once: true, margin: "-50px" }}
-                   className={`flex-1 space-y-3 pl-10 md:pl-0 ${i % 2 === 0 ? 'text-left md:pr-8' : 'text-left md:pl-8 md:text-right'}`}
+                <motion.div
+                  initial={{ opacity: 0, x: i % 2 === 0 ? 30 : -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                  viewport={{ once: true, margin: "-60px" }}
+                  className="flex-1"
                 >
-                  <div className={`flex items-baseline gap-2.5 ${i % 2 === 0 ? '' : 'md:flex-row-reverse'}`}>
-                    <span className="text-4xl md:text-[3rem] lg:text-[4rem] font-medium font-serif italic leading-[0.8]" style={{ color: 'color-mix(in srgb, var(--color-primary) 10%, transparent)', fontFamily: "'Cormorant Garamond', serif" }}>
-                      {m.year}
-                    </span>
-                    <div className="h-0.5 w-8" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 30%, transparent)' }} />
-                  </div>
-                  
-                  <div className="space-y-2">
-                    <h3 className="text-xl md:text-2xl lg:text-[1.75rem] font-black tracking-tight leading-none uppercase" style={{ color: 'var(--color-heading-secondary)' }}>
+                  <div className="rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-primary-1)] p-6 shadow-sm md:p-8">
+                    <div className={`flex items-center gap-3 ${i % 2 === 0 ? "" : "md:justify-end"}`}>
+                      <span
+                        className="text-sm font-black uppercase tracking-[0.2em]"
+                        style={{ color: "var(--color-primary)" }}
+                      >
+                        Step 0{i + 1}
+                      </span>
+                      <span className="h-px w-10 bg-[var(--color-primary)]/30" />
+                    </div>
+
+                    <h3
+                      className={`mt-5 text-2xl font-semibold tracking-tight ${i % 2 === 0 ? "text-left" : "text-left md:text-right"}`}
+                      style={{ color: "var(--color-heading-secondary)" }}
+                    >
                       {m.event}
                     </h3>
-                    <div className={`h-1 w-8 ${i % 2 === 0 ? '' : 'md:ml-auto'}`} style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 20%, transparent)' }} />
-                  </div>
-                  
-                  <p className="font-medium leading-relaxed max-w-[280px] md:ml-auto md:mr-0 text-[10px] md:text-xs opacity-60" style={{ color: 'var(--color-description)' }}>
-                    {m.desc}
-                  </p>
 
-                  <div className={`flex ${i % 2 === 0 ? 'justify-start' : 'md:justify-end'}`}>
-                     <div className="px-4 py-1 text-white rounded-full text-[7px] font-bold shadow-md shadow-black/10 uppercase tracking-[0.2em]" style={{ backgroundColor: 'var(--color-primary)' }}>
-                        Step 0{i+1}
-                     </div>
+                    <p
+                      className={`mt-4 text-base leading-relaxed ${i % 2 === 0 ? "text-left" : "text-left md:text-right"}`}
+                      style={{ color: "var(--color-description)" }}
+                    >
+                      {m.desc}
+                    </p>
                   </div>
                 </motion.div>
               </div>

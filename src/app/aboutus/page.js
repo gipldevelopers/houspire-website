@@ -1,13 +1,10 @@
 "use client";
 
+import { motion, useScroll, useSpring } from "framer-motion";
+import AboutContactCTA from "./components/AboutContactCTA";
 import AboutHero from "./components/AboutHero";
 import ImageShowcase from "./components/ImageShowcase";
-// import BrandStory from "./components/BrandStory";
 import OurJourney from "./components/OurJourney";
-// import KnowledgeSection from "./components/KnowledgeSection";
-import AboutContactCTA from "./components/AboutContactCTA";
-
-import { motion, useScroll, useSpring } from "framer-motion";
 
 export default function AboutPage() {
   const { scrollYProgress } = useScroll();
@@ -18,37 +15,35 @@ export default function AboutPage() {
   });
 
   return (
-      <main className="relative min-h-screen bg-white font-outfit">
-      {/* Progress Bar */}
+    <main className="relative min-h-screen overflow-hidden bg-[var(--color-primary-1)]">
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute left-[-8rem] top-20 h-72 w-72 rounded-full bg-[var(--color-primary)]/10 blur-3xl" />
+        <div className="absolute right-[-10rem] top-[30rem] h-96 w-96 rounded-full bg-[var(--color-secondary-2)]/12 blur-3xl" />
+      </div>
+
       <motion.div
-        className="fixed top-0 left-0 right-0 h-1.5 bg-primary-orange z-[100] origin-left"
+        className="fixed top-0 left-0 right-0 z-[100] h-1.5 origin-left bg-[var(--color-primary)]"
         style={{ scaleX }}
       />
 
-      
-      <div className="pt-8">
+      <div className="relative pt-8">
         <AboutHero />
         <OurJourney />
         <AboutContactCTA />
         <ImageShowcase />
-        {/* <BrandStory /> */}
-        {/* <KnowledgeSection /> */}
-        
       </div>
 
-
-      {/* Back to Top */}
       <motion.button
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.94 }}
         onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-        className="fixed bottom-8 right-8 w-14 h-14 rounded-full bg-soft-black text-white shadow-2xl flex items-center justify-center z-40 hover:bg-primary-orange transition-colors"
+        className="fixed bottom-8 right-8 z-40 flex h-14 w-14 items-center justify-center rounded-full border border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--color-primary-1)] shadow-[0_20px_40px_rgba(236,116,70,0.28)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#f08a5d]"
+        aria-label="Back to top"
       >
         <span className="text-xl">↑</span>
       </motion.button>
-      </main>
-
-);
+    </main>
+  );
 }

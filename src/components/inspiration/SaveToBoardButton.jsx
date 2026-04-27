@@ -114,7 +114,7 @@ export function SaveToBoardButton({ imageUrl, sourceType, sourceId, roomType, st
       <Button 
         size="icon" 
         variant="secondary" 
-        className={`${buttonSize} rounded-full bg-background/90 text-foreground backdrop-blur-sm hover:bg-background shadow-md transition-all ${saved ? 'text-primary' : 'text-muted-foreground hover:text-primary'}`} 
+        className={`${buttonSize} rounded-full bg-background/90 text-foreground backdrop-blur-sm hover:bg-background shadow-md transition-all ${saved ? 'text-primary' : 'text-muted-foreground hover:text-primary'} ${className}`} 
         onClick={handleTriggerClick} 
         disabled={saving}
       >

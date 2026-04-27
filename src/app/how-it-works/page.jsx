@@ -3,10 +3,10 @@
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { SEOHead } from '@/components/SEOHead';
+import { HeroHighlight } from '@/components/ui/hero-highlight';
 import { useEffect, useState } from 'react';
 import { dataGet } from '@/lib/frontend-data';
 import { 
@@ -56,7 +56,6 @@ export default function HowItWorks() {
       title: 'Take the Style Quiz',
       description: 'Answer fun visual questions to discover your design personality and get matched with the perfect designer for your taste.',
       time: '2 minutes',
-      color: 'from-purple-500 to-pink-500'
     },
     {
       icon: CreditCard,
@@ -64,7 +63,6 @@ export default function HowItWorks() {
       title: 'Choose Your Package',
       description: 'Select from our plans starting at ₹499 or full home packages up to ₹14,999. Pay once—no subscriptions or hidden fees.',
       time: '2 minutes',
-      color: 'from-blue-500 to-cyan-500'
     },
     {
       icon: Home,
@@ -72,7 +70,6 @@ export default function HowItWorks() {
       title: 'Share Your Space',
       description: 'Upload photos of your room, share dimensions, and tell us your preferences. Let us know what you love and what to avoid.',
       time: '10 minutes',
-      color: 'from-green-500 to-emerald-500'
     },
     {
       icon: Eye,
@@ -80,7 +77,6 @@ export default function HowItWorks() {
       title: 'Review Your Design',
       description: 'Receive photorealistic room designs, a detailed budget breakdown, and a complete shopping list within 72 hours. Share feedback and request changes.',
       time: '72 hours',
-      color: 'from-orange-500 to-red-500'
     },
     {
       icon: Download,
@@ -88,7 +84,6 @@ export default function HowItWorks() {
       title: 'Download & Execute',
       description: 'Get your complete design package, shop for products using our curated links, and transform your space with our step-by-step guides.',
       time: 'Your pace',
-      color: 'from-indigo-500 to-purple-500'
     },
   ];
 
@@ -115,6 +110,23 @@ export default function HowItWorks() {
     },
   ];
 
+  const pageButtonBase =
+    'inline-flex items-center justify-center rounded-full font-semibold transition-all duration-300 whitespace-nowrap';
+  const pageButtonPrimary =
+    `${pageButtonBase} h-14 px-10 text-lg gap-2 border border-[#ec7446] bg-[#ec7446] text-[#fffaf3] shadow-[0_18px_40px_rgba(236,116,70,0.28)] hover:-translate-y-0.5 hover:bg-[#f08a5d] hover:border-[#f08a5d] hover:shadow-[0_24px_50px_rgba(240,138,93,0.34)]`;
+  const pageButtonSecondary =
+    `${pageButtonBase} h-14 px-10 text-lg border border-[#1e2a38]/12 bg-[#fffaf3] text-[#2f2924] shadow-[0_16px_34px_rgba(30,42,56,0.08)] hover:-translate-y-0.5 hover:border-[#ec7446]/20 hover:bg-[#f8f1e7] hover:text-[#1e1813]`;
+  const pageButtonPrimaryCompact =
+    `${pageButtonBase} h-11 px-5 text-sm border border-[#ec7446] bg-[#ec7446] text-[#fffaf3] shadow-[0_14px_28px_rgba(236,116,70,0.22)] hover:-translate-y-0.5 hover:bg-[#f08a5d] hover:border-[#f08a5d]`;
+  const pageButtonSecondaryCompact =
+    `${pageButtonBase} h-11 px-5 text-sm border border-[#1e2a38]/12 bg-[#fffaf3] text-[#2f2924] shadow-[0_12px_24px_rgba(30,42,56,0.06)] hover:-translate-y-0.5 hover:border-[#ec7446]/20 hover:bg-[#f8f1e7]`;
+  const pageButtonDarkPrimary =
+    `${pageButtonBase} h-14 px-10 text-lg gap-2 border border-[#fffaf3] bg-[#fffaf3] text-[#1e1813] shadow-[0_20px_45px_rgba(0,0,0,0.28)] hover:-translate-y-0.5 hover:bg-[#f5ede2] hover:border-[#f5ede2]`;
+  const pageButtonDarkSecondary =
+    `${pageButtonBase} h-14 px-10 text-lg border border-white/10 bg-white/[0.02] text-[#ddd3c7] hover:-translate-y-0.5 hover:bg-white/[0.04] hover:text-[#fffaf3] hover:border-[#f08a5d]/25`;
+  const pageTextLink =
+    'inline-flex items-center rounded-full border border-[#ec7446]/15 bg-[#fff7f2] px-5 py-2.5 text-sm font-semibold text-[#c8643a] transition-all duration-300 hover:-translate-y-0.5 hover:border-[#ec7446]/30 hover:bg-[#fff1e8] hover:text-[#a94e2c]';
+
   return (
     <>
       <SEOHead 
@@ -124,74 +136,91 @@ export default function HowItWorks() {
 
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
-        <section className="pt-32 pb-20 bg-gradient-to-b from-secondary/30 to-background">
-          <div className="container mx-auto px-6">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center max-w-4xl mx-auto"
-            >
-              <Badge className="mb-6 border-[var(--color-border)]" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)', color: 'var(--color-primary)' }}>
-                Simple 5-Step Process
-              </Badge>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-6" style={{ color: 'var(--color-heading-main)' }}>
-                From Quiz to Dream Room
-                <span className="block" style={{ color: 'var(--color-heading-main-highlight)' }}>in 72 Hours</span>
-              </h1>
-              <p className="text-xl max-w-2xl mx-auto mb-8 opacity-60" style={{ color: 'var(--color-description)' }}>
-                Professional interior design made simple. Answer a few questions, share your space, 
-                and get stunning designs delivered to your inbox.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" className="h-14 px-8 text-lg bg-foreground text-background hover:bg-foreground/90 rounded-full">
-                  <Link href="/style-quiz">
-                    <Sparkles className="mr-2 h-5 w-5" />
+        <HeroHighlight className="bg-background">
+          <section className="relative overflow-hidden pt-32 pb-20">
+            <div className="absolute inset-0 -z-10">
+              <div className="absolute -top-24 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
+              <div className="absolute -bottom-28 right-[-120px] h-[520px] w-[520px] rounded-full bg-accent/10 blur-3xl" />
+              <div
+                className="absolute inset-0 opacity-[0.2]"
+                style={{
+                  backgroundImage:
+                    'linear-gradient(to right, hsl(var(--foreground) / 0.06) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--foreground) / 0.06) 1px, transparent 1px)',
+                  backgroundSize: '56px 56px',
+                }}
+              />
+            </div>
+
+            <div className="container mx-auto px-6">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6 }}
+                className="text-center max-w-4xl mx-auto"
+              >
+                <Badge
+                  className="mb-6 border-[var(--color-border)]"
+                  style={{
+                    backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)',
+                    color: 'var(--color-primary)',
+                  }}
+                >
+                  Simple 5-Step Process
+                </Badge>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-6" style={{ color: 'var(--color-heading-main)' }}>
+                  From Quiz to Dream Room
+                  <span className="block" style={{ color: 'var(--color-heading-main-highlight)' }}>in 72 Hours</span>
+                </h1>
+                <p className="text-xl max-w-2xl mx-auto mb-8 opacity-60" style={{ color: 'var(--color-description)' }}>
+                  Professional interior design made simple. Answer a few questions, share your space,
+                  and get stunning designs delivered to your inbox.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link href="/style-quiz" className={pageButtonPrimary}>
+                    <Sparkles className="h-5 w-5" />
                     Take the Style Quiz
                   </Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="h-14 px-8 text-lg rounded-full">
-                  <Link href="/discover">
+                  <Link href="/discover" className={pageButtonSecondary}>
                     View Gallery
                   </Link>
-                </Button>
-              </div>
-            </motion.div>
-          </div>
-        </section>
+                </div>
+              </motion.div>
+            </div>
+          </section>
+        </HeroHighlight>
 
-        {/* Stats Bar */}
-        <section className="py-12 border-y border-border/50 bg-secondary/20">
+        {/* Stats Bar (Dark) */}
+        <section className="py-12 border-y border-white/10 bg-[#0c0c0e]">
           <div className="container mx-auto px-6">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
-               <div>
-                <p className="text-3xl md:text-4xl font-bold" style={{ color: 'var(--color-heading-main)' }}>~15</p>
-                <p className="text-sm mt-1 opacity-60" style={{ color: 'var(--color-description)' }}>Minutes to Start</p>
+              <div>
+                <p className="text-3xl md:text-4xl font-bold text-white">~15</p>
+                <p className="text-sm mt-1 text-white/60">Minutes to Start</p>
               </div>
               <div>
-                <p className="text-3xl md:text-4xl font-bold" style={{ color: 'var(--color-primary)' }}>72</p>
-                <p className="text-sm mt-1 opacity-60" style={{ color: 'var(--color-description)' }}>Hours to Delivery</p>
+                <p className="text-3xl md:text-4xl font-bold text-primary">72</p>
+                <p className="text-sm mt-1 text-white/60">Hours to Delivery</p>
               </div>
               <div>
-                <p className="text-3xl md:text-4xl font-bold" style={{ color: 'var(--color-heading-main)' }}>₹499</p>
-                <p className="text-sm mt-1 opacity-60" style={{ color: 'var(--color-description)' }}>Starting Price</p>
+                <p className="text-3xl md:text-4xl font-bold text-white">₹499</p>
+                <p className="text-sm mt-1 text-white/60">Starting Price</p>
               </div>
               <div>
-                <p className="text-3xl md:text-4xl font-bold" style={{ color: 'var(--color-heading-main)' }}>100%</p>
-                <p className="text-sm mt-1 opacity-60" style={{ color: 'var(--color-description)' }}>Money-Back Guarantee</p>
+                <p className="text-3xl md:text-4xl font-bold text-white">100%</p>
+                <p className="text-sm mt-1 text-white/60">Money-Back Guarantee</p>
               </div>
             </div>
           </div>
         </section>
 
         {/* Steps Section */}
-        <section className="py-20">
+        <section className="py-10">
           <div className="container mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center mb-16"
+              className="text-center mb-6"
             >
               <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4" style={{ color: 'var(--color-heading-main)' }}>
                 The Process
@@ -216,14 +245,21 @@ export default function HowItWorks() {
                     <div className="absolute left-7 top-20 bottom-0 w-0.5 bg-gradient-to-b from-border to-transparent hidden md:block" />
                   )}
 
-                  <Card className="p-6 border-2 border-border/50 hover:border-accent/30 transition-all duration-300 hover:shadow-lg">
+                  <Card className="p-6 border-2 border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg shadow-none">
                     <div className="flex items-start gap-6">
                       {/* Icon & Number */}
                       <div className="relative flex-shrink-0">
-                        <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center shadow-lg`}>
+                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-heading-main-highlight)] flex items-center justify-center shadow-lg">
                           <step.icon className="h-7 w-7 text-white" />
                         </div>
-                        <div className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full bg-foreground text-background text-xs font-bold flex items-center justify-center">
+                        <div
+                          className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center"
+                          style={{
+                            backgroundColor: 'var(--color-bg)',
+                            color: 'var(--color-primary)',
+                            border: '1.5px solid var(--color-border)',
+                          }}
+                        >
                           {step.number}
                         </div>
                       </div>
@@ -255,13 +291,13 @@ export default function HowItWorks() {
         </section>
 
         {/* What You Get Section */}
-        <section className="py-20 bg-secondary/30">
+        <section className="py-10 bg-background">
           <div className="container mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center mb-16"
+              className="text-center mb-6"
             >
                <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4" style={{ color: 'var(--color-heading-main)' }}>
                 What You'll Receive
@@ -294,7 +330,7 @@ export default function HowItWorks() {
         </section>
 
         {/* Timeline Section */}
-        <section className="py-20">
+        <section className="py-10">
           <div className="container mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -302,7 +338,7 @@ export default function HowItWorks() {
               viewport={{ once: true }}
               className="max-w-4xl mx-auto"
             >
-              <div className="text-center mb-12">
+              <div className="text-center mb-6">
                 <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4" style={{ color: 'var(--color-heading-main)' }}>
                   72-Hour Delivery Guarantee
                 </h2>
@@ -347,13 +383,13 @@ export default function HowItWorks() {
         </section>
 
         {/* Pricing Preview */}
-        <section className="py-20 bg-secondary/30">
+        <section className="py-10 bg-background">
           <div className="container mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center mb-12"
+              className="text-center mb-10"
             >
               <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4" style={{ color: 'var(--color-heading-main)' }}>
                 Simple, Transparent Pricing
@@ -387,9 +423,9 @@ export default function HowItWorks() {
                     viewport={{ once: true }}
                     transition={{ delay: idx * 0.1 }}
                   >
-                    <Card 
-                      className={`relative p-6 h-full flex flex-col border-2 transition-all duration-300 hover:shadow-lg cursor-pointer ${
-                        pkg.isPopular ? 'border-accent' : 'border-border/50 hover:border-accent/30'
+                    <Card
+                      className={`relative p-6 h-full flex flex-col border-2 transition-all duration-300 hover:shadow-lg cursor-pointer shadow-none ${
+                        pkg.isPopular ? 'border-primary' : 'border-border/50 hover:border-primary/30'
                       }`}
                       onClick={() => router.push(`/select-package?package=${pkg.slug}`)}
                     >
@@ -416,31 +452,31 @@ export default function HowItWorks() {
 
                       <ul className="space-y-1.5 flex-1 mb-4">
                         <li className="flex items-center gap-2 text-sm">
-                          <CheckCircle className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
-                          <span className="text-muted-foreground">
+                          <CheckCircle className="w-3.5 h-3.5 flex-shrink-0" style={{ color: 'var(--color-primary)' }} />
+                          <span className="opacity-60" style={{ color: 'var(--color-description)' }}>
                             {pkg.revisionsDisplay || `${pkg.revisionsIncluded} revision${pkg.revisionsIncluded > 1 ? 's' : ''}`}
                           </span>
                         </li>
                         <li className="flex items-center gap-2 text-sm">
-                          <CheckCircle className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
-                          <span className="text-muted-foreground">72-hour delivery</span>
+                          <CheckCircle className="w-3.5 h-3.5 flex-shrink-0" style={{ color: 'var(--color-primary)' }} />
+                          <span className="opacity-60" style={{ color: 'var(--color-description)' }}>72-hour delivery</span>
                         </li>
                         <li className="flex items-center gap-2 text-sm">
-                          <CheckCircle className="w-3.5 h-3.5 text-green-500 flex-shrink-0" />
-                          <span className="text-muted-foreground">{pkg.supportDays}-day support</span>
+                          <CheckCircle className="w-3.5 h-3.5 flex-shrink-0" style={{ color: 'var(--color-primary)' }} />
+                          <span className="opacity-60" style={{ color: 'var(--color-description)' }}>{pkg.supportDays}-day support</span>
                         </li>
                       </ul>
 
-                      <Button 
-                        variant={pkg.isPopular ? 'default' : 'outline'}
-                        className="w-full"
+                      <button
+                        type="button"
+                        className={`w-full ${pkg.isPopular ? pageButtonPrimaryCompact : pageButtonSecondaryCompact}`}
                         onClick={(e) => {
                           e.stopPropagation();
                           router.push(`/select-package?package=${pkg.slug}`);
                         }}
                       >
                         {pkg.isTrial ? 'Try Now' : 'Select'}
-                      </Button>
+                      </button>
                     </Card>
                   </motion.div>
                 ))
@@ -453,42 +489,43 @@ export default function HowItWorks() {
               viewport={{ once: true }}
               className="text-center mt-8"
             >
-              <Button variant="ghost" asChild>
-                <Link href="/select-package" className="text-muted-foreground hover:text-foreground">
-                  View all packages & add-ons →
-                </Link>
-              </Button>
+              <Link href="/select-package" className={pageTextLink}>
+                View all packages & add-ons →
+              </Link>
             </motion.div>
           </div>
         </section>
 
         {/* CTA Section */}
-        <section className="py-20">
+        <section className="bg-[#0f0e0d] py-12 md:py-16 overflow-hidden min-h-[auto]">
           <div className="container mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="text-center max-w-3xl mx-auto"
+              className="relative text-center max-w-4xl mx-auto rounded-[2rem] border border-white/[0.08] bg-[radial-gradient(circle_at_top,_rgba(236,116,70,0.14),_transparent_38%),linear-gradient(180deg,_rgba(255,255,255,0.03),_rgba(255,255,255,0.01))] px-6 py-10 md:px-12 md:py-14 shadow-[0_28px_80px_rgba(0,0,0,0.32)]"
             >
-               <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4" style={{ color: 'var(--color-heading-main)' }}>
+              <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-[#f08a5d]/20 bg-[#f08a5d]/[0.08] px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-[#f08a5d]">
+                <span className="h-2 w-2 rounded-full bg-[#f08a5d]" />
+                Delivered in 72 hours
+              </div>
+              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4 text-[#fffaf3]">
                 Ready to Transform Your Space?
               </h2>
-              <p className="text-lg mb-8 opacity-60" style={{ color: 'var(--color-description)' }}>
+              <p className="text-lg mb-8 text-[#c6beb4]">
                 Take our 2-minute style quiz and discover your design personality
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" className="h-14 px-8 text-lg bg-foreground text-background hover:bg-foreground/90 rounded-full">
-                  <Link href="/style-quiz">
-                    <Sparkles className="mr-2 h-5 w-5" />
-                    Start the Style Quiz
-                  </Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="h-14 px-8 text-lg rounded-full">
-                  <Link href="/faq">
-                    Have Questions? View FAQ
-                  </Link>
-                </Button>
+                <Link href="/style-quiz" className={pageButtonDarkPrimary}>
+                  <Sparkles className="h-5 w-5" />
+                  Start the Style Quiz
+                </Link>
+                <Link
+                  href="/faq"
+                  className={pageButtonDarkSecondary}
+                >
+                  Have Questions? View FAQ
+                </Link>
               </div>
             </motion.div>
           </div>
@@ -497,5 +534,3 @@ export default function HowItWorks() {
     </>
   );
 }
-
-

@@ -10,16 +10,14 @@ import { useIntersectionObserver } from '@/hooks/useIntersectionObserver'
 import { useGalleryPagination } from '@/hooks/useGalleryPagination'
 import { useGalleryKeyboard } from '@/hooks/useGalleryKeyboard'
 import { useAuth } from '@/contexts/AuthContext'
-import { GRID_SIZE_CONFIG, BENTO_PATTERNS } from '@/components/discover/types'
 import { BentoCard } from '@/components/discover/BentoCard'
 import { ImageDetailModal } from '@/components/discover/ImageDetailModal'
 import { DiscoverFilters } from '@/components/discover/DiscoverFilters'
 import { DiscoverSkeleton } from '@/components/discover/DiscoverSkeleton'
 import { BackToTopButton } from '@/components/discover/BackToTopButton'
-import { TrendingTopics } from '@/components/discover/TrendingTopics'
 import { cn } from '@/lib/utils'
-import { Gem, Search, Loader2, Keyboard, Sparkles, X, Plus, LayoutGrid, FolderHeart, ArrowRight, MessageCircle } from 'lucide-react'
-import Link from 'next/link'
+import { HeroHighlight } from '@/components/ui/hero-highlight'
+import { Search, Loader2, Keyboard, Sparkles, MessageCircle } from 'lucide-react'
 
 function GalleryCtaBanner() {
   const router = useRouter()
@@ -28,34 +26,40 @@ function GalleryCtaBanner() {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="mt-5 max-w-[760px] mx-auto border rounded-full px-5 py-2.5 flex items-center justify-between gap-3 shadow-sm"
+      className="card-apple mt-6 flex w-full items-center justify-between gap-4 rounded-[30px] px-5 py-4 shadow-[0_16px_40px_rgba(30,42,56,0.08)]"
       style={{ 
-        backgroundColor: 'color-mix(in srgb, var(--color-primary) 5%, var(--color-bg))',
-        borderColor: 'color-mix(in srgb, var(--color-primary) 30%, transparent)' 
+        backgroundColor: 'color-mix(in srgb, var(--color-bg) 92%, white)',
+        borderColor: 'color-mix(in srgb, var(--color-primary) 14%, var(--color-border))' 
       }}
     >
-      <div className="flex items-center gap-2.5">
-        <div className="w-6 h-6 rounded-full flex items-center justify-center shrink-0" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)' }}>
+      <div className="flex min-w-0 items-center gap-3">
+        <div
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
+          style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 12%, var(--color-bg))' }}
+        >
           <Sparkles className="h-3.5 w-3.5" style={{ color: 'var(--color-primary)' }} />
         </div>
-        <p className="text-xs md:text-sm font-medium" style={{ color: 'var(--color-heading-secondary)' }}>
+        <p className="text-sm leading-[1.45] md:text-[15px]" style={{ color: 'var(--color-heading-secondary)' }}>
           Love a design? Get a personalized version for <strong>YOUR</strong> home - <span className="font-bold" style={{ color: 'var(--color-primary)' }}>starting at Rs 499</span>
         </p>
       </div>
-      <div className="flex items-center gap-2 shrink-0">
+      <div className="flex shrink-0 items-center gap-2">
         <Button 
           size="sm" 
           onClick={() => router.push('/style-quiz')} 
-          className="rounded-full text-xs h-8 px-4 border-none font-bold btn-primary"
+          className="btn-primary btn-sm rounded-full px-5 text-xs font-bold"
         >
           Start Now
         </Button>
         <Button 
           size="sm" 
-          variant="outline"
           onClick={() => router.push('/contact')} 
-          className="rounded-full text-xs h-8 px-4 font-bold hidden sm:flex bg-white"
-          style={{ borderColor: 'var(--color-primary)', color: 'var(--color-primary)' }}
+          className="btn-secondary btn-sm hidden rounded-full border px-5 text-xs font-bold sm:flex"
+          style={{
+            backgroundColor: 'color-mix(in srgb, var(--color-bg) 94%, white)',
+            borderColor: 'color-mix(in srgb, var(--color-primary) 18%, var(--color-border))',
+            color: 'var(--color-heading-secondary)',
+          }}
         >
           Talk to a Designer
         </Button>
@@ -362,90 +366,106 @@ export default function Discover() {
     }
   }
 
-  const getBentoSize = (index) => {
-    return BENTO_PATTERNS[index % BENTO_PATTERNS.length]
-  }
-
   if (loading) {
     return <DiscoverSkeleton gridSize={gridSize} />
   }
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Hero Section */}
-      <section className="pt-24 pb-4 md:pt-28 md:pb-6">
-        <Container>
-          <div className="text-center max-w-4xl mx-auto mb-8">
-            <motion.h1
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="text-3xl md:text-5xl font-black tracking-tighter"
-              style={{ color: 'var(--color-heading-main)' }}
-            >
-              Explore real homes by <br/> style,  room & budget
-            </motion.h1>
+      <HeroHighlight className="bg-background">
+        {/* Hero Section */}
+        <section className="relative overflow-hidden pt-20 pb-5 md:pt-24 md:pb-8">
+          <div className="absolute inset-0 -z-10">
+            <div className="absolute -top-24 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
+            <div className="absolute right-[-120px] top-10 h-[360px] w-[360px] rounded-full bg-accent/10 blur-3xl" />
+            <div
+              className="absolute inset-0 opacity-[0.16]"
+              style={{
+                backgroundImage:
+                  'linear-gradient(to right, hsl(var(--foreground) / 0.05) 1px, transparent 1px), linear-gradient(to bottom, hsl(var(--foreground) / 0.05) 1px, transparent 1px)',
+                backgroundSize: '56px 56px',
+              }}
+            />
           </div>
 
-          <GalleryCtaBanner />
-        </Container>
-      </section>
-
-      <div className="pb-6">
-        <Container>
-
-
-
-          {/* Filters */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="mt-4"
-          >
-            <DiscoverFilters
-              searchQuery={searchQuery}
-              onSearchChange={setSearchQuery}
-              selectedRoom={selectedRoom}
-              onRoomChange={setSelectedRoom}
-              selectedStyle={selectedStyle}
-              onStyleChange={setSelectedStyle}
-              selectedBudget={selectedBudget}
-              onBudgetChange={setSelectedBudget}
-              sortBy={sortBy}
-              onSortChange={setSortBy}
-              gridSize={gridSize}
-              onGridSizeChange={setGridSize}
-              showFilters={showFilters}
-              onToggleFilters={() => setShowFilters(!showFilters)}
-              activeFilterCount={activeFilterCount}
-            />
-
-            <div className="mt-5 flex flex-col sm:flex-row justify-center gap-3">
-              <Button
-                variant="outline"
-                className="rounded-full gap-2.5 h-11 px-6 border-border bg-white text-foreground shadow-sm hover:bg-secondary hover:text-foreground hover:border-primary/30 transition-all font-bold text-xs group"
-                onClick={() => router.push(user ? '/dashboard/inspiration' : '/login')}
+          <Container>
+            <div className="mx-auto flex w-full max-w-[980px] flex-col items-center">
+              <motion.h1
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.1 }}
+                className="max-w-[1100px] text-balance text-center text-[clamp(34px,4.8vw,58px)] font-bold tracking-tight leading-[1.02]"
+                style={{ color: 'var(--color-heading-main)' }}
               >
-                <span className="text-lg group-hover:scale-125 transition-transform" style={{ color: 'var(--color-primary)' }}>♥</span>
-                {user ? 'View my inspiration boards' : 'Sign in to save favorites'}
-              </Button>
-              <Button
-                variant="outline"
-                className="rounded-full gap-2.5 h-11 px-6 bg-white shadow-sm transition-all font-bold text-xs"
-                style={{ borderColor: 'color-mix(in srgb, var(--color-primary) 20%, transparent)', color: 'var(--color-primary)' }}
-                onClick={() => router.push('/contact')}
-              >
-                <MessageCircle className="h-4 w-4" />
-                Talk to a Designer
-              </Button>
+                Explore real homes by <br /> style, room & budget
+              </motion.h1>
+
+              <div className="w-full max-w-[960px]">
+                <GalleryCtaBanner />
+              </div>
             </div>
-          </motion.div>
-        </Container>
-      </div>
+          </Container>
+        </section>
+
+        <div className="pb-8">
+          <Container>
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15 }}
+              className="mx-auto max-w-[1040px]"
+            >
+              <DiscoverFilters
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                selectedRoom={selectedRoom}
+                onRoomChange={setSelectedRoom}
+                selectedStyle={selectedStyle}
+                onStyleChange={setSelectedStyle}
+                selectedBudget={selectedBudget}
+                onBudgetChange={setSelectedBudget}
+                sortBy={sortBy}
+                onSortChange={setSortBy}
+                gridSize={gridSize}
+                onGridSizeChange={setGridSize}
+                showFilters={showFilters}
+                onToggleFilters={() => setShowFilters(!showFilters)}
+                activeFilterCount={activeFilterCount}
+              />
+
+              <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+                <Button
+                  className="btn-secondary h-11 gap-2.5 rounded-full px-6 text-xs font-bold group"
+                  style={{
+                    backgroundColor: 'color-mix(in srgb, var(--color-bg) 94%, white)',
+                    borderColor: 'color-mix(in srgb, var(--color-primary) 18%, var(--color-border))',
+                    color: 'var(--color-heading-secondary)',
+                  }}
+                  onClick={() => router.push(user ? '/dashboard/inspiration' : '/login')}
+                >
+                  <span className="text-lg group-hover:scale-125 transition-transform" style={{ color: 'var(--color-primary)' }}>♥</span>
+                  {user ? 'View my inspiration boards' : 'Sign in to save favorites'}
+                </Button>
+                <Button
+                  className="btn-secondary h-11 gap-2.5 rounded-full px-6 text-xs font-bold"
+                  style={{
+                    backgroundColor: 'color-mix(in srgb, var(--color-bg) 94%, white)',
+                    borderColor: 'color-mix(in srgb, var(--color-primary) 18%, var(--color-border))',
+                    color: 'var(--color-primary)',
+                  }}
+                  onClick={() => router.push('/contact')}
+                >
+                  <MessageCircle className="h-4 w-4" />
+                  Talk to a Designer
+                </Button>
+              </div>
+            </motion.div>
+          </Container>
+        </div>
+      </HeroHighlight>
 
       {/* Masonry Grid */}
-      <Container className="py-6 pb-20">
+      <Container className="py-2 pb-20">
         {designs.length > 0 ? (
           <>
             <div
@@ -484,8 +504,12 @@ export default function Discover() {
                 ) : (
                   <Button
                     onClick={loadMore}
-                    variant="outline"
-                    className="rounded-full"
+                    className="btn-secondary rounded-full"
+                    style={{
+                      backgroundColor: 'color-mix(in srgb, var(--color-bg) 94%, white)',
+                      borderColor: 'color-mix(in srgb, var(--color-primary) 16%, var(--color-border))',
+                      color: 'var(--color-heading-secondary)',
+                    }}
                   >
                     Load more designs
                   </Button>
@@ -508,18 +532,21 @@ export default function Discover() {
             animate={{ opacity: 1 }}
             className="text-center py-20"
           >
-            <div className="w-20 h-20 mx-auto mb-6 rounded-full bg-muted flex items-center justify-center">
-              <Search className="h-8 w-8 text-muted-foreground" />
+            <div
+              className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full"
+              style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, var(--color-bg))' }}
+            >
+              <Search className="h-8 w-8" style={{ color: 'var(--color-primary)' }} />
             </div>
-            <h3 className="text-xl font-semibold mb-2">No designs found</h3>
-            <p className="text-muted-foreground mb-6">
+            <h3 className="mb-2 text-xl font-semibold" style={{ color: 'var(--color-heading-main)' }}>No designs found</h3>
+            <p className="mb-6" style={{ color: 'var(--color-description)' }}>
               Try adjusting your filters or search query
             </p>
             <Button
               onClick={() => {
                 router.push('/discover')
               }}
-              className="rounded-full"
+              className="btn-primary rounded-full"
             >
               Clear all filters
             </Button>

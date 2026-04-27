@@ -1,10 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion'
-import { Button } from '@/components/ui/button'
 import {
   Search,
   SlidersHorizontal,
-  Check,
-  ArrowUpDown,
   ChevronRight,
   ChevronLeft
 } from 'lucide-react'
@@ -79,31 +76,42 @@ export function DiscoverFilters({
 
   return (
     <div className="w-full max-w-[1100px] mx-auto px-4">
-      <div className="flex items-center h-12 bg-white rounded-full border border-gray-200 shadow-[0_2px_8px_rgba(0,0,0,0.04)] overflow-hidden">
+      <div
+        className="flex h-12 items-center overflow-hidden rounded-full border shadow-[0_10px_28px_rgba(30,42,56,0.06)]"
+        style={{
+          backgroundColor: 'color-mix(in srgb, var(--color-bg) 94%, white)',
+          borderColor: 'color-mix(in srgb, var(--color-primary) 12%, var(--color-border))',
+        }}
+      >
         {/* Search */}
         <div className="flex-shrink-0 flex items-center pl-4 pr-2">
-          <Search className="h-4 w-4 text-gray-400 mr-2.5" />
+          <Search className="mr-2.5 h-4 w-4" style={{ color: 'var(--color-primary)' }} />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Search..."
-            className="w-24 md:w-32 bg-transparent text-sm font-medium focus:outline-none placeholder:text-gray-400"
+            className="w-24 bg-transparent text-sm font-medium placeholder:text-muted-foreground focus:outline-none md:w-32"
+            style={{ color: 'var(--color-heading-secondary)' }}
           />
         </div>
 
         {/* Divider */}
-        <div className="w-px h-5 bg-gray-200" />
+        <div
+          className="h-5 w-px"
+          style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 12%, var(--color-border))' }}
+        />
 
         {/* Chips Container */}
         <div className="flex-1 relative flex items-center min-w-0 px-2 group/scroll h-full">
           {showLeftArrow && (
             <button 
-              className="absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-white via-white/90 to-transparent z-30 flex items-center pl-1 group-hover/scroll:flex" 
+              className="absolute bottom-0 left-0 top-0 z-30 flex w-10 items-center pl-1 group-hover/scroll:flex"
+              style={{ background: 'linear-gradient(to right, color-mix(in srgb, var(--color-bg) 96%, white), color-mix(in srgb, var(--color-bg) 82%, transparent), transparent)' }}
               onClick={() => scroll('left')}
               title="Scroll left"
             >
-              <ChevronLeft className="h-4 w-4 text-gray-400" />
+              <ChevronLeft className="h-4 w-4" style={{ color: 'var(--color-description)' }} />
             </button>
           )}
 
@@ -119,24 +127,36 @@ export function DiscoverFilters({
                   key={chip.label}
                   onClick={() => handleChipClick(chip)}
                   className={`flex-shrink-0 relative z-20 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
-                    active 
-                      ? 'bg-foreground text-background shadow-md transform scale-[1.02]' 
-                      : 'text-gray-600 hover:bg-gray-100 hover:text-foreground'
-                  }`}
-                >
-                  {chip.label}
-                </button>
+                     active 
+                       ? 'scale-[1.02] shadow-md text-primary-foreground' 
+                      : 'hover:bg-secondary/60 hover:text-foreground'
+                    }`}
+                   style={
+                     active
+                       ? {
+                           backgroundColor: 'var(--color-primary)',
+                           boxShadow: '0 10px 20px color-mix(in srgb, var(--color-primary) 18%, transparent)',
+                         }
+                       : {
+                           color: 'var(--color-description)',
+                           backgroundColor: 'transparent',
+                         }
+                   }
+                 >
+                   {chip.label}
+                 </button>
               )
             })}
           </div>
           
           {showRightArrow && (
             <button 
-              className="absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-white via-white/80 to-transparent z-30 flex items-center justify-end pr-1 group-hover/scroll:flex" 
+              className="absolute bottom-0 right-0 top-0 z-30 flex w-10 items-center justify-end pr-1 group-hover/scroll:flex"
+              style={{ background: 'linear-gradient(to left, color-mix(in srgb, var(--color-bg) 96%, white), color-mix(in srgb, var(--color-bg) 82%, transparent), transparent)' }}
               onClick={() => scroll('right')}
               title="Scroll right"
             >
-              <ChevronRight className="h-4 w-4 text-gray-400" />
+              <ChevronRight className="h-4 w-4" style={{ color: 'var(--color-description)' }} />
             </button>
           )}
         </div>
@@ -147,14 +167,27 @@ export function DiscoverFilters({
             onClick={onToggleFilters}
             className={`h-9 px-4 flex items-center gap-2 rounded-full transition-all ${
               showFilters || activeFilterCount > 0
-                ? 'bg-gray-100 text-foreground'
-                : 'bg-transparent text-gray-600 hover:bg-gray-50'
+                ? 'text-foreground'
+                : 'bg-transparent'
             }`}
+            style={
+              showFilters || activeFilterCount > 0
+                ? {
+                    backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, var(--color-bg))',
+                    color: 'var(--color-heading-secondary)',
+                  }
+                : {
+                    color: 'var(--color-description)',
+                  }
+            }
           >
             <SlidersHorizontal className="h-3.5 w-3.5" />
             <span className="text-xs font-bold hidden sm:inline">Filters</span>
             {activeFilterCount > 0 && (
-              <span className="flex items-center justify-center h-4.5 w-4.5 min-w-[18px] rounded-full bg-foreground text-background text-[10px] font-black">
+              <span
+                className="flex h-4.5 w-4.5 min-w-[18px] items-center justify-center rounded-full text-[10px] font-black text-primary-foreground"
+                style={{ backgroundColor: 'var(--color-primary)' }}
+              >
                 {activeFilterCount}
               </span>
             )}
@@ -169,11 +202,15 @@ export function DiscoverFilters({
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="mt-4 p-6 bg-white rounded-2xl border border-border shadow-xl grid grid-cols-1 md:grid-cols-3 gap-8"
+            className="card-apple mt-4 grid grid-cols-1 gap-8 rounded-[28px] p-6 shadow-[0_16px_40px_rgba(30,42,56,0.08)] md:grid-cols-3"
+            style={{
+              backgroundColor: 'color-mix(in srgb, var(--color-bg) 90%, white)',
+              borderColor: 'color-mix(in srgb, var(--color-primary) 10%, var(--color-border))',
+            }}
           >
             {/* Room Type */}
             <div>
-              <p className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-3">Room Type</p>
+              <p className="mb-3 text-xs font-black uppercase tracking-widest" style={{ color: 'var(--color-description)' }}>Room Type</p>
               <div className="flex flex-wrap gap-2">
                 {ROOM_TYPES.slice(0, 12).map((room) => (
                   <button
@@ -181,9 +218,20 @@ export function DiscoverFilters({
                     onClick={() => onRoomChange(room.value)}
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                       selectedRoom === room.value 
-                        ? 'bg-primary text-white' 
-                        : 'bg-secondary/50 text-foreground/70 hover:bg-secondary'
+                        ? 'text-primary-foreground shadow-sm' 
+                        : ''
                     }`}
+                    style={
+                      selectedRoom === room.value
+                        ? {
+                            backgroundColor: 'var(--color-primary)',
+                            boxShadow: '0 10px 22px color-mix(in srgb, var(--color-primary) 16%, transparent)',
+                          }
+                        : {
+                            backgroundColor: 'color-mix(in srgb, var(--color-secondary-1) 55%, white)',
+                            color: 'var(--color-heading-secondary)',
+                          }
+                    }
                   >
                     {room.label}
                   </button>
@@ -193,7 +241,7 @@ export function DiscoverFilters({
 
             {/* Style */}
             <div>
-              <p className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-3">Style</p>
+              <p className="mb-3 text-xs font-black uppercase tracking-widest" style={{ color: 'var(--color-description)' }}>Style</p>
               <div className="flex flex-wrap gap-2">
                 {STYLES.map((style) => (
                   <button
@@ -201,9 +249,20 @@ export function DiscoverFilters({
                     onClick={() => onStyleChange(style.value)}
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                       selectedStyle === style.value 
-                        ? 'bg-primary text-white' 
-                        : 'bg-secondary/50 text-foreground/70 hover:bg-secondary'
+                        ? 'text-primary-foreground shadow-sm' 
+                        : ''
                     }`}
+                    style={
+                      selectedStyle === style.value
+                        ? {
+                            backgroundColor: 'var(--color-primary)',
+                            boxShadow: '0 10px 22px color-mix(in srgb, var(--color-primary) 16%, transparent)',
+                          }
+                        : {
+                            backgroundColor: 'color-mix(in srgb, var(--color-secondary-1) 55%, white)',
+                            color: 'var(--color-heading-secondary)',
+                          }
+                    }
                   >
                     {style.label}
                   </button>
@@ -213,7 +272,7 @@ export function DiscoverFilters({
 
             {/* Budget */}
             <div>
-              <p className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-3">Budget Range</p>
+              <p className="mb-3 text-xs font-black uppercase tracking-widest" style={{ color: 'var(--color-description)' }}>Budget Range</p>
               <div className="flex flex-wrap gap-2">
                 {BUDGET_RANGES.map((budget) => (
                   <button
@@ -221,9 +280,20 @@ export function DiscoverFilters({
                     onClick={() => onBudgetChange(budget.value)}
                     className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
                       selectedBudget === budget.value 
-                        ? 'bg-primary text-white' 
-                        : 'bg-secondary/50 text-foreground/70 hover:bg-secondary'
+                        ? 'text-primary-foreground shadow-sm' 
+                        : ''
                     }`}
+                    style={
+                      selectedBudget === budget.value
+                        ? {
+                            backgroundColor: 'var(--color-primary)',
+                            boxShadow: '0 10px 22px color-mix(in srgb, var(--color-primary) 16%, transparent)',
+                          }
+                        : {
+                            backgroundColor: 'color-mix(in srgb, var(--color-secondary-1) 55%, white)',
+                            color: 'var(--color-heading-secondary)',
+                          }
+                    }
                   >
                     {budget.label}
                   </button>

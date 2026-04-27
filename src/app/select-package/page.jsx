@@ -1,21 +1,75 @@
 'use client';
 
-import { useState, useEffect } from 'react';
-import { useSearchParams, useRouter } from 'next/navigation';
-import { motion } from 'framer-motion';
+import { Suspense, useEffect, useState } from 'react';
+import Link from 'next/link';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { motion, useScroll, useSpring } from 'framer-motion';
+import {
+  ArrowLeft,
+  ArrowRight,
+  ArrowUp,
+  Check,
+  Crown,
+  Home,
+  Shield,
+  Sparkles,
+  Star,
+  TrendingUp,
+  Zap,
+} from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import Link from 'next/link';
-import { ArrowLeft, ArrowRight, Check, Sparkles, Home, Shield, Info, Clock, Zap, TrendingUp, Crown, Star } from 'lucide-react';
 import { dataGet, getStaticStyleBySlug } from '@/lib/frontend-data';
 import { useToast } from '@/hooks/use-toast';
 import { formatPrice } from '@/lib/utils';
 import { SEOHead } from '@/components/SEOHead';
-import { Suspense } from 'react';
-import { useScroll, useSpring } from 'framer-motion';
-import Image from 'next/image';
 import { PlanningWizardModal } from '@/components/wizard/PlanningWizardModal';
+
+const comparisonSections = [
+  {
+    title: 'Design Deliverables',
+    rows: [
+      { label: '3D Renders', values: ['1 view', '5-7 3D views', '7-10 3D views', '10+ 3D views'] },
+      { label: 'Design Style Options', values: ['Random selection', '5 styles', '12 premium styles', '20+ exclusive styles'] },
+      { label: 'Custom Mood Board', values: [false, false, false, true] },
+    ],
+  },
+  {
+    title: 'Planning and Budget',
+    rows: [
+      { label: 'Budget Breakdown', values: [true, true, true, true] },
+      { label: 'Material Specifications', values: [true, true, true, true] },
+    ],
+  },
+  {
+    title: 'Support and Services',
+    rows: [
+      { label: 'Design Revisions', values: ['No', '1 revision', '3 revisions', '5 revisions'] },
+      { label: 'Consultation Calls', values: ['1 call', '1 call', '2 calls', '3 calls'] },
+      { label: 'Response Time', values: ['24-72 hours', '12-24 hours', '6-12 hours', '2-4 hours'] },
+    ],
+  },
+  {
+    title: 'Vendor and Execution',
+    rows: [
+      { label: 'Vendor Recommendations', values: ['3 vendors', '10-15 vendors', '15-20 vendors', '20+ pre-vetted vendors'] },
+    ],
+  },
+  {
+    title: 'Delivery and Guarantee',
+    rows: [
+      { label: 'Delivery Time', values: ['72 hours', '72 hours', '72 hours', '72 hours'] },
+    ],
+  },
+];
+
+const comparisonHeaders = [
+  { name: 'Single Room Trial', price: '₹499' },
+  { name: 'Smart Home', price: '₹4,999', highlighted: true },
+  { name: 'Premium Home', price: '₹9,999' },
+  { name: 'Luxury Home', price: '₹14,999' },
+];
 
 function SelectPackageContent() {
   const { scrollYProgress } = useScroll();
@@ -53,10 +107,10 @@ function SelectPackageContent() {
 
   useEffect(() => {
     if (packageSlug && packages.length > 0 && !selectedPackage) {
-      const pkg = packages.find((p) => (p.slug || p.slug) === packageSlug);
+      const pkg = packages.find((p) => p.slug === packageSlug);
       if (pkg) setSelectedPackage(pkg);
     }
-  }, [packageSlug, packages]);
+  }, [packageSlug, packages, selectedPackage]);
 
   const fetchPackages = async () => {
     try {
@@ -79,10 +133,6 @@ function SelectPackageContent() {
     }
   };
 
-  const handleSelectPackage = (pkg) => {
-    setSelectedPackage(pkg);
-  };
-
   const shouldOpenWizard = (pkg) => {
     const slug = pkg?.slug?.toLowerCase();
     return slug === 'smart' || slug === 'premium' || slug === 'luxury';
@@ -94,7 +144,7 @@ function SelectPackageContent() {
       return;
     }
 
-    handleSelectPackage(pkg);
+    setSelectedPackage(pkg);
   };
 
   const handleContinue = () => {
@@ -106,6 +156,7 @@ function SelectPackageContent() {
       });
       return;
     }
+
     const params = new URLSearchParams();
     params.set('package', selectedPackage.slug);
     if (styleSlug) params.set('style', styleSlug);
@@ -113,8 +164,10 @@ function SelectPackageContent() {
     router.push(`/select-addons?${params.toString()}`);
   };
 
-  const trialPackages = packages.filter((p) => p.isTrial === true || p.is_trial === true);
-  const fullHomePackages = packages.filter((p) => !p.isTrial && !p.is_trial);
+  const primaryButtonClass =
+    'inline-flex items-center justify-center rounded-full border border-[var(--color-primary)] bg-[var(--color-primary)] px-8 text-sm font-semibold text-white shadow-[0_18px_36px_rgba(236,116,70,0.24)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#f08a5d] hover:border-[#f08a5d]';
+  const secondaryButtonClass =
+    'inline-flex items-center justify-center rounded-full border border-[var(--color-border)] bg-white/75 px-8 text-sm font-semibold text-[var(--color-heading-secondary)] shadow-sm backdrop-blur-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-[var(--color-primary)]/20 hover:bg-[#fff7f2]';
 
   return (
     <>
@@ -123,77 +176,77 @@ function SelectPackageContent() {
         description="Select the perfect design package for your home. From single room trials to complete home makeovers."
       />
 
-      <div className="min-h-screen bg-white font-outfit pt-24 pb-32 relative">
-        {/* Progress Bar */}
+      <div className="relative min-h-screen overflow-hidden bg-[var(--color-primary-1)] pt-24 pb-2">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="absolute left-[-8rem] top-24 h-72 w-72 rounded-full bg-[var(--color-primary)]/10 blur-3xl" />
+          <div className="absolute right-[-10rem] top-[24rem] h-96 w-96 rounded-full bg-[var(--color-secondary-2)]/12 blur-3xl" />
+        </div>
+
         <motion.div
-          className="fixed top-0 left-0 right-0 h-1.5 z-[100] origin-left"
-          style={{ backgroundColor: 'var(--color-primary)', scaleX }}
+          className="fixed top-0 left-0 right-0 z-[100] h-1.5 origin-left bg-[var(--color-primary)]"
+          style={{ scaleX }}
         />
-        <div className="container mx-auto px-4 max-w-7xl">
-          <Button asChild variant="ghost" className="mb-6">
-            <Link href="/how-it-works">
-              <ArrowLeft className="h-4 w-4 mr-2" />
-              Back
-            </Link>
-          </Button>
+
+        <div className="container relative mx-auto max-w-7xl px-4">
+          {/* <Link href="/how-it-works" className={`${secondaryButtonClass} mb-6 h-11 gap-2 px-5`}>
+            <ArrowLeft className="h-4 w-4" />
+            Back
+          </Link> */}
 
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-center mb-16 space-y-6"
+            className="mb-16 space-y-6 text-center"
           >
             {styleName && (
-              <Badge variant="secondary" className="mb-4 border-none px-4 py-1" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)', color: 'var(--color-primary)' }}>
-                <Sparkles className="h-3 w-3 mr-1" />
+              <Badge
+                variant="secondary"
+                className="mb-4 border border-[var(--color-border)] bg-white/75 px-4 py-1 shadow-sm"
+                style={{ color: 'var(--color-primary)' }}
+              >
+                <Sparkles className="mr-1 h-3 w-3" />
                 {styleName} Style Selected
               </Badge>
             )}
-            
-            <h1 className="text-4xl md:text-6xl font-black leading-tight tracking-tight max-w-4xl mx-auto" style={{ color: 'var(--color-heading-main)' }}>
-              Choose Your <span className="relative inline-block">
-                Package
-                <motion.svg
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 1, delay: 0.5 }}
-                  viewBox="0 0 100 20"
-                  className="absolute -bottom-1 md:-bottom-2 left-0 w-full h-4 md:h-8 pointer-events-none fill-none stroke-[3] stroke-current stroke-round"
-                  style={{ color: 'var(--color-primary)' }}
-                  preserveAspectRatio="none"
-                >
-                  <path d="M5 15 Q 50 18 95 15" />
-                </motion.svg>
-              </span>
+
+            <h1
+              className="mx-auto max-w-4xl text-4xl font-semibold leading-tight tracking-tight md:text-6xl"
+              style={{ color: 'var(--color-heading-main)' }}
+            >
+              Choose your <span style={{ color: 'var(--color-heading-main-highlight)' }}>package</span>
             </h1>
 
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="mx-auto max-w-2xl text-lg opacity-80" style={{ color: 'var(--color-description)' }}>
               Select the package that matches your room count and design needs.
-              All packages include photorealistic room designs.
+              Every option is built around the same Houspire promise: visual
+              clarity, transparent budgeting, and fast delivery.
             </p>
           </motion.div>
 
           {loading && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
               {[1, 2, 3, 4].map((i) => (
-                <Card key={i} className="p-6 animate-pulse">
-                  <div className="h-6 bg-muted rounded w-3/4 mb-4" />
-                  <div className="h-4 bg-muted rounded w-1/2 mb-3" />
-                  <div className="h-10 bg-muted rounded w-1/3 mb-6" />
+                <Card key={i} className="animate-pulse rounded-[1.5rem] border border-[var(--color-border)] bg-white/80 p-6 shadow-sm">
+                  <div className="mb-4 h-6 w-3/4 rounded bg-muted" />
+                  <div className="mb-3 h-4 w-1/2 rounded bg-muted" />
+                  <div className="mb-6 h-10 w-1/3 rounded bg-muted" />
                   <div className="space-y-2">
-                    <div className="h-3 bg-muted rounded" />
-                    <div className="h-3 bg-muted rounded" />
+                    <div className="h-3 rounded bg-muted" />
+                    <div className="h-3 rounded bg-muted" />
+                    <div className="h-3 rounded bg-muted" />
                   </div>
                 </Card>
               ))}
             </div>
           )}
+
           {!loading && packages.length > 0 && (
             <motion.section
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
             >
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
                 {packages.map((pkg, index) => (
                   <PackageCard
                     key={pkg.id}
@@ -201,7 +254,6 @@ function SelectPackageContent() {
                     index={index}
                     selected={selectedPackage?.id === pkg.id}
                     onSelect={handlePackageAction}
-                    vertical
                   />
                 ))}
               </div>
@@ -209,16 +261,18 @@ function SelectPackageContent() {
           )}
 
           {!loading && packages.length === 0 && (
-            <div className="text-center py-12 text-muted-foreground">
-              <p>No packages available at the moment. Please try again later.</p>
-              <Button asChild className="mt-4">
-                <Link href="/how-it-works">Back to How it works</Link>
-              </Button>
+            <div className="py-12 text-center">
+              <p style={{ color: 'var(--color-description)' }}>
+                No packages available at the moment. Please try again later.
+              </p>
+              <Link href="/how-it-works" className={`${primaryButtonClass} mt-4 h-11 px-6`}>
+                Back to How it works
+              </Link>
             </div>
           )}
         </div>
 
-        <div className="container mx-auto px-4 max-w-7xl pt-12">
+        <div className="container mx-auto max-w-7xl px-4 pt-12">
           <PricingComparisonTable />
         </div>
 
@@ -226,12 +280,12 @@ function SelectPackageContent() {
           <motion.div
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
-            className="fixed bottom-0 left-0 right-0 bg-white/95 backdrop-blur-sm border-t shadow-2xl p-4 z-50"
+            className="fixed bottom-0 left-0 right-0 z-50 border-t border-[var(--color-border)] bg-[color-mix(in_srgb,var(--color-primary-1)_90%,white)]/95 p-4 shadow-2xl backdrop-blur-md"
           >
             <div className="container mx-auto max-w-7xl">
-              <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full flex items-center justify-center" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)' }}>
+                  <div className="flex h-12 w-12 items-center justify-center rounded-full" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)' }}>
                     <Check className="h-6 w-6" style={{ color: 'var(--color-primary)' }} />
                   </div>
                   <div>
@@ -239,8 +293,7 @@ function SelectPackageContent() {
                       {selectedPackage.name} Selected
                     </p>
                     <p className="text-sm opacity-60" style={{ color: 'var(--color-description)' }}>
-                      {selectedPackage.roomCountDisplay || selectedPackage.room_count_display} •{' '}
-                      {selectedPackage.revisionsDisplay || selectedPackage.revisions_display || '1 revision'}
+                      {(selectedPackage.roomCountDisplay || selectedPackage.room_count_display) + ' • ' + (selectedPackage.revisionsDisplay || selectedPackage.revisions_display || '1 revision')}
                     </p>
                   </div>
                 </div>
@@ -248,10 +301,10 @@ function SelectPackageContent() {
                   <div className="text-right">
                     <p className="text-sm opacity-60" style={{ color: 'var(--color-description)' }}>Starting at</p>
                     <p className="text-2xl font-bold" style={{ color: 'var(--color-heading-main)' }}>
-                      ₹{formatPrice(selectedPackage.price)}
+                      {'₹' + formatPrice(selectedPackage.price)}
                     </p>
                   </div>
-                  <Button size="lg" onClick={handleContinue} className="gap-2 text-white rounded-full px-8 btn-primary">
+                  <Button size="lg" onClick={handleContinue} className={`h-12 gap-2 ${primaryButtonClass}`}>
                     Continue
                     <ArrowRight className="h-4 w-4" />
                   </Button>
@@ -261,18 +314,18 @@ function SelectPackageContent() {
           </motion.div>
         )}
 
-        {/* Back to Top - from About Us */}
         <motion.button
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-24 right-8 w-14 h-14 rounded-full text-white shadow-2xl flex items-center justify-center z-40 transition-colors"
-          style={{ backgroundColor: 'var(--color-secondary)', hover: { backgroundColor: 'var(--color-primary)' } }}
+          whileHover={{ scale: 1.08 }}
+          whileTap={{ scale: 0.94 }}
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="fixed bottom-24 right-8 z-40 flex h-14 w-14 items-center justify-center rounded-full border border-[var(--color-primary)] bg-[var(--color-primary)] text-[var(--color-primary-1)] shadow-[0_20px_40px_rgba(236,116,70,0.28)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#f08a5d]"
+          aria-label="Back to top"
         >
-          <span className="text-xl">↑</span>
+          <ArrowUp className="h-5 w-5" />
         </motion.button>
+
         <PlanningWizardModal open={isWizardOpen} onOpenChange={setIsWizardOpen} />
       </div>
     </>
@@ -281,32 +334,53 @@ function SelectPackageContent() {
 
 export default function SelectPackagePage() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-background pt-24 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <div className="flex min-h-screen items-center justify-center bg-[var(--color-primary-1)] pt-24">
+          <div className="h-8 w-8 animate-spin rounded-full border-b-2 border-[var(--color-primary)]"></div>
+        </div>
+      }
+    >
       <SelectPackageContent />
     </Suspense>
   );
 }
 
-function PackageCard({ pkg, index, selected, onSelect, vertical = false }) {
+function PackageCard({ pkg, index, selected, onSelect }) {
   const isPopular = pkg.isPopular ?? pkg.is_popular;
-  const badgeText = pkg.badgeText ?? pkg.badge_text;
-  
+
   const getIcon = () => {
     switch (pkg.slug) {
       case 'trial':
-        return <div className="p-2 bg-blue-500 rounded-lg"><Sparkles className="w-5 h-5 text-white" /></div>;
+        return (
+          <div className="rounded-2xl bg-[var(--color-primary)]/12 p-2.5">
+            <Sparkles className="h-5 w-5 text-[var(--color-primary)]" />
+          </div>
+        );
       case 'smart':
-        return <div className="p-2 bg-orange-500 rounded-lg"><Zap className="w-5 h-5 text-white" /></div>;
+        return (
+          <div className="rounded-2xl bg-[var(--color-secondary-2)]/18 p-2.5">
+            <Zap className="h-5 w-5 text-[var(--color-secondary-3)]" />
+          </div>
+        );
       case 'premium':
-        return <div className="p-2 bg-purple-500 rounded-lg"><TrendingUp className="w-5 h-5 text-white" /></div>;
+        return (
+          <div className="rounded-2xl bg-[var(--color-secondary-4)]/12 p-2.5">
+            <TrendingUp className="h-5 w-5 text-[var(--color-secondary-4)]" />
+          </div>
+        );
       case 'luxury':
-        return <div className="p-2 bg-yellow-500 rounded-lg"><Crown className="w-5 h-5 text-white" /></div>;
+        return (
+          <div className="rounded-2xl bg-[var(--color-tertiary-1)]/18 p-2.5">
+            <Crown className="h-5 w-5 text-[#9a6a12]" />
+          </div>
+        );
       default:
-        return <div className="p-2 bg-primary rounded-lg"><Home className="w-5 h-5 text-white" /></div>;
+        return (
+          <div className="rounded-2xl bg-[var(--color-primary)]/12 p-2.5">
+            <Home className="h-5 w-5 text-[var(--color-primary)]" />
+          </div>
+        );
     }
   };
 
@@ -318,206 +392,169 @@ function PackageCard({ pkg, index, selected, onSelect, vertical = false }) {
     >
       <Card
         onClick={() => onSelect(pkg)}
-        className={`relative cursor-pointer rounded-2xl transition-all h-full flex flex-col ${
+        className={`relative flex h-full cursor-pointer flex-col rounded-[1.75rem] border bg-white/80 shadow-sm backdrop-blur-sm transition-all duration-300 ${
           selected
-            ? 'border-2 border-primary ring-4 ring-primary/20 shadow-xl'
+            ? 'border-[var(--color-primary)] shadow-[0_24px_60px_rgba(236,116,70,0.16)] ring-4 ring-[var(--color-primary)]/10'
             : isPopular
-            ? 'border-2 border-primary/40 shadow-md scale-[1.02]'
-            : 'border hover:border-primary/30 hover:shadow-lg'
+            ? 'scale-[1.02] border-[var(--color-primary)]/35 shadow-lg'
+            : 'border-[var(--color-border)] hover:-translate-y-1 hover:border-[var(--color-primary)]/25 hover:shadow-lg'
         }`}
       >
         {isPopular && (
-          <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-            <Badge className="text-[10px] font-bold py-1 px-3 rounded-full flex items-center gap-1 shadow-lg border-none text-white" style={{ backgroundColor: 'var(--color-primary)' }}>
-              <Star className="w-3 h-3 fill-white" /> MOST POPULAR
+          <div className="absolute -top-4 left-1/2 z-10 -translate-x-1/2">
+            <Badge className="flex items-center gap-1 rounded-full border-none px-3 py-1 text-[10px] font-bold text-white shadow-lg" style={{ backgroundColor: 'var(--color-primary)' }}>
+              <Star className="h-3 w-3 fill-white" />
+              MOST POPULAR
             </Badge>
           </div>
         )}
-        
-        <div className="p-6 flex flex-col flex-1">
-          <div className="flex items-center gap-3 mb-4">
+
+        <div className="flex flex-1 flex-col p-6">
+          <div className="mb-4 flex items-center gap-3">
             {getIcon()}
-            <h3 className="text-lg font-bold leading-tight" style={{ color: 'var(--color-heading-secondary)' }}>{pkg.name}</h3>
+            <h3 className="text-lg font-bold leading-tight" style={{ color: 'var(--color-heading-secondary)' }}>
+              {pkg.name}
+            </h3>
           </div>
-          
-          <p className="text-xs mb-4 opacity-60" style={{ color: 'var(--color-description)' }}>{pkg.tagline}</p>
-          
+
+          <p className="mb-4 text-xs opacity-60" style={{ color: 'var(--color-description)' }}>
+            {pkg.tagline}
+          </p>
+
           <div className="mb-4">
-            <div className="flex items-center gap-2 mb-1">
-              <span className="text-xs text-muted-foreground line-through opacity-60">
-                ₹{formatPrice(pkg.originalPrice || pkg.price * 2)}
+            <div className="mb-1 flex items-center gap-2">
+              <span className="text-xs line-through opacity-60" style={{ color: 'var(--color-description)' }}>
+                {'₹' + formatPrice(pkg.originalPrice || pkg.price * 2)}
               </span>
-              <span className="text-3xl font-black text-foreground">
-                ₹{formatPrice(pkg.price)}
+              <span className="text-3xl font-bold" style={{ color: 'var(--color-heading-main)' }}>
+                {'₹' + formatPrice(pkg.price)}
               </span>
             </div>
             {pkg.discount && (
-              <Badge variant="secondary" className="bg-green-100 text-green-700 hover:bg-green-100 border-none px-2 py-0 text-[10px] items-center gap-1">
-                <TrendingUp className="w-3 h-3 text-green-600" />
+              <Badge variant="secondary" className="items-center gap-1 border-none bg-[var(--color-tertiary-2)]/20 px-2 py-0 text-[10px] text-[var(--color-secondary-3)] hover:bg-[var(--color-tertiary-2)]/20">
+                <TrendingUp className="h-3 w-3 text-[var(--color-secondary-3)]" />
                 {pkg.discount}
               </Badge>
             )}
           </div>
-          
-          <ul className="space-y-3 flex-1 mb-8">
+
+          <ul className="mb-8 flex-1 space-y-3">
             {(pkg.features || []).map((feature, fIdx) => (
-              <li key={fIdx} className="flex items-start gap-2.5 text-xs text-muted-foreground leading-snug">
-                <Check className="w-3.5 h-3.5 text-green-500 mt-0.5 shrink-0" />
+              <li key={fIdx} className="flex items-start gap-2.5 text-xs leading-snug" style={{ color: 'var(--color-description)' }}>
+                <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[var(--color-secondary-3)]" />
                 <span>{feature}</span>
               </li>
             ))}
           </ul>
-          
+
           <Button
             onClick={(event) => {
               event.stopPropagation();
               onSelect(pkg);
             }}
-            className={`w-full font-bold h-11 transition-all ${
-              selected 
-                ? 'bg-black text-white hover:bg-black/90' 
-                : 'text-white'
+            className={`h-11 w-full rounded-full text-sm font-semibold transition-all ${
+              selected
+                ? 'border border-[var(--color-primary-2)] bg-[var(--color-primary-2)] text-white hover:bg-[var(--color-primary-2)]/92'
+                : 'border border-[var(--color-primary)] bg-[var(--color-primary)] text-white hover:bg-[#f08a5d] hover:border-[#f08a5d]'
             }`}
-            style={!selected ? { backgroundColor: 'var(--color-primary)' } : {}}
           >
             {selected ? (
               <span className="flex items-center gap-2">
-                <Check className="w-4 h-4" /> Selected
+                <Check className="h-4 w-4" />
+                Selected
               </span>
             ) : (
               pkg.buttonText || `Choose ${pkg.name}`
             )}
           </Button>
-          
+
           {(pkg.isTrial || pkg.is_trial) && (
-            <div className="mt-3 flex items-center justify-center gap-1.5 text-[10px] text-green-600 font-medium">
-              <Shield className="w-3 h-3" />
+            <div className="mt-3 flex items-center justify-center gap-1.5 text-[10px] font-medium text-[var(--color-secondary-3)]">
+              <Shield className="h-3 w-3" />
               100% Money-Back Guarantee
             </div>
           )}
         </div>
       </Card>
     </motion.div>
-    );
+  );
 }
 
 function PricingComparisonTable() {
-  const sections = [
-    {
-      title: 'Design Deliverables',
-      icon: '🎨',
-      rows: [
-        { label: '3D Renders', values: ['1 view', '5-7 3D views', '7-10 3D views', '10+ 3D views'], highlightIndex: 1 },
-        { label: 'Design Style Options', values: ['Randomly selected', '5 styles', '12 premium styles', '20+ exclusive styles'], highlightIndex: 1 },
-        { label: 'Custom Mood Board', values: [false, false, false, true] },
-      ]
-    },
-    {
-      title: 'Planning & Budget',
-      icon: '📊',
-      rows: [
-        { label: 'Budget Breakdown', values: [true, true, true, true] },
-        { label: 'Material Specifications', values: [true, true, true, true] },
-      ]
-    },
-    {
-      title: 'Support & Services',
-      icon: '💬',
-      rows: [
-        { label: 'Design Revisions', values: ['No', '1 revision', '3 revisions', '5 revisions'], highlightIndex: 1 },
-        { label: 'Consultation Calls', values: ['1 call', '1 call', '2 calls', '3 calls'], highlightIndex: 1 },
-        { label: 'Response Time', values: ['24-72 hours', '12-24 hours', '6-12 hours', '2-4 hours'], highlightIndex: 1 },
-      ]
-    },
-    {
-      title: 'Vendor & Execution',
-      icon: '🔨',
-      rows: [
-        { label: 'Vendor Recommendations', values: ['3 vendors', '10-15 vendors', '15-20 vendors', '20+ pre-vetted vendors'], highlightIndex: 1 },
-      ]
-    },
-    {
-      title: 'Delivery & Guarantee',
-      icon: '⚡',
-      rows: [
-        { label: 'Delivery Time', values: ['72 hours', '72 hours', '72 hours', '72 hours'], highlightIndex: 1 },
-      ]
-    }
-  ];
-
-  const headers = [
-    { name: 'Single Room Trial', price: '₹499' },
-    { name: 'Smart Home', price: '₹4,999', highlighted: true },
-    { name: 'Premium Home', price: '₹9,999' },
-    { name: 'Luxury Home', price: '₹14,999' }
-  ];
-
   return (
-    <section className="mt-20 mb-32 relative">
-      <div className="text-center mb-16">
-        <h2 className="text-3xl md:text-4xl font-black mb-4" style={{ color: 'var(--color-heading-main)' }}>Complete Feature Comparison</h2>
-        <p className="text-sm max-w-xl mx-auto opacity-60" style={{ color: 'var(--color-description)' }}>Compare our plans to find the perfect fit for your vision</p>
+    <section className="relative mt-20 mb-32">
+      <div className="mb-16 text-center">
+        <h2 className="mb-4 text-3xl font-semibold md:text-4xl" style={{ color: 'var(--color-heading-main)' }}>
+          Complete Feature Comparison
+        </h2>
+        <p className="mx-auto max-w-xl text-sm opacity-60" style={{ color: 'var(--color-description)' }}>
+          Compare our plans to find the right fit for your vision.
+        </p>
       </div>
 
-      <div className="overflow-x-auto -mx-4 px-4 md:mx-0 md:px-0">
-        <div className="min-w-[900px] bg-white border border-[#eaeaea] rounded-[24px] shadow-sm overflow-hidden mb-12">
-          <table className="w-full text-left border-collapse">
+      <div className="overflow-x-auto px-4 md:mx-0 md:px-0">
+        <div className="mb-12 min-w-[900px] overflow-hidden rounded-[24px] border border-[var(--color-border)] bg-white/82 shadow-sm backdrop-blur-sm">
+          <table className="w-full border-collapse text-left">
             <thead>
               <tr>
-                <th className="p-6 border-b border-[#eaeaea] font-bold text-sm w-[200px]" style={{ color: 'var(--color-heading-secondary)' }}>Feature</th>
-                {headers.map((h, i) => (
-                  <th 
-                    key={i} 
-                    className={`p-6 border-b border-[#eaeaea] text-center w-[175px] transition-all duration-300 ${
-                      h.highlighted 
-                        ? 'text-white' 
-                        : 'bg-white text-foreground'
+                <th className="w-[200px] border-b border-[var(--color-border)] p-6 text-sm font-bold" style={{ color: 'var(--color-heading-secondary)' }}>
+                  Feature
+                </th>
+                {comparisonHeaders.map((header) => (
+                  <th
+                    key={header.name}
+                    className={`w-[175px] border-b border-[var(--color-border)] p-6 text-center transition-all duration-300 ${
+                      header.highlighted ? 'text-white' : 'bg-white/80'
                     }`}
-                    style={h.highlighted ? { backgroundColor: 'var(--color-primary)' } : {}}
+                    style={header.highlighted ? { backgroundColor: 'var(--color-primary)' } : { color: 'var(--color-heading-secondary)' }}
                   >
-                    <div className="text-[13px] font-bold mb-1 opacity-90">{h.name}</div>
-                    <div className="text-xl font-black">{h.price}</div>
+                    <div className="mb-1 text-[13px] font-bold opacity-90">{header.name}</div>
+                    <div className="text-xl font-bold">{header.price}</div>
                   </th>
                 ))}
               </tr>
             </thead>
             <tbody>
-              {sections.map((section, sIdx) => (
-                <Suspense key={sIdx} fallback={<tr><td>Loading...</td></tr>}>
-                  {/* Section Title */}
-                  <tr className="bg-[#faf9f6]">
-                    <td 
-                      colSpan={1} 
-                      className="p-4 pl-6 border-b border-[#eaeaea] font-bold text-[13px] text-foreground flex items-center gap-2"
+              {comparisonSections.map((section) => (
+                <Suspense key={section.title} fallback={<tr><td>Loading...</td></tr>}>
+                  <tr className="bg-[color-mix(in_srgb,var(--color-secondary-1)_38%,white)]">
+                    <td
+                      colSpan={1}
+                      className="border-b border-[var(--color-border)] p-4 pl-6 text-[13px] font-bold"
+                      style={{ color: 'var(--color-heading-secondary)' }}
                     >
-                      <span className="text-base grayscale opacity-70 leading-none">{section.icon}</span>
                       {section.title}
                     </td>
-                    <td colSpan={4} className="border-b border-[#eaeaea]"></td>
+                    <td colSpan={4} className="border-b border-[var(--color-border)]"></td>
                   </tr>
-                  {/* Values */}
-                  {section.rows.map((row, rIdx) => (
-                    <tr key={rIdx} className="group transition-colors bg-white">
-                      <td className="p-4 pl-6 border-b border-[#eaeaea] text-[13px] font-medium text-muted-foreground">{row.label}</td>
-                      {row.values.map((val, vIdx) => (
-                        <td 
-                          key={vIdx} 
-                          className={`p-4 border-b border-[#eaeaea] text-center text-[13px] transition-all ${
-                            vIdx === 1 ? 'bg-[#f4fcf6]/50' : ''
+
+                  {section.rows.map((row) => (
+                    <tr key={row.label} className="group bg-white/80 transition-colors">
+                      <td className="border-b border-[var(--color-border)] p-4 pl-6 text-[13px] font-medium" style={{ color: 'var(--color-description)' }}>
+                        {row.label}
+                      </td>
+                      {row.values.map((val, index) => (
+                        <td
+                          key={`${row.label}-${index}`}
+                          className={`border-b border-[var(--color-border)] p-4 text-center text-[13px] ${
+                            index === 1 ? 'bg-[var(--color-tertiary-2)]/10' : ''
                           }`}
                         >
                           {typeof val === 'boolean' ? (
                             val ? (
                               <div className="flex justify-center">
-                                <div className="w-5 h-5 bg-[#17c964] rounded-full flex items-center justify-center">
-                                  <Check className="w-3 h-3 text-white stroke-[3px]" />
+                                <div className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-secondary-3)]">
+                                  <Check className="h-3 w-3 text-white stroke-[3px]" />
                                 </div>
                               </div>
                             ) : (
-                              <span className="text-muted-foreground opacity-30">✕</span>
+                              <span className="opacity-30" style={{ color: 'var(--color-description)' }}>×</span>
                             )
                           ) : (
-                            <span className={`${vIdx === 1 ? 'text-[#17c964] font-bold' : 'text-muted-foreground'}`}>
+                            <span
+                              className={index === 1 ? 'font-bold text-[var(--color-secondary-3)]' : ''}
+                              style={index === 1 ? undefined : { color: 'var(--color-description)' }}
+                            >
                               {val}
                             </span>
                           )}
@@ -534,5 +571,3 @@ function PricingComparisonTable() {
     </section>
   );
 }
-
-

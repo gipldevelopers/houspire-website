@@ -10,7 +10,7 @@ export function DiscoverSkeleton({ gridSize = 'default', count = 12 }) {
   ]
 
   return (
-    <div className="min-h-screen bg-[#f8fafc]">
+    <div className="min-h-screen bg-background">
       {/* Hero Section Skeleton */}
       <div className="pt-20 pb-8">
         <Container>
@@ -43,7 +43,10 @@ export function DiscoverSkeleton({ gridSize = 'default', count = 12 }) {
                 key={index}
                 className="break-inside-avoid"
               >
-                <div className="rounded-2xl overflow-hidden bg-white border border-gray-100 shadow-sm p-0">
+                <div
+                  className="overflow-hidden rounded-2xl border bg-card p-0 shadow-sm"
+                  style={{ borderColor: 'color-mix(in srgb, var(--color-primary) 10%, var(--color-border))' }}
+                >
                    <Skeleton className={`w-full ${heightClass} rounded-2xl mb-3`} />
                    <div className="p-3">
                      <Skeleton className="h-4 w-3/4 mb-2" />
@@ -58,4 +61,3 @@ export function DiscoverSkeleton({ gridSize = 'default', count = 12 }) {
     </div>
   )
 }
-
