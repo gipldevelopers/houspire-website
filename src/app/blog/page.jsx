@@ -28,7 +28,7 @@ export default function BlogPage() {
   const isFiltered = activeCategory !== "All";
 
   return (
-    <div className="relative bg-[#f4f2ef] overflow-hidden">
+    <div className="relative overflow-hidden" style={{ backgroundColor: "var(--color-primary-1)" }}>
       <section className="relative pt-24 pb-12">
         <div className="max-w-7xl mx-auto px-6">
           <div className="rounded-[28px] border border-black/5 bg-white shadow-[0_30px_70px_-40px_rgba(15,23,42,0.45)] overflow-hidden">
@@ -43,7 +43,10 @@ export default function BlogPage() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/55 via-black/10 to-transparent" />
               <div className="absolute top-6 left-6 flex items-center gap-3">
-                <span className="px-3 py-1 rounded-full text-[11px] uppercase tracking-[0.3em] font-semibold bg-white/80 text-foreground">
+                <span 
+                  className="px-3 py-1 rounded-full text-[11px] uppercase tracking-[0.3em] font-bold bg-white/80"
+                  style={{ color: "var(--color-primary-2)" }}
+                >
                   Featured
                 </span>
                 <span className="px-3 py-1 rounded-full text-[11px] uppercase tracking-[0.2em] font-semibold bg-black/35 text-white">
@@ -81,10 +84,18 @@ export default function BlogPage() {
                     <input
                       type="text"
                       placeholder="Search articles..."
-                      className="h-10 w-56 rounded-full border border-border/60 bg-[#f7f5f2] px-4 text-sm text-foreground placeholder:text-muted-foreground focus-ring"
+                      className="h-10 w-56 rounded-full border px-4 text-sm focus-ring"
+                      style={{ 
+                        backgroundColor: "var(--color-primary-1)", 
+                        borderColor: "var(--color-border)",
+                        color: "var(--color-primary-2)"
+                      }}
                     />
                   </div>
-                  <div className="rounded-full border border-border/60 bg-white px-3 py-2 text-xs font-semibold text-foreground">
+                  <div 
+                    className="rounded-full border px-3 py-2 text-xs font-semibold bg-white"
+                    style={{ borderColor: "var(--color-border)", color: "var(--color-primary-2)" }}
+                  >
                     Sort: Newest
                   </div>
                 </div>
@@ -102,10 +113,10 @@ export default function BlogPage() {
                   key={label}
                   type="button"
                   onClick={() => setActiveCategory(label)}
-                  className={`px-4 py-2 rounded-full text-xs font-semibold border transition-apple-fast ${
+                  className={`transition-apple-fast ${
                     isActive
-                      ? "bg-foreground text-background border-foreground"
-                      : "bg-white text-foreground border-border/60 hover:border-foreground/40"
+                      ? "btn-primary btn-sm"
+                      : "btn-secondary btn-sm"
                   }`}
                   aria-pressed={isActive}
                 >
@@ -120,7 +131,12 @@ export default function BlogPage() {
       <section className="relative pb-16">
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-2xl font-semibold text-foreground">Blog</h2>
+            <h2 
+              className="text-2xl font-bold tracking-tight"
+              style={{ color: "var(--color-primary-2)" }}
+            >
+              Blog
+            </h2>
             <span className="text-xs text-muted-foreground">
               {filteredPosts.length} articles
             </span>
@@ -147,7 +163,10 @@ export default function BlogPage() {
                     <span>{post.date}</span>
                     <span>{post.readTime}</span>
                   </div>
-                  <h3 className="mt-3 text-lg font-semibold text-foreground">
+                  <h3 
+                    className="mt-3 text-lg font-bold tracking-tight"
+                    style={{ color: "var(--color-primary-2)" }}
+                  >
                     {post.title}
                   </h3>
                   <p className="mt-2 text-sm text-muted-foreground">

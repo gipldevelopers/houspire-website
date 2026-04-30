@@ -17,14 +17,15 @@ export default async function BlogDetailPage({ params }) {
   const relatedPosts = getRelatedPosts(post.slug, 3);
 
   return (
-    <div className="relative pt-28 pb-20 bg-slate-50 overflow-hidden">
+    <div className="relative pt-28 pb-20 overflow-hidden" style={{ backgroundColor: "var(--color-primary-1)" }}>
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_#fff7ed_0%,_transparent_55%)]" />
       <div className="relative max-w-7xl mx-auto px-6">
         <Link
           href="/blog"
-          className="inline-flex items-center text-sm font-semibold text-foreground hover:text-primary transition-apple-fast"
+          className="inline-flex items-center text-sm font-semibold transition-apple-fast"
+          style={{ color: "var(--color-primary-2)" }}
         >
-          <span className="mr-2 inline-block h-px w-6 bg-foreground/60" />
+          <span className="mr-2 inline-block h-px w-6" style={{ backgroundColor: "var(--color-primary-2)" }} />
           Back to journal
         </Link>
 
@@ -34,7 +35,10 @@ export default async function BlogDetailPage({ params }) {
             <span>{post.date}</span>
             <span>{post.readTime}</span>
           </div>
-          <h1 className="mt-3 text-3xl md:text-5xl font-semibold text-foreground leading-tight">
+          <h1 
+            className="mt-3 text-3xl md:text-5xl font-bold leading-[1.05] tracking-tight"
+            style={{ color: "var(--color-primary-2)" }}
+          >
             {post.title}
           </h1>
           <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-5xl">
@@ -61,12 +65,15 @@ export default async function BlogDetailPage({ params }) {
       </div>
 
       <div className="relative max-w-5xl mx-auto px-6 mt-12">
-        <p className="text-lg text-foreground leading-relaxed">{post.intro}</p>
+        <p className="text-lg leading-relaxed" style={{ color: "var(--color-primary-2)" }}>{post.intro}</p>
 
         <div className="mt-10 space-y-8">
           {post.sections.map((section) => (
             <div key={section.title}>
-              <h2 className="text-xl md:text-2xl font-semibold text-foreground">
+              <h2 
+                className="text-xl md:text-2xl font-bold tracking-tight"
+                style={{ color: "var(--color-primary-2)" }}
+              >
                 {section.title}
               </h2>
               <div className="mt-3 space-y-4 text-sm md:text-base text-muted-foreground leading-relaxed">
@@ -78,13 +85,14 @@ export default async function BlogDetailPage({ params }) {
           ))}
         </div>
 
-        <div className="mt-10 rounded-2xl border border-border/60 bg-white p-6 shadow-sm">
-          <p className="text-sm font-semibold text-foreground">Key takeaways</p>
+        <div className="mt-10 rounded-2xl border bg-white p-6 shadow-sm" style={{ borderColor: "var(--color-border)" }}>
+          <p className="text-sm font-semibold" style={{ color: "var(--color-primary-2)" }}>Key takeaways</p>
           <div className="mt-4 grid gap-3">
             {post.takeaways.map((item) => (
               <div
                 key={item}
-                className="flex items-start gap-3 rounded-xl border border-border/60 bg-slate-50 px-4 py-3 text-sm text-muted-foreground"
+                className="flex items-start gap-3 rounded-xl border px-4 py-3 text-sm text-muted-foreground"
+                style={{ borderColor: "var(--color-border)", backgroundColor: "var(--color-primary-1)" }}
               >
                 <span className="mt-1 h-2 w-2 rounded-full bg-primary" />
                 <span>{item}</span>
@@ -96,7 +104,10 @@ export default async function BlogDetailPage({ params }) {
 
       <div className="relative max-w-6xl mx-auto px-6 mt-14">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl md:text-2xl font-semibold text-foreground">
+          <h2 
+            className="text-xl md:text-2xl font-bold tracking-tight"
+            style={{ color: "var(--color-primary-2)" }}
+          >
             Project gallery
           </h2>
           <span className="text-xs text-muted-foreground">
@@ -107,7 +118,8 @@ export default async function BlogDetailPage({ params }) {
           {post.gallery.map((image, index) => (
             <div
               key={`${image}-${index}`}
-              className="relative h-56 md:h-64 w-full overflow-hidden rounded-2xl border border-border/60 shadow-sm"
+              className="relative h-56 md:h-64 w-full overflow-hidden rounded-2xl border shadow-sm"
+              style={{ borderColor: "var(--color-border)" }}
             >
               <Image
                 src={image}
@@ -122,7 +134,10 @@ export default async function BlogDetailPage({ params }) {
       </div>
 
       <div className="relative max-w-6xl mx-auto px-6 mt-16">
-        <h2 className="text-xl md:text-2xl font-semibold text-foreground">
+        <h2 
+          className="text-xl md:text-2xl font-bold tracking-tight"
+          style={{ color: "var(--color-primary-2)" }}
+        >
           More from the journal
         </h2>
         <div className="mt-6 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -130,7 +145,8 @@ export default async function BlogDetailPage({ params }) {
             <Link
               key={item.slug}
               href={`/blog/${item.slug}`}
-              className="group rounded-2xl border border-border/60 bg-white overflow-hidden shadow-sm hover:shadow-lg transition-apple"
+              className="group rounded-2xl border bg-white overflow-hidden shadow-sm hover:shadow-lg transition-apple"
+              style={{ borderColor: "var(--color-border)" }}
             >
               <div className="relative h-44 w-full overflow-hidden">
                 <Image
@@ -146,7 +162,10 @@ export default async function BlogDetailPage({ params }) {
                   <span className="font-semibold text-primary">{item.category}</span>
                   <span>{item.readTime}</span>
                 </div>
-                <h3 className="mt-3 text-lg font-semibold text-foreground">
+                <h3 
+                  className="mt-3 text-lg font-bold tracking-tight"
+                  style={{ color: "var(--color-primary-2)" }}
+                >
                   {item.title}
                 </h3>
                 <p className="mt-2 text-sm text-muted-foreground">

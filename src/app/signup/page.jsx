@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { useRouter, useSearchParams, Link } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -294,11 +295,12 @@ function SignupContent() {
       <motion.div
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
-        className="flex-1 flex items-center justify-center p-6 md:p-8 bg-background"
+        className="flex-1 flex items-center justify-center p-6 md:p-8"
+        style={{ backgroundColor: "var(--color-primary-1)" }}
       >
         <Card className="w-full max-w-md p-6 md:p-8 shadow-apple-lg border border-border/50">
           <div className="text-center mb-6">
-            <h2 className="text-2xl font-heading font-bold text-foreground mb-2">
+            <h2 className="text-2xl font-bold tracking-tight mb-2" style={{ color: "var(--color-primary-2)" }}>
               Create your account
             </h2>
             <p className="text-muted-foreground">
@@ -307,12 +309,11 @@ function SignupContent() {
           </div>
 
           {/* Google Sign Up */}
-          <Button
+          <button
             type="button"
-            variant="outline"
             onClick={handleGoogleSignUp}
             disabled={googleLoading}
-            className="w-full h-12 mb-6 font-medium border-border hover:bg-secondary/50"
+            className="btn-secondary w-full mb-6"
           >
             {googleLoading ? (
               <Loader2 className="h-5 w-5 animate-spin" />
@@ -322,7 +323,7 @@ function SignupContent() {
                 Continue with Google
               </>
             )}
-          </Button>
+          </button>
 
           <div className="relative mb-6">
             <Separator />
@@ -444,20 +445,20 @@ function SignupContent() {
               />
               <Label htmlFor="terms" className="text-sm leading-relaxed cursor-pointer">
                 I agree to the{' '}
-                <Link href="/terms" className="text-accent hover:underline">
+                <Link href="/terms" className="hover:underline font-medium" style={{ color: "var(--color-link)" }}>
                   Terms of Service
                 </Link>{' '}
                 and{' '}
-                <Link href="/privacy" className="text-accent hover:underline">
+                <Link href="/privacy" className="hover:underline font-medium" style={{ color: "var(--color-link)" }}>
                   Privacy Policy
                 </Link>
               </Label>
             </div>
 
-            <Button
+            <button
               type="submit"
               disabled={loading}
-              className="w-full h-12 bg-accent hover:bg-accent/90 text-accent-foreground font-semibold"
+              className="btn-primary w-full"
             >
               {loading ? (
                 <>
@@ -470,7 +471,7 @@ function SignupContent() {
                   <ArrowRight className="h-5 w-5 ml-2" />
                 </>
               )}
-            </Button>
+            </button>
           </form>
 
           {/* Trust signal */}
@@ -483,7 +484,7 @@ function SignupContent() {
           <div className="mt-6 text-center">
             <p className="text-muted-foreground">
               Already have an account?{' '}
-              <Link href="/login" className="text-accent font-medium hover:underline">
+              <Link href="/login" className="font-medium hover:underline" style={{ color: "var(--color-link)" }}>
                 Sign in
               </Link>
             </p>
@@ -497,8 +498,8 @@ function SignupContent() {
 export default function Signup() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-background pt-24 flex items-center justify-center">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+      <div className="min-h-screen pt-24 flex items-center justify-center" style={{ backgroundColor: "var(--color-primary-1)" }}>
+        <div className="animate-spin rounded-full h-8 w-8 border-b-2" style={{ borderColor: "var(--color-primary-3)" }}></div>
       </div>
     }>
       <SignupContent />

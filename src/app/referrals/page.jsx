@@ -119,7 +119,7 @@ export default function Referrals() {
 
   if (!user) {
     return (
-      <div className="min-h-screen bg-muted/30 pt-20 pb-8">
+      <div className="min-h-screen pt-20 pb-8" style={{ backgroundColor: "var(--color-primary-1)" }}>
         <SEOHead
           title="Refer & Earn | Houspire"
           description="Invite friends to Houspire and both of you get rewards. Learn how the referral program works."
@@ -128,7 +128,7 @@ export default function Referrals() {
           <div className="max-w-4xl mx-auto space-y-6">
             <Card className="p-8 text-center">
               <Gift className="h-12 w-12 text-primary mx-auto mb-4" />
-              <h1 className="text-3xl font-heading font-bold mb-2">Refer Friends, Earn Rewards</h1>
+              <h1 className="text-3xl font-bold mb-2 tracking-tight" style={{ color: "var(--color-primary-2)" }}>Refer Friends, Earn Rewards</h1>
               <p className="text-muted-foreground max-w-2xl mx-auto">
                 Share Houspire with friends. They get a discount on their first project and you earn referral credits when they complete payment.
               </p>
@@ -137,21 +137,21 @@ export default function Referrals() {
             <div className="grid md:grid-cols-3 gap-4">
               <Card className="p-5">
                 <IndianRupee className="h-8 w-8 text-primary mb-3" />
-                <h2 className="font-semibold mb-1">You Earn Rs500</h2>
+                <h2 className="font-bold tracking-tight mb-1" style={{ color: "var(--color-primary-2)" }}>You Earn Rs500</h2>
                 <p className="text-sm text-muted-foreground">
                   Get referral credit for each successful referral.
                 </p>
               </Card>
               <Card className="p-5">
                 <Users className="h-8 w-8 text-primary mb-3" />
-                <h2 className="font-semibold mb-1">Friends Save Rs500</h2>
+                <h2 className="font-bold tracking-tight mb-1" style={{ color: "var(--color-primary-2)" }}>Friends Save Rs500</h2>
                 <p className="text-sm text-muted-foreground">
                   Your friend gets an instant discount using your code.
                 </p>
               </Card>
               <Card className="p-5">
                 <Award className="h-8 w-8 text-primary mb-3" />
-                <h2 className="font-semibold mb-1">Grow Your Tier</h2>
+                <h2 className="font-bold tracking-tight mb-1" style={{ color: "var(--color-primary-2)" }}>Grow Your Tier</h2>
                 <p className="text-sm text-muted-foreground">
                   More referrals unlock better rewards and bonuses.
                 </p>
@@ -159,15 +159,15 @@ export default function Referrals() {
             </div>
 
             <Card className="p-6">
-              <h2 className="font-semibold mb-4">How it works</h2>
+              <h2 className="font-bold tracking-tight mb-4" style={{ color: "var(--color-primary-2)" }}>How it works</h2>
               <div className="grid md:grid-cols-3 gap-3 text-sm text-muted-foreground">
                 <p>1. Sign in and get your unique referral link.</p>
                 <p>2. Share it on WhatsApp, email, or social media.</p>
                 <p>3. Earn credits after your friend completes payment.</p>
               </div>
               <div className="mt-5 flex flex-wrap gap-3">
-                <Button onClick={() => router.push('/login')}>Sign In to Start Referring</Button>
-                <Button variant="outline" onClick={() => router.push('/signup')}>Create Account</Button>
+                <button className="btn-primary" onClick={() => router.push('/login')}>Sign In to Start Referring</button>
+                <button className="btn-secondary" onClick={() => router.push('/signup')}>Create Account</button>
               </div>
             </Card>
           </div>
@@ -183,7 +183,7 @@ export default function Referrals() {
         description="Share Houspire with friends and earn rewards. Get ₹500 for every friend who signs up!"
       />
       
-      <div className="min-h-screen bg-muted/30 pt-20 pb-8">
+      <div className="min-h-screen pt-20 pb-8" style={{ backgroundColor: "var(--color-primary-1)" }}>
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto space-y-8">
             {/* Header */}
@@ -192,7 +192,7 @@ export default function Referrals() {
                 <Gift className="h-4 w-4" />
                 Referral Program
               </div>
-              <h1 className="text-4xl font-heading font-bold mb-2">
+              <h1 className="text-4xl font-bold mb-2 tracking-tight" style={{ color: "var(--color-primary-2)" }}>
                 Refer & Earn
               </h1>
               <p className="text-lg text-muted-foreground">
@@ -237,7 +237,7 @@ export default function Referrals() {
               <div className="lg:col-span-2 space-y-6">
                 {/* Referral Code Card */}
                 <Card className="p-6">
-                  <h2 className="font-semibold mb-4">Your Referral Link</h2>
+                  <h2 className="font-bold tracking-tight mb-4" style={{ color: "var(--color-primary-2)" }}>Your Referral Link</h2>
                   
                   <div className="flex items-center gap-3 mb-6">
                     <Input
@@ -245,7 +245,7 @@ export default function Referrals() {
                       readOnly
                       className="flex-1 bg-muted/50 text-sm"
                     />
-                    <Button onClick={copyReferralLink} className="shrink-0">
+                    <button onClick={copyReferralLink} className="btn-primary shrink-0">
                       {copied ? (
                         <>
                           <Check className="h-4 w-4 mr-2" />
@@ -257,28 +257,28 @@ export default function Referrals() {
                           Copy
                         </>
                       )}
-                    </Button>
+                    </button>
                   </div>
 
                   <div className="grid grid-cols-3 gap-3">
-                    <Button variant="outline" onClick={shareViaWhatsApp} className="w-full">
+                    <button onClick={shareViaWhatsApp} className="btn-secondary w-full">
                       <MessageCircle className="h-4 w-4 mr-2" />
                       WhatsApp
-                    </Button>
-                    <Button variant="outline" onClick={shareViaEmail} className="w-full">
+                    </button>
+                    <button onClick={shareViaEmail} className="btn-secondary w-full">
                       <Mail className="h-4 w-4 mr-2" />
                       Email
-                    </Button>
-                    <Button variant="outline" onClick={copyReferralLink} className="w-full">
+                    </button>
+                    <button onClick={copyReferralLink} className="btn-secondary w-full">
                       <Share2 className="h-4 w-4 mr-2" />
                       Share
-                    </Button>
+                    </button>
                   </div>
                 </Card>
 
                 {/* Referral History */}
                 <Card className="p-6">
-                  <h2 className="font-semibold mb-4">Referral History</h2>
+                  <h2 className="font-bold tracking-tight mb-4" style={{ color: "var(--color-primary-2)" }}>Referral History</h2>
                   {referrals.length > 0 ? (
                     <div className="space-y-3">
                       {referrals.map(referral => (
@@ -322,7 +322,7 @@ export default function Referrals() {
               <div className="space-y-6">
                 {/* How it Works */}
                 <Card className="p-6">
-                  <h2 className="font-semibold mb-4">How It Works</h2>
+                  <h2 className="font-bold tracking-tight mb-4" style={{ color: "var(--color-primary-2)" }}>How It Works</h2>
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">
                       <div className="w-6 h-6 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-xs font-bold shrink-0">
@@ -353,7 +353,7 @@ export default function Referrals() {
 
                 {/* Credits */}
                 <Card className="p-6">
-                  <h2 className="font-semibold mb-4">Your Credits</h2>
+                  <h2 className="font-bold tracking-tight mb-4" style={{ color: "var(--color-primary-2)" }}>Your Credits</h2>
                   {credits.length > 0 ? (
                     <div className="space-y-3">
                       {credits.slice(0, 5).map(credit => (
@@ -385,7 +385,7 @@ export default function Referrals() {
 
             {/* Terms */}
             <Card className="p-6">
-              <h2 className="font-semibold mb-4">Program Terms</h2>
+              <h2 className="font-bold tracking-tight mb-4" style={{ color: "var(--color-primary-2)" }}>Program Terms</h2>
               <div className="text-sm text-muted-foreground grid md:grid-cols-2 gap-2">
                 <p>• Rewards based on your current tier level</p>
                 <p>• Credits are valid for 1 year from date of issue</p>
