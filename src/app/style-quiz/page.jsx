@@ -91,7 +91,7 @@ export default function StyleQuizPage() {
   const isQuizStep = step > 0 && step < STEPS.length - 1;
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen" style={{ backgroundColor: "var(--color-primary-1)" }}>
       {isQuizStep && (
         <header className="sticky top-0 z-50 border-b border-border/50 bg-background/95 backdrop-blur">
           <Container className="py-3">
@@ -128,10 +128,12 @@ export default function StyleQuizPage() {
               className="max-w-2xl mx-auto text-center"
             >
               {/* Badge */}
-              <Badge variant="outline" className="rounded-lg border-border bg-muted/50 text-foreground px-4 py-2 text-sm font-medium mt-16 mb-6">
-                <Clock className="h-4 w-4 mr-2 inline" />
-                Takes only 2 minutes
-              </Badge>
+              <div className="flex items-center justify-center gap-2 mt-16 mb-6">
+                <span className="h-2 w-2 rounded-full bg-[var(--color-primary)] shadow-[0_0_12px_rgba(236,116,70,0.5)]" />
+                <span className="text-[11px] font-black uppercase tracking-[0.2em]" style={{ color: 'var(--color-primary)' }}>
+                  Takes only 2 minutes
+                </span>
+              </div>
 
               {/* Title */}
               <h1 className="text-3xl md:text-4xl lg:text-[2.5rem] font-bold tracking-tight mb-4 leading-tight" style={{ color: 'var(--color-heading-main)' }}>
@@ -219,15 +221,14 @@ export default function StyleQuizPage() {
               </div>
 
               {/* CTA */}
-              <Button
-                size="lg"
-                className="gap-2 text-base px-8 text-white rounded-lg font-medium btn-primary"
+              <button
+                className="btn-primary gap-2 text-base px-8 h-12 rounded-lg font-medium flex items-center justify-center mx-auto"
                 onClick={() => handleNext()}
               >
-                <Plus className="h-5 w-5" />
+                <Plus className="h-5 w-5 mr-1" />
                 Find My Style
-                <ArrowRight className="h-4 w-4" />
-              </Button>
+                <ArrowRight className="h-4 w-4 ml-1" />
+              </button>
 
               <p className="text-xs text-muted-foreground mt-5">
                 Free • No signup required • Instant results
@@ -284,10 +285,10 @@ export default function StyleQuizPage() {
               )}
               {!loadingStyles && (
                 <div className="mt-6 flex justify-end">
-                  <Button onClick={() => handleNext()} className="gap-2">
+                  <button onClick={() => handleNext()} className="btn-primary gap-2 flex items-center px-4 py-2 rounded-md">
                     Continue
-                    <ArrowRight className="h-4 w-4" />
-                  </Button>
+                    <ArrowRight className="h-4 w-4 ml-1" />
+                  </button>
                 </div>
               )}
             </motion.div>
@@ -329,10 +330,10 @@ export default function StyleQuizPage() {
                 ))}
               </div>
               <div className="mt-6 flex justify-end">
-                <Button onClick={() => handleNext()} className="gap-2">
+                <button onClick={() => handleNext()} className="btn-primary gap-2 flex items-center px-4 py-2 rounded-md">
                   Continue
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
+                  <ArrowRight className="h-4 w-4 ml-1" />
+                </button>
               </div>
             </motion.div>
           )}
@@ -359,10 +360,10 @@ export default function StyleQuizPage() {
                 ))}
               </div>
               <div className="mt-6 flex justify-end">
-                <Button onClick={() => handleNext()} className="gap-2">
+                <button onClick={() => handleNext()} className="btn-primary gap-2 flex items-center px-4 py-2 rounded-md">
                   See my result
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
+                  <ArrowRight className="h-4 w-4 ml-1" />
+                </button>
               </div>
             </motion.div>
           )}
@@ -374,10 +375,10 @@ export default function StyleQuizPage() {
               animate={{ opacity: 1, y: 0 }}
               className="max-w-2xl mx-auto text-center space-y-8"
             >
-              <Badge className="bg-green-500/10 text-green-700 dark:text-green-400 border-0 mt-12">
+              <span className="inline-flex items-center justify-center rounded-full bg-primary/10 text-primary px-3 py-1 text-sm font-medium mt-12">
                 <CheckCircle className="h-3.5 w-3 mr-1.5 inline" />
                 Your style
-              </Badge>
+              </span>
               <h1 className="text-3xl md:text-4xl font-bold">
                 {selectedStyle?.name || answers.styleName || 'Your style'}
               </h1>
@@ -397,17 +398,16 @@ export default function StyleQuizPage() {
                 Room: {answers.room || 'Any'} · Colors: {answers.colors || 'Your choice'}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button
-                  size="lg"
-                  className="gap-2"
+                <button
+                  className="btn-primary gap-2 flex items-center justify-center px-6 h-12 rounded-xl font-medium"
                   onClick={() => router.push('/select-package')}
                 >
                   Get my design
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
-                <Button variant="outline" size="lg" asChild>
-                  <Link href="/styles">Browse all styles</Link>
-                </Button>
+                  <ArrowRight className="h-4 w-4 ml-1" />
+                </button>
+                <Link href="/styles" className="btn-secondary flex items-center justify-center px-6 h-12 rounded-xl font-medium">
+                  Browse all styles
+                </Link>
               </div>
             </motion.div>
           )}

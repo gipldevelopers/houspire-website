@@ -75,35 +75,31 @@ export function StylesFilters({
 
       {/* Filter Buttons */}
       <div className="flex flex-wrap gap-2">
-        <Button
+        <button
           onClick={() => onFilterChange('all')}
-          variant={selectedFilter === 'all' ? 'default' : 'outline'}
-          className="rounded-full h-9"
+          className={`rounded-full h-9 px-4 text-sm font-medium transition-colors ${selectedFilter === 'all' ? 'btn-primary' : 'btn-secondary'}`}
         >
           All Styles
-        </Button>
-        <Button
+        </button>
+        <button
           onClick={() => onFilterChange('featured')}
-          variant={selectedFilter === 'featured' ? 'default' : 'outline'}
-          className="rounded-full h-9"
+          className={`rounded-full h-9 px-4 text-sm font-medium transition-colors flex items-center ${selectedFilter === 'featured' ? 'btn-primary' : 'btn-secondary'}`}
         >
           <Sparkles className="w-4 h-4 mr-1.5" />
           Featured
-        </Button>
-        <Button
+        </button>
+        <button
           onClick={() => onFilterChange('budget')}
-          variant={selectedFilter === 'budget' ? 'default' : 'outline'}
-          className="rounded-full h-9"
+          className={`rounded-full h-9 px-4 text-sm font-medium transition-colors ${selectedFilter === 'budget' ? 'btn-primary' : 'btn-secondary'}`}
         >
           Budget Friendly
-        </Button>
-        <Button
+        </button>
+        <button
           onClick={() => onFilterChange('luxury')}
-          variant={selectedFilter === 'luxury' ? 'default' : 'outline'}
-          className="rounded-full h-9"
+          className={`rounded-full h-9 px-4 text-sm font-medium transition-colors ${selectedFilter === 'luxury' ? 'btn-primary' : 'btn-secondary'}`}
         >
           Luxury
-        </Button>
+        </button>
       </div>
 
       {/* Results Count */}
@@ -113,15 +109,13 @@ export function StylesFilters({
         </p>
         
         {hasActiveFilters && (
-          <Button
+          <button
             onClick={onClearFilters}
-            variant="ghost"
-            size="sm"
-            className="gap-1.5 text-muted-foreground hover:text-foreground"
+            className="flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
             <X className="w-4 h-4" />
             Clear Filters
-          </Button>
+          </button>
         )}
       </div>
     </motion.div>

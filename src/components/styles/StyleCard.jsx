@@ -143,10 +143,8 @@ export function StyleCard({
               className="absolute top-3 right-3 z-10"
               onClick={handleCompareClick}
             >
-              <Button
-                size="sm"
-                variant={isSelected ? "default" : "secondary"}
-                className={`h-8 px-3 shadow-lg transition-all ${
+              <button
+                className={`h-8 px-3 shadow-lg transition-all rounded-md flex items-center justify-center text-sm font-medium ${
                   isSelected 
                     ? 'bg-primary text-primary-foreground' 
                     : 'bg-white/90 hover:bg-white text-foreground'
@@ -164,7 +162,7 @@ export function StyleCard({
                     Compare
                   </>
                 )}
-              </Button>
+              </button>
             </div>
           )}
 
@@ -227,14 +225,14 @@ export function StyleCard({
           {/* Key Features */}
           <div className="flex flex-wrap gap-1.5">
             {style.key_features?.slice(0, 2).map((feature, idx) => (
-              <Badge key={idx} variant="secondary" className="text-xs font-normal px-2 py-0.5">
+              <span key={idx} className="inline-flex items-center rounded-full bg-primary/10 text-primary px-2.5 py-0.5 text-xs font-medium">
                 {feature}
-              </Badge>
+              </span>
             ))}
             {style.key_features && style.key_features.length > 2 && (
-              <Badge variant="outline" className="text-xs font-normal px-2 py-0.5">
+              <span className="inline-flex items-center rounded-full bg-muted text-muted-foreground px-2.5 py-0.5 text-xs font-medium">
                 +{style.key_features.length - 2}
-              </Badge>
+              </span>
             )}
           </div>
 

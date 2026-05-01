@@ -34,7 +34,7 @@ export function DarkTransformationSection() {
       <div className="container mx-auto px-6">
         
         {/* Top Label - Warm gray for better contrast on light orange */}
-        <div className="text-center mb-2 md:mb-12">
+        <div className="text-center mb-2 md:mb-6">
           <p className="text-sm font-semibold tracking-[0.18em] opacity-60" style={{ color: 'var(--color-heading)' }}>
             From bare walls to fully designed before you spend a rupee
           </p>

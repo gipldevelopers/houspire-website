@@ -112,12 +112,13 @@ export default function Tools() {
         description="Free interior design tools to help you plan your dream space. Budget calculator, BOQ viewer, material guide, and timeline estimator."
       />
       
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen pt-20 pb-8" style={{ backgroundColor: "var(--color-primary-1)" }}>
         {/* Hero Section */}
-        <section className="py-20 md:py-24 bg-gradient-to-b from-muted/50 to-background">
+        <section className="py-12 md:py-16">
           <div className="container mx-auto px-4 text-center">
             <motion.h1 
               className="text-4xl md:text-6xl font-bold tracking-tight mb-4"
+              style={{ color: "var(--color-primary-2)" }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
@@ -147,14 +148,14 @@ export default function Tools() {
               {tools.map((tool) => (
                 <motion.div key={tool.id} variants={itemVariants}>
                   <Link href={tool.href}>
-                    <Card className="h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1 border-border/50 hover:border-primary/30">
+                    <Card className="h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
                       <CardContent className="p-6">
                         <div className="flex items-start gap-4">
                           <div className={`p-3 rounded-2xl ${tool.bgColor}`}>
                             <tool.icon className={`h-6 w-6 ${tool.color}`} />
                           </div>
                           <div className="flex-1">
-                            <h3 className={`font-semibold text-lg mb-1 ${tool.id === 'planning-journey' ? 'text-primary' : ''}`}>
+                            <h3 className="font-semibold text-lg mb-1" style={{ color: "var(--color-primary-2)" }}>
                               {tool.title}
                             </h3>
                             <p className="text-sm text-muted-foreground">
@@ -172,15 +173,15 @@ export default function Tools() {
         </section>
 
         {/* Download Section */}
-        <section className="py-6 md:py-10 bg-muted/30">
+        <section className="py-6 md:py-10">
           <div className="container mx-auto px-4">
             <div className="max-w-5xl mx-auto">
               <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-8">
                 <div>
-                  <p className="text-xs uppercase tracking-[0.3em] text-primary font-semibold">
+                  <p className="text-xs uppercase tracking-[0.3em] font-semibold" style={{ color: "var(--color-primary-2)" }}>
                     Downloads
                   </p>
-                  <h2 className="text-2xl md:text-3xl font-bold mt-2">
+                  <h2 className="text-2xl md:text-3xl font-bold mt-2" style={{ color: "var(--color-primary-2)" }}>
                     Grab free planning resources
                   </h2>
                   <p className="text-muted-foreground mt-2 max-w-xl">
@@ -193,7 +194,7 @@ export default function Tools() {
                 {downloads.map((item) => (
                   <Card
                     key={item.id}
-                    className="h-full border-border/50 bg-background/80 hover:shadow-lg transition-all duration-300"
+                    className="h-full hover:shadow-lg transition-all duration-300"
                   >
                     <CardContent className="p-6 flex flex-col h-full">
                       <div className="flex items-start gap-4">
@@ -201,7 +202,7 @@ export default function Tools() {
                           <Download className="h-6 w-6 text-primary" />
                         </div>
                         <div>
-                          <h3 className="font-semibold text-lg">{item.title}</h3>
+                          <h3 className="font-semibold text-lg" style={{ color: "var(--color-primary-2)" }}>{item.title}</h3>
                           <p className="text-sm text-muted-foreground mt-1">
                             {item.description}
                           </p>
@@ -210,7 +211,7 @@ export default function Tools() {
                       <a
                         href={item.href}
                         download
-                        className="mt-6 inline-flex items-center justify-center h-10 px-4 rounded-full bg-foreground text-background text-sm font-medium hover:bg-foreground/90 transition-all"
+                        className="btn-secondary mt-6 w-fit"
                       >
                         Download
                       </a>
@@ -223,9 +224,9 @@ export default function Tools() {
         </section>
 {/*  */}
         {/* CTA Section */}
-        <section className="py-6 md:py-12 bg-muted/30">
+        <section className="py-6 md:py-12">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-2xl md:text-3xl font-bold mb-4">
+            <h2 className="text-2xl md:text-3xl font-bold mb-4" style={{ color: "var(--color-primary-2)" }}>
               Ready to start your project?
             </h2>
             <p className="text-muted-foreground mb-8 max-w-xl mx-auto">
@@ -233,7 +234,7 @@ export default function Tools() {
             </p>
             <Link 
               href="/style-quiz"
-              className="inline-flex items-center justify-center px-8 py-3 bg-primary text-primary-foreground rounded-full font-medium transition-all hover:bg-primary/90 hover:scale-105"
+              className="btn-primary"
             >
               Take the Style Quiz
             </Link>

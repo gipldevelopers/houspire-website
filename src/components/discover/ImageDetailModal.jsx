@@ -292,16 +292,16 @@ export function ImageDetailModal({
 
                 {/* Tags */}
                 <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary" className="rounded-full text-xs">
+                  <span className="inline-flex items-center rounded-full bg-primary/10 text-primary px-2.5 py-0.5 text-xs font-medium">
                     {formatText(design.room_type)}
-                  </Badge>
-                  <Badge variant="secondary" className="rounded-full text-xs">
+                  </span>
+                  <span className="inline-flex items-center rounded-full bg-primary/10 text-primary px-2.5 py-0.5 text-xs font-medium">
                     {formatText(design.style_primary)}
-                  </Badge>
+                  </span>
                   {design.difficulty_level && (
-                    <Badge variant="outline" className="rounded-full capitalize text-xs">
+                    <span className="inline-flex items-center rounded-full bg-muted text-muted-foreground px-2.5 py-0.5 text-xs font-medium capitalize">
                       {design.difficulty_level}
-                    </Badge>
+                    </span>
                   )}
                 </div>
 

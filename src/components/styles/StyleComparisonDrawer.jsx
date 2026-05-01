@@ -54,9 +54,9 @@ export function StyleComparisonDrawer({
                     </p>
                   </div>
                 </div>
-                <Button variant="ghost" size="sm" onClick={onClear}>
+                <button className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors px-3 py-1.5" onClick={onClear}>
                   Clear All
-                </Button>
+                </button>
               </div>
 
               {/* Selected Styles */}
@@ -121,10 +121,10 @@ export function StyleComparisonDrawer({
               </div>
 
               {/* Compare Button */}
-              <Button
+              <button
                 onClick={handleCompare}
                 disabled={selectedStyles.length < 2}
-                className="w-full h-12 text-base rounded-xl"
+                className={`w-full h-12 text-base rounded-xl flex items-center justify-center font-medium transition-all ${selectedStyles.length < 2 ? 'bg-muted text-muted-foreground cursor-not-allowed' : 'btn-primary'}`}
               >
                 {selectedStyles.length < 2 ? (
                   'Select at least 2 styles to compare'
@@ -134,7 +134,7 @@ export function StyleComparisonDrawer({
                     <ArrowRight className="w-4 h-4 ml-2" />
                   </>
                 )}
-              </Button>
+              </button>
             </div>
           </div>
         </motion.div>

@@ -122,7 +122,7 @@ export default function Styles() {
         description="Browse 15 curated interior design styles. Find Modern Minimalist, Traditional Indian, Contemporary Fusion, and more with expert designers."
       />
 
-      <div className="min-h-screen bg-background pt-20">
+      <div className="min-h-screen pt-20" style={{ backgroundColor: "var(--color-primary-1)" }}>
         <div className="container mx-auto px-4 py-8 md:py-16">
           
           {/* Hero Section */}
@@ -167,8 +167,10 @@ export default function Styles() {
             <div id="styles-grid" className="mb-12">
               <div className="flex items-center gap-3 mb-6">
                 <Sparkles className="w-6 h-6 text-primary" />
-                <h2 className="text-2xl font-bold">Featured Styles</h2>
-                <Badge variant="secondary">{featuredStyles.length}</Badge>
+                <h2 className="text-2xl font-bold tracking-tight" style={{ color: "var(--color-primary-2)" }}>Featured Styles</h2>
+                <span className="inline-flex items-center justify-center rounded-full bg-primary/10 text-primary px-2.5 py-0.5 text-xs font-semibold">
+                  {featuredStyles.length}
+                </span>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {featuredStyles.map((style, index) => (
@@ -191,8 +193,10 @@ export default function Styles() {
             <div className={compareStyles.length > 0 ? 'pb-48' : ''}>
               {featuredStyles.length > 0 && (
                 <div className="flex items-center gap-3 mb-6">
-                  <h2 className="text-2xl font-bold">All Design Styles</h2>
-                  <Badge variant="secondary">{regularStyles.length}</Badge>
+                  <h2 className="text-2xl font-bold tracking-tight" style={{ color: "var(--color-primary-2)" }}>All Design Styles</h2>
+                  <span className="inline-flex items-center justify-center rounded-full bg-primary/10 text-primary px-2.5 py-0.5 text-xs font-semibold">
+                    {regularStyles.length}
+                  </span>
                 </div>
               )}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -226,7 +230,7 @@ export default function Styles() {
               </p>
               <button
                 onClick={handleClearFilters}
-                className="text-primary hover:underline font-medium"
+                className="btn-secondary mt-4"
               >
                 Clear All Filters
               </button>

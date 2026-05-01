@@ -29,10 +29,12 @@ export function StylesHero({ stylesCount, totalDesigners, totalProjects }) {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ delay: 0.1 }}
       >
-        <Badge variant="secondary" className="mb-6 px-4 py-2 text-sm">
-          <Palette className="w-4 h-4 mr-2" />
-          {stylesCount} Curated Design Styles
-        </Badge>
+        <div className="flex items-center justify-center gap-2 mb-6">
+          <span className="h-2 w-2 rounded-full bg-[var(--color-primary)] shadow-[0_0_12px_rgba(236,116,70,0.5)]" />
+          <span className="text-[11px] font-black uppercase tracking-[0.2em]" style={{ color: 'var(--color-primary)' }}>
+            {stylesCount} Curated Design Styles
+          </span>
+        </div>
       </motion.div>
       
       {/* Headline */}
@@ -41,6 +43,7 @@ export function StylesHero({ stylesCount, totalDesigners, totalProjects }) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.2 }}
         className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight mb-6"
+        style={{ color: "var(--color-primary-2)" }}
       >
         Discover Your
         <span className="block text-primary mt-1">Perfect Design Style</span>
@@ -109,22 +112,19 @@ export function StylesHero({ stylesCount, totalDesigners, totalProjects }) {
         transition={{ delay: 0.5 }}
         className="flex flex-wrap justify-center gap-4"
       >
-        <Button
-          size="lg"
+        <button
           onClick={() => router.push('/style-quiz')}
-          className="rounded-xl px-8 h-14 text-base shadow-lg hover:shadow-xl transition-shadow"
+          className="btn-primary rounded-xl px-8 h-14 text-base shadow-lg hover:shadow-xl transition-shadow flex items-center"
         >
           Take Style Quiz
           <Sparkles className="ml-2 w-5 h-5" />
-        </Button>
-        <Button
-          size="lg"
-          variant="outline"
+        </button>
+        <button
           onClick={() => document.getElementById('styles-grid')?.scrollIntoView({ behavior: 'smooth' })}
-          className="rounded-xl px-8 h-14 text-base"
+          className="btn-secondary rounded-xl px-8 h-14 text-base"
         >
           Browse All Styles
-        </Button>
+        </button>
       </motion.div>
     </motion.div>
   );
