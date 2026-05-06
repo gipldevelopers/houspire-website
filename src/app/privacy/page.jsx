@@ -1,226 +1,233 @@
-'use client';
+"use client"
+import React from 'react';
+import { useRouter } from 'next/navigation';
+import {
+  ArrowLeft, ShieldCheck, Clock, RefreshCw, Heart,
+  Lock, Eye, Database, Globe, Scale, Cookie,
+  UserCheck, FileText, Mail, MapPin, AlertTriangle, Shield
+} from 'lucide-react';
 
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Container } from '@/components/layout/Container';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Separator } from '@/components/ui/separator';
-import { Shield, Mail, Phone, MapPin, Info, ExternalLink } from 'lucide-react';
-import Link from 'next/link';
-import { SEOHead } from '@/components/SEOHead';
+const PrivacyPolicyPage = () => {
+  const router = useRouter();
 
-const sections = [
-  { id: 'introduction', title: '1. Introduction' },
-  { id: 'data-fiduciary', title: '2. Data Fiduciary Information' },
-  { id: 'scope', title: '3. Scope and Application' },
-  { id: 'data-collected', title: '4. Personal Data We Collect' },
-  { id: 'how-we-use', title: '5. How We Use Your Data' },
-  { id: 'data-sharing', title: '6. Data Sharing & Disclosure' },
-  { id: 'cross-border', title: '7. Cross-Border Transfers' },
-  { id: 'data-retention', title: '8. Data Retention' },
-  { id: 'data-security', title: '9. Data Security' },
-  { id: 'your-rights', title: '10. Your Rights' },
-  { id: 'children', title: '11. Children\'s Privacy' },
-  { id: 'third-party', title: '12. Third-Party Links' },
-  { id: 'updates', title: '13. Changes to Policy' },
-  { id: 'grievance', title: '14. Grievance Redressal' },
-  { id: 'contact', title: '15. Contact Information' },
-  { id: 'consent', title: '17. Consent' },
-];
+  const effectiveDate = "03.02.2026";
+  const lastUpdatedDate = "03.02.2026";
+  const legalEntity = "ARMISHQ DESIGN PRIVATE LIMITED";
+  const websiteUrl = "www.houspire.ai";
 
-export default function Privacy() {
-  const [activeSection, setActiveSection] = useState('');
+  const handleBack = () => {
+    router.back();
+  };
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const sectionElements = sections.map(s => document.getElementById(s.id));
-      const scrollPosition = window.scrollY + 150;
+  const Section = ({ title, children, id }) => (
+    <section id={id} className="mb-20 scroll-mt-24">
+      <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-8 tracking-tight flex items-center gap-2">
+        <div className="w-1 h-6 bg-primary rounded-full" />
+        {title}
+      </h2>
+      <div className="text-gray-600 dark:text-gray-400 space-y-6 leading-relaxed text-sm md:text-base pl-3 border-l border-gray-50 dark:border-white/5 ml-0.5">
+        {children}
+      </div>
+    </section>
+  );
 
-      for (let i = sectionElements.length - 1; i >= 0; i--) {
-        const el = sectionElements[i];
-        if (el && el.offsetTop <= scrollPosition) {
-          setActiveSection(sections[i].id);
-          break;
-        }
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  function scrollToSection(id) {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setActiveSection(id);
-    }
-  }
+  const Subtitle = ({ children }) => (
+    <p className="font-bold text-gray-900 dark:text-white mt-8 mb-4 uppercase text-xs tracking-widest">{children}</p>
+  );
 
   return (
-    <>
-      <SEOHead 
-        title="Privacy Policy" 
-        description="Learn how Houspire (ARMISHQ DESIGN PRIVATE LIMITED) collects, uses, and protects your personal data in accordance with the DPDP Act 2023."
-        noIndex={false}
-      />
-      
-      <div className="min-h-screen bg-background pt-24">
-        {/* Hero */}
-        <section className="py-12 bg-secondary/30">
-          <Container>
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center max-w-2xl mx-auto"
-            >
-              <div className="flex items-center justify-center gap-2 mb-4">
-                <Shield className="h-6 w-6" style={{ color: 'var(--color-primary)' }} />
-                <Badge className="border-0" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)', color: 'var(--color-primary)' }}>Legal</Badge>
-              </div>
-              <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-4" style={{ color: 'var(--color-heading-main)' }}>
-                Privacy Policy
-              </h1>
-              <p className="text-muted-foreground">Effective Date: February 2026</p>
-              <p className="text-sm text-muted-foreground mt-1">Last Updated: February 2026</p>
-            </motion.div>
-          </Container>
-        </section>
+    <div className="min-h-screen bg-white dark:bg-gray-950">
+      <div className="max-w-4xl mx-auto px-6 py-12 md:py-24">
+        {/* Navigation */}
+        <button
+          onClick={handleBack}
+          className="flex items-center text-sm font-medium text-muted-foreground hover:text-primary transition-colors group mb-16"
+        >
+          <ArrowLeft className="w-4 h-4 mr-2 transition-transform group-hover:-translate-x-1" />
+          Back
+        </button>
+
+        {/* Header */}
+        <header className="mb-24">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/5 text-primary text-xs font-bold mb-6 tracking-wider uppercase">
+            <ShieldCheck className="w-3 h-3" /> DPDP Compliant
+          </div>
+          <h1 className="text-4xl md:text-6xl font-bold text-gray-900 dark:text-white mb-8 tracking-tight">
+            Privacy Policy
+          </h1>
+          <p className="text-lg text-muted-foreground mb-12 max-w-2xl leading-relaxed">
+            Protecting your personal data is our primary commitment. This policy explains how we collect, use, and safe-guard your information in compliance with the Digital Personal Data Protection Act, 2023.
+          </p>
+          <div className="flex flex-wrap gap-6 text-xs font-semibold text-muted-foreground uppercase tracking-widest">
+            <span className="flex items-center gap-2"><Clock className="w-4 h-4" /> Effective: {effectiveDate}</span>
+            <span className="flex items-center gap-2"><RefreshCw className="w-4 h-4" /> Updated: {lastUpdatedDate}</span>
+          </div>
+        </header>
 
         {/* Content */}
-        <section className="py-12">
-          <Container>
-            <div className="flex flex-col lg:flex-row gap-8">
-              {/* TOC */}
-              <aside className="lg:w-64 shrink-0">
-                <Card className="p-4 lg:sticky lg:top-28">
-                  <h3 className="font-semibold mb-3 text-sm">Table of Contents</h3>
-                  <nav className="space-y-1 max-h-[70vh] overflow-y-auto">
-                    {sections.map(section => (
-                      <button
-                        key={section.id}
-                        onClick={() => scrollToSection(section.id)}
-                        className={`block w-full text-left text-xs py-1.5 px-2 rounded transition-colors ${
-                          activeSection === section.id
-                            ? 'font-medium'
-                            : 'opacity-60 hover:bg-muted'
-                        }`}
-                        style={activeSection === section.id ? { backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)', color: 'var(--color-primary)' } : { color: 'var(--color-description)' }}
-                      >
-                        {section.title}
-                      </button>
-                    ))}
-                  </nav>
-                </Card>
-              </aside>
+        <div className="space-y-4">
 
-              {/* Main Content */}
-              <main className="flex-1 max-w-3xl">
-                <Alert className="mb-8 border-none" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 5%, var(--color-bg))' }}>
-                  <Info className="h-4 w-4" style={{ color: 'var(--color-primary)' }} />
-                  <AlertDescription style={{ color: 'var(--color-heading-secondary)' }}>
-                    <strong>Your Privacy Matters:</strong> This Privacy Policy explains how Houspire (brand of ARMISHQ DESIGN PRIVATE LIMITED) collects, uses, stores, and protects your personal data in compliance with the Digital Personal Data Protection Act, 2023 ("DPDP Act") and other applicable laws of India.
-                  </AlertDescription>
-                </Alert>
+          <Section title="1. INTRODUCTION">
+            <p>Houspire (brand of {legalEntity}) explains how we collect, use, store, and protect your personal data in compliance with the <strong>Digital Personal Data Protection Act, 2023 ("DPDP Act")</strong> and other applicable laws of India.</p>
+            <p>Consent is obtained through explicit affirmative action while using our website ({websiteUrl}), mobile application, or services.</p>
+          </Section>
 
-                <div className="prose prose-neutral max-w-none space-y-8">
-                  {/* Section 1 */}
-                  <section id="introduction">
-                    <h2 className="text-xl font-semibold mb-4">1. Introduction</h2>
-                    <p className="text-muted-foreground leading-relaxed">
-                      This Privacy Policy explains how Houspire (brand of ARMISHQ DESIGN PRIVATE LIMITED) ("we", "us", "our") collects, uses, stores, and protects your personal data in compliance with the Digital Personal Data Protection Act, 2023 ("DPDP Act") and other applicable laws of India.
-                    </p>
-                    <p className="text-muted-foreground leading-relaxed mt-3">
-                      Consent is obtained through explicit affirmative action, wherever required for usage of our website (www.houspire.ai), mobile application, or services. By giving consent, you agree to the practices described in this Privacy Policy.
-                    </p>
-                  </section>
-
-                  <Separator />
-
-                  {/* Section 2 */}
-                  <section id="data-fiduciary">
-                    <h2 className="text-xl font-semibold mb-4">2. Data Fiduciary Information</h2>
-                    <Card className="p-4 bg-secondary/30">
-                      <ul className="space-y-2 text-muted-foreground text-sm">
-                        <li><strong>Legal Entity:</strong> ARMISHQ DESIGN PRIVATE LIMITED</li>
-                        <li><strong>Registered Address:</strong> Plot no 67, Road no. 4, Prashasan Nagar, Jubilee Hills, Shaikpet, Hyderabad-500033, Telangana</li>
-                        <li><strong>CIN:</strong> U74100TS2025PTC204928</li>
-                        <li><strong>Email:</strong> contact@houspire.ai</li>
-                        <li><strong>Grievance Officer Email:</strong> grievance@houspire.ai</li>
-                        <li><strong>Response Time:</strong> Within 72 hours of receiving grievance</li>
-                      </ul>
-                    </Card>
-                  </section>
-
-                  {/* Additional sections would continue here... */}
-                  {/* For brevity, showing structure. Full content available in original file */}
-
-                  {/* Section 15 - Contact */}
-                  <section id="contact">
-                    <h2 className="text-xl font-semibold mb-4">15. Contact Information</h2>
-
-                    <Card className="p-6">
-                      <h4 className="font-semibold mb-4">ARMISHQ DESIGN PRIVATE LIMITED</h4>
-                      <div className="space-y-3">
-                        <div className="flex items-center gap-3">
-                          <Mail className="h-5 w-5 text-muted-foreground" />
-                          <div>
-                            <p className="text-sm font-medium">Privacy Questions</p>
-                            <a href="mailto:privacy@houspire.ai" className="hover:underline text-sm" style={{ color: 'var(--color-primary)' }}>privacy@houspire.ai</a>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <Mail className="h-5 w-5 text-muted-foreground" />
-                          <div>
-                            <p className="text-sm font-medium">General Inquiries</p>
-                            <a href="mailto:contact@houspire.ai" className="hover:underline text-sm" style={{ color: 'var(--color-primary)' }}>contact@houspire.ai</a>
-                          </div>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <Mail className="h-5 w-5 text-muted-foreground" />
-                          <div>
-                            <p className="text-sm font-medium">Grievances</p>
-                            <a href="mailto:grievance@houspire.ai" className="hover:underline text-sm" style={{ color: 'var(--color-primary)' }}>grievance@houspire.ai</a>
-                          </div>
-                        </div>
-                        <div className="flex items-start gap-3">
-                          <MapPin className="h-5 w-5 text-muted-foreground mt-0.5" />
-                          <div>
-                            <p className="text-sm font-medium">Postal Address</p>
-                            <p className="text-sm text-muted-foreground">
-                              ARMISHQ DESIGN PRIVATE LIMITED<br />
-                              Plot no 67, Road no. 4, Prashasan Nagar,<br />
-                              Jubilee Hills, Shaikpet, Hyderabad-500033,<br />
-                              Telangana, India
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </Card>
-
-                    <Alert className="mt-4">
-                      <Info className="h-4 w-4" />
-                      <AlertDescription>
-                        <strong>Complaints:</strong> If not satisfied with our response, you have the right to lodge a complaint with the Data Protection Board of India.
-                      </AlertDescription>
-                    </Alert>
-                  </section>
-
-                  {/* Acknowledgment */}
-                  <Card className="p-6 bg-muted/30 mt-8">
-                    <p className="text-sm text-muted-foreground">
-                      © 2026. ARMISHQ DESIGN PRIVATE LIMITED. All rights reserved.
-                    </p>
-                  </Card>
-                </div>
-              </main>
+          <Section title="2. DATA FIDUCIARY INFORMATION">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8 rounded-3xl bg-gray-50/50 dark:bg-white/5 border border-gray-100 dark:border-white/10">
+              <div className="space-y-4">
+                <Subtitle>Legal Entity</Subtitle>
+                <p className="text-sm font-semibold text-gray-900 dark:text-white">{legalEntity}</p>
+                <p className="text-xs text-muted-foreground">Plot no 67, Road no. 4, Prashasan Nagar, Jubilee Hills, Hyderabad - 500033</p>
+                <p className="text-xs text-muted-foreground">CIN: U74100TS2025PTC204928</p>
+              </div>
+              <div className="space-y-4">
+                <Subtitle>Grievance Officer</Subtitle>
+                <p className="text-sm font-bold text-primary">grievance@houspire.ai</p>
+                <p className="text-xs text-muted-foreground">Response Time: Within 72 hours</p>
+              </div>
             </div>
-          </Container>
-        </section>
+          </Section>
+<br></br> <br />
+          <Section title="3. PERSONAL DATA WE COLLECT">
+            <Subtitle>3.1 Information You Provide Directly</Subtitle>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {[
+                { t: "Account Registration", d: "Name, email, phone number, and encrypted password." },
+                { t: "Project Details", d: "Property address, type, room details, and design preferences." },
+                { t: "Files Uploaded", d: "Floor plans (PDF/IMG), reference images, and property photos." },
+                { t: "Payment Data", d: "Transaction IDs and method used. We do NOT store card details." }
+              ].map((item, i) => (
+                <div key={i} className="p-5 rounded-2xl bg-gray-50/30 dark:bg-white/5 border border-gray-100 dark:border-white/10">
+                  <p className="font-bold text-gray-900 dark:text-white text-[10px] uppercase tracking-widest mb-2 text-primary">{item.t}</p>
+                  <p className="text-sm">{item.d}</p>
+                </div>
+              ))}
+            </div>
+
+            <Subtitle>3.2 Information Collected Automatically</Subtitle>
+            <p className="text-sm">We collect device identifiers, IP addresses, browser versions, and usage patterns to optimize Platform performance and security.</p>
+
+            <Subtitle>3.3 Children's Data</Subtitle>
+            <div className="p-6 bg-red-50/50 dark:bg-red-900/10 rounded-3xl border border-red-100 dark:border-red-900/10">
+              <p className="text-red-700 dark:text-red-400 font-bold mb-3 flex items-center gap-2 uppercase tracking-tight text-xs">
+                <AlertTriangle className="w-4 h-4" /> WE DO NOT KNOWINGLY COLLECT DATA FROM PERSONS UNDER 18
+              </p>
+              <p className="text-xs text-red-600/70">If we become aware that data of a minor has been collected without verifiable parental consent, we will take immediate steps to secure and delete such information.</p>
+            </div>
+          </Section>
+<br></br> <br />
+          <Section title="4. HOW WE USE YOUR PERSONAL DATA">
+            <div className="space-y-4">
+              <p><strong>4.1 Service Delivery:</strong> Match you with designers, send confirmations, and deliver final design renders and budget documents.</p>
+              <p><strong>4.2 Payment Processing:</strong> Generate invoices via Razorpay and handle refunds as per our policy.</p>
+              <p><strong>4.3 Marketing:</strong> Send newsletters and promotional offers <strong>only</strong> with your explicit consent.</p>
+            </div>
+          </Section>
+<br></br> <br />
+          <Section title="5. DATA SHARING AND DISCLOSURE">
+            <Subtitle>5.1 With Service Providers</Subtitle>
+            <ul className="space-y-3 text-sm">
+              <li>• <strong>Razorpay:</strong> Encrypted payment processing (India)</li>
+              <li>• <strong>Supabase:</strong> Secure cloud database storage (Mumbai Region)</li>
+              <li>• <strong>AWS/Cloudflare:</strong> Secure file delivery and CDN protection</li>
+            </ul>
+            <Subtitle>5.2 Our Stance on Privacy</Subtitle>
+            <div className="flex flex-wrap gap-2 text-xs font-bold uppercase tracking-widest text-primary">
+              <span className="px-3 py-1 rounded-full bg-primary/5">No Selling of Data</span>
+              <span className="px-3 py-1 rounded-full bg-primary/5">No Data Brokers</span>
+              <span className="px-3 py-1 rounded-full bg-primary/5">Strict NDA for Designers</span>
+            </div>
+          </Section>
+<br></br> <br />
+          <Section title="6. DATA RETENTION">
+            <div className="space-y-4 text-sm">
+              <p className="flex justify-between border-b border-gray-50 dark:border-white/5 py-2">
+                <span>Account Information</span>
+                <span className="font-bold text-gray-900 dark:text-white">Until account deletion</span>
+              </p>
+              <p className="flex justify-between border-b border-gray-50 dark:border-white/5 py-2">
+                <span>Order Records</span>
+                <span className="font-bold text-gray-900 dark:text-white">7 years (Tax compliance)</span>
+              </p>
+              <p className="flex justify-between border-b border-gray-50 dark:border-white/5 py-2">
+                <span>Design Deliverables</span>
+                <span className="font-bold text-gray-900 dark:text-white">1 year after delivery</span>
+              </p>
+            </div>
+          </Section>
+<br></br> <br />
+          <Section title="7. DATA SECURITY">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {[
+                { i: Lock, t: "Encryption", d: "SSL/TLS transit and AES-256 resting bit encryption." },
+                { i: Shield, t: "Infrastructure", d: "Secured via Supabase cloud with regular patches." },
+                { i: UserCheck, t: "Access Control", d: "Role-based access with multi-factor authentication." }
+              ].map((item, i) => (
+                <div key={i} className="space-y-3">
+                  <item.i className="w-5 h-5 text-primary" />
+                  <p className="font-bold text-gray-900 dark:text-white text-sm">{item.t}</p>
+                  <p className="text-xs text-muted-foreground">{item.d}</p>
+                </div>
+              ))}
+            </div>
+          </Section>
+<br></br> <br />
+          <Section title="8. YOUR RIGHTS">
+            <div className="space-y-6">
+              <div className="flex gap-4 p-5 rounded-2xl border border-primary/10 bg-primary/5">
+                <Database className="w-5 h-5 text-primary mt-1" />
+                <div>
+                  <p className="font-bold text-gray-900 dark:text-white text-sm mb-1 uppercase tracking-tight">Self-Service Portability</p>
+                  <p className="text-sm">Login to your dashboard to <strong>Access, Export, or Correct</strong> your data immediately.</p>
+                </div>
+              </div>
+              <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4 text-sm list-disc pl-5">
+                <li>Right to Access & Export data</li>
+                <li>Right to Correction & Updates</li>
+                <li>Right to Erasure (Acc. Deletion)</li>
+                <li>Right to Nominate (post-incapacity)</li>
+                <li>Right to Withdraw Consent</li>
+                <li>Right to data portability</li>
+              </ul>
+            </div>
+          </Section>
+<br></br> <br />
+          <Section title="9. CONTACT INFORMATION">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div className="space-y-4">
+                <p className="flex items-center gap-3 text-sm font-semibold text-gray-900 dark:text-white">
+                  <Mail className="w-4 h-4 text-primary" /> privacy@houspire.ai
+                </p>
+                <p className="flex items-center gap-3 text-sm font-semibold text-gray-900 dark:text-white">
+                  <Mail className="w-4 h-4 text-primary" /> contact@houspire.ai
+                </p>
+              </div>
+              <div className="space-y-4">
+                <p className="flex items-center gap-3 text-sm font-semibold text-gray-900 dark:text-white">
+                  <MapPin className="w-4 h-4 text-primary" /> Plot no 67, Road no. 4, Prashasan Nagar, Jubilee Hills, Hyderabad- 500033
+                </p>
+              </div>
+            </div>
+          </Section>
+<br></br> <br />
+          <Section title="10. CONSENT">
+            <p className="text-sm">By using our platform, you acknowledge that you have read this Privacy Policy and explicitly consent to the collection, usage, and sharing as described. You may withdraw consent at any time via your dashboard settings.</p>
+          </Section>
+
+          <div className="mt-40 text-center pb-20">
+            <Heart className="w-6 h-6 text-primary/20 mx-auto mb-8 animate-pulse" />
+            <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.3em] mb-1">
+              © 2026 {legalEntity}
+            </p>
+            <p className="text-[9px] text-gray-400 font-medium tracking-widest">
+              HYDERABAD, INDIA • VERSION 1.0
+            </p>
+          </div>
+
+        </div>
       </div>
-    </>
+    </div>
   );
-}
+};
+
+export default PrivacyPolicyPage;
