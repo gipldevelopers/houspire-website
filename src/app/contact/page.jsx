@@ -73,9 +73,9 @@ export default function Contact() {
                   We respond within 24 hours
                 </Badge>
                 
-                <h1 className="text-4xl md:text-6xl font-semibold tracking-tight mb-6 leading-[1.1]" style={{ color: 'var(--color-heading-main)' }}>
-                  Let's Start a
-                  <span className="block" style={{ color: 'var(--color-heading-main-highlight)' }}>
+                <h1 className="text-[26px] sm:text-4xl md:text-6xl font-semibold tracking-tight mb-6 leading-[1.1] whitespace-nowrap md:whitespace-normal" style={{ color: 'var(--color-heading-main)' }}>
+                  Let's Start a{' '}
+                  <span className="inline md:block" style={{ color: 'var(--color-heading-main-highlight)' }}>
                     Conversation
                   </span>
                 </h1>
