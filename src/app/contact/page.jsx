@@ -1,11 +1,11 @@
 import { SEOHead } from '@/components/SEOHead';
 import { generateOrganizationSchema } from '@/lib/seo';
 import { Container } from '@/components/layout/Container';
-import { ContactHero } from '@/components/contact/ContactHero';
 import { ContactForm } from '@/components/contact/ContactForm';
-import { ContactSidebar, ContactSidebarSecondary } from '@/components/contact/ContactSidebar';
+import { ContactSidebar, WhatsAppCard, PromiseCard } from '@/components/contact/ContactSidebar';
 import { Card } from '@/components/ui/card';
-import { CheckCircle2, Clock3, ShieldCheck } from 'lucide-react';
+import { CheckCircle2, Clock3, ShieldCheck, Sparkles } from 'lucide-react';
+import { Badge } from '@/components/ui/badge';
 
 // Schema for local business
 const localBusinessSchema = {
@@ -14,8 +14,8 @@ const localBusinessSchema = {
   name: 'Houspire',
   description: 'Professional interior design services with transparent pricing and 72-hour delivery.',
   url: 'https://houspire.ai',
-  telephone: '+91-98765-43210',
-  email: 'support@houspire.com',
+  telephone: '+91-70758-27625',
+  email: 'hello@houspire.ai',
   address: {
     '@type': 'PostalAddress',
     streetAddress: 'Hitech City',
@@ -57,54 +57,81 @@ export default function Contact() {
         schema={[generateOrganizationSchema(), localBusinessSchema, breadcrumbSchema]}
       />
       
-      <div className="min-h-screen bg-background pt-16">
-        <ContactHero />
+      <div className="min-h-screen bg-background pt-24 pb-12 relative overflow-hidden">
+        {/* Background Decorations */}
+        <div className="absolute top-10 right-10 w-72 h-72 rounded-full blur-3xl opacity-20" style={{ backgroundColor: 'var(--color-primary)' }} />
+        <div className="absolute bottom-10 left-10 w-72 h-72 rounded-full blur-3xl opacity-10" style={{ backgroundColor: 'var(--color-accent)' }} />
         
-        <section className="py-8 md:py-12">
-          <Container>
-            <div className="grid lg:grid-cols-5 gap-6 lg:gap-8 items-start">
-              {/* Form - 3 columns */}
-              <div className="lg:col-span-3 space-y-5">
-                <ContactForm />
-                <Card className="p-6 border-border/60 bg-gradient-to-br from-amber-50/60 via-background to-orange-50/40">
-                  <h3 className="text-lg font-semibold text-foreground mb-4">Why Customers Reach Out</h3>
-                  <div className="grid sm:grid-cols-3 gap-4">
-                    <div className="flex items-start gap-2.5">
-                      <Clock3 className="h-4 w-4 text-amber-600 mt-0.5" />
-                      <div>
-                        <p className="text-sm font-medium text-foreground">Fast Response</p>
-                        <p className="text-xs text-muted-foreground">Replies within 24 business hours.</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-2.5">
-                      <ShieldCheck className="h-4 w-4 text-emerald-600 mt-0.5" />
-                      <div>
-                        <p className="text-sm font-medium text-foreground">Trusted Support</p>
-                        <p className="text-xs text-muted-foreground">Clear answers from design experts.</p>
-                      </div>
-                    </div>
-                    <div className="flex items-start gap-2.5">
-                      <CheckCircle2 className="h-4 w-4 text-sky-600 mt-0.5" />
-                      <div>
-                        <p className="text-sm font-medium text-foreground">Actionable Help</p>
-                        <p className="text-xs text-muted-foreground">Guidance you can use immediately.</p>
-                      </div>
-                    </div>
-                  </div>
-                </Card>
+        <Container className="relative z-10 h-full max-w-[1280px] px-6 md:px-12">
+          <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start h-full">
+            
+            {/* Left Column: Hero Text + Quick Contact */}
+            <div className="flex flex-col h-full space-y-8 lg:pr-8 lg:sticky lg:top-28">
+              <div className="max-w-xl">
+                <Badge className="mb-6 px-4 py-1.5 border-[var(--color-border)] inline-flex" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)', color: 'var(--color-primary)' }}>
+                  <Sparkles className="w-3.5 h-3.5 mr-1.5" />
+                  We respond within 24 hours
+                </Badge>
+                
+                <h1 className="text-4xl md:text-6xl font-semibold tracking-tight mb-6 leading-[1.1]" style={{ color: 'var(--color-heading-main)' }}>
+                  Let's Start a
+                  <span className="block" style={{ color: 'var(--color-heading-main-highlight)' }}>
+                    Conversation
+                  </span>
+                </h1>
+                
+                <p className="text-lg leading-relaxed opacity-60" style={{ color: 'var(--color-description)' }}>
+                  Have questions about your project? Need support? We're here to help you create the space of your dreams.
+                </p>
               </div>
               
-              {/* Sidebar - 2 columns */}
-              <div className="lg:col-span-2 space-y-5">
+              <div className="hidden lg:block space-y-6">
                 <ContactSidebar includeSecondary={false} />
+                <WhatsAppCard />
               </div>
             </div>
-
-            <div className="mt-6">
-              <ContactSidebarSecondary />
+            
+            {/* Right Column: Form + Features */}
+            <div className="space-y-6">
+              <ContactForm />
+              <div className="block lg:hidden space-y-6">
+                <ContactSidebar includeSecondary={false} />
+                <WhatsAppCard />
+              </div>
+              <PromiseCard />
+              
+              {/* 
+              <Card className="p-6 border-border/60 bg-gradient-to-br from-amber-50/60 via-background to-orange-50/40">
+                <h3 className="text-lg font-semibold text-foreground mb-4">Why Customers Reach Out</h3>
+                <div className="grid sm:grid-cols-3 gap-4">
+                  <div className="flex items-start gap-2.5">
+                    <Clock3 className="h-4 w-4 text-amber-600 mt-0.5" />
+                    <div>
+                      <p className="text-sm font-medium text-foreground">Fast Response</p>
+                      <p className="text-xs text-muted-foreground">Replies within 24 business hours.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2.5">
+                    <ShieldCheck className="h-4 w-4 text-emerald-600 mt-0.5" />
+                    <div>
+                      <p className="text-sm font-medium text-foreground">Trusted Support</p>
+                      <p className="text-xs text-muted-foreground">Clear answers from design experts.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-2.5">
+                    <CheckCircle2 className="h-4 w-4 text-sky-600 mt-0.5" />
+                    <div>
+                      <p className="text-sm font-medium text-foreground">Actionable Help</p>
+                      <p className="text-xs text-muted-foreground">Guidance you can use immediately.</p>
+                    </div>
+                  </div>
+                </div>
+              </Card>
+              */}
             </div>
-          </Container>
-        </section>
+            
+          </div>
+        </Container>
       </div>
     </>
   );

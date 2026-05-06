@@ -62,8 +62,8 @@ function createInvoicePDF(data) {
         'Hyderabad, Telangana',
         'India - 500081',
         'GSTIN: 36XXXXX1234X1ZX',
-        'Email: support@houspire.ai',
-        'Phone: +91 98765 43210'
+        'Email: hello@houspire.ai',
+        'Phone: +91 70758 27625'
     ];
     yPosition = margin;
     companyDetails.forEach(line => {
@@ -228,7 +228,7 @@ function createInvoicePDF(data) {
     const termsWidth = doc.getTextWidth(termsText);
     doc.text(termsText, (pageWidth - termsWidth) / 2, yPosition);
     yPosition += 5;
-    const contactText = 'For queries, contact: support@houspire.ai';
+    const contactText = 'For queries, contact: hello@houspire.ai';
     const contactWidth = doc.getTextWidth(contactText);
     doc.text(contactText, (pageWidth - contactWidth) / 2, yPosition);
     yPosition += 5;

@@ -13,7 +13,7 @@ export class ErrorBoundary extends Component {
             window.location.href = '/';
         };
         this.handleContact = () => {
-            window.location.href = 'mailto:support@houspire.ai';
+            window.location.href = 'mailto:hello@houspire.ai';
         };
         this.state = { hasError: false, error: null, errorInfo: null };
     }
@@ -76,8 +76,8 @@ export class ErrorBoundary extends Component {
 
             <p className="text-xs text-muted-foreground mt-6">
               If this problem persists, please contact{' '}
-              <a href="mailto:support@houspire.ai" className="text-primary underline hover:no-underline">
-                support@houspire.ai
+              <a href="mailto:hello@houspire.ai" className="text-primary underline hover:no-underline">
+                hello@houspire.ai
               </a>
             </p>
           </Card>

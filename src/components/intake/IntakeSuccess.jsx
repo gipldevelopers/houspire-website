@@ -141,7 +141,7 @@ export function IntakeSuccess({ projectId }) {
                 Need to add more details or have questions?
               </p>
               <div className="flex items-center justify-center gap-4">
-                <Button variant="ghost" size="sm" onClick={() => window.open('mailto:support@houspire.com')} className="gap-2">
+                <Button variant="ghost" size="sm" onClick={() => window.open('mailto:hello@houspire.ai')} className="gap-2">
                   <MessageSquare className="h-4 w-4"/>
                   Contact support
                 </Button>

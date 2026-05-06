@@ -301,7 +301,7 @@ export default function FAQ() {
 
                     <div className="flex flex-col sm:flex-row gap-4 justify-center">
                       <Button
-                        onClick={() => window.location.href = 'mailto:support@houspire.com'}
+                        onClick={() => window.location.href = 'mailto:hello@houspire.ai'}
                         className="h-12 px-6 btn-primary"
                       >
                         <Mail className="h-5 w-5 mr-2" />
@@ -309,7 +309,7 @@ export default function FAQ() {
                       </Button>
 
                       <Button
-                        onClick={() => window.open('https://wa.me/919876543210', '_blank')}
+                        onClick={() => window.open('https://wa.me/917075827625', '_blank')}
                         variant="outline"
                         className="h-12 px-6"
                       >

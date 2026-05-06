@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { ChevronDown, Instagram, Linkedin, Twitter, Youtube } from 'lucide-react';
+import { ChevronDown, Instagram, MessageCircle } from 'lucide-react';
 import CookiePreferencesDialog from '@/components/CookiePreferencesDialog';
 import { HOUSPIRE_HOME_URL } from '@/lib/external-links';
 import { PlanningWizardModal } from '@/components/wizard/PlanningWizardModal';
@@ -78,10 +78,8 @@ export function Footer() {
   ];
 
   const socialLinks = [
-    { icon: Instagram, href: 'https://instagram.com/houspire', label: 'Instagram' },
-    { icon: Twitter, href: 'https://twitter.com/houspire', label: 'Twitter' },
-    { icon: Linkedin, href: 'https://linkedin.com/company/houspire', label: 'LinkedIn' },
-    { icon: Youtube, href: 'https://youtube.com/@houspire', label: 'YouTube' },
+    { icon: Instagram, href: 'https://www.instagram.com/houspire.ai/', label: 'Instagram' },
+    { icon: MessageCircle, href: 'https://api.whatsapp.com/send/?phone=917075827625&text=Hi%2C+I%27m+interested+in+Houspire%27s+interior+design+services.+Can+you+help+me+get+started%3F&type=phone_number&app_absent=0', label: 'WhatsApp' },
   ];
 
   return (

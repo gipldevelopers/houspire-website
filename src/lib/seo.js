@@ -11,7 +11,7 @@ export const organizationSchema = {
   contactPoint: {
     '@type': 'ContactPoint',
     contactType: 'Customer Service',
-    email: 'support@houspire.com',
+    email: 'hello@houspire.ai',
     areaServed: 'IN',
     availableLanguage: ['English', 'Hindi'],
   },
@@ -131,7 +131,7 @@ export const localBusinessSchema = {
   '@id': 'https://houspire.com',
   name: 'Houspire',
   image: 'https://houspire.com/og-image.png',
-  email: 'support@houspire.com',
+  email: 'hello@houspire.ai',
   address: {
     '@type': 'PostalAddress',
     addressLocality: 'Hyderabad',

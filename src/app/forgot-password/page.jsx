@@ -251,7 +251,7 @@ export default function ForgotPassword() {
             <p className="text-sm text-muted-foreground">
               Need help?{' '}
               <a
-                href="mailto:support@houspire.com"
+                href="mailto:hello@houspire.ai"
                 className="font-medium text-foreground hover:underline"
               >
                 Contact support

@@ -259,7 +259,7 @@ function ResetPasswordContent() {
         {/* Help */}
         <div className="text-center mt-6 text-sm text-muted-foreground">
           Need help?{' '}
-          <a href="mailto:support@houspire.com" className="text-foreground hover:underline">
+          <a href="mailto:hello@houspire.ai" className="text-foreground hover:underline">
             Contact support
           </a>
         </div>

@@ -198,7 +198,7 @@ const TermsOfUsePage = () => {
           </Section>
 <br /><br />
           <Section title="11. CUSTOMER SUPPORT">
-            <p><strong>11.1 Channels:</strong> Email (support@houspire.ai), Dashboard tickets, and WhatsApp for urgent matters.</p>
+            <p><strong>11.1 Channels:</strong> Email (hello@houspire.ai), Dashboard tickets, and WhatsApp for urgent matters.</p>
             <p><strong>11.2 Support Hours:</strong> Mon-Sat, 10:00 AM - 6:00 PM IST (excluding Sun/Public Holidays).</p>
             <p><strong>11.3 Post-Delivery Support:</strong> Trial (None), Essential (30 days), Smart (60 days), Premium (90 days), Luxury (6 months).</p>
           </Section>
@@ -252,7 +252,7 @@ const TermsOfUsePage = () => {
                   <Mail className="w-4 h-4 text-primary" /> legal@houspire.ai
                 </p>
                 <p className="flex items-center gap-3 text-sm font-semibold text-gray-900 dark:text-white">
-                  <Mail className="w-4 h-4 text-primary" /> support@houspire.ai
+                  <Mail className="w-4 h-4 text-primary" /> hello@houspire.ai
                 </p>
                 <p className="flex items-center gap-3 text-sm font-semibold text-gray-900 dark:text-white">
                   <Mail className="w-4 h-4 text-primary" /> grievance@houspire.ai

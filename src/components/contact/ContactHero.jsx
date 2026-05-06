@@ -7,7 +7,7 @@ import { MessageSquare, Sparkles } from 'lucide-react';
 
 export function ContactHero() {
   return (
-    <section className="relative py-14 md:py-18 overflow-hidden">
+    <section className="relative py-6 md:py-8 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0" style={{ backgroundColor: 'var(--color-bg)' }} />
       <div className="absolute top-10 right-10 w-72 h-72 rounded-full blur-3xl opacity-20" style={{ backgroundColor: 'var(--color-primary)' }} />
@@ -19,12 +19,12 @@ export function ContactHero() {
           transition={{ duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
           className="max-w-3xl mx-auto text-center"
         >
-          <Badge className="mb-6 px-4 py-1.5 border-[var(--color-border)]" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)', color: 'var(--color-primary)' }}>
+          <Badge className="mb-4 px-4 py-1.5 border-[var(--color-border)]" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 10%, transparent)', color: 'var(--color-primary)' }}>
             <Sparkles className="w-3.5 h-3.5 mr-1.5" />
             We respond within 24 hours
           </Badge>
           
-          <h1 className="text-4xl md:text-6xl font-semibold tracking-tight mb-6 leading-[1.1]" style={{ color: 'var(--color-heading-main)' }}>
+          <h1 className="text-4xl md:text-5xl font-semibold tracking-tight mb-4 leading-[1.1]" style={{ color: 'var(--color-heading-main)' }}>
             Let's Start a
             <span className="block" style={{ color: 'var(--color-heading-main-highlight)' }}>
               Conversation

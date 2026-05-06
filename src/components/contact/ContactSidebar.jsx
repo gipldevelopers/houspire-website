@@ -16,15 +16,15 @@ const contactMethods = [
   {
     icon: Mail,
     label: 'Email',
-    value: 'support@houspire.com',
-    href: 'mailto:support@houspire.com',
+    value: 'hello@houspire.ai',
+    href: 'mailto:hello@houspire.ai',
     description: 'For general inquiries',
   },
   {
     icon: Phone,
     label: 'Phone',
-    value: '+91 98765 43210',
-    href: 'tel:+919876543210',
+    value: '+91 70758 27625',
+    href: 'tel:+917075827625',
     description: 'Mon-Sat, 10AM-7PM IST',
   },
 ];
@@ -36,10 +36,8 @@ const officeInfo = {
   timing: '10:00 AM - 7:00 PM IST',
 };
 
-function ContactSecondaryCards() {
+export function WhatsAppCard() {
   return (
-    <>
-      {/* WhatsApp CTA */}
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -61,7 +59,7 @@ function ContactSecondaryCards() {
             </div>
           </div>
           <Button
-            onClick={() => window.open('https://wa.me/919876543210?text=Hi%20Houspire!%20I%20have%20a%20question.', '_blank')}
+            onClick={() => window.open('https://api.whatsapp.com/send/?phone=917075827625&text=Hi%2C+I%27m+interested+in+Houspire%27s+interior+design+services.+Can+you+help+me+get+started%3F&type=phone_number&app_absent=0', '_blank')}
             className="w-full h-11 text-white rounded-xl"
             style={{ backgroundColor: 'color-mix(in srgb, var(--color-secondary) 90%, black)' }}
           >
@@ -70,8 +68,11 @@ function ContactSecondaryCards() {
           </Button>
         </Card>
       </motion.div>
+  );
+}
 
-      {/* Response Promise */}
+export function PromiseCard() {
+  return (
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -88,6 +89,14 @@ function ContactSecondaryCards() {
           </p>
         </Card>
       </motion.div>
+  );
+}
+
+function ContactSecondaryCards() {
+  return (
+    <>
+      <WhatsAppCard />
+      <PromiseCard />
     </>
   );
 }
@@ -134,6 +143,7 @@ export function ContactSidebar({ includeSecondary = true }) {
       </motion.div>
 
       {/* Office Location */}
+      {/* 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -141,7 +151,6 @@ export function ContactSidebar({ includeSecondary = true }) {
         viewport={{ once: true }}
       >
         <Card className="overflow-hidden border-border/50">
-          {/* Map Placeholder */}
           <div className="h-60 bg-gradient-to-br from-slate-100 to-amber-50 flex items-center justify-center relative" style={{ backgroundColor: 'color-mix(in srgb, var(--color-accent) 10%, transparent)' }}>
             <div className="absolute inset-0 bg-[linear-gradient(rgba(0,0,0,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(0,0,0,0.02)_1px,transparent_1px)] bg-[size:20px_20px]" />
             <div className="w-12 h-12 rounded-full flex items-center justify-center shadow-lg" style={{ backgroundColor: 'var(--color-primary)' }}>
@@ -165,6 +174,7 @@ export function ContactSidebar({ includeSecondary = true }) {
           </div>
         </Card>
       </motion.div>
+      */}
 
       {includeSecondary && <ContactSecondaryCards />}
     </div>
@@ -173,7 +183,7 @@ export function ContactSidebar({ includeSecondary = true }) {
 
 export function ContactSidebarSecondary() {
   return (
-    <div className="grid gap-6 md:grid-cols-2">
+    <div className="grid gap-6 grid-cols-1">
       <ContactSecondaryCards />
     </div>
   );

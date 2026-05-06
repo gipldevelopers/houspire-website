@@ -131,8 +131,8 @@ export function InvoiceGenerator({ projectId, data }) {
             <div className="mt-2 text-sm text-muted-foreground">
               <p>Interior Design Services</p>
               <p>Hyderabad, India</p>
-              <p>support@houspire.ai</p>
-              <p>+91 98765 43210</p>
+              <p>hello@houspire.ai</p>
+              <p>+91 70758 27625</p>
               <p className="mt-1 font-medium">
                 GSTIN: 29XXXXX1234X1ZX
               </p>
@@ -229,7 +229,7 @@ export function InvoiceGenerator({ projectId, data }) {
           </p>
           <p className="mb-2">
             Note: Thank you for choosing Houspire! For any
-            queries, contact support@houspire.ai
+            queries, contact hello@houspire.ai
           </p>
           <p className="text-xs italic">
             This is a computer-generated invoice and does not require a signature

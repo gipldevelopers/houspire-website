@@ -195,7 +195,7 @@ function VerifyEmailContent() {
           <div className="mt-6 text-center">
             <p className="text-sm text-muted-foreground">
               Didn't receive the email? Check your spam folder or{' '}
-              <a href="mailto:support@houspire.com" className="text-foreground underline">
+              <a href="mailto:hello@houspire.ai" className="text-foreground underline">
                 contact support
               </a>
             </p>

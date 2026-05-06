@@ -10,7 +10,7 @@ export const MOCK_USER = {
   profile: {
     first_name: 'Demo',
     last_name: 'User',
-    phone: '+91 9876543210',
+    phone: '+91 70758 27625',
     avatar_url: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&fit=crop',
   }
 };

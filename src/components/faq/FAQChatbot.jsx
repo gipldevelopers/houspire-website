@@ -21,7 +21,7 @@ import { Input } from '@/components/ui/input'
 import { cn } from '@/lib/utils'
 import { SUGGESTED_QUESTIONS, FAQ_DATA, FAQ_CATEGORIES } from '@/lib/faqData'
 import ReactMarkdown from 'react-markdown'
-const WHATSAPP_NUMBER = '919876543210'
+const WHATSAPP_NUMBER = '917075827625'
 const WHATSAPP_URL = `https://wa.me/${WHATSAPP_NUMBER}?text=Hi%20Houspire!%20I%20have%20a%20question.`
 
 const FOLLOWUP_SUGGESTIONS = [

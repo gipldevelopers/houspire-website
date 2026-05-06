@@ -374,7 +374,7 @@ export default function Discover() {
     <div className="min-h-screen bg-background">
       <HeroHighlight className="bg-background">
         {/* Hero Section */}
-        <section className="relative overflow-hidden pt-20 pb-5 md:pt-24 md:pb-8">
+        <section className="relative overflow-hidden pt-20 pb-2 md:pt-24 md:pb-4">
           <div className="absolute inset-0 -z-10">
             <div className="absolute -top-24 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-primary/5 blur-3xl" />
             <div className="absolute right-[-120px] top-10 h-[360px] w-[360px] rounded-full bg-accent/10 blur-3xl" />
@@ -394,20 +394,22 @@ export default function Discover() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.1 }}
-                className="max-w-[1100px] text-balance text-center text-[clamp(34px,4.8vw,58px)] font-bold tracking-tight leading-[1.02]"
+                className="max-w-[1100px] text-balance text-center text-[clamp(24px,3.5vw,42px)] font-bold tracking-tight leading-[1.1]"
                 style={{ color: 'var(--color-heading-main)' }}
               >
-                Explore real homes by <br /> style, room & budget
+                Explore real homes by style, room & budget
               </motion.h1>
 
-              <div className="w-full max-w-[960px]">
+{/*               
+              <div className="w-full max-w-[960px] mt-2">
                 <GalleryCtaBanner />
               </div>
+              */}
             </div>
           </Container>
         </section>
 
-        <div className="pb-8">
+        <div className="pb-4">
           <Container>
             <motion.div
               initial={{ opacity: 0, y: 20 }}

@@ -33,7 +33,7 @@ export function VendorManager({ projectId }) {
                 name: 'Urban Ladder',
                 category: 'furniture',
                 contact_name: 'Rahul Sharma',
-                phone: '+91 98765 43210',
+                phone: '+91 70758 27625',
                 email: 'rahul@urbanladder.com',
                 address: 'Koramangala, Bangalore',
                 website: 'https://urbanladder.com',
@@ -274,7 +274,7 @@ function VendorForm({ formData, setFormData, onSubmit, submitLabel, }) {
         </div>
         <div>
           <Label>Phone</Label>
-          <Input value={formData.phone || ''} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} placeholder="+91 98765 43210"/>
+          <Input value={formData.phone || ''} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} placeholder="+91 70758 27625"/>
         </div>
       </div>
 

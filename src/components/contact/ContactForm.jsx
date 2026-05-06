@@ -186,7 +186,7 @@ export function ContactForm() {
             <Input
               id="phone"
               {...register('phone')}
-              placeholder="+91 98765 43210"
+              placeholder="+91 99999 99999"
               className={`h-12 rounded-xl ${errors.phone ? 'border-destructive focus-visible:ring-destructive' : ''}`}
             />
             <AnimatePresence>

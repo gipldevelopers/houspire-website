@@ -243,7 +243,7 @@ export function generateInvoiceHTML(payment, project, user) {
 
         <div class="footer">
           <p class="thank-you">Thank you for choosing Houspire! 🏠</p>
-          <p>For support, contact: support@houspire.com</p>
+          <p>For support, contact: hello@houspire.ai</p>
           <p>Houspire Interior Design Pvt. Ltd.</p>
           <p>GSTIN: XXXXXXXXXXXXXXXXX</p>
         </div>

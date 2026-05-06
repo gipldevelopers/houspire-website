@@ -121,7 +121,7 @@ Material specifications including brands, colors, and finishes.
 ---
 
 For questions or support:
-Email: support@houspire.com
+Email: hello@houspire.ai
 Website: https://houspire.com
 
 © ${new Date().getFullYear()} Houspire. All rights reserved.
