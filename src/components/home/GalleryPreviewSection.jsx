@@ -214,7 +214,7 @@ export function GalleryPreviewSection() {
   const activeDesign = displayDesigns[activeIndex] || displayDesigns[0];
 
   return (
-    <section ref={ref} className="bg-background py-16 md:py-16">
+    <section ref={ref} className="bg-background py-6 md:py-12">
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
