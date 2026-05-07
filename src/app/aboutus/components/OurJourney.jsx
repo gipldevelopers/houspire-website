@@ -55,7 +55,7 @@ export default function OurJourney() {
     >
       <div className="absolute inset-0 opacity-[0.03] mix-blend-overlay pointer-events-none bg-background" />
 
-      <div className="relative mx-auto max-w-7xl px-6">
+      <div className="relative mx-auto max-w-10xl px-6">
         <div className="mb-14 text-center">
           {/* <motion.div
             initial={{ opacity: 0, y: 10 }}

@@ -1,105 +1,101 @@
-'use client';
+"use client";
 
-import { motion } from 'framer-motion';
-import { Container } from '@/components/layout/Container';
-import { Badge } from '@/components/ui/badge';
-import { Lightbulb, Palette, Zap } from 'lucide-react';
+import { motion } from "framer-motion";
 
-const approachItems = [
-  {
-    icon: Palette,
-    title: 'Expert Creative Direction',
-    description: 'Experienced design professionals guide every project — choosing styles, curating materials, and ensuring every design feels personal to your space.',
-  },
-  {
-    icon: Zap,
-    title: 'Advanced Design Technology',
-    description: 'We use cutting-edge visualization technology to create photorealistic room designs in hours, not weeks. This is how we deliver professional quality at a fraction of traditional costs.',
-  },
-  {
-    icon: Lightbulb,
-    title: 'Human Quality Review',
-    description: 'Every design goes through a professional review before delivery. Technology handles speed; our team ensures quality, accuracy, and that personal touch.',
-  },
-];
+export default function MeetFounders() {
+  const founders = [
+    {
+      name: "ABHISHEK SHARMA",
+      role: "CEO",
+      bio: "Watched his own family get ripped off. Started Houspire to kill opaque pricing. Believes Indian renovation doesn't need more contractors — it needs honest planning.",
+    },
+    {
+      name: "SALONI MEHTA",
+      role: "DESIGN HEAD",
+      bio: "A decade in Mumbai & Delhi. Saw designers forced to prioritize vendor margins over client dreams. Built Houspire's process to kill the guessing game.",
+    },
+  ];
 
-const teamStats = [
-  { label: 'Average Experience', value: '8+ years' },
-  { label: 'Design Styles', value: '15+ covered' },
-  { label: 'Cities Served', value: '25+ across India' },
-];
-
-export function TeamSection() {
   return (
-    <section className="py-20 md:py-28">
-      <Container>
-        {/* Section Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <Badge className="mb-4 bg-accent/10 text-accent border-0">
-            Our Approach
-          </Badge>
-          <h2 className="text-3xl md:text-5xl font-semibold text-foreground mb-4">
-            Design Expertise Meets Smart Technology
-          </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
-            We combine experienced design professionals with advanced technology to deliver professional results in 72 hours instead of 3–6 weeks.
-          </p>
-        </motion.div>
-
-        {/* Approach Cards */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16 max-w-5xl mx-auto">
-          {approachItems.map((item, idx) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: idx * 0.15 }}
-              viewport={{ once: true }}
-              className="group relative bg-secondary/30 rounded-3xl p-8 hover:bg-secondary/50 transition-all duration-500"
+    <section
+      className="border-y border-[var(--color-border)]"
+      style={{ backgroundColor: "var(--color-background)" }}
+    >
+      <div className="mx-auto max-w-6xl px-4 py-6">
+        {/* Header - single line */}
+        <div className="mb-4 flex flex-wrap items-baseline justify-between gap-2 border-b border-[var(--color-border)] pb-2">
+          <div className="flex items-center gap-1.5">
+            <span className="text-[8px] font-mono" style={{ color: "var(--color-primary)" }}>
+              ⬤
+            </span>
+            <span
+              className="text-[9px] font-mono font-bold tracking-[0.2em]"
+              style={{ color: "var(--color-primary)" }}
             >
-              <div className="flex flex-col items-center text-center">
-                <div className="w-16 h-16 rounded-2xl bg-accent/10 flex items-center justify-center mb-6">
-                  <item.icon className="w-8 h-8 text-accent" />
-                </div>
-                <h3 className="text-xl font-semibold text-foreground mb-3">
-                  {item.title}
-                </h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {item.description}
-                </p>
+              MEET THE FOUNDERS
+            </span>
+          </div>
+          <span
+            className="text-[9px] font-mono tracking-wide"
+            style={{ color: "var(--color-description)" }}
+          >
+            NO VC ● BOOTSTRAPPED ● INDIAN
+          </span>
+        </div>
+
+        {/* Founders - side by side with divider */}
+        <div className="grid grid-cols-2 gap-0">
+          {founders.map((founder, idx) => (
+            <motion.div
+              key={founder.name}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: idx * 0.1 }}
+              className={`py-3 ${idx === 0 ? "pr-4 border-r border-[var(--color-border)]" : "pl-4"}`}
+            >
+              {/* Name and role - same line */}
+              <div className="flex flex-wrap items-baseline justify-between gap-1 mb-2">
+                <span
+                  className="text-[11px] font-black tracking-tight"
+                  style={{ color: "var(--color-heading-secondary)" }}
+                >
+                  {founder.name}
+                </span>
+                <span
+                  className="text-[8px] font-mono font-bold tracking-[0.15em]"
+                  style={{ color: "var(--color-primary)" }}
+                >
+                  {founder.role}
+                </span>
               </div>
+
+              {/* Bio - dense */}
+              <p
+                className="text-[11px] leading-[1.3] tracking-tight"
+                style={{ color: "var(--color-description)" }}
+              >
+                {founder.bio}
+              </p>
             </motion.div>
           ))}
         </div>
 
-        {/* Team Stats */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          viewport={{ once: true }}
-          className="bg-gradient-to-r from-accent/10 via-purple-500/10 to-accent/10 rounded-3xl p-8 md:p-12"
-        >
-          <div className="grid md:grid-cols-3 gap-8 text-center">
-            {teamStats.map((stat) => (
-              <div key={stat.label}>
-                <div className="text-3xl md:text-4xl font-bold text-foreground mb-2">
-                  {stat.value}
-                </div>
-                <div className="text-muted-foreground">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </motion.div>
-      </Container>
+        {/* Footer line */}
+        <div className="mt-3 pt-2 border-t border-[var(--color-border)] flex justify-between">
+          <span className="text-[8px] font-mono" style={{ color: "var(--color-primary)" }}>
+            ●
+          </span>
+          <span
+            className="text-[8px] font-mono tracking-[0.15em]"
+            style={{ color: "var(--color-description)" }}
+          >
+            BUILT FOR HOMEOWNERS ● BY HOMEOWNERS
+          </span>
+          <span className="text-[8px] font-mono" style={{ color: "var(--color-primary)" }}>
+            ●
+          </span>
+        </div>
+      </div>
     </section>
   );
 }

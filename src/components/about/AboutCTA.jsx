@@ -2,60 +2,45 @@
 
 import { motion } from 'framer-motion';
 import { Container } from '@/components/layout/Container';
-import { Button } from '@/components/ui/button';
 import { useRouter } from 'next/navigation';
-import { ArrowRight, Sparkles } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export function AboutCTA() {
   const router = useRouter();
 
   return (
-    <section className="py-20 md:py-28 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-accent via-orange-500 to-purple-600" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,_var(--tw-gradient-stops))] from-white/10 via-transparent to-transparent" />
-      
+    <section className="py-20 md:py-28 relative overflow-hidden bg-[#EC7446]">
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_110%,rgba(0,0,0,0.18),transparent)]" />
+
       <Container className="relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 28 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
           className="text-center text-white"
         >
-          <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm rounded-full px-4 py-2 mb-6">
-            <Sparkles className="w-4 h-4" />
-            <span className="text-sm font-medium">Join 200+ happy homeowners</span>
-          </div>
-          
-          <h2 className="text-3xl md:text-5xl font-semibold mb-6 leading-tight">
-            Ready to Transform
-            <span className="block">Your Space?</span>
+          <h2 className="text-3xl md:text-5xl font-semibold mb-5 tracking-tight leading-tight">
+            See your home before you build it.
           </h2>
-          
-          <p className="text-white/80 text-lg md:text-xl mb-10 max-w-xl mx-auto">
-            Take our 2-minute style quiz and get matched with your perfect designer. 
-            Your dream home is just ₹499 away.
+          <p className="text-white/80 text-lg md:text-xl mb-10 max-w-xl mx-auto leading-relaxed">
+            Get a photorealistic 3D render of your actual space — your layout, your style — in 72 hours. Flat ₹4,999. No surprises.
           </p>
-          
+
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
+            <button
               onClick={() => router.push('/style-quiz')}
-              size="lg"
-              className="h-14 px-8 bg-white text-foreground hover:bg-white/90 rounded-full text-base font-semibold shadow-xl hover:shadow-2xl transition-all duration-300"
+              className="btn-highlight btn-lg"
             >
-              Start Your Journey
-              <ArrowRight className="h-5 w-5 ml-2" />
-            </Button>
-            
-            <Button
+              Start your plan
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </button>
+            <button
               onClick={() => router.push('/discover')}
-              size="lg"
-              variant="outline"
-              className="h-14 px-8 border-2 border-white/30 bg-transparent text-white hover:bg-white/10 rounded-full text-base font-semibold"
+              className="inline-flex items-center justify-center h-14 px-8 rounded-full border-2 border-white/40 text-white font-semibold text-base hover:bg-white/10 transition-all duration-300"
             >
-              Browse Designs
-            </Button>
+              Browse styles
+            </button>
           </div>
         </motion.div>
       </Container>

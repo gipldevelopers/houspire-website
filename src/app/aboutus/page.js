@@ -4,7 +4,10 @@ import { motion, useScroll, useSpring } from "framer-motion";
 import AboutContactCTA from "./components/AboutContactCTA";
 import AboutHero from "./components/AboutHero";
 import ImageShowcase from "./components/ImageShowcase";
-import OurJourney from "./components/OurJourney";
+import ProblemSolving from "./components/ProblemSolve";
+import HowWeWork from "./components/howwework";
+import MeetFounders from "./components/Ourleader";
+import TeamBehind from "./components/TeamBehind";
 
 export default function AboutPage() {
   const { scrollYProgress } = useScroll();
@@ -28,9 +31,10 @@ export default function AboutPage() {
 
       <div className="relative pt-8">
         <AboutHero />
-        <OurJourney />
+        <ProblemSolving/>
+        <HowWeWork/>
+        <MeetFounders/>
         <AboutContactCTA />
-        <ImageShowcase />
       </div>
 
       <motion.button

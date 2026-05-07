@@ -21,7 +21,7 @@ export default function AboutContactCTA() {
               <div className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/[0.02] px-4 py-2">
                 <span className="h-2 w-2 rounded-full bg-[var(--color-primary)]" />
                 <span className="text-[11px] font-black uppercase tracking-[0.2em] text-[var(--color-primary)]">
-                  Next Step
+                  Our Guarantee
                 </span>
               </div>
 
@@ -31,13 +31,11 @@ export default function AboutContactCTA() {
                 viewport={{ once: true }}
                 className="mt-6 max-w-xl text-4xl font-semibold leading-[1.05] tracking-tight text-[#fffaf3] md:text-4xl"
               >
-                Ready to plan your home with more clarity?
+                100% money-back guarantee
               </motion.h2>
 
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-white/65">
-                If the home page promise resonates, this is where we help you
-                turn that direction into something visual, budget-aware, and
-                ready for execution.
+                If you're not completely satisfied with your plan, we return every rupee. No questions, no conditions. That's how confident we are in the work.
               </p>
 
               <motion.div

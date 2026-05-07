@@ -7,7 +7,6 @@ import { TeamSection } from '@/components/about/TeamSection';
 import { ValuesSection } from '@/components/about/ValuesSection';
 import { AboutCTA } from '@/components/about/AboutCTA';
 
-// Breadcrumb schema for SEO
 const breadcrumbSchema = {
   '@context': 'https://schema.org',
   '@type': 'BreadcrumbList',
@@ -32,17 +31,34 @@ export default function About() {
     <>
       <SEOHead
         title="About Us"
-        description="Houspire is a design intelligence service making professional interior design accessible to every Indian homeowner. Photorealistic designs, itemized budgets, and verified contractors — delivered in 72 hours."
-        keywords={['about houspire', 'interior design service', 'affordable design', 'design intelligence', 'indian interior design']}
+        description="Houspire is India's first planning-first interior design platform. Photorealistic 3D renders of your actual home, 20 design styles, 72-hour delivery — flat ₹4,999. No hidden costs, no contractor commissions."
+        keywords={[
+          'about houspire',
+          'interior design india',
+          'affordable interior design',
+          'photorealistic 3d render',
+          'flat fee interior design',
+        ]}
         schema={[generateOrganizationSchema(), breadcrumbSchema]}
       />
-      
+
       <div className="min-h-screen bg-background pt-16">
+        {/* Dark hero — our story */}
         <AboutHero />
+
+        {/* Problems we solve — numbered cards on ivory */}
         <StatsSection />
+
+        {/* How we work — dark section with feature chips */}
         <MissionSection />
+
+        {/* Founders + team — ivory */}
         <TeamSection />
+
+        {/* Money-back guarantee */}
         <ValuesSection />
+
+        {/* CTA — terracotta */}
         <AboutCTA />
       </div>
     </>
