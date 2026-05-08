@@ -8,7 +8,6 @@ import {
   Clock,
   Shield,
   Handshake,
-  ArrowRight,
   CheckCircle,
 } from "lucide-react";
 
@@ -127,7 +126,7 @@ export default function HowWeWork() {
         </motion.div>
 
         {/* Features Grid */}
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-6 lg:gap-6">
+        <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
           {features.map((feature, index) => (
             <motion.div
               key={feature.title}
@@ -138,25 +137,19 @@ export default function HowWeWork() {
               className="group relative"
             >
               <div className="absolute -inset-px rounded-2xl bg-gradient-to-r from-[var(--color-primary)]/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              <div className="relative rounded-xl border border-[var(--color-border)] bg-white p-5 transition-all duration-300 hover:shadow-md md:p-6">
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[var(--color-primary)]/10 transition-all duration-300 group-hover:scale-110 group-hover:bg-[var(--color-primary)]/20">
+              <div className="relative flex flex-col items-start gap-3 rounded-xl border border-[var(--color-border)] bg-white p-4 transition-all duration-300 hover:shadow-md">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-primary)]/10 transition-all duration-300 group-hover:scale-110 group-hover:bg-[var(--color-primary)]/20">
                   <feature.icon
-                    className="h-6 w-6"
+                    className="h-5 w-5"
                     style={{ color: "var(--color-primary)" }}
                   />
                 </div>
                 <h3
-                  className="mb-0 text-lg font-semibold tracking-tight md:text-xl"
+                  className="text-sm font-semibold leading-snug tracking-tight"
                   style={{ color: "var(--color-heading-secondary)" }}
                 >
                   {feature.title}
                 </h3>
-                {/* <p
-                  className="text-sm leading-relaxed md:text-base"
-                  style={{ color: "var(--color-description)" }}
-                >
-                  {feature.description}
-                </p> */}
               </div>
             </motion.div>
           ))}

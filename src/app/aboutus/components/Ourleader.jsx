@@ -54,7 +54,7 @@ export default function MeetFounders() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="mb-14 text-center"
+          className="mb-6 text-center"
         >
           <div
             className="mb-4 inline-flex items-center gap-2 rounded-full border px-4 py-1.5"
