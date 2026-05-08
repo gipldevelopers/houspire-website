@@ -103,41 +103,45 @@ export function BudgetComfort({ answers, onNext, onBack }) {
                 relative rounded-2xl border-2 overflow-hidden text-left
                 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground
                 ${isSelected
-                    ? 'border-foreground shadow-xl scale-[1.02]'
+                    ? 'border-slate-900 shadow-xl scale-[1.02] bg-slate-900'
                     : 'border-border hover:border-foreground/30 hover:shadow-lg bg-card'}
               `}>
-              {/* Popular Badge */}
-              {option.popular && (<div className="absolute top-0 right-0">
-                  <div className="bg-foreground text-background text-xs font-semibold px-3 py-1 rounded-bl-lg">
-                    Most Popular
+              {/* Main Content Area */}
+              <div className="relative w-full h-full">
+                {/* Header Section - Fills the top completely */}
+                <div className={`p-5 md:p-6 pb-8 ${isSelected ? 'bg-slate-900 text-white' : 'bg-muted/60'}`}>
+                  {/* Popular Badge */}
+                  {option.popular && (<div className="absolute top-0 right-0 z-10">
+                      <div className="bg-slate-900 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-bl-lg">
+                        Most Popular
+                      </div>
+                    </div>)}
+
+                  {/* Selection Indicator */}
+                  {isSelected && (<div className="absolute top-4 left-4 w-6 h-6 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center border border-white/30 z-10">
+                      <Check className="h-3.5 w-3.5 text-white"/>
+                    </div>)}
+
+                  <div className="pt-2">
+                    <p className="text-3xl md:text-4xl mb-4">{option.icon}</p>
+                    <h3 className={`font-bold text-lg md:text-xl leading-tight ${isSelected ? 'text-white' : 'text-slate-900'}`}>
+                      {option.name}
+                    </h3>
+                    <p className={`text-base md:text-lg font-semibold mt-1 ${isSelected ? 'text-white/90' : 'text-slate-900'}`}>
+                      {option.range}
+                    </p>
+                    <p className={`text-sm mt-2 leading-relaxed ${isSelected ? 'text-white/70' : 'text-muted-foreground'}`}>
+                      {option.description}
+                    </p>
                   </div>
-                </div>)}
-
-              {/* Header */}
-              <div className={`p-5 md:p-6 ${isSelected ? 'bg-foreground text-background' : 'bg-muted'}`}>
-                <p className="text-3xl md:text-4xl mb-3">{option.icon}</p>
-                <h3 className="font-bold text-lg md:text-xl">
-                  {option.name}
-                </h3>
-                <p className={`text-base md:text-lg font-semibold mt-1 ${isSelected ? 'text-background/90' : 'text-foreground'}`}>
-                  {option.range}
-                </p>
-                <p className={`text-sm mt-2 ${isSelected ? 'text-background/70' : 'text-muted-foreground'}`}>
-                  {option.description}
-                </p>
-              </div>
-
-              {/* Check Icon */}
-              {isSelected && (<div className="absolute top-4 left-4 w-7 h-7 rounded-full bg-background flex items-center justify-center">
-                  <Check className="h-4 w-4 text-foreground"/>
-                </div>)}
+                </div>
 
               {/* Features */}
               <div className="p-5 md:p-6 bg-card">
                 <ul className="space-y-2.5">
                   {option.features.map((feature, featureIdx) => (<li key={featureIdx} className="flex items-start gap-3">
                       <div className={`w-5 h-5 rounded-full flex items-center justify-center mt-0.5 flex-shrink-0 ${isSelected ? 'bg-foreground' : 'bg-muted'}`}>
-                        <Check className={`h-3 w-3 ${isSelected ? 'text-background' : 'text-muted-foreground'}`}/>
+                        <Check className={`h-3 w-3 ${isSelected ? 'text-white' : 'text-muted-foreground'}`}/>
                       </div>
                       <span className="text-sm text-foreground">
                         {feature}
@@ -151,7 +155,8 @@ export function BudgetComfort({ answers, onNext, onBack }) {
                   <span>{formatCount(getSocialProofCount(option.id))} chose this</span>
                 </div>
               </div>
-            </motion.button>);
+            </div>
+          </motion.button>);
         })}
       </motion.div>
 

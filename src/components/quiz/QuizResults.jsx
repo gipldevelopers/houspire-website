@@ -21,7 +21,7 @@ const STYLE_DATA = {
         roomImages: {
             living: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&h=600&fit=crop',
             bedroom: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&h=600&fit=crop',
-            kitchen: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&h=600&fit=crop'
+            kitchen: '/modern_minimalist_kitchen.png'
         },
         keyFeatures: ['Clean geometric lines', 'Neutral color base', 'Hidden storage', 'Statement lighting'],
         designerCount: 8,
@@ -34,8 +34,8 @@ const STYLE_DATA = {
         description: 'Current trends meet timeless appeal for sophisticated modern living.',
         coverImage: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&h=800&fit=crop',
         roomImages: {
-            living: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop',
-            bedroom: 'https://images.unsplash.com/photo-1617335767631-e409ad9d479b?w=800&h=600&fit=crop',
+            living: 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=800&h=600&fit=crop',
+            bedroom: 'https://images.unsplash.com/photo-1595428774223-ef048827c5d4?w=800&h=600&fit=crop',
             kitchen: 'https://images.unsplash.com/photo-1588854337236-6889d631faa8?w=800&h=600&fit=crop'
         },
         keyFeatures: ['Sleek finishes', 'Open floor plans', 'Mix of textures', 'Bold accents'],
@@ -50,7 +50,7 @@ const STYLE_DATA = {
         coverImage: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&h=800&fit=crop',
         roomImages: {
             living: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800&h=600&fit=crop',
-            bedroom: 'https://images.unsplash.com/photo-1617325252241-d130a8c14620?w=800&h=600&fit=crop',
+            bedroom: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&h=600&fit=crop',
             kitchen: 'https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?w=800&h=600&fit=crop'
         },
         keyFeatures: ['Natural light focus', 'Light wood tones', 'Cozy textiles', 'Functional beauty'],
@@ -661,10 +661,10 @@ export function QuizResults({ answers }) {
                   <div className="space-y-2">
                     <h4 className="text-sm font-medium text-muted-foreground">Key Characteristics</h4>
                     <div className="flex flex-wrap gap-2">
-                      {primaryStyle.keyFeatures.map((feature, i) => (<Badge key={i} variant="secondary" className="rounded-full">
-                          {feature}
-                        </Badge>))}
-                    </div>
+                    {primaryStyle.keyFeatures.map((feature, i) => (<Badge key={i} variant="secondary" className="bg-slate-800 text-white hover:bg-slate-700 border-none px-3 py-1 text-[10px]">
+                        {feature}
+                      </Badge>))}
+                  </div>
                   </div>
 
                   {/* Style info */}
