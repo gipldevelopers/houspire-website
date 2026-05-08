@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useEffect, useCallback } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -779,7 +781,11 @@ export function QuizResults({ answers }) {
                   <p className="text-sm text-muted-foreground line-clamp-2 mb-3">
                     {style.description}
                   </p>
-                  <Button variant="ghost" size="sm" className="w-full group-hover:bg-primary/10">
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors border-primary/20"
+                  >
                     <Eye className="h-4 w-4 mr-2"/>
                     View Style
                   </Button>
@@ -793,7 +799,7 @@ export function QuizResults({ answers }) {
       {/* Share/Save */}
       <div className="flex flex-col items-center gap-4 pb-8">
         <div className="flex justify-center gap-4">
-          <Button variant="ghost" size="sm" onClick={handleShareResults} disabled={shareState === 'copied'}>
+          <Button variant="outline" size="sm" onClick={handleShareResults} disabled={shareState === 'copied'}>
             {shareState === 'copied' ? (<>
                 <CheckCircle className="h-4 w-4 mr-2 text-green-500"/>
                 Copied!
@@ -802,7 +808,7 @@ export function QuizResults({ answers }) {
                 Share Results
               </>)}
           </Button>
-          <Button variant="ghost" size="sm" onClick={handleSaveAsPdf} disabled={generatingPdf}>
+          <Button variant="outline" size="sm" onClick={handleSaveAsPdf} disabled={generatingPdf}>
             {generatingPdf ? (<>
                 <Loader2 className="h-4 w-4 mr-2 animate-spin"/>
                 Generating...

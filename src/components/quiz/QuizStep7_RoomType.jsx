@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, Check, Users, Sparkles } from 'lucide-react';
