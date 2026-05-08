@@ -11,7 +11,7 @@ const ROOM_OPTIONS = [
         icon: '🛋️',
         description: 'Main gathering space for family and guests',
         commonElements: ['Sofa', 'TV unit', 'Coffee table', 'Lighting'],
-        image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=600&h=400&fit=crop&q=80',
+        image: 'https://images.unsplash.com/photo-1583847268964-b28dc8f51f92?w=800&h=600&fit=crop',
     },
     {
         id: 'bedroom',
@@ -19,7 +19,7 @@ const ROOM_OPTIONS = [
         icon: '🛏️',
         description: 'Personal sanctuary for rest and relaxation',
         commonElements: ['Bed', 'Wardrobe', 'Side tables', 'Lighting'],
-        image: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=600&h=400&fit=crop&q=80',
+        image: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&h=600&fit=crop',
     },
     {
         id: 'kitchen',
@@ -27,7 +27,7 @@ const ROOM_OPTIONS = [
         icon: '🍳',
         description: 'Functional cooking and dining space',
         commonElements: ['Cabinets', 'Countertops', 'Appliances', 'Storage'],
-        image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=600&h=400&fit=crop&q=80',
+        image: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&h=600&fit=crop',
     },
     {
         id: 'dining_room',
@@ -35,7 +35,7 @@ const ROOM_OPTIONS = [
         icon: '🍽️',
         description: 'Space for meals and entertaining',
         commonElements: ['Dining table', 'Chairs', 'Storage', 'Lighting'],
-        image: 'https://images.unsplash.com/photo-1617098900591-3f90928e8c54?w=600&h=400&fit=crop&q=80',
+        image: '/dining_room_elegant.png',
     },
     {
         id: 'home_office',
@@ -43,7 +43,7 @@ const ROOM_OPTIONS = [
         icon: '💼',
         description: 'Productive workspace for remote work',
         commonElements: ['Desk', 'Chair', 'Storage', 'Lighting'],
-        image: 'https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=600&h=400&fit=crop&q=80',
+        image: '/home_office_professional.png',
     },
     {
         id: 'kids_room',
@@ -51,7 +51,7 @@ const ROOM_OPTIONS = [
         icon: '🧸',
         description: 'Playful and functional space for children',
         commonElements: ['Bed', 'Study desk', 'Storage', 'Play area'],
-        image: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&h=400&fit=crop&q=80',
+        image: '/kids_room_premium.png',
     },
     {
         id: 'bathroom',
@@ -59,7 +59,7 @@ const ROOM_OPTIONS = [
         icon: '🚿',
         description: 'Spa-like retreat for daily rituals',
         commonElements: ['Vanity', 'Fixtures', 'Storage', 'Tiles'],
-        image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=600&h=400&fit=crop&q=80',
+        image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&h=600&fit=crop',
     },
     {
         id: 'balcony',
@@ -67,7 +67,7 @@ const ROOM_OPTIONS = [
         icon: '🌿',
         description: 'Outdoor oasis for relaxation',
         commonElements: ['Seating', 'Plants', 'Flooring', 'Lighting'],
-        image: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=600&h=400&fit=crop&q=80',
+        image: 'https://images.unsplash.com/photo-1560185007-c5ca9d2c014d?w=800&h=600&fit=crop',
     },
     {
         id: 'full_home',
@@ -75,7 +75,7 @@ const ROOM_OPTIONS = [
         icon: '🏡',
         description: 'Complete interior design for entire home',
         commonElements: ['Multiple rooms', 'Cohesive theme', 'All spaces'],
-        image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=600&h=400&fit=crop&q=80',
+        image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop',
         popular: true,
     },
 ];

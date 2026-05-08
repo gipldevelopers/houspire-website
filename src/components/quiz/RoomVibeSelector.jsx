@@ -11,7 +11,7 @@ const VIBE_OPTIONS = [
         emoji: '🧘',
         description: 'A serene sanctuary for relaxation',
         keywords: ['Zen', 'Tranquil', 'Soothing', 'Meditative'],
-        image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&h=600&fit=crop&q=80',
+        image: 'https://images.unsplash.com/photo-1519710164239-da123dc03ef4?w=800&h=600&fit=crop',
     },
     {
         id: 'energetic_vibrant',
@@ -19,7 +19,7 @@ const VIBE_OPTIONS = [
         emoji: '⚡',
         description: 'Bold, lively, full of personality',
         keywords: ['Dynamic', 'Colorful', 'Exciting', 'Playful'],
-        image: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&h=600&fit=crop&q=80',
+        image: 'https://images.unsplash.com/photo-1565183997392-2f6f122e5912?w=800&h=600&fit=crop',
     },
     {
         id: 'cozy_warm',
@@ -27,7 +27,7 @@ const VIBE_OPTIONS = [
         emoji: '🔥',
         description: 'Inviting comfort and homely warmth',
         keywords: ['Comforting', 'Inviting', 'Snug', 'Homely'],
-        image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=600&fit=crop&q=80',
+        image: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&h=600&fit=crop',
     },
     {
         id: 'sophisticated_elegant',
@@ -35,7 +35,7 @@ const VIBE_OPTIONS = [
         emoji: '💎',
         description: 'Refined luxury with timeless appeal',
         keywords: ['Refined', 'Luxurious', 'Polished', 'Chic'],
-        image: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?w=800&h=600&fit=crop&q=80',
+        image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop',
     },
     {
         id: 'creative_artistic',
@@ -43,7 +43,7 @@ const VIBE_OPTIONS = [
         emoji: '🎨',
         description: 'Express your unique personality',
         keywords: ['Expressive', 'Eclectic', 'Unique', 'Inspired'],
-        image: 'https://images.unsplash.com/photo-1618219944342-824e40a13285?w=800&h=600&fit=crop&q=80',
+        image: 'https://images.unsplash.com/photo-1533090161767-e6ffed986c88?w=800&h=600&fit=crop',
     },
     {
         id: 'fresh_modern',
@@ -51,7 +51,7 @@ const VIBE_OPTIONS = [
         emoji: '✨',
         description: 'Clean, contemporary, forward-thinking',
         keywords: ['Sleek', 'Minimal', 'Current', 'Streamlined'],
-        image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop&q=80',
+        image: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800&h=600&fit=crop',
     },
 ];
 export function RoomVibeSelector({ answers, onNext, onBack }) {

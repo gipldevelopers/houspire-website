@@ -17,7 +17,12 @@ const STYLE_DATA = {
         slug: 'modern-minimalist',
         name: 'Modern Minimalist',
         description: 'Clean lines, neutral palettes, and purposeful design create spaces that breathe.',
-        coverImage: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&h=600&fit=crop',
+        coverImage: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=1200&h=800&fit=crop',
+        roomImages: {
+            living: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&h=600&fit=crop',
+            bedroom: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&h=600&fit=crop',
+            kitchen: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&h=600&fit=crop'
+        },
         keyFeatures: ['Clean geometric lines', 'Neutral color base', 'Hidden storage', 'Statement lighting'],
         designerCount: 8,
         projectsCompleted: 320,
@@ -27,7 +32,12 @@ const STYLE_DATA = {
         slug: 'contemporary',
         name: 'Contemporary',
         description: 'Current trends meet timeless appeal for sophisticated modern living.',
-        coverImage: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=800&h=600&fit=crop',
+        coverImage: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?w=1200&h=800&fit=crop',
+        roomImages: {
+            living: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop',
+            bedroom: 'https://images.unsplash.com/photo-1617335767631-e409ad9d479b?w=800&h=600&fit=crop',
+            kitchen: 'https://images.unsplash.com/photo-1588854337236-6889d631faa8?w=800&h=600&fit=crop'
+        },
         keyFeatures: ['Sleek finishes', 'Open floor plans', 'Mix of textures', 'Bold accents'],
         designerCount: 6,
         projectsCompleted: 280,
@@ -37,7 +47,12 @@ const STYLE_DATA = {
         slug: 'scandinavian',
         name: 'Scandinavian',
         description: 'Light, airy spaces with natural materials and hygge comfort.',
-        coverImage: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=800&h=600&fit=crop',
+        coverImage: 'https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?w=1200&h=800&fit=crop',
+        roomImages: {
+            living: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800&h=600&fit=crop',
+            bedroom: 'https://images.unsplash.com/photo-1617325252241-d130a8c14620?w=800&h=600&fit=crop',
+            kitchen: 'https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?w=800&h=600&fit=crop'
+        },
         keyFeatures: ['Natural light focus', 'Light wood tones', 'Cozy textiles', 'Functional beauty'],
         designerCount: 5,
         projectsCompleted: 190,
@@ -47,7 +62,12 @@ const STYLE_DATA = {
         slug: 'traditional-indian',
         name: 'Traditional Indian',
         description: 'Rich heritage, ornate details, and cultural warmth in every corner.',
-        coverImage: 'https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=800&h=600&fit=crop',
+        coverImage: 'https://images.unsplash.com/photo-1600121848594-d8644e57abab?w=1200&h=800&fit=crop',
+        roomImages: {
+            living: 'https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?w=800&h=600&fit=crop',
+            bedroom: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=800&h=600&fit=crop',
+            kitchen: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&h=600&fit=crop'
+        },
         keyFeatures: ['Handcrafted textiles', 'Brass & copper accents', 'Carved woodwork', 'Vibrant colors'],
         designerCount: 7,
         projectsCompleted: 350,
@@ -57,7 +77,12 @@ const STYLE_DATA = {
         slug: 'bohemian',
         name: 'Bohemian',
         description: 'Eclectic, colorful, and full of artistic self-expression.',
-        coverImage: 'https://images.unsplash.com/photo-1618219944342-824e40a13285?w=800&h=600&fit=crop',
+        coverImage: 'https://images.unsplash.com/photo-1618219944342-824e40a13285?w=1200&h=800&fit=crop',
+        roomImages: {
+            living: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&h=600&fit=crop',
+            bedroom: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&h=600&fit=crop',
+            kitchen: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&h=600&fit=crop'
+        },
         keyFeatures: ['Layered patterns', 'Global influences', 'Plants everywhere', 'Collected treasures'],
         designerCount: 4,
         projectsCompleted: 150,
@@ -67,7 +92,12 @@ const STYLE_DATA = {
         slug: 'industrial',
         name: 'Industrial',
         description: 'Raw materials, urban edge, and artisanal character.',
-        coverImage: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&h=600&fit=crop',
+        coverImage: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=1200&h=800&fit=crop',
+        roomImages: {
+            living: 'https://images.unsplash.com/photo-1515542706656-8e6ef17a1521?w=800&h=600&fit=crop',
+            bedroom: 'https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&h=600&fit=crop',
+            kitchen: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=800&h=600&fit=crop'
+        },
         keyFeatures: ['Exposed brick', 'Metal accents', 'Edison lighting', 'Open ductwork'],
         designerCount: 3,
         projectsCompleted: 120,
@@ -77,7 +107,12 @@ const STYLE_DATA = {
         slug: 'coastal',
         name: 'Coastal',
         description: 'Relaxed beach vibes with ocean-inspired serenity.',
-        coverImage: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=800&h=600&fit=crop',
+        coverImage: 'https://images.unsplash.com/photo-1600047509807-ba8f99d2cdde?w=1200&h=800&fit=crop',
+        roomImages: {
+            living: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&h=600&fit=crop',
+            bedroom: 'https://images.unsplash.com/photo-1600210491892-03d54c0aaf87?w=800&h=600&fit=crop',
+            kitchen: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&h=600&fit=crop'
+        },
         keyFeatures: ['Blue & white palette', 'Natural fibers', 'Light woods', 'Indoor-outdoor flow'],
         designerCount: 4,
         projectsCompleted: 140,
@@ -87,7 +122,12 @@ const STYLE_DATA = {
         slug: 'art-deco',
         name: 'Art Deco',
         description: 'Glamorous geometry, luxe materials, and bold sophistication.',
-        coverImage: 'https://images.unsplash.com/photo-1600494603989-9650cf6dbc4b?w=800&h=600&fit=crop',
+        coverImage: 'https://images.unsplash.com/photo-1600494603989-9650cf6dbc4b?w=1200&h=800&fit=crop',
+        roomImages: {
+            living: 'https://images.unsplash.com/photo-1503174971373-b1f69850bded?w=800&h=600&fit=crop',
+            bedroom: 'https://images.unsplash.com/photo-1600566752355-35792bedcfea?w=800&h=600&fit=crop',
+            kitchen: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&h=600&fit=crop'
+        },
         keyFeatures: ['Geometric patterns', 'Gold & brass', 'Velvet textures', 'Statement mirrors'],
         designerCount: 3,
         projectsCompleted: 95,
@@ -97,7 +137,12 @@ const STYLE_DATA = {
         slug: 'japanese-zen',
         name: 'Japanese Zen',
         description: 'Peaceful simplicity, natural balance, and mindful spaces.',
-        coverImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop',
+        coverImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=1200&h=800&fit=crop',
+        roomImages: {
+            living: 'https://images.unsplash.com/photo-1542013936693-884638332954?w=800&h=600&fit=crop',
+            bedroom: 'https://images.unsplash.com/photo-1616594039964-ae9021a400a0?w=800&h=600&fit=crop',
+            kitchen: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&h=600&fit=crop'
+        },
         keyFeatures: ['Wabi-sabi aesthetic', 'Natural materials', 'Minimal furniture', 'Indoor gardens'],
         designerCount: 2,
         projectsCompleted: 75,
@@ -107,7 +152,12 @@ const STYLE_DATA = {
         slug: 'maximalist',
         name: 'Maximalist',
         description: 'Bold expression, curated abundance, and fearless color.',
-        coverImage: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=800&h=600&fit=crop',
+        coverImage: 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=1200&h=800&fit=crop',
+        roomImages: {
+            living: 'https://images.unsplash.com/photo-1618219944342-824e40a13285?w=800&h=600&fit=crop',
+            bedroom: 'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&h=600&fit=crop',
+            kitchen: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&h=600&fit=crop'
+        },
         keyFeatures: ['Pattern mixing', 'Rich colors', 'Gallery walls', 'Eclectic collections'],
         designerCount: 3,
         projectsCompleted: 85,
@@ -117,7 +167,12 @@ const STYLE_DATA = {
         slug: 'rustic-farmhouse',
         name: 'Rustic Farmhouse',
         description: 'Natural warmth, vintage character, and countryside charm.',
-        coverImage: 'https://images.unsplash.com/photo-1616137466211-f939a420be84?w=800&h=600&fit=crop',
+        coverImage: 'https://images.unsplash.com/photo-1616137466211-f939a420be84?w=1200&h=800&fit=crop',
+        roomImages: {
+            living: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop',
+            bedroom: 'https://images.unsplash.com/photo-1617335767631-e409ad9d479b?w=800&h=600&fit=crop',
+            kitchen: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&h=600&fit=crop'
+        },
         keyFeatures: ['Reclaimed wood', 'Farmhouse sinks', 'Vintage finds', 'Natural stone'],
         designerCount: 4,
         projectsCompleted: 160,
@@ -127,7 +182,12 @@ const STYLE_DATA = {
         slug: 'mid-century-modern',
         name: 'Mid-Century Modern',
         description: 'Retro 50s-60s charm with iconic furniture and organic forms.',
-        coverImage: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop',
+        coverImage: 'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=1200&h=800&fit=crop',
+        roomImages: {
+            living: 'https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?w=800&h=600&fit=crop',
+            bedroom: 'https://images.unsplash.com/photo-1617335767631-e409ad9d479b?w=800&h=600&fit=crop',
+            kitchen: 'https://images.unsplash.com/photo-1556911220-bff31c812dba?w=800&h=600&fit=crop'
+        },
         keyFeatures: ['Iconic furniture', 'Organic curves', 'Bold colors', 'Teak & walnut'],
         designerCount: 4,
         projectsCompleted: 130,
@@ -165,12 +225,13 @@ function calculateStyleMatches(answers) {
     if (answers.styles?.length) {
         answers.styles.forEach((style, idx) => {
             if (styleScores[style] !== undefined) {
-                styleScores[style] += idx === 0 ? 30 : 15; // primary vs secondary
+                // MASSIVE WEIGHT for explicit choices (100 for primary, 50 for secondary)
+                styleScores[style] += idx === 0 ? 100 : 50; 
             }
             // Related styles bonus
             relatedStyles[style]?.forEach(r => {
                 if (styleScores[r] !== undefined)
-                    styleScores[r] += idx === 0 ? 12 : 6;
+                    styleScores[r] += idx === 0 ? 25 : 12;
             });
             // Opposite styles penalty
             oppositeStyles[style]?.forEach(o => {
@@ -543,7 +604,7 @@ export function QuizResults({ answers }) {
         <p className="mt-4 text-muted-foreground">Analyzing your style preferences...</p>
       </div>);
     }
-    return (<div className="space-y-10 max-w-5xl mx-auto px-4">
+    return (<div className="space-y-10 max-w-5xl mx-auto px-4 pt-20 md:pt-28 pb-16">
       {/* Hero Preview Image with Style Overlay */}
       {primaryStyle && (<motion.div initial={{ opacity: 0, scale: 0.98 }} animate={{ opacity: 1, scale: 1 }} className="relative w-full aspect-[21/9] rounded-2xl overflow-hidden shadow-2xl">
           <img src={primaryStyle.coverImage} alt={primaryStyle.name} className="w-full h-full object-cover"/>
@@ -645,11 +706,28 @@ export function QuizResults({ answers }) {
             Here's what your home could look like
           </h3>
           <div className="grid grid-cols-3 gap-3">
-            {['Living Room', 'Bedroom', 'Kitchen'].map((room, i) => (<div key={room} className="relative aspect-[4/3] rounded-xl overflow-hidden group">
-                <img src={`${primaryStyle.coverImage}&sig=${room}`} alt={`${room} in ${primaryStyle.name} style`} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"/>
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"/>
-                <p className="absolute bottom-2 left-2 text-white text-sm font-medium">{room}</p>
-              </div>))}
+            {[
+              { id: 'living', name: 'Living Room' },
+              { id: 'bedroom', name: 'Bedroom' },
+              { id: 'kitchen', name: 'Kitchen' }
+            ].map((room) => {
+              // Get the specific room image from STYLE_DATA or fallback to cover
+              const roomUrl = primaryStyle.roomImages?.[room.id] || primaryStyle.coverImage;
+              
+              return (
+                <div key={room.id} className="relative aspect-[4/3] rounded-xl overflow-hidden group">
+                  <img 
+                    src={roomUrl} 
+                    alt={`${room.name} in ${primaryStyle.name} style`} 
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"/>
+                  <div className="absolute bottom-2 left-3">
+                    <span className="text-[10px] md:text-xs font-medium text-white/90 uppercase tracking-wider">{room.name}</span>
+                  </div>
+                </div>
+              );
+            })}
           </div>
           <p className="text-sm text-center text-muted-foreground">
             These are real designs from our portfolio. Your personalized report includes concepts designed specifically for YOUR space.

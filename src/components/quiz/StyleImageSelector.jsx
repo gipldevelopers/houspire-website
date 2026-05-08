@@ -86,10 +86,34 @@ const STYLE_OPTIONS = [
         description: 'Minimal, natural, peaceful tranquility',
     },
 ];
+const STYLE_FALLBACK_IMAGES = {
+    modern_minimalist: 'https://images.unsplash.com/photo-1600210492493-0946911123ea?w=800&h=600&fit=crop',
+    contemporary: 'https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=800&h=600&fit=crop',
+    scandinavian: 'https://images.unsplash.com/photo-1598928506311-c55ded91a20c?w=800&h=600&fit=crop',
+    industrial: 'https://images.unsplash.com/photo-1515542706656-8e6ef17a1521?w=800&h=600&fit=crop',
+    bohemian: 'https://images.unsplash.com/photo-1524758631624-e2822e304c36?w=800&h=600&fit=crop',
+    mid_century: 'https://images.unsplash.com/photo-1556912172-45b7abe8b7e1?w=800&h=600&fit=crop',
+    traditional_indian: 'https://images.unsplash.com/photo-1582555172866-f73bb12a2ab3?w=800&h=600&fit=crop',
+    rustic: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&h=600&fit=crop',
+    coastal: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&h=600&fit=crop',
+    maximalist: 'https://images.unsplash.com/photo-1565183997392-2f6f122e5912?w=800&h=600&fit=crop',
+    art_deco: 'https://images.unsplash.com/photo-1503174971373-b1f69850bded?w=800&h=600&fit=crop',
+    japanese_zen: 'https://images.unsplash.com/photo-1542013936693-884638332954?w=800&h=600&fit=crop',
+};
+
+// Get image URL for a style ID
+const getStyleImage = (styleId, styleCovers) => {
+    const slug = STYLE_SLUG_MAP[styleId];
+    const fallback = STYLE_FALLBACK_IMAGES[styleId];
+    const match = styleCovers?.find(s => s.slug === slug);
+    return match?.cover_image_url || fallback || null;
+};
+
 export function StyleImageSelector({ answers, onNext, onBack }) {
     const [selected, setSelected] = useState(answers.styles || []);
     const [previewStyle, setPreviewStyle] = useState(null);
     const maxSelection = 3;
+
     // Fetch cover images from database
     const { data: styleCovers } = useQuery({
         queryKey: ['design-style-covers'],
@@ -101,14 +125,6 @@ export function StyleImageSelector({ answers, onNext, onBack }) {
         },
         staleTime: 1000 * 60 * 30 // 30 minutes cache
     });
-    // Get image URL for a style ID
-    const getStyleImage = (styleId) => {
-        const slug = STYLE_SLUG_MAP[styleId];
-        if (!slug || !styleCovers)
-            return null;
-        const match = styleCovers.find(s => s.slug === slug);
-        return match?.cover_image_url || null;
-    };
     const toggleStyle = useCallback((styleId) => {
         if (selected.includes(styleId)) {
             setSelected(selected.filter(id => id !== styleId));
@@ -152,7 +168,7 @@ export function StyleImageSelector({ answers, onNext, onBack }) {
     };
     return (<div className="max-w-6xl mx-auto space-y-6">
       {/* Image Preview Modal */}
-      <QuizImagePreview image={previewStyle ? getStyleImage(previewStyle.id) : null} title={previewStyle?.name || ''} description={previewStyle?.description || ''} onClose={() => setPreviewStyle(null)}/>
+      <QuizImagePreview image={previewStyle ? getStyleImage(previewStyle.id, styleCovers) : null} title={previewStyle?.name || ''} description={previewStyle?.description || ''} onClose={() => setPreviewStyle(null)}/>
 
       {/* Header */}
       <div className="text-center space-y-2">
@@ -180,7 +196,7 @@ export function StyleImageSelector({ answers, onNext, onBack }) {
             const isSelected = selected.includes(style.id);
             const isDisabled = !isSelected && selected.length >= maxSelection;
             const selectionOrder = getSelectionOrder(style.id);
-            const imageUrl = getStyleImage(style.id);
+            const imageUrl = getStyleImage(style.id, styleCovers);
             return (<StyleCard key={style.id} style={style} imageUrl={imageUrl} index={index} isSelected={isSelected} isDisabled={isDisabled} selectionOrder={selectionOrder} onToggle={() => !isDisabled && toggleStyle(style.id)} onPreview={() => setPreviewStyle(style)}/>);
         })}
       </motion.div>
