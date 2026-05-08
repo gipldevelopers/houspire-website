@@ -58,9 +58,9 @@ export function QuizIntro({ onNext, selectedFeature }) {
             </motion.div>
 
             <motion.div variants={itemVariants} className="space-y-6">
-              <h1 className="text-5xl sm:text-6xl md:text-7xl font-display font-bold text-foreground leading-[1.05] tracking-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-display font-bold text-foreground leading-[1.1] tracking-tight">
                 Discover Your
-                <span className="block mt-2 bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
+                <span className="block mt-1 bg-gradient-to-r from-primary via-primary/80 to-primary/60 bg-clip-text text-transparent">
                   Perfect Design Style
                 </span>
               </h1>
@@ -82,10 +82,10 @@ export function QuizIntro({ onNext, selectedFeature }) {
             {/* CTA - Left Aligned */}
             <motion.div variants={itemVariants} className="space-y-4 pt-4">
               <div className="flex flex-col sm:flex-row items-center gap-4">
-                <Button size="lg" className="w-full sm:w-auto h-16 px-10 text-lg rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-2xl shadow-primary/20 group transition-all duration-300" onClick={() => onNext({})}>
+                <Button size="lg" className="w-full sm:w-auto h-13 md:h-14 px-8 text-lg rounded-full bg-primary text-primary-foreground hover:bg-primary/90 shadow-xl shadow-primary/10 group transition-all duration-300" onClick={() => onNext({})}>
                   <Zap className="h-5 w-5 mr-2"/>
                   Find My Style
-                  <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform"/>
+                  <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform"/>
                 </Button>
                 <div className="flex -space-x-3 items-center">
                   {[1, 2, 3, 4].map((i) => (<div key={i} className="w-10 h-10 rounded-full border-2 border-background overflow-hidden bg-muted">
