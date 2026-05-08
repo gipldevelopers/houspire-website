@@ -789,51 +789,6 @@ export function QuizResults({ answers }) {
         </div>
       </motion.div>
 
-      {/* Style Profile Summary */}
-      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}>
-        <Card className="p-6">
-          <h3 className="text-lg font-semibold mb-4 text-foreground">Your Style DNA</h3>
-
-          <div className="grid md:grid-cols-3 gap-6">
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <Palette className="h-5 w-5 text-primary"/>
-                <span className="font-medium text-foreground">Preferred Styles</span>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {styleNames.map((style, index) => (<Badge key={index} variant="secondary">{style}</Badge>))}
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <Heart className="h-5 w-5 text-primary"/>
-                <span className="font-medium text-foreground">Your Vibe</span>
-              </div>
-              <Badge variant="outline" className="text-base">
-                {answers.vibe === 'calm' && '🧘 Calm & Peaceful'}
-                {answers.vibe === 'energetic' && '⚡ Energetic & Vibrant'}
-                {answers.vibe === 'cozy' && '☕ Cozy & Warm'}
-                {answers.vibe === 'sophisticated' && '✨ Sophisticated'}
-                {answers.vibe === 'playful' && '🎨 Playful & Fun'}
-                {answers.vibe === 'serene' && '🌿 Serene & Minimal'}
-              </Badge>
-            </div>
-
-            <div>
-              <div className="flex items-center gap-2 mb-3">
-                <Home className="h-5 w-5 text-primary"/>
-                <span className="font-medium text-foreground">Color Palette</span>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {answers.colors?.map((color, index) => (<Badge key={index} variant="outline">
-                    {color.replace(/_/g, ' ')}
-                  </Badge>))}
-              </div>
-            </div>
-          </div>
-        </Card>
-      </motion.div>
 
       {/* Share/Save */}
       <div className="flex flex-col items-center gap-4 pb-8">
@@ -855,22 +810,6 @@ export function QuizResults({ answers }) {
                 <Download className="h-4 w-4 mr-2"/>
                 Save as PDF
               </>)}
-          </Button>
-        </div>
-        {/* WhatsApp + Copy Link */}
-        <div className="flex gap-3">
-          <Button variant="outline" size="sm" onClick={() => {
-            const text = `I just discovered my interior design style on Houspire! My top match is ${primaryStyle?.name} at ${primaryStyle?.matchPercentage}%. Take the free quiz to find yours!`;
-            window.open(`https://wa.me/?text=${encodeURIComponent(text + '\n' + window.location.href)}`, '_blank');
-        }}>
-            WhatsApp
-          </Button>
-          <Button variant="outline" size="sm" onClick={() => {
-            navigator.clipboard.writeText(window.location.href);
-            toast({ title: 'Link copied! 🔗' });
-        }}>
-            <Copy className="h-4 w-4 mr-2"/>
-            Copy Link
           </Button>
         </div>
       </div>
