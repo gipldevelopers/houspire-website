@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { ArrowRight, Share2, Download, Palette, Heart, Home, Loader2, Shield, Clock, Gift, Sparkles, Eye, Copy, CheckCircle } from 'lucide-react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
+import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import { useToast } from '@/hooks/use-toast';
 import { appDataClient } from '@/lib/static-client';
@@ -340,7 +340,7 @@ function calculateStyleMatches(answers) {
     return results;
 }
 export function QuizResults({ answers }) {
-    const navigate = useNavigate();
+    const router = useRouter();
     const { toast } = useToast();
     const { user } = useAuth();
     const [showLoginModal, setShowLoginModal] = useState(false);
@@ -521,11 +521,11 @@ export function QuizResults({ answers }) {
                     description: 'Your preferences are saved to your account',
                 });
             }
-            navigate(`/styles/${styleSlug}`);
+            router.push(`/styles/${styleSlug}`);
         }
         catch (error) {
             console.error('Error saving quiz:', error);
-            navigate(`/styles/${styleSlug}`);
+            router.push(`/styles/${styleSlug}`);
         }
         finally {
             setSavingQuiz(false);
@@ -666,11 +666,11 @@ export function QuizResults({ answers }) {
             Starting at ₹499 • Delivered in 72 hours
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Button size="lg" onClick={() => navigate('/select-package')} className="w-full sm:w-auto min-w-[260px] h-14 text-lg rounded-xl">
+            <Button size="lg" onClick={() => router.push('/select-package')} className="w-full sm:w-auto min-w-[260px] h-14 text-lg rounded-xl">
               Get Your Home Design Report
               <ArrowRight className="ml-2 h-5 w-5"/>
             </Button>
-            <Button variant="outline" size="lg" onClick={() => navigate('/report-preview')}>
+            <Button variant="outline" size="lg" onClick={() => router.push('/report-preview')}>
               See Sample Report
             </Button>
           </div>
@@ -826,7 +826,7 @@ export function QuizResults({ answers }) {
 
           <Button variant="ghost" className="w-full mt-2" onClick={() => {
             setShowLoginModal(false);
-            navigate(`/styles/${selectedStyleSlug}`);
+            router.push(`/styles/${selectedStyleSlug}`);
         }}>
             Continue without saving
           </Button>

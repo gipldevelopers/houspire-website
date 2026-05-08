@@ -150,20 +150,20 @@ export function StyleImageSelector({ answers, onNext, onBack }) {
             transition: { staggerChildren: 0.03 }
         }
     };
-    return (<div className="max-w-6xl mx-auto space-y-8">
+    return (<div className="max-w-6xl mx-auto space-y-6">
       {/* Image Preview Modal */}
       <QuizImagePreview image={previewStyle ? getStyleImage(previewStyle.id) : null} title={previewStyle?.name || ''} description={previewStyle?.description || ''} onClose={() => setPreviewStyle(null)}/>
 
       {/* Header */}
-      <div className="text-center space-y-4">
-        <motion.h2 initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground tracking-tight">
+      <div className="text-center space-y-2">
+        <motion.h2 initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-2xl md:text-3xl lg:text-4xl font-display font-bold text-foreground tracking-tight">
           Which styles resonate with you?
         </motion.h2>
-        <motion.p initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-lg text-muted-foreground max-w-xl mx-auto">
+        <motion.p initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-base text-muted-foreground max-w-xl mx-auto">
           Select up to 3 styles that match your aesthetic
         </motion.p>
-        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }} className="flex items-center justify-center gap-3">
-          <Badge variant={selected.length > 0 ? 'default' : 'outline'} className={`text-sm px-4 py-1.5 transition-all ${selected.length > 0
+        <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }} className="flex items-center justify-center gap-2">
+          <Badge variant={selected.length > 0 ? 'default' : 'outline'} className={`text-xs px-3 py-1 transition-all ${selected.length > 0
             ? 'bg-foreground text-background'
             : ''}`}>
             {selected.length} / {maxSelection} selected
@@ -209,14 +209,33 @@ export function StyleImageSelector({ answers, onNext, onBack }) {
 }
 // Separate component for better performance
 function StyleCard({ style, imageUrl, index, isSelected, isDisabled, selectionOrder, onToggle, onPreview, }) {
-    const longPressHandlers = useLongPress(onPreview, 500);
-    return (<motion.button type="button" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.03, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }} onClick={onToggle} disabled={isDisabled} {...longPressHandlers} className={`
-        relative w-full group cursor-pointer rounded-2xl overflow-hidden text-left
+    const { isLongPress, ...handlers } = useLongPress(onPreview, 500);
+    
+    const handleKeyDown = (e) => {
+        if (isDisabled) return;
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            onToggle();
+        }
+    };
+
+    return (<motion.div 
+        role="button"
+        tabIndex={isDisabled ? -1 : 0}
+        onKeyDown={handleKeyDown}
+        initial={{ opacity: 0, y: 20 }} 
+        animate={{ opacity: 1, y: 0 }} 
+        transition={{ delay: index * 0.03, duration: 0.4, ease: [0.25, 0.1, 0.25, 1] }} 
+        onClick={() => !isDisabled && onToggle()} 
+        {...handlers} 
+        className={`
+        relative w-full group rounded-2xl overflow-hidden text-left
         transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground
+        ${isDisabled ? 'cursor-not-allowed' : 'cursor-pointer'}
         ${isSelected
             ? 'ring-2 ring-foreground scale-[1.02] shadow-xl'
             : isDisabled
-                ? 'opacity-40 cursor-not-allowed'
+                ? 'opacity-40'
                 : 'hover:scale-[1.02] hover:shadow-xl'}
       `}>
       {/* Keyboard shortcut number */}
@@ -225,7 +244,7 @@ function StyleCard({ style, imageUrl, index, isSelected, isDisabled, selectionOr
         </div>)}
 
       {/* Quick preview button */}
-      <button onClick={(e) => {
+      <button type="button" onClick={(e) => {
             e.stopPropagation();
             onPreview();
         }} className="absolute bottom-14 right-3 z-10 w-8 h-8 rounded-full bg-black/40 text-white flex items-center justify-center backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity" title="Quick preview">
@@ -271,6 +290,6 @@ function StyleCard({ style, imageUrl, index, isSelected, isDisabled, selectionOr
           </p>
         </div>
       </div>
-    </motion.button>);
+    </motion.div>);
 }
 

@@ -80,13 +80,13 @@ export function RoomVibeSelector({ answers, onNext, onBack }) {
             transition: { staggerChildren: 0.05 }
         }
     };
-    return (<div className="max-w-5xl mx-auto space-y-8">
+    return (<div className="max-w-5xl mx-auto space-y-6">
       {/* Header */}
-      <div className="text-center space-y-4">
-        <motion.h2 initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground tracking-tight">
+      <div className="text-center space-y-2">
+        <motion.h2 initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-2xl md:text-3xl lg:text-4xl font-display font-bold text-foreground tracking-tight">
           What vibe do you want your space to have?
         </motion.h2>
-        <motion.p initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-lg text-muted-foreground max-w-xl mx-auto">
+        <motion.p initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-base text-muted-foreground max-w-xl mx-auto">
           Choose the overall mood and feeling
         </motion.p>
       </div>

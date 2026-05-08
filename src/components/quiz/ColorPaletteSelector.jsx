@@ -122,17 +122,17 @@ export function ColorPaletteSelector({ answers, onNext, onBack }) {
             transition: { staggerChildren: 0.03 }
         }
     };
-    return (<div className="max-w-5xl mx-auto space-y-8">
+    return (<div className="max-w-5xl mx-auto space-y-6">
       {/* Header */}
-      <div className="text-center space-y-4">
-        <motion.h2 initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-3xl md:text-4xl lg:text-5xl font-display font-bold text-foreground tracking-tight">
+      <div className="text-center space-y-2">
+        <motion.h2 initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} className="text-2xl md:text-3xl lg:text-4xl font-display font-bold text-foreground tracking-tight">
           What color palette speaks to you?
         </motion.h2>
-        <motion.p initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-lg text-muted-foreground max-w-xl mx-auto">
+        <motion.p initial={{ opacity: 0, y: -10 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="text-base text-muted-foreground max-w-xl mx-auto">
           Choose up to 2 color palettes you love
         </motion.p>
         <motion.div initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} transition={{ delay: 0.2 }}>
-          <Badge variant={selected.length > 0 ? 'default' : 'outline'} className={`text-sm px-4 py-1.5 transition-all ${selected.length > 0
+          <Badge variant={selected.length > 0 ? 'default' : 'outline'} className={`text-xs px-3 py-1 transition-all ${selected.length > 0
             ? 'bg-foreground text-background'
             : ''}`}>
             {selected.length} / {maxSelection} selected
