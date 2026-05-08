@@ -3,7 +3,7 @@ import { generateOrganizationSchema } from '@/lib/seo';
 import { AboutHero } from '@/components/about/AboutHero';
 import { StatsSection } from '@/components/about/StatsSection';
 import { MissionSection } from '@/components/about/MissionSection';
-import { TeamSection } from '@/components/about/TeamSection';
+import TeamSection from '@/components/about/TeamSection';
 import { ValuesSection } from '@/components/about/ValuesSection';
 import { AboutCTA } from '@/components/about/AboutCTA';
 

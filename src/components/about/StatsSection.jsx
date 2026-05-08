@@ -12,7 +12,7 @@ const problems = [
   },
   {
     number: '02',
-    title: 'Costs you can't explain',
+    title: "Costs you can't explain",
     description:
       "Hidden margins buried in vendor rates you never asked about — and were never told.",
   },
