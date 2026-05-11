@@ -184,10 +184,10 @@ function SelectPackageContent() {
           <div className="absolute right-[-10rem] top-[24rem] h-96 w-96 rounded-full bg-[var(--color-secondary-2)]/12 blur-3xl" />
         </div>
 
-        <motion.div
+        {/* <motion.div
           className="fixed top-0 left-0 right-0 z-[100] h-1.5 origin-left bg-[var(--color-primary)]"
           style={{ scaleX }}
-        />
+        /> */}
 
         <div className="container relative mx-auto max-w-7xl px-4">
           {/* <Link href="/how-it-works" className={`${secondaryButtonClass} mb-6 h-11 gap-2 px-5`}>
