@@ -53,6 +53,7 @@ function PreviewTile({ src, alt, label }) {
 
 export function HeroSection() {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState(null);
 
   return (
     <>
@@ -199,7 +200,11 @@ export function HeroSection() {
         </div>
         </section>
       </HeroHighlight>
-      <PlanningWizardModal open={isModalOpen} onOpenChange={setIsModalOpen} />
+      <PlanningWizardModal 
+        open={isModalOpen} 
+        onOpenChange={setIsModalOpen} 
+        selectedPackage={selectedPackage} 
+      />
     </>
   );
 }

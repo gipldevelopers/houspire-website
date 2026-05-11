@@ -78,9 +78,11 @@ const plans = [
 export function DarkPricingSection() {
   const router = useRouter();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedPackage, setSelectedPackage] = useState(null);
 
-  const handlePlanClick = (planName) => {
-    if (planName === 'Smart Home' || planName === 'Premium Home' || planName === 'Luxury Home') {
+  const handlePlanClick = (plan) => {
+    if (plan.price === 499 || plan.price === 4999 || plan.price === 9999 || plan.price === 14999) {
+      setSelectedPackage(plan.price);
       setIsModalOpen(true);
       return;
     }
@@ -156,14 +158,14 @@ export function DarkPricingSection() {
               <div className="mt-5">
                 {p.primary ? (
                   <ShimmerButton
-                    onClick={() => handlePlanClick(p.name)}
+                    onClick={() => handlePlanClick(p)}
                     className="btn-primary w-full"
                   >
                     {p.cta}
                   </ShimmerButton>
                 ) : (
                   <button
-                    onClick={() => handlePlanClick(p.name)}
+                    onClick={() => handlePlanClick(p)}
                     className="btn-secondary w-full"
                   >
                     {p.cta}
@@ -185,7 +187,11 @@ export function DarkPricingSection() {
         </p>
         </div>
       </section>
-      <PlanningWizardModal open={isModalOpen} onOpenChange={setIsModalOpen} />
+      <PlanningWizardModal 
+        open={isModalOpen} 
+        onOpenChange={setIsModalOpen} 
+        selectedPackage={selectedPackage} 
+      />
     </>
   );
 }

@@ -18,8 +18,9 @@ import { BackToTopButton } from '@/components/discover/BackToTopButton'
 import { cn } from '@/lib/utils'
 import { HeroHighlight } from '@/components/ui/hero-highlight'
 import { Search, Loader2, Keyboard, Sparkles, MessageCircle } from 'lucide-react'
+import { PlanningWizardModal } from '@/components/wizard/PlanningWizardModal'
 
-function GalleryCtaBanner() {
+function GalleryCtaBanner({ onStartTrial }) {
   const router = useRouter()
 
   return (
@@ -46,7 +47,7 @@ function GalleryCtaBanner() {
       <div className="flex shrink-0 items-center gap-2">
         <Button 
           size="sm" 
-          onClick={() => router.push('/style-quiz')} 
+          onClick={onStartTrial} 
           className="btn-primary btn-sm rounded-full px-5 text-xs font-bold"
         >
           Start Now
@@ -164,6 +165,8 @@ export default function Discover() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [showFilters, setShowFilters] = useState(false)
   const [gridSize, setGridSize] = useState('default')
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [selectedPackage, setSelectedPackage] = useState(null)
 
   // Liked designs persistence
   const { isLiked, toggleLike } = useLikedDesigns()
@@ -400,11 +403,14 @@ export default function Discover() {
                 Explore real homes by style, room & budget
               </motion.h1>
 
-{/*               
               <div className="w-full max-w-[960px] mt-2">
-                <GalleryCtaBanner />
+                <GalleryCtaBanner 
+                  onStartTrial={() => {
+                    setSelectedPackage(499);
+                    setIsModalOpen(true);
+                  }} 
+                />
               </div>
-              */}
             </div>
           </Container>
         </section>
@@ -584,6 +590,12 @@ export default function Discover() {
             setCurrentIndex(-1) // Not in current list
           }
         }}
+      />
+
+      <PlanningWizardModal 
+        open={isModalOpen} 
+        onOpenChange={setIsModalOpen} 
+        selectedPackage={selectedPackage} 
       />
     </div>
   )

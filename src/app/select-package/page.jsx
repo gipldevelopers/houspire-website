@@ -91,6 +91,7 @@ function SelectPackageContent() {
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [styleName, setStyleName] = useState('');
   const [isWizardOpen, setIsWizardOpen] = useState(false);
+  const [selectedPackagePrice, setSelectedPackagePrice] = useState(null);
 
   useEffect(() => {
     fetchPackages();
@@ -135,11 +136,12 @@ function SelectPackageContent() {
 
   const shouldOpenWizard = (pkg) => {
     const slug = pkg?.slug?.toLowerCase();
-    return slug === 'smart' || slug === 'premium' || slug === 'luxury';
+    return slug === 'trial' || slug === 'smart' || slug === 'premium' || slug === 'luxury';
   };
 
   const handlePackageAction = (pkg) => {
     if (shouldOpenWizard(pkg)) {
+      setSelectedPackagePrice(pkg.price);
       setIsWizardOpen(true);
       return;
     }
@@ -326,7 +328,11 @@ function SelectPackageContent() {
           <ArrowUp className="h-5 w-5" />
         </motion.button>
 
-        <PlanningWizardModal open={isWizardOpen} onOpenChange={setIsWizardOpen} />
+        <PlanningWizardModal 
+          open={isWizardOpen} 
+          onOpenChange={setIsWizardOpen} 
+          selectedPackage={selectedPackagePrice} 
+        />
       </div>
     </>
   );
