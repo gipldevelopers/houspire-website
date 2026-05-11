@@ -56,7 +56,7 @@ export function Footer() {
     { name: 'How it works', path: '/how-it-works' },
     { name: 'Pricing', path: '/select-package' },
     { name: 'Gallery', path: '/discover' },
-    { name: 'Style Quiz', path: HOUSPIRE_HOME_URL },
+    { name: 'Style Quiz', path: '/style-quiz' },
     { name: 'Styles', path: '/styles' },
     { name: 'Tools', path: '/tools' },
   ];
