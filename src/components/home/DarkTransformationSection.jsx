@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import beforeRoom from '@/assets/before-room.jpg';
 import afterRoom from '@/assets/after-room.jpg';
@@ -10,9 +10,23 @@ const ease = [0.25, 0.46, 0.45, 0.94];
 
 export function DarkTransformationSection() {
   const [position, setPosition] = useState(50);
+  const [containerWidth, setContainerWidth] = useState(0);
   const containerRef = useRef(null);
   const isDragging = useRef(false);
   const router = useRouter();
+
+  // Update width on mount and resize to prevent zooming issues
+  useEffect(() => {
+    const updateWidth = () => {
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth);
+      }
+    };
+    
+    updateWidth();
+    window.addEventListener('resize', updateWidth);
+    return () => window.removeEventListener('resize', updateWidth);
+  }, []);
 
   const updatePosition = useCallback((clientX) => {
     if (!containerRef.current) return;
@@ -71,13 +85,16 @@ export function DarkTransformationSection() {
                 onTouchEnd={handlePointerUp}
                 onTouchMove={handleTouchMove}
               >
-                <img src={"/after-room.jpg"} alt="After" className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
+                <img src={afterRoom.src} alt="After" className="absolute inset-0 w-full h-full object-cover pointer-events-none" />
                 <div className="absolute inset-0 overflow-hidden pointer-events-none" style={{ width: `${position}%` }}>
                   <img
-                    src={"/before-room.jpg"}
+                    src={beforeRoom.src}
                     alt="Before"
                     className="absolute inset-0 h-full object-cover"
-                    style={{ width: containerRef.current ? `${containerRef.current.offsetWidth}px` : '100vw', maxWidth: 'none' }}
+                    style={{ 
+                      width: containerWidth ? `${containerWidth}px` : '100%', 
+                      maxWidth: 'none' 
+                    }}
                   />
                 </div>
 
