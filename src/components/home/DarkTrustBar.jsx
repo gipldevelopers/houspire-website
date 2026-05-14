@@ -5,7 +5,7 @@ import { Clock, Check, Lock, MapPin } from 'lucide-react';
 
 export function DarkTrustBar() {
   return (
-    <section className="bg-background py-10 border-t border-black/[0.06]">
+    <section className="bg-background py-4 md:py-10 border-t border-black/[0.06]">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -13,8 +13,8 @@ export function DarkTrustBar() {
         viewport={{ once: true, amount: 0.2 }}
         className="max-w-[1200px] mx-auto px-6 text-center"
       >
-        <div className="inline-flex items-center gap-4 text-xl md:text-2xl font-bold" style={{ color: 'var(--color-heading-main)' }}>
-          <Clock className="h-6 w-6" style={{ color: 'var(--color-primary)' }} />
+        <div className="inline-flex items-center gap-3 text-base md:text-2xl font-bold" style={{ color: 'var(--color-heading-main)' }}>
+          <Clock className="h-5 w-5" style={{ color: 'var(--color-primary)' }} />
           <span>Delivered in 72 hours or your money back. No questions asked.</span>
         </div>
       </motion.div>

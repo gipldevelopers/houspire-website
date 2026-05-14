@@ -49,7 +49,7 @@ export function DarkFeaturesSection() {
   return (
     <section
       id="features"
-      className="relative overflow-hidden py-14 md:py-6" style={{ background: 'var(--color-primary-1)' }}
+      className="relative overflow-hidden py-8 md:py-20" style={{ background: 'var(--color-primary-1)' }}
     >
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute -top-20 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" />
@@ -62,19 +62,19 @@ export function DarkFeaturesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease }}
           viewport={{ once: true, amount: 0.2 }}
-          className="mx-auto mb-4 max-w-3xl text-center md:mb-6"
+          className="mx-auto mb-6 max-w-3xl text-center md:mb-12"
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-border)] backdrop-blur px-3 py-1 text-xs font-semibold tracking-[0.08em] uppercase" style={{ color: 'var(--color-primary)', backgroundColor: 'var(--color-bg)' }}>
             <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: 'var(--color-primary)' }} />
             What you get
           </div>
 
-          <h2 className="mt-4 text-4xl sm:text-5xl lg:text-5xl font-semibold tracking-tight leading-[1.05]" style={{ color: 'var(--color-heading-main)' }}>
+          <h2 className="mt-4 text-3xl sm:text-5xl lg:text-5xl font-semibold tracking-tight leading-[1.15]" style={{ color: 'var(--color-heading-main)' }}>
             Design, budget, and execution clarity
             <span style={{ color: 'var(--color-heading-main-highlight)' }}> in just 3 days</span>
           </h2>
 
-          <p className="mt-2 text-base sm:text-lg opacity-60" style={{ color: 'var(--color-description)' }}>
+          <p className="mt-3 text-base sm:text-lg opacity-60" style={{ color: 'var(--color-description)' }}>
             Here’s how you go from confusion → clarity → execution
           </p>
         </motion.div>
