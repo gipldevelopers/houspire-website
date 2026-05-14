@@ -46,11 +46,11 @@ export function FAQSection() {
           <p className="text-[13px] font-semibold tracking-[0.06em] uppercase opacity-40 mb-3" style={{ color: 'var(--color-description)' }}>
             Common Questions
           </p>
-          <h2 className="text-[clamp(32px,5vw,48px)] font-bold tracking-[-0.025em] leading-[1.07]" style={{ color: 'var(--color-heading-main)' }}>
+          <h2 className="text-[26px] md:text-[clamp(32px,5vw,48px)] font-bold tracking-[-0.025em] leading-[1.07]" style={{ color: 'var(--color-heading-main)' }}>
             Everything you'd want to know.
           </h2>
         </motion.div>
-
+ 
         <div>
           {faqs.map((faq, i) => (
             <motion.div
@@ -62,11 +62,11 @@ export function FAQSection() {
             >
               <button
                 onClick={() => setOpenIndex(openIndex === i ? null : i)}
-                className="w-full flex items-center justify-between py-5 text-left"
+                className="w-full flex items-center justify-between py-4 md:py-5 text-left"
               >
-                <span className="text-[18px] font-semibold pr-4" style={{ color: 'var(--color-heading-secondary)' }}>{faq.q}</span>
+                <span className="text-[15px] md:text-[18px] font-semibold pr-4" style={{ color: 'var(--color-heading-secondary)' }}>{faq.q}</span>
                 <ChevronDown
-                  className={`w-5 h-5 text-muted-foreground flex-shrink-0 transition-transform duration-300 ${
+                  className={`w-4 h-4 md:w-5 md:h-5 text-muted-foreground flex-shrink-0 transition-transform duration-300 ${
                     openIndex === i ? 'rotate-180' : ''
                   }`}
                 />
@@ -80,7 +80,7 @@ export function FAQSection() {
                     transition={{ duration: 0.3, ease: 'easeInOut' }}
                     className="overflow-hidden"
                   >
-                    <p className="text-[16px] leading-[1.6] pb-5 opacity-60" style={{ color: 'var(--color-description)' }}>
+                    <p className="text-[14px] md:text-[16px] leading-[1.6] pb-5 opacity-60" style={{ color: 'var(--color-description)' }}>
                       {faq.a}
                     </p>
                   </motion.div>

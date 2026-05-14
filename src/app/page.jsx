@@ -45,7 +45,7 @@ export default function HomePage() {
         url="https://houspire.com"
         schema={[organizationSchema, serviceSchema, homeFaqSchema, professionalServiceSchema]}
       />
-      
+
       <HeroSection />
       <DarkTrustBar />
       <DarkFeaturesSection />
