@@ -72,7 +72,7 @@ export function DarkFeaturesSection() {
   return (
     <section
       id="features"
-      className="relative overflow-hidden py-8 md:py-20" style={{ background: 'var(--color-primary-1)' }}
+      className="relative overflow-hidden py-16 md:py-20" style={{ background: 'var(--color-primary-1)' }}
     >
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute -top-20 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" />

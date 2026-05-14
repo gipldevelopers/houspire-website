@@ -242,7 +242,7 @@ export function GalleryPreviewSection() {
   const activeDesign = displayDesigns[activeIndex] || displayDesigns[0];
 
   return (
-    <section ref={ref} className="bg-background py-6 md:py-12">
+    <section ref={ref} className="bg-background py-16 md:py-12">
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -355,7 +355,7 @@ export function GalleryPreviewSection() {
           <div className="lg:hidden -mx-6">
             <div 
               ref={scrollRef}
-              className="flex overflow-x-auto scrollbar-hide px-6 pb-8 snap-x snap-mandatory"
+              className="flex overflow-x-auto scrollbar-hide px-6 pb-4 snap-x snap-mandatory"
               style={{ WebkitOverflowScrolling: 'touch' }}
             >
               {loading
@@ -373,7 +373,7 @@ export function GalleryPreviewSection() {
                         className="group relative h-full overflow-hidden rounded-[20px] border border-border/60 bg-card p-0 shadow-[0_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300"
                         onClick={() => router.push('/discover')}
                       >
-                        <div className="relative h-[200px] overflow-hidden">
+                        <div className="relative h-[170px] overflow-hidden">
                           <img
                             src={design.cover_image_url}
                             alt={design.design_title}
@@ -381,31 +381,31 @@ export function GalleryPreviewSection() {
                             className="h-full w-full object-cover"
                             draggable={false}
                           />
-                          <div className="absolute left-4 top-4">
-                            <Badge className="bg-background/90 text-foreground backdrop-blur-sm text-xs">
+                          <div className="absolute left-3 top-3">
+                            <Badge className="bg-background/90 text-foreground backdrop-blur-sm text-[10px] px-2 py-0">
                               {design.room_type}
                             </Badge>
                           </div>
-                          <div className="absolute right-4 top-4 flex items-center gap-3 text-white text-xs">
-                            <span className="flex items-center gap-1 rounded-full bg-black/40 px-2 py-1">
-                              <Eye className="h-3.5 w-3.5" /> {design.view_count ?? 0}
+                          <div className="absolute right-3 top-3 flex items-center gap-2 text-white text-[10px]">
+                            <span className="flex items-center gap-1 rounded-full bg-black/40 px-1.5 py-0.5">
+                              <Eye className="h-3 w-3" /> {design.view_count ?? 0}
                             </span>
-                            <span className="flex items-center gap-1 rounded-full bg-black/40 px-2 py-1">
-                              <Heart className="h-3.5 w-3.5" /> {design.save_count ?? 0}
+                            <span className="flex items-center gap-1 rounded-full bg-black/40 px-1.5 py-0.5">
+                              <Heart className="h-3 w-3" /> {design.save_count ?? 0}
                             </span>
                           </div>
                         </div>
 
-                        <div className="space-y-2 p-4">
-                          <p className="text-xs text-muted-foreground">{design.style_primary}</p>
-                          <h3 className="text-base font-semibold leading-tight text-foreground line-clamp-2 min-h-[40px]">
+                        <div className="space-y-1.5 p-3">
+                          <p className="text-[10px] text-muted-foreground">{design.style_primary}</p>
+                          <h3 className="text-sm font-semibold leading-tight text-foreground line-clamp-2 min-h-[36px]">
                             {design.design_title}
                           </h3>
                           <div className="flex items-center justify-between">
-                            <p className="inline-block rounded-full bg-muted px-2.5 py-1 text-[11px] font-bold text-foreground">
+                            <p className="inline-block rounded-full bg-muted px-2 py-0.5 text-[10px] font-bold text-foreground">
                               {formatBudget(design.estimated_budget_min ?? 0, design.estimated_budget_max ?? 0)}
                             </p>
-                            <span className="text-xs font-semibold text-primary">
+                            <span className="text-[10px] font-semibold text-primary">
                               View
                             </span>
                           </div>
@@ -416,7 +416,7 @@ export function GalleryPreviewSection() {
             </div>
 
             {/* Pagination Dots */}
-            <div className="flex justify-center gap-2 -mt-2 mb-4">
+            <div className="flex justify-center gap-2 mt-2 mb-2">
               {displayDesigns.slice(0, 10).map((_, i) => (
                 <div
                   key={i}
@@ -429,12 +429,7 @@ export function GalleryPreviewSection() {
           </div>
         </motion.div>
 
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6, delay: 0.8 }}
-          className="mt-6 text-center"
-        >
+          <div className="mt-8 text-center">
           <button
             onClick={() => router.push('/discover')}
             className="btn-secondary gap-2 group"
@@ -442,7 +437,7 @@ export function GalleryPreviewSection() {
             Explore Gallery
             <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
           </button>
-        </motion.div>
+          </div>
       </div>
     </section>
   );
