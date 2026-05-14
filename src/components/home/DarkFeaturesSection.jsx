@@ -1,7 +1,9 @@
 'use client';
 
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Image as ImageIcon, IndianRupee, ShoppingBag, Users } from 'lucide-react';
+import { Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext } from '@/components/ui/carousel';
 import { redirectToHouspireHome } from '@/lib/external-links';
 
 const ease = [0.25, 0.46, 0.45, 0.94];
@@ -42,6 +44,27 @@ const cards = [
 ];
 
 export function DarkFeaturesSection() {
+  const scrollRef = useRef(null);
+  const [current, setCurrent] = useState(1);
+  const count = cards.length;
+
+  // Handle scroll to update dots
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const handleScroll = () => {
+      const firstItem = el.querySelector('.snap-start');
+      if (!firstItem) return;
+      const itemWidth = firstItem.offsetWidth;
+      const index = Math.round(el.scrollLeft / itemWidth) + 1;
+      setCurrent(index);
+    };
+
+    el.addEventListener('scroll', handleScroll);
+    return () => el.removeEventListener('scroll', handleScroll);
+  }, []);
+
   const handleCardRedirect = () => {
     redirectToHouspireHome();
   };
@@ -79,7 +102,8 @@ export function DarkFeaturesSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+        {/* Desktop View: 4-column grid */}
+        <div className="hidden lg:grid lg:grid-cols-4 gap-5">
           {cards.map((card, i) => (
             <motion.div
               key={card.title}
@@ -118,6 +142,68 @@ export function DarkFeaturesSection() {
               </div>
             </motion.div>
           ))}
+        </div>
+
+        {/* Mobile View: Horizontal Scroll Slider */}
+        <div className="lg:hidden -mx-4">
+          <div 
+            ref={scrollRef}
+            className="flex overflow-x-auto scrollbar-hide px-4 pb-8 snap-x snap-mandatory"
+            style={{ WebkitOverflowScrolling: 'touch' }}
+          >
+            {cards.map((card, i) => (
+              <div 
+                key={card.title} 
+                className="flex-none w-[280px] pr-4 snap-start"
+              >
+                <div
+                  className="group relative overflow-hidden rounded-2xl border border-border/30 bg-card shadow-md aspect-[4/5]"
+                >
+                  <div className="absolute inset-0">
+                    <img
+                      src={card.image}
+                      alt={card.title}
+                      className="h-full w-full object-cover"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-black/30" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/30" />
+                  </div>
+
+                  <div className="relative flex h-full flex-col justify-between p-5">
+                    <div>
+                      <div className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-medium text-white/90" style={{ backgroundColor: 'rgba(236, 116, 70, 0.3)' }}>
+                        <card.icon className="h-3 w-3" />
+                        Included
+                      </div>
+                      <h3 className="mt-3 text-lg font-bold tracking-tight text-white line-clamp-2">{card.title}</h3>
+                      <p className="mt-1 text-xs text-white/70 line-clamp-2">{card.subtitle}</p>
+                    </div>
+
+                    <div 
+                      onClick={() => handleCardRedirect(card)}
+                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-white cursor-pointer active:scale-95 transition-transform"
+                    >
+                      {card.cta}
+                      <ArrowRight className="h-3 w-3" />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Controls - Kept for accessibility/visual hint */}
+          <div className="flex items-center justify-center gap-4 mt-2">
+            {cards.map((_, i) => (
+              <div
+                key={i}
+                className={`h-1.5 rounded-full transition-all duration-300 ${
+                  current === i + 1 ? 'w-6 bg-[var(--color-primary)]' : 'w-1.5 bg-border'
+                }`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>
