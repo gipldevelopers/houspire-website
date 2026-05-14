@@ -36,8 +36,9 @@ export function GalleryPreviewSection() {
     if (!el) return;
 
     const handleScroll = () => {
-      if (!el) return;
-      const items = Array.from(el.children);
+      const track = el.children[0];
+      if (!track) return;
+      const items = Array.from(track.children);
       const scrollCenter = el.scrollLeft + (el.offsetWidth / 2);
       
       let activeIndex = 0;
@@ -242,7 +243,7 @@ export function GalleryPreviewSection() {
   const activeDesign = displayDesigns[activeIndex] || displayDesigns[0];
 
   return (
-    <section ref={ref} className="bg-background py-16 md:py-12">
+    <section ref={ref} className="bg-background py-8 md:py-12">
       <div className="mx-auto max-w-7xl px-6 md:px-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -354,20 +355,20 @@ export function GalleryPreviewSection() {
           <div className="lg:hidden">
             <div 
               ref={scrollRef}
-              className="overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory"
+              className="overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory scroll-pl-6"
               style={{ WebkitOverflowScrolling: 'touch' }}
             >
-              <div className="flex w-max gap-4 px-0">
+              <div className="flex w-max gap-4 pl-6 pr-20">
                 {loading
                   ? Array.from({ length: 5 }).map((_, idx) => (
-                      <div key={idx} className="flex-none w-[280px] snap-center">
+                      <div key={idx} className="flex-none w-[280px] snap-start scroll-ml-6">
                         <GalleryCardSkeleton />
                       </div>
                     ))
                   : displayDesigns.slice(0, 10).map((design, idx) => (
                       <div 
                         key={design.id} 
-                        className="flex-none w-[280px] snap-center"
+                        className="flex-none w-[280px] snap-start scroll-ml-6"
                       >
                         <Card
                           className="group relative h-full overflow-hidden rounded-[20px] border border-border/60 bg-card p-0 shadow-[0_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300"

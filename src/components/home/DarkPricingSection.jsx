@@ -92,7 +92,7 @@ export function DarkPricingSection() {
 
   return (
     <>
-      <section id="pricing" className="bg-background py-12 md:py-20 min-h-screen flex items-center">
+      <section id="pricing" className="bg-background py-8 md:py-20 md:min-h-screen md:flex md:items-center">
         <div className="max-w-[1400px] mx-auto px-0 md:px-6 w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -111,10 +111,23 @@ export function DarkPricingSection() {
         </motion.div>
 
         <div 
-          className="overflow-x-auto md:overflow-x-visible pt-4 pb-4 md:pb-0 scrollbar-hide snap-x snap-mandatory px-[22px] md:px-0"
+          className="overflow-x-auto md:overflow-x-visible pt-4 pb-4 md:pb-0 scrollbar-hide snap-x snap-mandatory px-0 md:px-0 scroll-pl-[22px]"
           onScroll={(e) => {
-            const scrollLeft = e.currentTarget.scrollLeft;
-            const index = Math.round(scrollLeft / (260 + 16)); // Card width + gap
+            const el = e.currentTarget;
+            const track = el.children[0];
+            if (!track) return;
+            const items = Array.from(track.children);
+            const scrollCenter = el.scrollLeft + (el.offsetWidth / 2);
+            
+            let index = 0;
+            items.forEach((item, i) => {
+              const itemLeft = item.offsetLeft;
+              const itemRight = itemLeft + item.offsetWidth;
+              if (scrollCenter >= itemLeft && scrollCenter < itemRight) {
+                index = i;
+              }
+            });
+
             const dots = document.querySelectorAll('.pricing-dot');
             dots.forEach((dot, i) => {
               dot.style.opacity = i === index ? '1' : '0.2';
@@ -122,7 +135,7 @@ export function DarkPricingSection() {
             });
           }}
         >
-          <div className="flex md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-max md:w-full px-6 md:px-0">
+          <div className="flex md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-max md:w-full pl-[22px] pr-20 md:px-0">
             {plans.map((p, i) => (
               <motion.div
                 key={p.name}
@@ -130,7 +143,7 @@ export function DarkPricingSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, ease, delay: i * 0.05 }}
                 viewport={{ once: true, amount: 0.2 }}
-                className={`relative bg-card rounded-[16px] p-4 md:p-6 flex flex-col min-w-[260px] sm:min-w-[300px] md:min-w-0 snap-center ${
+                className={`relative bg-card rounded-[16px] p-4 md:p-6 flex flex-col min-w-[260px] sm:min-w-[300px] md:min-w-0 snap-start scroll-ml-[22px] ${
                   p.popular ? 'md:scale-[1.02] border-2 border-primary' : 'border border-border/50'
                 }`}
                 style={{

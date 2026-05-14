@@ -142,7 +142,7 @@ export function TestimonialsSectionHome() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden py-16 md:py-10" style={{ backgroundColor: 'var(--color-primary-1)' }}>
+    <section className="relative overflow-hidden py-8 md:py-10" style={{ backgroundColor: 'var(--color-primary-1)' }}>
       <div className="relative mx-auto max-w-[1400px]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}

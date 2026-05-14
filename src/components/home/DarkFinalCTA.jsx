@@ -12,7 +12,7 @@ export function DarkFinalCTA() {
 
   return (
     <>
-      <section className="bg-[#0c0c0e] py-16 md:py-24">
+      <section className="bg-[#0c0c0e] py-8 md:py-24">
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}

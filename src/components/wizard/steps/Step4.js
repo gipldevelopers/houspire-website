@@ -410,7 +410,7 @@ const handle499PlanAfterAuth = async (userData) => {
   // OTP Verification UI
   if (otpStep) {
     return (
-      <div className="animate-fade-in max-h-[calc(85vh-200px)] overflow-y-auto">
+      <div className="animate-fade-in">
         <div className="space-y-6">
           {/* Header */}
           <div className="text-center space-y-2">
@@ -517,7 +517,7 @@ const handle499PlanAfterAuth = async (userData) => {
 
   // Signup Form UI
   return (
-    <div className="animate-fade-in max-h-[calc(85vh-200px)] overflow-y-auto">
+    <div className="animate-fade-in">
       <div className="space-y-4">
         {/* Header */}
         <div className="text-center space-y-2">

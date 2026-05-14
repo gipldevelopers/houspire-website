@@ -43,7 +43,7 @@ export function DarkTransformationSection() {
   return (
     <section 
       id="transformation" 
-      className="py-16 md:py-12 overflow-hidden bg-background"
+      className="py-8 md:py-12 overflow-hidden bg-background"
     >
       <div className="container mx-auto px-6">
         

@@ -54,11 +54,21 @@ export function DarkFeaturesSection() {
     if (!el) return;
 
     const handleScroll = () => {
-      const firstItem = el.querySelector('.snap-start');
-      if (!firstItem) return;
-      const itemWidth = firstItem.offsetWidth;
-      const index = Math.round(el.scrollLeft / itemWidth) + 1;
-      setCurrent(index);
+      const track = el.children[0];
+      if (!track) return;
+      const items = Array.from(track.children);
+      const scrollCenter = el.scrollLeft + (el.offsetWidth / 2);
+      
+      let activeIndex = 0;
+      items.forEach((item, i) => {
+        const itemLeft = item.offsetLeft;
+        const itemRight = itemLeft + item.offsetWidth;
+        if (scrollCenter >= itemLeft && scrollCenter < itemRight) {
+          activeIndex = i;
+        }
+      });
+      
+      setCurrent(activeIndex + 1);
     };
 
     el.addEventListener('scroll', handleScroll);
@@ -72,7 +82,7 @@ export function DarkFeaturesSection() {
   return (
     <section
       id="features"
-      className="relative overflow-hidden py-16 md:py-20" style={{ background: 'var(--color-primary-1)' }}
+      className="relative overflow-hidden py-8 md:py-20" style={{ background: 'var(--color-primary-1)' }}
     >
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute -top-20 left-1/2 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-primary/10 blur-3xl" />
@@ -148,14 +158,14 @@ export function DarkFeaturesSection() {
         <div className="lg:hidden">
           <div 
             ref={scrollRef}
-            className="overflow-x-auto scrollbar-hide pb-8 snap-x snap-mandatory"
+            className="overflow-x-auto scrollbar-hide pb-8 snap-x snap-mandatory scroll-pl-6"
             style={{ WebkitOverflowScrolling: 'touch' }}
           >
-            <div className="flex w-max gap-4 px-0">
+            <div className="flex w-max gap-4 pl-6 pr-20">
               {cards.map((card, i) => (
                 <div 
                   key={card.title} 
-                  className="flex-none w-[280px] snap-center"
+                  className="flex-none w-[280px] snap-start scroll-ml-6"
                 >
                   <div
                     className="group relative overflow-hidden rounded-2xl border border-border/30 bg-card shadow-md aspect-[4/5]"

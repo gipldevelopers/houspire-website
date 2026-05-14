@@ -1104,20 +1104,20 @@ export const Step1 = ({ selectedType, onSelectType, selectedPackage, uploadedIma
   ];
 
   return (
-    <div className="space-y-4 animate-fade-in max-h-[calc(100vh-200px)] overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-transparent pb-2">
+    <div className="space-y-4 animate-fade-in pb-2">
       {/* For ₹499 package: Show compact room details + image upload */}
       {showUploadSection ? (
         <div className="space-y-4">
           {/* Header Section - More compact for mobile */}
-          <div className="text-center pb-2">
-            <div className="w-10 h-10 mx-auto bg-gradient-to-br from-[#e48b53] to-orange-500 rounded-xl flex items-center justify-center shadow-sm mb-2">
-              <Image className="w-5 h-5 text-white" />
+          <div className="text-center pb-1">
+            <div className="w-8 h-8 mx-auto bg-gradient-to-br from-[#e48b53] to-orange-500 rounded-lg flex items-center justify-center shadow-sm mb-1">
+              <Image className="w-4 h-4 text-white" />
             </div>
-            <h2 className="text-lg font-bold text-[#042939]">
+            <h2 className="text-base font-bold text-[#042939]">
               Upload Room Image
             </h2>
-            <p className="text-[#042939]/70 text-xs mt-1">
-              Add room details and upload a photo
+            <p className="text-[#042939]/70 text-[10px] mt-0.5">
+              Add details and upload a photo
             </p>
           </div>
 
@@ -1134,7 +1134,7 @@ export const Step1 = ({ selectedType, onSelectType, selectedPackage, uploadedIma
                     setRoomTypeOpen(!roomTypeOpen);
                     setDimensionsOpen(false);
                   }}
-                  className={`w-full p-3 rounded-xl border transition-all duration-200 flex items-center justify-between ${
+                  className={`w-full p-2.5 rounded-xl border transition-all duration-200 flex items-center justify-between ${
                     roomType
                       ? 'border-[#e48b53] bg-[#e48b53]/5'
                       : 'border-gray-200 hover:border-[#e48b53]'
@@ -1209,7 +1209,7 @@ export const Step1 = ({ selectedType, onSelectType, selectedPackage, uploadedIma
                     setDimensionsOpen(!dimensionsOpen);
                     setRoomTypeOpen(false);
                   }}
-                  className={`w-full p-3 rounded-xl border transition-all duration-200 flex items-center justify-between ${
+                  className={`w-full p-2.5 rounded-xl border transition-all duration-200 flex items-center justify-between ${
                     roomDimensions
                       ? 'border-[#e48b53] bg-[#e48b53]/5'
                       : 'border-gray-200 hover:border-[#e48b53]'
@@ -1380,8 +1380,8 @@ export const Step1 = ({ selectedType, onSelectType, selectedPackage, uploadedIma
                         <Loader2 className="w-5 h-5 text-[#e48b53] animate-spin" />
                       </div>
                     ) : (
-                      <div className="w-10 h-10 bg-gradient-to-br from-[#e48b53]/20 to-orange-500/20 rounded-full flex items-center justify-center">
-                        <Upload className="w-5 h-5 text-[#e48b53]" />
+                      <div className="w-8 h-8 bg-gradient-to-br from-[#e48b53]/20 to-orange-500/20 rounded-full flex items-center justify-center">
+                        <Upload className="w-4 h-4 text-[#e48b53]" />
                       </div>
                     )}
                     <div className="text-center">
@@ -1537,7 +1537,7 @@ export const Step1 = ({ selectedType, onSelectType, selectedPackage, uploadedIma
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-2.5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             {propertyTypes.map((type) => {
               const Icon = type.icon;
               const isSelected = selectedType === type.id;
@@ -1546,7 +1546,7 @@ export const Step1 = ({ selectedType, onSelectType, selectedPackage, uploadedIma
                 <div
                   key={type.id}
                   onClick={() => onSelectType(type.id)}
-                  className={`relative cursor-pointer transition-all duration-200 p-3 rounded-xl border-2 ${
+                  className={`relative cursor-pointer transition-all duration-200 p-2 sm:p-3 rounded-xl border-2 ${
                     isSelected
                       ? "border-[#e48b53] bg-[#e48b53]/5 shadow-sm"
                       : "border-gray-200 hover:border-[#e48b53]/30"
@@ -1563,15 +1563,15 @@ export const Step1 = ({ selectedType, onSelectType, selectedPackage, uploadedIma
                       <div className={`p-1.5 rounded-lg bg-white/80 flex-shrink-0 ${
                         isSelected ? "ring-1 ring-[#e48b53]" : ""
                       }`}>
-                        <Icon className={`w-4 h-4 ${type.iconColor}`} />
+                        <Icon className={`w-3.5 h-3.5 ${type.iconColor}`} />
                       </div>
                       
                       <div className="flex-1 space-y-1 min-w-0">
                         <div>
-                          <h3 className="text-sm font-bold text-[#042939] truncate">
+                          <h3 className="text-xs sm:text-sm font-bold text-[#042939] truncate">
                             {type.title}
                           </h3>
-                          <p className="text-xs text-[#042939]/70 line-clamp-1">
+                          <p className="text-[10px] sm:text-xs text-[#042939]/70 line-clamp-1">
                             {type.description}
                           </p>
                         </div>

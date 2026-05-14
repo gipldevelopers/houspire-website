@@ -41,7 +41,7 @@ export function FAQSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={isInView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.8, ease }}
-          className="text-center mb-14"
+          className="text-center mb-6 md:mb-14"
         >
           <p className="text-[13px] font-semibold tracking-[0.06em] uppercase opacity-40 mb-3" style={{ color: 'var(--color-description)' }}>
             Common Questions

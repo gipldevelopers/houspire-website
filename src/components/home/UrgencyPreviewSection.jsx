@@ -15,7 +15,9 @@ export function UrgencyPreviewSection() {
     if (!el) return;
 
     const handleScroll = () => {
-      const items = Array.from(el.children);
+      const track = el.children[0];
+      if (!track) return;
+      const items = Array.from(track.children);
       const scrollCenter = el.scrollLeft + (el.offsetWidth / 2);
       
       let activeIndex = 0;
@@ -35,7 +37,7 @@ export function UrgencyPreviewSection() {
   }, []);
 
   return (
-    <section id="urgency" className="bg-background py-12 md:py-10 overflow-hidden">
+    <section id="urgency" className="bg-background py-8 md:py-10 overflow-hidden">
       <div className="mx-auto max-w-[1400px] px-6">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-3 mb-6 md:mb-10">
           <div>
@@ -63,12 +65,12 @@ export function UrgencyPreviewSection() {
         <div className="md:hidden">
           <div 
             ref={scrollRef}
-            className="overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory"
+            className="overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory scroll-pl-6"
             style={{ WebkitOverflowScrolling: 'touch' }}
           >
-            <div className="flex w-max gap-4 px-0">
+            <div className="flex w-max gap-4 pl-6 pr-20">
               {stories.map((story) => (
-                <div key={story.slug} className="flex-none w-[270px] snap-center">
+                <div key={story.slug} className="flex-none w-[270px] snap-start scroll-ml-6">
                   <Link
                     href={`/urgency/${story.slug}`}
                     className="group flex flex-col rounded-[1.5rem] overflow-hidden border border-border bg-card h-full"
