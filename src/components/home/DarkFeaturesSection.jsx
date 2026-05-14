@@ -92,9 +92,9 @@ export function DarkFeaturesSection() {
             What you get
           </div>
 
-          <h2 className="mt-4 text-3xl sm:text-5xl lg:text-5xl font-semibold tracking-tight leading-[1.15]" style={{ color: 'var(--color-heading-main)' }}>
-            Design, budget, and execution clarity
-            <span style={{ color: 'var(--color-heading-main-highlight)' }}> in just 3 days</span>
+          <h2 className="mt-4 text-2xl sm:text-5xl lg:text-5xl font-semibold tracking-tight leading-[1.2]" style={{ color: 'var(--color-heading-main)' }}>
+            Design, budget, and <br className="sm:hidden" />
+            execution clarity <span className="inline-block sm:inline" style={{ color: 'var(--color-heading-main-highlight)' }}>in just 3 days</span>
           </h2>
 
           <p className="mt-3 text-base sm:text-lg opacity-60" style={{ color: 'var(--color-description)' }}>

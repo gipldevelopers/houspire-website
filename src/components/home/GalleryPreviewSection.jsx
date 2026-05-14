@@ -27,6 +27,34 @@ export function GalleryPreviewSection() {
   const [designs, setDesigns] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [mobileCurrent, setMobileCurrent] = useState(1);
+  const scrollRef = useRef(null);
+
+  // Handle mobile scroll for dots
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const handleScroll = () => {
+      if (!el) return;
+      const items = Array.from(el.children);
+      const scrollCenter = el.scrollLeft + (el.offsetWidth / 2);
+      
+      let activeIndex = 0;
+      items.forEach((item, i) => {
+        const itemLeft = item.offsetLeft;
+        const itemRight = itemLeft + item.offsetWidth;
+        if (scrollCenter >= itemLeft && scrollCenter < itemRight) {
+          activeIndex = i;
+        }
+      });
+      
+      setMobileCurrent(activeIndex + 1);
+    };
+
+    el.addEventListener('scroll', handleScroll);
+    return () => el.removeEventListener('scroll', handleScroll);
+  }, [loading, designs]);
 
   useEffect(() => {
     fetchFeaturedDesigns();
@@ -224,9 +252,8 @@ export function GalleryPreviewSection() {
         >
           <div>
             <p className="mb-3 text-xs font-semibold uppercase tracking-[0.14em] opacity-40" style={{ color: 'var(--color-description)' }}>Home discovery engine</p>
-            <h2 className="text-3xl font-semibold tracking-tight md:text-4xl lg:text-5xl" style={{ color: 'var(--color-heading-main)' }}>
-              Explore homes designed 
-              <br />
+            <h2 className="text-2xl font-semibold tracking-tight md:text-4xl lg:text-5xl" style={{ color: 'var(--color-heading-main)' }}>
+              Explore homes designed{' '}
               <span style={{ color: 'var(--color-heading-main-highlight)' }}>with actual budgets</span>
             </h2>
           </div>
@@ -324,66 +351,81 @@ export function GalleryPreviewSection() {
             </div>
           </div>
 
-          {/* Mobile/Tablet: Keep swipeable gallery cards */}
-          <div className="lg:hidden">
-            <Carousel opts={{ align: 'start', dragFree: true }} className="relative" aria-label="Gallery preview">
-              <CarouselContent className="-ml-2 md:-ml-3">
-                {loading
-                  ? Array.from({ length: 10 }).map((_, idx) => (
-                      <CarouselItem key={idx} className="basis-[88%] pl-2 sm:basis-[60%] md:basis-1/2 md:pl-3">
-                        <GalleryCardSkeleton />
-                      </CarouselItem>
-                    ))
-                  : displayDesigns.slice(0, 12).map((design, idx) => (
-                      <CarouselItem key={design.id} className="basis-[88%] pl-2 sm:basis-[60%] md:basis-1/2 md:pl-3">
-                        <motion.div
-                          initial={{ opacity: 0, y: 18 }}
-                          animate={isInView ? { opacity: 1, y: 0 } : {}}
-                          transition={{ duration: 0.5, delay: Math.min(idx, 6) * 0.06, ease: [0.25, 0.1, 0.25, 1] }}
-                        >
-                          <Card
-                          className="group relative overflow-hidden rounded-[20px] border border-border/60 bg-card p-0 shadow-[0_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_14px_44px_rgba(0,0,0,0.12)]"
-                            onClick={() => router.push('/discover')}
-                          >
-                            <div className="relative h-[220px] overflow-hidden">
-                              <img
-                                src={design.cover_image_url}
-                                alt={design.design_title}
-                                loading="lazy"
-                                className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                                draggable={false}
-                              />
-                              <div className="absolute left-4 top-4">
-                                <Badge className="bg-background/90 text-foreground backdrop-blur-sm text-xs">
-                                  {design.room_type}
-                                </Badge>
-                              </div>
-                              <div className="absolute right-4 top-4 flex items-center gap-3 text-white text-xs">
-                                <span className="flex items-center gap-1 rounded-full bg-black/40 px-2 py-1"><Eye className="h-3.5 w-3.5" /> {design.view_count ?? 0}</span>
-                                <span className="flex items-center gap-1 rounded-full bg-black/40 px-2 py-1"><Heart className="h-3.5 w-3.5" /> {design.save_count ?? 0}</span>
-                              </div>
-                            </div>
+          {/* Mobile/Tablet: Native horizontal scroll slider */}
+          <div className="lg:hidden -mx-6">
+            <div 
+              ref={scrollRef}
+              className="flex overflow-x-auto scrollbar-hide px-6 pb-8 snap-x snap-mandatory"
+              style={{ WebkitOverflowScrolling: 'touch' }}
+            >
+              {loading
+                ? Array.from({ length: 5 }).map((_, idx) => (
+                    <div key={idx} className="flex-none w-[280px] pr-4 snap-start">
+                      <GalleryCardSkeleton />
+                    </div>
+                  ))
+                : displayDesigns.slice(0, 10).map((design, idx) => (
+                    <div 
+                      key={design.id} 
+                      className="flex-none w-[280px] pr-4 snap-start"
+                    >
+                      <Card
+                        className="group relative h-full overflow-hidden rounded-[20px] border border-border/60 bg-card p-0 shadow-[0_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300"
+                        onClick={() => router.push('/discover')}
+                      >
+                        <div className="relative h-[200px] overflow-hidden">
+                          <img
+                            src={design.cover_image_url}
+                            alt={design.design_title}
+                            loading="lazy"
+                            className="h-full w-full object-cover"
+                            draggable={false}
+                          />
+                          <div className="absolute left-4 top-4">
+                            <Badge className="bg-background/90 text-foreground backdrop-blur-sm text-xs">
+                              {design.room_type}
+                            </Badge>
+                          </div>
+                          <div className="absolute right-4 top-4 flex items-center gap-3 text-white text-xs">
+                            <span className="flex items-center gap-1 rounded-full bg-black/40 px-2 py-1">
+                              <Eye className="h-3.5 w-3.5" /> {design.view_count ?? 0}
+                            </span>
+                            <span className="flex items-center gap-1 rounded-full bg-black/40 px-2 py-1">
+                              <Heart className="h-3.5 w-3.5" /> {design.save_count ?? 0}
+                            </span>
+                          </div>
+                        </div>
 
-                            <div className="space-y-2 p-4">
-                              <p className="text-xs text-muted-foreground">{design.style_primary}</p>
-                              <h3 className="text-base font-semibold leading-tight text-foreground">{design.design_title}</h3>
-                              <div className="flex items-center justify-between">
-                                <p className="inline-block rounded-full bg-muted px-2.5 py-1 text-xs text-foreground">
-                                  {formatBudget(design.estimated_budget_min ?? 0, design.estimated_budget_max ?? 0)}
-                                </p>
-                                <Button size="sm" variant="ghost" className="rounded-full text-primary hover:bg-primary/10">
-                                  View
-                                </Button>
-                              </div>
-                            </div>
-                          </Card>
-                        </motion.div>
-                      </CarouselItem>
-                    ))}
-              </CarouselContent>
-              <CarouselPrevious className="hidden md:flex -left-4 bg-background/95 border-border shadow" />
-              <CarouselNext className="hidden md:flex -right-4 bg-background/95 border-border shadow" />
-            </Carousel>
+                        <div className="space-y-2 p-4">
+                          <p className="text-xs text-muted-foreground">{design.style_primary}</p>
+                          <h3 className="text-base font-semibold leading-tight text-foreground line-clamp-2 min-h-[40px]">
+                            {design.design_title}
+                          </h3>
+                          <div className="flex items-center justify-between">
+                            <p className="inline-block rounded-full bg-muted px-2.5 py-1 text-[11px] font-bold text-foreground">
+                              {formatBudget(design.estimated_budget_min ?? 0, design.estimated_budget_max ?? 0)}
+                            </p>
+                            <span className="text-xs font-semibold text-primary">
+                              View
+                            </span>
+                          </div>
+                        </div>
+                      </Card>
+                    </div>
+                  ))}
+            </div>
+
+            {/* Pagination Dots */}
+            <div className="flex justify-center gap-2 -mt-2 mb-4">
+              {displayDesigns.slice(0, 10).map((_, i) => (
+                <div
+                  key={i}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    mobileCurrent === i + 1 ? 'w-6 bg-[var(--color-primary)]' : 'w-1.5 bg-border'
+                  }`}
+                />
+              ))}
+            </div>
           </div>
         </motion.div>
 
