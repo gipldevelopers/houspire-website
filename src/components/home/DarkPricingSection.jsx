@@ -93,7 +93,7 @@ export function DarkPricingSection() {
   return (
     <>
       <section id="pricing" className="bg-background py-12 md:py-20 min-h-screen flex items-center">
-        <div className="max-w-[1400px] mx-auto px-6 w-full">
+        <div className="max-w-[1400px] mx-auto px-0 md:px-6 w-full">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -110,72 +110,99 @@ export function DarkPricingSection() {
           </p>
         </motion.div>
 
-        <div className="flex md:grid overflow-x-auto md:overflow-x-visible pt-4 pb-8 md:pb-0 snap-x snap-mandatory grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-4 w-full mx-auto items-stretch no-scrollbar px-4 md:px-0">
-          {plans.map((p, i) => (
-            <motion.div
-              key={p.name}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease, delay: i * 0.05 }}
-              viewport={{ once: true, amount: 0.2 }}
-              className={`relative bg-card rounded-[16px] p-4 md:p-6 flex flex-col min-w-[260px] sm:min-w-[300px] md:min-w-0 snap-center ${
-                p.popular ? 'md:scale-[1.02] border-2 border-primary' : 'border border-border/50'
-              }`}
-              style={{
-                boxShadow: p.popular
-                  ? '0 4px 20px rgba(var(--primary),0.15)'
-                  : '0 2px 8px rgba(0,0,0,0.06)',
-              }}
-            >
-              {p.popular && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-primary text-white text-[10px] font-semibold rounded-[980px] whitespace-nowrap">
-                  Most Popular
-                </div>
-              )}
-
-              <h3 className="text-lg md:text-xl font-bold" style={{ color: 'var(--color-heading-secondary)' }}>{p.name}</h3>
-              <p className="text-[11px] md:text-xs mt-0.5 opacity-60" style={{ color: 'var(--color-description)' }}>{p.subtitle}</p>
-
-              <div className="mt-3 mb-3 md:mt-4 md:mb-4 flex items-center">
-                <NumberTicker
-                  value={p.price}
-                  prefix="₹"
-                  className="text-[28px] md:text-[36px] font-bold leading-none"
-                  style={{ color: 'var(--color-heading-main)' }}
-                />
-                <span className="text-[11px] md:text-xs ml-1.5 opacity-40" style={{ color: 'var(--color-description)' }}>one-time</span>
-              </div>
-
-              <ul className="space-y-1.5 md:space-y-2 flex-1">
-                {p.features.map((f) => (
-                  <li key={f} className="flex items-start gap-2">
-                    <Check className="w-3 md:w-3.5 h-3 md:h-3.5 mt-0.5 flex-shrink-0" style={{ color: 'var(--color-primary)' }} />
-                    <span className="text-[12px] md:text-[13px] leading-tight opacity-60" style={{ color: 'var(--color-description)' }}>{f}</span>
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-4 md:mt-5">
-                {p.primary ? (
-                  <ShimmerButton
-                    onClick={() => handlePlanClick(p)}
-                    className="btn-primary w-full h-9 md:h-11 text-xs md:text-sm"
-                  >
-                    {p.cta}
-                  </ShimmerButton>
-                ) : (
-                  <button
-                    onClick={() => handlePlanClick(p)}
-                    className="btn-secondary w-full h-9 md:h-11 text-xs md:text-sm"
-                  >
-                    {p.cta}
-                  </button>
+        <div 
+          className="overflow-x-auto md:overflow-x-visible pt-4 pb-4 md:pb-0 scrollbar-hide snap-x snap-mandatory px-[22px] md:px-0"
+          onScroll={(e) => {
+            const scrollLeft = e.currentTarget.scrollLeft;
+            const index = Math.round(scrollLeft / (260 + 16)); // Card width + gap
+            const dots = document.querySelectorAll('.pricing-dot');
+            dots.forEach((dot, i) => {
+              dot.style.opacity = i === index ? '1' : '0.2';
+              dot.style.width = i === index ? '16px' : '6px';
+            });
+          }}
+        >
+          <div className="flex md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-max md:w-full px-6 md:px-0">
+            {plans.map((p, i) => (
+              <motion.div
+                key={p.name}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease, delay: i * 0.05 }}
+                viewport={{ once: true, amount: 0.2 }}
+                className={`relative bg-card rounded-[16px] p-4 md:p-6 flex flex-col min-w-[260px] sm:min-w-[300px] md:min-w-0 snap-center ${
+                  p.popular ? 'md:scale-[1.02] border-2 border-primary' : 'border border-border/50'
+                }`}
+                style={{
+                  boxShadow: p.popular
+                    ? '0 4px 20px rgba(var(--primary),0.15)'
+                    : '0 2px 8px rgba(0,0,0,0.06)',
+                }}
+              >
+                {p.popular && (
+                  <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-primary text-white text-[10px] font-semibold rounded-[980px] whitespace-nowrap">
+                    Most Popular
+                  </div>
                 )}
-                <p className="text-[9px] md:text-[10px] text-muted-foreground/80 text-center mt-2 leading-tight">
-                  100% money-back guarantee if not delivered in 3 days
-                </p>
-              </div>
-            </motion.div>
+
+                <h3 className="text-lg md:text-xl font-bold" style={{ color: 'var(--color-heading-secondary)' }}>{p.name}</h3>
+                <p className="text-[11px] md:text-xs mt-0.5 opacity-60" style={{ color: 'var(--color-description)' }}>{p.subtitle}</p>
+
+                <div className="mt-3 mb-3 md:mt-4 md:mb-4 flex items-center">
+                  <NumberTicker
+                    value={p.price}
+                    prefix="₹"
+                    className="text-[28px] md:text-[36px] font-bold leading-none"
+                    style={{ color: 'var(--color-heading-main)' }}
+                  />
+                  <span className="text-[11px] md:text-xs ml-1.5 opacity-40" style={{ color: 'var(--color-description)' }}>one-time</span>
+                </div>
+
+                <ul className="space-y-1.5 md:space-y-2 flex-1">
+                  {p.features.map((f) => (
+                    <li key={f} className="flex items-start gap-2">
+                      <Check className="w-3 md:w-3.5 h-3 md:h-3.5 mt-0.5 flex-shrink-0" style={{ color: 'var(--color-primary)' }} />
+                      <span className="text-[12px] md:text-[13px] leading-tight opacity-60" style={{ color: 'var(--color-description)' }}>{f}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-4 md:mt-5">
+                  {p.primary ? (
+                    <ShimmerButton
+                      onClick={() => handlePlanClick(p)}
+                      className="btn-primary w-full h-9 md:h-11 text-xs md:text-sm"
+                    >
+                      {p.cta}
+                    </ShimmerButton>
+                  ) : (
+                    <button
+                      onClick={() => handlePlanClick(p)}
+                      className="btn-secondary w-full h-9 md:h-11 text-xs md:text-sm"
+                    >
+                      {p.cta}
+                    </button>
+                  )}
+                  <p className="text-[9px] md:text-[10px] text-muted-foreground/80 text-center mt-2 leading-tight">
+                    100% money-back guarantee if not delivered in 3 days
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile Scroll Indicator Dots */}
+        <div className="flex md:hidden justify-center items-center gap-1.5 mt-4">
+          {plans.map((_, i) => (
+            <div 
+              key={i}
+              className="pricing-dot h-1.5 rounded-full bg-primary transition-all duration-300"
+              style={{ 
+                width: i === 0 ? '16px' : '6px',
+                opacity: i === 0 ? '1' : '0.2'
+              }}
+            />
           ))}
         </div>
 

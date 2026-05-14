@@ -145,52 +145,54 @@ export function DarkFeaturesSection() {
         </div>
 
         {/* Mobile View: Horizontal Scroll Slider */}
-        <div className="lg:hidden -mx-4">
+        <div className="lg:hidden">
           <div 
             ref={scrollRef}
-            className="flex overflow-x-auto scrollbar-hide px-4 pb-8 snap-x snap-mandatory"
+            className="overflow-x-auto scrollbar-hide pb-8 snap-x snap-mandatory"
             style={{ WebkitOverflowScrolling: 'touch' }}
           >
-            {cards.map((card, i) => (
-              <div 
-                key={card.title} 
-                className="flex-none w-[280px] pr-4 snap-start"
-              >
-                <div
-                  className="group relative overflow-hidden rounded-2xl border border-border/30 bg-card shadow-md aspect-[4/5]"
+            <div className="flex w-max gap-4 px-0">
+              {cards.map((card, i) => (
+                <div 
+                  key={card.title} 
+                  className="flex-none w-[280px] snap-center"
                 >
-                  <div className="absolute inset-0">
-                    <img
-                      src={card.image}
-                      alt={card.title}
-                      className="h-full w-full object-cover"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-black/30" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/30" />
-                  </div>
-
-                  <div className="relative flex h-full flex-col justify-between p-5">
-                    <div>
-                      <div className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-medium text-white/90" style={{ backgroundColor: 'rgba(236, 116, 70, 0.3)' }}>
-                        <card.icon className="h-3 w-3" />
-                        Included
-                      </div>
-                      <h3 className="mt-3 text-lg font-bold tracking-tight text-white line-clamp-2">{card.title}</h3>
-                      <p className="mt-1 text-xs text-white/70 line-clamp-2">{card.subtitle}</p>
+                  <div
+                    className="group relative overflow-hidden rounded-2xl border border-border/30 bg-card shadow-md aspect-[4/5]"
+                  >
+                    <div className="absolute inset-0">
+                      <img
+                        src={card.image}
+                        alt={card.title}
+                        className="h-full w-full object-cover"
+                        loading="lazy"
+                      />
+                      <div className="absolute inset-0 bg-black/30" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-black/30" />
                     </div>
 
-                    <div 
-                      onClick={() => handleCardRedirect(card)}
-                      className="inline-flex items-center gap-1.5 text-xs font-semibold text-white cursor-pointer active:scale-95 transition-transform"
-                    >
-                      {card.cta}
-                      <ArrowRight className="h-3 w-3" />
+                    <div className="relative flex h-full flex-col justify-between p-5">
+                      <div>
+                        <div className="inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-[10px] font-medium text-white/90" style={{ backgroundColor: 'rgba(236, 116, 70, 0.3)' }}>
+                          <card.icon className="h-3 w-3" />
+                          Included
+                        </div>
+                        <h3 className="mt-3 text-lg font-bold tracking-tight text-white line-clamp-2">{card.title}</h3>
+                        <p className="mt-1 text-xs text-white/70 line-clamp-2">{card.subtitle}</p>
+                      </div>
+
+                      <div 
+                        onClick={() => handleCardRedirect(card)}
+                        className="inline-flex items-center gap-1.5 text-xs font-semibold text-white cursor-pointer active:scale-95 transition-transform"
+                      >
+                        {card.cta}
+                        <ArrowRight className="h-3 w-3" />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
           {/* Controls - Kept for accessibility/visual hint */}

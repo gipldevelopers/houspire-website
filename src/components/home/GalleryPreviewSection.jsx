@@ -350,69 +350,70 @@ export function GalleryPreviewSection() {
               ))}
             </div>
           </div>
-
           {/* Mobile/Tablet: Native horizontal scroll slider */}
-          <div className="lg:hidden -mx-6">
+          <div className="lg:hidden">
             <div 
               ref={scrollRef}
-              className="flex overflow-x-auto scrollbar-hide px-6 pb-4 snap-x snap-mandatory"
+              className="overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory"
               style={{ WebkitOverflowScrolling: 'touch' }}
             >
-              {loading
-                ? Array.from({ length: 5 }).map((_, idx) => (
-                    <div key={idx} className="flex-none w-[280px] pr-4 snap-start">
-                      <GalleryCardSkeleton />
-                    </div>
-                  ))
-                : displayDesigns.slice(0, 10).map((design, idx) => (
-                    <div 
-                      key={design.id} 
-                      className="flex-none w-[280px] pr-4 snap-start"
-                    >
-                      <Card
-                        className="group relative h-full overflow-hidden rounded-[20px] border border-border/60 bg-card p-0 shadow-[0_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300"
-                        onClick={() => router.push('/discover')}
+              <div className="flex w-max gap-4 px-0">
+                {loading
+                  ? Array.from({ length: 5 }).map((_, idx) => (
+                      <div key={idx} className="flex-none w-[280px] snap-center">
+                        <GalleryCardSkeleton />
+                      </div>
+                    ))
+                  : displayDesigns.slice(0, 10).map((design, idx) => (
+                      <div 
+                        key={design.id} 
+                        className="flex-none w-[280px] snap-center"
                       >
-                        <div className="relative h-[170px] overflow-hidden">
-                          <img
-                            src={design.cover_image_url}
-                            alt={design.design_title}
-                            loading="lazy"
-                            className="h-full w-full object-cover"
-                            draggable={false}
-                          />
-                          <div className="absolute left-3 top-3">
-                            <Badge className="bg-background/90 text-foreground backdrop-blur-sm text-[10px] px-2 py-0">
-                              {design.room_type}
-                            </Badge>
+                        <Card
+                          className="group relative h-full overflow-hidden rounded-[20px] border border-border/60 bg-card p-0 shadow-[0_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300"
+                          onClick={() => router.push('/discover')}
+                        >
+                          <div className="relative h-[170px] overflow-hidden">
+                            <img
+                              src={design.cover_image_url}
+                              alt={design.design_title}
+                              loading="lazy"
+                              className="h-full w-full object-cover"
+                              draggable={false}
+                            />
+                            <div className="absolute left-3 top-3">
+                              <Badge className="bg-background/90 text-foreground backdrop-blur-sm text-[10px] px-2 py-0">
+                                {design.room_type}
+                              </Badge>
+                            </div>
+                            <div className="absolute right-3 top-3 flex items-center gap-2 text-white text-[10px]">
+                              <span className="flex items-center gap-1 rounded-full bg-black/40 px-1.5 py-0.5">
+                                <Eye className="h-3 w-3" /> {design.view_count ?? 0}
+                              </span>
+                              <span className="flex items-center gap-1 rounded-full bg-black/40 px-1.5 py-0.5">
+                                <Heart className="h-3 w-3" /> {design.save_count ?? 0}
+                              </span>
+                            </div>
                           </div>
-                          <div className="absolute right-3 top-3 flex items-center gap-2 text-white text-[10px]">
-                            <span className="flex items-center gap-1 rounded-full bg-black/40 px-1.5 py-0.5">
-                              <Eye className="h-3 w-3" /> {design.view_count ?? 0}
-                            </span>
-                            <span className="flex items-center gap-1 rounded-full bg-black/40 px-1.5 py-0.5">
-                              <Heart className="h-3 w-3" /> {design.save_count ?? 0}
-                            </span>
-                          </div>
-                        </div>
 
-                        <div className="space-y-1.5 p-3">
-                          <p className="text-[10px] text-muted-foreground">{design.style_primary}</p>
-                          <h3 className="text-sm font-semibold leading-tight text-foreground line-clamp-2 min-h-[36px]">
-                            {design.design_title}
-                          </h3>
-                          <div className="flex items-center justify-between">
-                            <p className="inline-block rounded-full bg-muted px-2 py-0.5 text-[10px] font-bold text-foreground">
-                              {formatBudget(design.estimated_budget_min ?? 0, design.estimated_budget_max ?? 0)}
-                            </p>
-                            <span className="text-[10px] font-semibold text-primary">
-                              View
-                            </span>
+                          <div className="space-y-1.5 p-3">
+                            <p className="text-[10px] text-muted-foreground">{design.style_primary}</p>
+                            <h3 className="text-sm font-semibold leading-tight text-foreground line-clamp-2 min-h-[36px]">
+                              {design.design_title}
+                            </h3>
+                            <div className="flex items-center justify-between">
+                              <p className="inline-block rounded-full bg-muted px-2 py-0.5 text-[10px] font-bold text-foreground">
+                                {formatBudget(design.estimated_budget_min ?? 0, design.estimated_budget_max ?? 0)}
+                              </p>
+                              <span className="text-[10px] font-semibold text-primary">
+                                View
+                              </span>
+                            </div>
                           </div>
-                        </div>
-                      </Card>
-                    </div>
-                  ))}
+                        </Card>
+                      </div>
+                    ))}
+              </div>
             </div>
 
             {/* Pagination Dots */}

@@ -60,61 +60,63 @@ export function UrgencyPreviewSection() {
         </div>
 
         {/* Mobile View: Horizontal Slider */}
-        <div className="md:hidden -mx-6">
+        <div className="md:hidden">
           <div 
             ref={scrollRef}
-            className="flex overflow-x-auto scrollbar-hide px-6 pb-4 snap-x snap-mandatory"
+            className="overflow-x-auto scrollbar-hide pb-4 snap-x snap-mandatory"
             style={{ WebkitOverflowScrolling: 'touch' }}
           >
-            {stories.map((story) => (
-              <div key={story.slug} className="flex-none w-[270px] pr-4 snap-start">
-                <Link
-                  href={`/urgency/${story.slug}`}
-                  className="group flex flex-col rounded-[1.5rem] overflow-hidden border border-border bg-card h-full"
-                >
-                  <div className="relative aspect-[3/2] bg-muted overflow-hidden">
-                    <img
-                      src={story.image || '/placeholder.svg'}
-                      alt={story.title}
-                      className="w-full h-full object-cover"
-                      loading="lazy"
-                    />
-                    
-                    <div className="absolute top-3 left-3 right-3 flex flex-col gap-1.5 pointer-events-none">
-                      <div className="inline-flex items-center w-fit bg-red-600 text-white text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md shadow-lg">
-                        Problem: {story.problem_tag}
-                      </div>
-                      <div className="inline-flex items-center w-fit bg-white/95 backdrop-blur text-green-600 text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md shadow-lg border border-green-100">
-                        <CheckCircle2 className="h-2.5 w-2.5 mr-1" />
-                        Solved in 72h
+            <div className="flex w-max gap-4 px-0">
+              {stories.map((story) => (
+                <div key={story.slug} className="flex-none w-[270px] snap-center">
+                  <Link
+                    href={`/urgency/${story.slug}`}
+                    className="group flex flex-col rounded-[1.5rem] overflow-hidden border border-border bg-card h-full"
+                  >
+                    <div className="relative aspect-[3/2] bg-muted overflow-hidden">
+                      <img
+                        src={story.image || '/placeholder.svg'}
+                        alt={story.title}
+                        className="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                      
+                      <div className="absolute top-3 left-3 right-3 flex flex-col gap-1.5 pointer-events-none">
+                        <div className="inline-flex items-center w-fit bg-red-600 text-white text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md shadow-lg">
+                          Problem: {story.problem_tag}
+                        </div>
+                        <div className="inline-flex items-center w-fit bg-white/95 backdrop-blur text-green-600 text-[9px] font-black uppercase tracking-widest px-2 py-1 rounded-md shadow-lg border border-green-100">
+                          <CheckCircle2 className="h-2.5 w-2.5 mr-1" />
+                          Solved in 72h
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="p-4 flex flex-col flex-1">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="h-1 w-1 rounded-full bg-primary" />
-                      <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">
-                        {story.person.name} • {story.person.city}
-                      </p>
-                    </div>
-                    
-                    <h3 className="text-base font-bold text-foreground leading-tight tracking-tight line-clamp-2 min-h-[38px]">
-                      {story.title}
-                    </h3>
-                    
-                    <div className="mt-3 flex items-center justify-between">
-                      <span className="text-[10px] font-black text-primary uppercase tracking-[0.1em]">
-                        {story.cta_text}
-                      </span>
-                      <div className="h-7 w-7 flex items-center justify-center rounded-full bg-primary text-white">
-                        <ArrowRight className="h-3.5 w-3.5" />
+                    <div className="p-4 flex flex-col flex-1">
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="h-1 w-1 rounded-full bg-primary" />
+                        <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">
+                          {story.person.name} • {story.person.city}
+                        </p>
+                      </div>
+                      
+                      <h3 className="text-base font-bold text-foreground leading-tight tracking-tight line-clamp-2 min-h-[38px]">
+                        {story.title}
+                      </h3>
+                      
+                      <div className="mt-3 flex items-center justify-between">
+                        <span className="text-[10px] font-black text-primary uppercase tracking-[0.1em]">
+                          {story.cta_text}
+                        </span>
+                        <div className="h-7 w-7 flex items-center justify-center rounded-full bg-primary text-white">
+                          <ArrowRight className="h-3.5 w-3.5" />
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </Link>
-              </div>
-            ))}
+                  </Link>
+                </div>
+              ))}
+            </div>
           </div>
 
           {/* Pagination Dots */}

@@ -73,8 +73,8 @@ export function HeroSection() {
           </div>
 
           <div className="mx-auto w-full max-w-[1400px] px-4 sm:px-6 lg:px-10 flex-1 flex flex-col justify-between md:block py-4">
-          <div className="flex-1 flex flex-col justify-center gap-6 md:gap-0">
-            <div className="grid items-center gap-6 md:gap-10 md:grid-cols-[1.1fr_0.9fr]">
+          <div className="flex-1 flex flex-col md:justify-start justify-center gap-6 md:gap-0 md:pt-4">
+            <div className="grid items-start gap-6 md:gap-10 md:grid-cols-[1.1fr_0.9fr]">
               <div className="flex flex-col gap-6 md:block">
                 <div className="space-y-1.5">
                   <motion.div
@@ -157,7 +157,7 @@ export function HeroSection() {
                     initial={{ opacity: 0, y: 18 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease, delay: 0.25 }}
-                    className="space-y-2"
+                    className="space-y-2 md:mt-10"
                   >
                     <div className="flex items-start gap-2.5">
                       <div className="mt-0.5 h-3 w-3 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center flex-shrink-0">
