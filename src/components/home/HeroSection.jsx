@@ -97,62 +97,78 @@ export function HeroSection() {
                 <span className="whitespace-nowrap" style={{ color: 'var(--color-heading-main-highlight)' }}>3 days</span> not 3 months
               </motion.h1>
 
-              {/* Mobile Image Preview - More compact for better viewport efficiency */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.9, ease, delay: 0.2 }}
-                className="relative mt-4 md:hidden"
-              >
-                <div className="card-apple p-2 border border-primary/10 shadow-xl">
-                  <div className="relative overflow-hidden rounded-xl border border-border/60 bg-card">
-                    <div className="relative aspect-[16/10]">
-                      <Image
-                        src={previewImages[0].src}
-                        alt={previewImages[0].alt}
-                        fill
-                        priority
-                        className="object-cover"
-                      />
+              {/* Mobile Layout: Images and Features side-by-side */}
+              <div className="md:hidden mt-6 flex gap-3 items-stretch">
+                <motion.div
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.9, ease, delay: 0.2 }}
+                  className="flex-[1.6] max-w-[200px]"
+                >
+                  <div className="card-apple p-1 border border-primary/10 shadow-lg h-full flex flex-col">
+                    <div className="relative overflow-hidden rounded-lg border border-border/60 bg-card flex-1">
+                      <div className="relative h-full aspect-[1.1/1]">
+                        <Image
+                          src={previewImages[0].src}
+                          alt={previewImages[0].alt}
+                          fill
+                          priority
+                          className="object-cover"
+                        />
+                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-                    <div className="absolute bottom-3 left-3">
-                      <span className="inline-flex items-center rounded-full bg-white/90 backdrop-blur px-3 py-1 text-[10px] font-bold text-primary shadow-sm">
-                        What you’ll see in 3 days
-                      </span>
-                    </div>
-                  </div>
 
-                  <div className="mt-2 grid grid-cols-2 gap-2">
-                    <div className="relative aspect-[4/3] rounded-lg overflow-hidden border border-border/40">
-                      <Image src={previewImages[1].src} alt={previewImages[1].alt} fill className="object-cover" />
-                    </div>
-                    <div className="relative aspect-[4/3] rounded-lg overflow-hidden border border-border/40">
-                      <Image src={previewImages[2].src} alt={previewImages[2].alt} fill className="object-cover" />
+                    <div className="mt-1 grid grid-cols-2 gap-1 h-[70px]">
+                      <div className="relative aspect-[4/3] rounded-md overflow-hidden border border-border/40">
+                        <Image src={previewImages[1].src} alt={previewImages[1].alt} fill className="object-cover" />
+                      </div>
+                      <div className="relative aspect-[4/3] rounded-md overflow-hidden border border-border/40">
+                        <Image src={previewImages[2].src} alt={previewImages[2].alt} fill className="object-cover" />
+                      </div>
                     </div>
                   </div>
-                </div>
-              </motion.div>
+                </motion.div>
+
+                {/* Vertical Features beside images */}
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.9, ease, delay: 0.3 }}
+                  className="flex-1 flex flex-col gap-1.5"
+                >
+                  {includedTiles.map((item) => (
+                    <div
+                      key={item.title}
+                      className="rounded-lg border border-[var(--color-border)] bg-background/50 backdrop-blur-sm p-1.5 py-2 hover:border-[var(--color-primary)]/20 transition-colors"
+                    >
+                      <item.icon className="h-3 w-3" style={{ color: 'var(--color-primary)' }} />
+                      <div className="mt-0.5 text-[9px] font-bold leading-tight" style={{ color: 'var(--color-heading-secondary)' }}>{item.title}</div>
+                      <div className="text-[8px] leading-tight opacity-60" style={{ color: 'var(--color-description)' }}>{item.desc}</div>
+                    </div>
+                  ))}
+                </motion.div>
+              </div>
 
               <motion.div
                 initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease, delay: 0.25 }}
-                className="mt-8 space-y-4"
+                className="mt-6 space-y-3"
               >
-                <div className="flex items-start gap-4">
-                  <div className="mt-1 h-6 w-6 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center flex-shrink-0">
-                    <CheckCircle2 className="h-4 w-4" style={{ color: 'var(--color-primary)' }} />
+                <div className="flex items-start gap-3">
+                  <div className="mt-0.5 h-4 w-4 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center flex-shrink-0">
+                    <CheckCircle2 className="h-3 w-3" style={{ color: 'var(--color-primary)' }} />
                   </div>
-                  <p className="text-lg md:text-xl font-normal" style={{ color: 'var(--color-heading-secondary)' }}>
+                  <p className="text-sm md:text-xl font-normal leading-tight" style={{ color: 'var(--color-heading-secondary)' }}>
                     See your exact home before you commit a single rupee <span style={{ color: 'var(--color-heading-secondary-highlight)' }}>before work begins.</span>
                   </p>
                 </div>
-                <div className="flex items-start gap-4">
-                  <div className="mt-1 h-6 w-6 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center flex-shrink-0">
-                    <CheckCircle2 className="h-4 w-4" style={{ color: 'var(--color-primary)' }} />
+                <div className="flex items-start gap-3">
+                  <div className="mt-0.5 h-4 w-4 rounded-full bg-[var(--color-primary)]/10 flex items-center justify-center flex-shrink-0">
+                    <CheckCircle2 className="h-3 w-3" style={{ color: 'var(--color-primary)' }} />
                   </div>
-                  <p className="text-lg md:text-xl font-normal" style={{ color: 'var(--color-heading-secondary)' }}>
+                  <p className="text-sm md:text-xl font-normal leading-tight" style={{ color: 'var(--color-heading-secondary)' }}>
                     Know where every rupee goes <span style={{ color: 'var(--color-heading-secondary-highlight)' }}>before work begins.</span>
                   </p>
                 </div>
@@ -177,7 +193,7 @@ export function HeroSection() {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease, delay: 0.5 }}
-                className="mt-8 grid grid-cols-2 gap-2.5 max-w-lg"
+                className="mt-8 hidden md:grid grid-cols-2 gap-2.5 max-w-lg"
               >
                 {includedTiles.map((item) => (
                   <div

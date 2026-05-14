@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { Star, ArrowUpRight, MapPin } from 'lucide-react';
 import Link from 'next/link';
@@ -114,43 +114,43 @@ function ReviewCard({ item }) {
 }
 
 export function TestimonialsSectionHome() {
+  const [current, setCurrent] = useState(1);
   const scrollRef = useRef(null);
-  const dragState = useRef({ isDown: false, startX: 0, scrollLeft: 0 });
 
-  const onMouseDown = (e) => {
-    if (!scrollRef.current) return;
-    dragState.current.isDown = true;
-    dragState.current.startX = e.pageX - scrollRef.current.offsetLeft;
-    dragState.current.scrollLeft = scrollRef.current.scrollLeft;
-  };
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
 
-  const onMouseLeave = () => {
-    dragState.current.isDown = false;
-  };
+    const handleScroll = () => {
+      const items = Array.from(el.children[0].children);
+      const scrollCenter = el.scrollLeft + (el.offsetWidth / 2);
+      
+      let activeIndex = 0;
+      items.forEach((item, i) => {
+        const itemLeft = item.offsetLeft;
+        const itemRight = itemLeft + item.offsetWidth;
+        if (scrollCenter >= itemLeft && scrollCenter < itemRight) {
+          activeIndex = i;
+        }
+      });
+      
+      setCurrent(activeIndex + 1);
+    };
 
-  const onMouseUp = () => {
-    dragState.current.isDown = false;
-  };
-
-  const onMouseMove = (e) => {
-    if (!dragState.current.isDown || !scrollRef.current) return;
-    e.preventDefault();
-    const x = e.pageX - scrollRef.current.offsetLeft;
-    const walk = (x - dragState.current.startX) * 1.5;
-    scrollRef.current.scrollLeft = dragState.current.scrollLeft - walk;
-  };
+    el.addEventListener('scroll', handleScroll);
+    return () => el.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
-    <section className="relative overflow-hidden py-10 md:py-10" style={{ backgroundColor: 'var(--color-primary-1)' }}>
-      <div className="relative mx-auto max-w-[1400px] px-6 md:px-10">
+    <section className="relative overflow-hidden py-16 md:py-10" style={{ backgroundColor: 'var(--color-primary-1)' }}>
+      <div className="relative mx-auto max-w-[1400px]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: 0.7, ease: 'easeOut' }}
-          className="mb-6 text-center md:mb-6"
+          className="mb-8 text-center px-6"
         >
-
           <h2 className="text-2xl font-bold tracking-tight md:text-4xl lg:text-5xl mb-4" style={{ color: 'var(--color-heading-main)' }}>
              From confusion to clarity <span style={{ color: 'var(--color-heading-main-highlight)' }}>200+ homes</span> and counting
           </h2>
@@ -161,16 +161,12 @@ export function TestimonialsSectionHome() {
 
         <motion.div
           ref={scrollRef}
-          onMouseDown={onMouseDown}
-          onMouseLeave={onMouseLeave}
-          onMouseUp={onMouseUp}
-          onMouseMove={onMouseMove}
-          className="overflow-x-auto overflow-y-hidden scrollbar-hide pb-10 cursor-grab active:cursor-grabbing select-none"
+          className="overflow-x-auto overflow-y-hidden scrollbar-hide pb-8 cursor-grab active:cursor-grabbing select-none snap-x snap-mandatory"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
         >
-          <div className="flex w-max gap-5 px-6 md:px-12 lg:mx-auto lg:justify-center">
+          <div className="flex w-max gap-4 px-6 md:px-12 lg:mx-auto lg:justify-center">
             {singleRow.map((item, idx) => (
               <motion.div
                 key={`row-${idx}`}
@@ -178,12 +174,25 @@ export function TestimonialsSectionHome() {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.6, delay: idx * 0.1 }}
+                className="snap-center"
               >
                 <ReviewCard item={item} />
               </motion.div>
             ))}
           </div>
         </motion.div>
+
+        {/* Pagination Dots - Mobile Only */}
+        <div className="flex md:hidden justify-center gap-2 mt-2">
+          {singleRow.map((_, i) => (
+            <div
+              key={i}
+              className={`h-1 rounded-full transition-all duration-300 ${
+                current === i + 1 ? 'w-6 bg-[var(--color-primary)]' : 'w-1 bg-gray-300'
+              }`}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
