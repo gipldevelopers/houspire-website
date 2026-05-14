@@ -13,45 +13,41 @@ const steps = [
 
 export function DarkHowItWorksSection() {
   return (
-    <section className="bg-background py-6 md:py-12">
+    <section className="bg-background py-16 md:py-12 overflow-hidden">
       <div className="max-w-[1200px] mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease }}
           viewport={{ once: true, amount: 0.2 }}
-          className="text-center mb-16"
+          className="text-center mb-6 md:mb-16"
         >
-          <p className="text-sm font-semibold tracking-[0.04em] uppercase opacity-40 mb-3" style={{ color: 'var(--color-description)' }}>How it works</p>
-          <h2 className="text-[clamp(36px,5vw,56px)] font-bold tracking-[-0.025em] leading-[1.07]" style={{ color: 'var(--color-heading-main)' }}>
+          <p className="text-[10px] sm:text-sm font-semibold tracking-[0.14em] uppercase opacity-40 mb-2" style={{ color: 'var(--color-description)' }}>How it works</p>
+          <h2 className="text-[26px] sm:text-[clamp(36px,5vw,56px)] font-bold tracking-[-0.02em] leading-[1.1]" style={{ color: 'var(--color-heading-main)' }}>
             Plan your home in 4 steps
           </h2>
-          <p className="text-[21px] leading-[1.38] mt-2 opacity-60" style={{ color: 'var(--color-description)' }}>Upload your space today. Get a complete home plan in 72 hours.</p>
+          <p className="text-xs sm:text-[21px] leading-relaxed mt-1 opacity-60" style={{ color: 'var(--color-description)' }}>Upload your space today. Get a plan in 72 hours.</p>
         </motion.div>
 
         <div className="relative">
           {/* Connecting line — desktop only */}
           <div className="hidden lg:block absolute top-[28px] left-[12.5%] right-[12.5%] h-[2px] bg-border" />
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-10">
             {steps.map((s, i) => (
               <motion.div
                 key={s.num}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 15 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8, ease, delay: i * 0.1 }}
+                transition={{ duration: 0.5, ease, delay: i * 0.05 }}
                 viewport={{ once: true, amount: 0.2 }}
                 className="text-center relative"
               >
-                {/* Vertical connector — mobile/tablet only (not on last item) */}
-                {i < steps.length - 1 && (
-                  <div className="lg:hidden absolute left-1/2 -translate-x-1/2 top-[56px] h-[calc(100%+40px-56px)] w-[2px] bg-border -z-0" />
-                )}
-                <span className="inline-block text-[56px] font-bold leading-none relative z-10 px-2" style={{ color: 'var(--color-primary)', backgroundColor: 'var(--color-bg)' }}>
+                <span className="inline-block text-3xl md:text-[56px] font-bold leading-none" style={{ color: 'var(--color-primary)' }}>
                   {s.num}
                 </span>
-                <h3 className="text-[20px] font-semibold mt-4" style={{ color: 'var(--color-heading-secondary)' }}>{s.title}</h3>
-                <p className="text-[14px] leading-[1.47] mt-2 max-w-[220px] mx-auto opacity-60" style={{ color: 'var(--color-description)' }}>{s.desc}</p>
+                <h3 className="text-base md:text-[20px] font-semibold mt-0.5 md:mt-4" style={{ color: 'var(--color-heading-secondary)' }}>{s.title}</h3>
+                <p className="text-[11px] md:text-[14px] leading-tight mt-0.5 md:mt-2 max-w-[220px] mx-auto opacity-60" style={{ color: 'var(--color-description)' }}>{s.desc}</p>
               </motion.div>
             ))}
           </div>
