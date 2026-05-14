@@ -43,28 +43,28 @@ export function DarkTransformationSection() {
   return (
     <section 
       id="transformation" 
-      className="py-6 md:py-12 overflow-hidden bg-background"
+      className="py-16 md:py-12 overflow-hidden bg-background"
     >
       <div className="container mx-auto px-6">
         
         {/* Top Label - Warm gray for better contrast on light orange */}
-        <div className="text-center mb-2 md:mb-6">
-          <p className="text-sm font-semibold tracking-[0.18em] opacity-60" style={{ color: 'var(--color-heading)' }}>
+        <div className="text-center mb-6 md:mb-6">
+          <p className="text-xs sm:text-sm font-semibold tracking-[0.12em] md:tracking-[0.18em] opacity-60" style={{ color: 'var(--color-heading)' }}>
             From bare walls to fully designed before you spend a rupee
           </p>
         </div>
 
         <div className="relative max-w-7xl mx-auto">
           {/* Main Layout Grid: [From this] [Image Slider] [To this] */}
-          <div className="flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-12">
+          <div className="flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-12">
             
             {/* LEFT SIDE: "From this." - Black text */}
             <motion.div 
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              className="lg:w-1/6 text-left"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              className="lg:w-1/6 text-center lg:text-left"
             >
-              <h2 className="text-[clamp(30px,3vw,48px)] font-bold tracking-[-0.03em] text-black">
+              <h2 className="text-2xl md:text-[clamp(30px,3vw,48px)] font-bold tracking-tight text-black">
                 Before
               </h2>
             </motion.div>
@@ -76,7 +76,7 @@ export function DarkTransformationSection() {
               
               <div
                 ref={containerRef}
-                className="relative w-full aspect-video rounded-[24px] overflow-hidden cursor-ew-resize select-none border border-black/10 bg-white shadow-lg shadow-[#ff8c42]/10"
+                className="relative w-full aspect-video rounded-[20px] md:rounded-[24px] overflow-hidden cursor-ew-resize select-none border border-black/10 bg-white shadow-lg shadow-[#ff8c42]/10"
                 onMouseDown={handlePointerDown}
                 onMouseUp={handlePointerUp}
                 onMouseLeave={handlePointerUp}
@@ -101,14 +101,14 @@ export function DarkTransformationSection() {
                 {/* Slider Handle & Line - Dynamic */}
                 <div className="absolute top-0 bottom-0 w-[2px] bg-[var(--color-primary)] z-10" style={{ left: `${position}%`, transform: 'translateX(-50%)' }} />
                 <div 
-                  className="absolute top-1/2 z-20 w-10 h-10 bg-[var(--color-primary)] rounded-full flex items-center justify-center shadow-xl shadow-[var(--color-primary)]/30"
+                  className="absolute top-1/2 z-20 w-8 h-8 md:w-10 md:h-10 bg-[var(--color-primary)] rounded-full flex items-center justify-center shadow-xl shadow-[var(--color-primary)]/30"
                   style={{ left: `${position}%`, transform: 'translateX(-50%) translateY(-50%)' }}
                 >
-                  <svg width="16" height="16" viewBox="0 0 20 20" fill="none">
+                  <svg className="w-3.5 h-3.5 md:w-4 md:h-4" viewBox="0 0 20 20" fill="none">
                     <path d="M6 10L2 10M2 10L4.5 7.5M2 10L4.5 12.5M14 10L18 10M18 10L15.5 7.5M18 10L15.5 12.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                  <div className="absolute top-[120%] left-1/2 -translate-x-1/2 whitespace-nowrap text-[10px] font-bold uppercase tracking-widest text-[#6B4F3F] bg-white/80 backdrop-blur px-2 py-0.5 rounded-full shadow-sm">
-                    drag to reveal transformation
+                  <div className="absolute top-[130%] left-1/2 -translate-x-1/2 whitespace-nowrap text-[8px] md:text-[10px] font-bold uppercase tracking-widest text-[#6B4F3F] bg-white/80 backdrop-blur px-2 py-0.5 rounded-full shadow-sm">
+                    drag to reveal
                   </div>
                 </div>
               </div>
@@ -116,11 +116,11 @@ export function DarkTransformationSection() {
 
             {/* RIGHT SIDE: "To this." - Black text */}
             <motion.div 
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              className="lg:w-1/6 text-right"
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              className="lg:w-1/6 text-center lg:text-right"
             >
-              <h2 className="text-[clamp(30px,3vw,48px)] font-bold tracking-[-0.03em] text-black">
+              <h2 className="text-2xl md:text-[clamp(30px,3vw,48px)] font-bold tracking-tight text-black">
                 After
               </h2>
             </motion.div>
@@ -129,17 +129,17 @@ export function DarkTransformationSection() {
         </div>
 
         {/* Bottom Navigation - Now dynamic */}
-        <div className="mt-12 text-center">
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+        <div className="mt-10 md:mt-12 text-center">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
             <button 
               onClick={() => router.push('/style-quiz')} 
-              className="btn-primary btn-lg min-w-[220px]"
+              className="btn-primary w-full sm:w-auto sm:min-w-[200px] py-3 text-sm md:text-base"
             >
               Design my room
             </button>
             <button 
               onClick={() => router.push('/discover')} 
-              className="btn-secondary btn-lg min-w-[220px]"
+              className="btn-secondary w-full sm:w-auto sm:min-w-[200px] py-3 text-sm md:text-base"
             >
               See more transformations
             </button>
