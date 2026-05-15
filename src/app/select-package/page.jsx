@@ -71,6 +71,24 @@ const comparisonHeaders = [
   { name: 'Luxury Home', price: '₹14,999' },
 ];
 
+const shouldOpenWizard = (pkg) => {
+  if (!pkg) return false;
+  const slug = pkg.slug?.toLowerCase() || '';
+  const name = pkg.name?.toLowerCase() || '';
+  const isTrial = pkg.isTrial || pkg.is_trial;
+  return (
+    isTrial || 
+    slug.includes('trial') || 
+    slug.includes('smart') || 
+    slug.includes('premium') || 
+    slug.includes('luxury') ||
+    name.includes('trial') ||
+    name.includes('smart') ||
+    name.includes('premium') ||
+    name.includes('luxury')
+  );
+};
+
 function SelectPackageContent() {
   const { scrollYProgress } = useScroll();
   const scaleX = useSpring(scrollYProgress, {
@@ -109,7 +127,9 @@ function SelectPackageContent() {
   useEffect(() => {
     if (packageSlug && packages.length > 0 && !selectedPackage) {
       const pkg = packages.find((p) => p.slug === packageSlug);
-      if (pkg) setSelectedPackage(pkg);
+      if (pkg) {
+        setSelectedPackage(pkg);
+      }
     }
   }, [packageSlug, packages, selectedPackage]);
 
@@ -118,10 +138,6 @@ function SelectPackageContent() {
       setLoading(true);
       const { packages: data } = await dataGet('/packages?limit=10');
       setPackages(data || []);
-      if (packageSlug && (data || []).length > 0) {
-        const pkg = (data || []).find((p) => p.slug === packageSlug);
-        if (pkg) setSelectedPackage(pkg);
-      }
     } catch (err) {
       console.error('Error fetching packages:', err);
       toast({
@@ -134,15 +150,14 @@ function SelectPackageContent() {
     }
   };
 
-  const shouldOpenWizard = (pkg) => {
-    const slug = pkg?.slug?.toLowerCase();
-    return slug === 'trial' || slug === 'smart' || slug === 'premium' || slug === 'luxury';
-  };
+
 
   const handlePackageAction = (pkg) => {
     if (shouldOpenWizard(pkg)) {
       setSelectedPackagePrice(pkg.price);
       setIsWizardOpen(true);
+      // Don't "select" it in the UI (hides the bottom bar)
+      setSelectedPackage(null);
       return;
     }
 
@@ -163,7 +178,7 @@ function SelectPackageContent() {
     params.set('package', selectedPackage.slug);
     if (styleSlug) params.set('style', styleSlug);
     if (referenceDesignId) params.set('reference', referenceDesignId);
-    router.push(`/select-addons?${params.toString()}`);
+    router.push(`/checkout?${params.toString()}`);
   };
 
   const primaryButtonClass =
@@ -278,7 +293,7 @@ function SelectPackageContent() {
           <PricingComparisonTable />
         </div>
 
-        {selectedPackage && (
+        {selectedPackage && !shouldOpenWizard(selectedPackage) && (
           <motion.div
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
@@ -466,8 +481,17 @@ function PackageCard({ pkg, index, selected, onSelect }) {
           >
             {selected ? (
               <span className="flex items-center gap-2">
-                <Check className="h-4 w-4" />
-                Selected
+                {shouldOpenWizard(pkg) ? (
+                  <>
+                    Continue to Design
+                    <ArrowRight className="h-4 w-4" />
+                  </>
+                ) : (
+                  <>
+                    <Check className="h-4 w-4" />
+                    Selected
+                  </>
+                )}
               </span>
             ) : (
               pkg.buttonText || `Choose ${pkg.name}`

@@ -1,13 +1,40 @@
 import { Skeleton } from '@/components/ui/skeleton'
 import { Container } from '@/components/layout/Container'
 
-export function DiscoverSkeleton({ gridSize = 'default', count = 12 }) {
+export function DiscoverSkeleton({ gridSize = 'default', count = 12, gridOnly = false }) {
   // Predefined heights to avoid layout shifts and look like Pinterest
   const skeletonHeights = [
     'h-[250px]', 'h-[350px]', 'h-[280px]', 'h-[400px]',
     'h-[320px]', 'h-[260px]', 'h-[380px]', 'h-[300px]',
     'h-[340px]', 'h-[270px]', 'h-[310px]', 'h-[360px]'
   ]
+
+  const GridSkeleton = () => (
+    <div className="columns-2 lg:columns-3 xl:columns-4 gap-2 md:gap-4">
+      {Array.from({ length: count }).map((_, index) => {
+        const heightClass = skeletonHeights[index % skeletonHeights.length]
+        return (
+          <div
+            key={index}
+            className="break-inside-avoid mb-2 md:mb-4"
+          >
+            <div
+              className="overflow-hidden rounded-2xl border bg-card p-0 shadow-sm"
+              style={{ borderColor: 'color-mix(in srgb, var(--color-primary) 10%, var(--color-border))' }}
+            >
+               <Skeleton className={`w-full ${heightClass} rounded-2xl mb-3`} />
+               <div className="p-3">
+                 <Skeleton className="h-4 w-3/4 mb-2" />
+                 <Skeleton className="h-3 w-1/2" />
+               </div>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+
+  if (gridOnly) return <GridSkeleton />
 
   return (
     <div className="min-h-screen bg-background">
@@ -35,28 +62,7 @@ export function DiscoverSkeleton({ gridSize = 'default', count = 12 }) {
 
       {/* Masonry Grid Skeleton */}
       <Container className="py-6 pb-20">
-        <div className="columns-1 md:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
-          {Array.from({ length: count }).map((_, index) => {
-            const heightClass = skeletonHeights[index % skeletonHeights.length]
-            return (
-              <div
-                key={index}
-                className="break-inside-avoid"
-              >
-                <div
-                  className="overflow-hidden rounded-2xl border bg-card p-0 shadow-sm"
-                  style={{ borderColor: 'color-mix(in srgb, var(--color-primary) 10%, var(--color-border))' }}
-                >
-                   <Skeleton className={`w-full ${heightClass} rounded-2xl mb-3`} />
-                   <div className="p-3">
-                     <Skeleton className="h-4 w-3/4 mb-2" />
-                     <Skeleton className="h-3 w-1/2" />
-                   </div>
-                </div>
-              </div>
-            )
-          })}
-        </div>
+        <GridSkeleton />
       </Container>
     </div>
   )

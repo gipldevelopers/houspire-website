@@ -77,21 +77,21 @@ export function DiscoverFilters({
   return (
     <div className="w-full max-w-[1100px] mx-auto px-4">
       <div
-        className="flex h-12 items-center overflow-hidden rounded-full border shadow-[0_10px_28px_rgba(30,42,56,0.06)]"
+        className="flex h-10 md:h-12 items-center overflow-hidden rounded-full border shadow-[0_10px_28px_rgba(30,42,56,0.06)]"
         style={{
           backgroundColor: 'color-mix(in srgb, var(--color-bg) 94%, white)',
           borderColor: 'color-mix(in srgb, var(--color-primary) 12%, var(--color-border))',
         }}
       >
         {/* Search */}
-        <div className="flex-shrink-0 flex items-center pl-4 pr-2">
-          <Search className="mr-2.5 h-4 w-4" style={{ color: 'var(--color-primary)' }} />
+        <div className="flex-shrink-0 flex items-center pl-3 md:pl-4 pr-1.5 md:pr-2">
+          <Search className="mr-1.5 md:mr-2.5 h-3.5 w-3.5 md:h-4 md:w-4" style={{ color: 'var(--color-primary)' }} />
           <input
             type="text"
             value={searchQuery}
             onChange={(e) => onSearchChange(e.target.value)}
             placeholder="Search..."
-            className="w-24 bg-transparent text-sm font-medium placeholder:text-muted-foreground focus:outline-none md:w-32"
+            className="w-20 md:w-32 bg-transparent text-[11px] md:text-sm font-medium placeholder:text-muted-foreground focus:outline-none"
             style={{ color: 'var(--color-heading-secondary)' }}
           />
         </div>
@@ -126,7 +126,7 @@ export function DiscoverFilters({
                 <button
                   key={chip.label}
                   onClick={() => handleChipClick(chip)}
-                  className={`flex-shrink-0 relative z-20 px-4 py-1.5 rounded-full text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
+                  className={`flex-shrink-0 relative z-20 px-3 md:px-4 py-1 md:py-1.5 rounded-full text-[10px] md:text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                      active 
                        ? 'scale-[1.02] shadow-md text-primary-foreground' 
                       : 'hover:bg-secondary/60 hover:text-foreground'
@@ -161,11 +161,10 @@ export function DiscoverFilters({
           )}
         </div>
 
-        {/* Filter Trigger */}
-        <div className="flex-shrink-0 pr-1.5 pl-1">
+        <div className="flex-shrink-0 pr-1 md:pr-1.5 pl-0.5 md:pl-1">
           <button
             onClick={onToggleFilters}
-            className={`h-9 px-4 flex items-center gap-2 rounded-full transition-all ${
+            className={`h-8 md:h-9 px-3 md:px-4 flex items-center gap-1.5 md:gap-2 rounded-full transition-all ${
               showFilters || activeFilterCount > 0
                 ? 'text-foreground'
                 : 'bg-transparent'
@@ -181,11 +180,11 @@ export function DiscoverFilters({
                   }
             }
           >
-            <SlidersHorizontal className="h-3.5 w-3.5" />
-            <span className="text-xs font-bold hidden sm:inline">Filters</span>
+            <SlidersHorizontal className="h-3 w-3 md:h-3.5 md:w-3.5" />
+            <span className="text-[10px] md:text-xs font-bold hidden sm:inline">Filters</span>
             {activeFilterCount > 0 && (
               <span
-                className="flex h-4.5 w-4.5 min-w-[18px] items-center justify-center rounded-full text-[10px] font-black text-primary-foreground"
+                className="flex h-4 w-4 md:h-4.5 md:w-4.5 min-w-[16px] md:min-w-[18px] items-center justify-center rounded-full text-[9px] md:text-[10px] font-black text-primary-foreground"
                 style={{ backgroundColor: 'var(--color-primary)' }}
               >
                 {activeFilterCount}
@@ -202,7 +201,7 @@ export function DiscoverFilters({
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
-            className="card-apple mt-4 grid grid-cols-1 gap-8 rounded-[28px] p-6 shadow-[0_16px_40px_rgba(30,42,56,0.08)] md:grid-cols-3"
+            className="card-apple mt-4 grid grid-cols-1 gap-4 md:gap-8 rounded-2xl md:rounded-[28px] p-4 md:p-6 shadow-[0_16px_40px_rgba(30,42,56,0.08)] md:grid-cols-3"
             style={{
               backgroundColor: 'color-mix(in srgb, var(--color-bg) 90%, white)',
               borderColor: 'color-mix(in srgb, var(--color-primary) 10%, var(--color-border))',
@@ -210,13 +209,13 @@ export function DiscoverFilters({
           >
             {/* Room Type */}
             <div>
-              <p className="mb-3 text-xs font-black uppercase tracking-widest" style={{ color: 'var(--color-description)' }}>Room Type</p>
+              <p className="mb-2 md:mb-3 text-[10px] md:text-xs font-black uppercase tracking-widest" style={{ color: 'var(--color-description)' }}>Room Type</p>
               <div className="flex flex-wrap gap-2">
                 {ROOM_TYPES.slice(0, 12).map((room) => (
                   <button
                     key={room.value}
                     onClick={() => onRoomChange(room.value)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                    className={`px-2 md:px-3 py-1 md:py-1.5 rounded-md md:rounded-lg text-[10px] md:text-xs font-bold transition-all ${
                       selectedRoom === room.value 
                         ? 'text-primary-foreground shadow-sm' 
                         : ''
@@ -241,13 +240,13 @@ export function DiscoverFilters({
 
             {/* Style */}
             <div>
-              <p className="mb-3 text-xs font-black uppercase tracking-widest" style={{ color: 'var(--color-description)' }}>Style</p>
+              <p className="mb-2 md:mb-3 text-[10px] md:text-xs font-black uppercase tracking-widest" style={{ color: 'var(--color-description)' }}>Style</p>
               <div className="flex flex-wrap gap-2">
                 {STYLES.map((style) => (
                   <button
                     key={style.value}
                     onClick={() => onStyleChange(style.value)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                    className={`px-2 md:px-3 py-1 md:py-1.5 rounded-md md:rounded-lg text-[10px] md:text-xs font-bold transition-all ${
                       selectedStyle === style.value 
                         ? 'text-primary-foreground shadow-sm' 
                         : ''
@@ -272,13 +271,13 @@ export function DiscoverFilters({
 
             {/* Budget */}
             <div>
-              <p className="mb-3 text-xs font-black uppercase tracking-widest" style={{ color: 'var(--color-description)' }}>Budget Range</p>
+              <p className="mb-2 md:mb-3 text-[10px] md:text-xs font-black uppercase tracking-widest" style={{ color: 'var(--color-description)' }}>Budget Range</p>
               <div className="flex flex-wrap gap-2">
                 {BUDGET_RANGES.map((budget) => (
                   <button
                     key={budget.value}
                     onClick={() => onBudgetChange(budget.value)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all ${
+                    className={`px-2 md:px-3 py-1 md:py-1.5 rounded-md md:rounded-lg text-[10px] md:text-xs font-bold transition-all ${
                       selectedBudget === budget.value 
                         ? 'text-primary-foreground shadow-sm' 
                         : ''

@@ -27,42 +27,29 @@ function GalleryCtaBanner({ onStartTrial }) {
     <motion.div
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      className="card-apple mt-6 flex w-full items-center justify-between gap-4 rounded-[30px] px-5 py-4 shadow-[0_16px_40px_rgba(30,42,56,0.08)]"
+      className="card-apple mt-4 md:mt-6 flex w-full items-center justify-between gap-3 md:gap-4 rounded-[20px] md:rounded-[30px] px-4 md:px-5 py-3 md:py-4 shadow-[0_16px_40px_rgba(30,42,56,0.08)]"
       style={{ 
         backgroundColor: 'color-mix(in srgb, var(--color-bg) 92%, white)',
         borderColor: 'color-mix(in srgb, var(--color-primary) 14%, var(--color-border))' 
       }}
     >
-      <div className="flex min-w-0 items-center gap-3">
+      <div className="flex min-w-0 items-center gap-2 md:gap-3">
         <div
-          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full"
+          className="flex h-8 w-8 md:h-10 md:w-10 shrink-0 items-center justify-center rounded-full"
           style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 12%, var(--color-bg))' }}
         >
-          <Sparkles className="h-3.5 w-3.5" style={{ color: 'var(--color-primary)' }} />
+          <Sparkles className="h-3 w-3 md:h-3.5 md:w-3.5" style={{ color: 'var(--color-primary)' }} />
         </div>
-        <p className="text-sm leading-[1.45] md:text-[15px]" style={{ color: 'var(--color-heading-secondary)' }}>
+        <p className="text-[11px] leading-[1.4] md:text-[15px] md:leading-[1.45]" style={{ color: 'var(--color-heading-secondary)' }}>
           Love a design? Get a personalized version for <strong>YOUR</strong> home - <span className="font-bold" style={{ color: 'var(--color-primary)' }}>starting at Rs 499</span>
         </p>
       </div>
       <div className="flex shrink-0 items-center gap-2">
         <Button 
-          size="sm" 
           onClick={onStartTrial} 
-          className="btn-primary btn-sm rounded-full px-5 text-xs font-bold"
+          className="btn-primary h-8 md:h-9 rounded-full px-4 md:px-5 text-[10px] md:text-xs font-bold"
         >
           Start Now
-        </Button>
-        <Button 
-          size="sm" 
-          onClick={() => router.push('/contact')} 
-          className="btn-secondary btn-sm hidden rounded-full border px-5 text-xs font-bold sm:flex"
-          style={{
-            backgroundColor: 'color-mix(in srgb, var(--color-bg) 94%, white)',
-            borderColor: 'color-mix(in srgb, var(--color-primary) 18%, var(--color-border))',
-            color: 'var(--color-heading-secondary)',
-          }}
-        >
-          Talk to a Designer
         </Button>
       </div>
     </motion.div>
@@ -369,9 +356,6 @@ export default function Discover() {
     }
   }
 
-  if (loading) {
-    return <DiscoverSkeleton gridSize={gridSize} />
-  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -441,9 +425,9 @@ export default function Discover() {
                 activeFilterCount={activeFilterCount}
               />
 
-              <div className="mt-5 flex flex-wrap items-center justify-center gap-3">
+              <div className="mt-4 md:mt-5 flex flex-wrap items-center justify-center gap-2 md:gap-3">
                 <Button
-                  className="btn-secondary h-11 gap-2.5 rounded-full px-6 text-xs font-bold group"
+                  className="btn-secondary h-9 md:h-11 gap-2 md:gap-2.5 rounded-full px-4 md:px-6 text-[10px] md:text-xs font-bold group"
                   style={{
                     backgroundColor: 'color-mix(in srgb, var(--color-bg) 94%, white)',
                     borderColor: 'color-mix(in srgb, var(--color-primary) 18%, var(--color-border))',
@@ -451,11 +435,11 @@ export default function Discover() {
                   }}
                   onClick={() => router.push(user ? '/dashboard/inspiration' : '/login')}
                 >
-                  <span className="text-lg group-hover:scale-125 transition-transform" style={{ color: 'var(--color-primary)' }}>♥</span>
+                  <span className="text-base md:text-lg group-hover:scale-125 transition-transform" style={{ color: 'var(--color-primary)' }}>♥</span>
                   {user ? 'View my inspiration boards' : 'Sign in to save favorites'}
                 </Button>
                 <Button
-                  className="btn-secondary h-11 gap-2.5 rounded-full px-6 text-xs font-bold"
+                  className="btn-secondary h-9 md:h-11 gap-2 md:gap-2.5 rounded-full px-4 md:px-6 text-[10px] md:text-xs font-bold"
                   style={{
                     backgroundColor: 'color-mix(in srgb, var(--color-bg) 94%, white)',
                     borderColor: 'color-mix(in srgb, var(--color-primary) 18%, var(--color-border))',
@@ -463,7 +447,7 @@ export default function Discover() {
                   }}
                   onClick={() => router.push('/contact')}
                 >
-                  <MessageCircle className="h-4 w-4" />
+                  <MessageCircle className="h-3 w-3 md:h-4 md:w-4" />
                   Talk to a Designer
                 </Button>
               </div>
@@ -474,11 +458,13 @@ export default function Discover() {
 
       {/* Masonry Grid */}
       <Container className="py-2 pb-20">
-        {designs.length > 0 ? (
+        {loading ? (
+          <DiscoverSkeleton gridSize={gridSize} gridOnly={true} />
+        ) : designs.length > 0 ? (
           <>
             <div
               className={cn(
-                "columns-1 md:columns-2 lg:columns-3 xl:columns-4 transition-all duration-300 gap-4 space-y-4",
+                "columns-2 lg:columns-3 xl:columns-4 transition-all duration-300 gap-2 md:gap-4",
                 gridSize === 'compact' && "xl:columns-5",
                 gridSize === 'large' && "lg:columns-2 xl:columns-3"
               )}
@@ -487,7 +473,7 @@ export default function Discover() {
                 const isFocused = focusedIndex === index
 
                 return (
-                  <div key={design.id} className="break-inside-avoid">
+                  <div key={design.id} className="break-inside-avoid mb-2 md:mb-4">
                     <BentoCard
                       design={design}
                       index={index}
@@ -527,7 +513,7 @@ export default function Discover() {
 
             {/* Results count & Keyboard hint */}
             <div className="text-center text-sm text-muted-foreground mt-4 space-y-2">
-              <div>Showing {designs.length} of {Math.floor(totalCount / 100) * 100}+ designs</div>
+              <div>Showing {designs.length} of {totalCount > 100 ? `${Math.floor(totalCount / 100) * 100}+` : totalCount} designs</div>
               <div className="hidden md:flex items-center justify-center gap-2 text-xs">
                 <Keyboard className="h-3 w-3" />
                 <span>Press J/K to navigate, S to save, Enter to open</span>
