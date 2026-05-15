@@ -34,7 +34,7 @@ export default function AboutPage() {
         <ProblemSolving/>
         <HowWeWork/>
         <MeetFounders/>
-        <AboutContactCTA />
+        {/* <AboutContactCTA /> */}
       </div>
 
       <motion.button

@@ -8,7 +8,7 @@ const founders = [
     name: "Abhishek",
     lastName: "Khanna",
     role: "Founder & CEO",
-    bio: "Founder & CEO of Houspire, leading vision, strategy, and growth. He founded Houspire to bring trust and transparency to India's fragmented home renovation market. His mission is to make quality home renovations stress-free, reliable, and accessible for every homeowner.",
+    bio: `With 15+ years of experience across interior execution, technology, and design operations, Abhishek Khanna is the tech and systems force powering Houspire’s vision for scalable, modern interiors.\n\nBlending deep expertise in 3D visualization, AI workflows, automation, and execution management, he has helped transform complex interior processes into streamlined, tech-enabled systems that enhance speed, accuracy, and customer experience.\n\nAt Houspire, Abhishek leads the integration of technology with design — building intelligent workflows, automation-driven operations, and scalable systems that allow homeowners, designers, and vendors to collaborate more seamlessly. His focus lies in using technology not just to optimize execution, but to fundamentally redefine how interior design is delivered at scale.`,
     accent: "from-[#EC7446] to-[#f08a5d]",
     avatarBg: "bg-[#EC7446]",
     tag: "Founder · Vision · Strategy",
@@ -18,7 +18,11 @@ const founders = [
     name: "Saloni",
     lastName: "Narayankar",
     role: "Co-Founder",
-    bio: "Co-Founder of Houspire, heading design and product with a user-first mindset. She combines her design background with a passion for simplifying home renovation experiences. Her belief is simple: every homeowner deserves to be treated with clarity, respect, and care.",
+    bio: `Saloni Narayankar is the Founder and Principal Designer behind Saloni Narayankar Interiors and the visionary driving the design philosophy of Houspire. With over 14 years of experience in residential and commercial interiors, she is known for creating spaces that are timeless, deeply personal, and effortlessly functional. Her work blends thoughtful design, practical planning, and a strong understanding of how people truly live within their spaces.\n\nAt Houspire, Saloni brings together design expertise and technology to simplify the interior design journey — making beautifully designed homes more accessible, transparent, and seamless for modern homeowners. Her approach focuses on creating spaces that are not just visually striking, but also warm, intuitive, and built around the client’s lifestyle.`,
+    website: {
+      label: "saloninarayankar.com",
+      url: "https://www.saloninarayankar.com/?utm_source=chatgpt.com"
+    },
     accent: "from-[#2C5A52] to-[#3D6E70]",
     avatarBg: "bg-[#2C5A52]",
     tag: "Founder · Design · Product",
@@ -37,7 +41,7 @@ const cardVariants = {
 export default function MeetFounders() {
   return (
     <section
-      className="relative overflow-hidden py-6 md:py-12"
+      className="relative overflow-hidden py-8 md:py-16 lg:py-20"
       style={{ backgroundColor: "var(--color-primary-1)" }}
     >
       {/* Subtle background glows */}
@@ -54,7 +58,7 @@ export default function MeetFounders() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="mb-6 text-center"
+          className="mb-12 text-center"
         >
           <div
             className="mb-4 inline-flex items-center gap-2 rounded-full border px-4 py-1.5"
@@ -62,16 +66,34 @@ export default function MeetFounders() {
           >
             <span className="h-1.5 w-1.5 rounded-full bg-[#EC7446]" />
             <span className="text-[11px] font-black uppercase tracking-[0.2em] text-[#EC7446]">
-              Meet the founders
+              Our Story
             </span>
           </div>
           <h2
-            className="text-3xl font-bold tracking-tight md:text-5xl"
+            className="text-4xl font-bold tracking-tight md:text-5xl lg:text-6xl mb-8"
             style={{ color: "var(--color-heading-main)" }}
           >
-            Built by people who{" "}
-            <span style={{ color: "var(--color-heading-main-highlight)" }}>care deeply</span>
+            Why we built <span style={{ color: "var(--color-heading-main-highlight)" }}>Houspire</span>
           </h2>
+          
+          <div className="mx-auto max-w-4xl space-y-6 text-base leading-relaxed md:text-lg lg:text-xl" style={{ color: "var(--color-description)" }}>
+            <p className="font-semibold" style={{ color: "var(--color-heading-main)" }}>
+              We saw homeowners committing ₹10–50 lakh renovation decisions based on imagination, pressure, and incomplete information.
+            </p>
+            
+            <div className="flex flex-col gap-1 md:flex-row md:justify-center md:gap-8 lg:gap-12 text-sm md:text-base font-bold uppercase tracking-wide">
+              <span className="text-[#EC7446]">The industry profits from confusion.</span>
+              <span className="text-[#EC7446]">Contractors profit from execution.</span>
+              <span className="text-[#EC7446]">Homeowners carry the risk.</span>
+            </div>
+
+            <div className="pt-4">
+              <p>So we built something different:</p>
+              <p className="text-xl md:text-2xl font-bold" style={{ color: "var(--color-heading-main)" }}>
+                a planning platform designed entirely around the homeowner.
+              </p>
+            </div>
+          </div>
         </motion.div>
 
         {/* ── FOUNDER CARDS ── */}
@@ -138,10 +160,22 @@ export default function MeetFounders() {
 
                 {/* Bio */}
                 <p
-                  className="text-sm leading-[1.8] md:text-base"
+                  className="text-sm leading-[1.8] md:text-base whitespace-pre-line"
                   style={{ color: "var(--color-description)" }}
                 >
                   {founder.bio}
+                  {founder.website && (
+                    <span className="block mt-4">
+                      <a
+                        href={founder.website.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-[#EC7446] hover:underline font-medium"
+                      >
+                        {founder.website.label}
+                      </a>
+                    </span>
+                  )}
                 </p>
 
                 {/* Hover sweep line */}
@@ -181,39 +215,48 @@ export default function MeetFounders() {
             </span>
           </div>
 
-          <motion.p
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, delay: 0.15 }}
-            viewport={{ once: true }}
-            className="text-base leading-[1.9] md:text-lg"
-            style={{ color: "var(--color-description)" }}
-          >
-            Alongside our founders, Houspire works with a growing community of experienced interior
-            designers — each one manually crafting every plan that leaves our platform. Your home
-            isn't processed by a template. It's thought through by a real designer who treats your
-            space like their own.
-          </motion.p>
+          <div className="space-y-6 text-base leading-[1.9] md:text-lg" style={{ color: "var(--color-description)" }}>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.15 }}
+              viewport={{ once: true }}
+            >
+              Alongside our founders, Houspire is powered by a growing network of experienced interior designers who thoughtfully craft every space with care and precision. Every plan that leaves our platform is personally designed by a real professional — never generated from a generic template.
+            </motion.p>
+            <motion.p
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.65, delay: 0.25 }}
+              viewport={{ once: true }}
+            >
+              We believe every home deserves human insight, creativity, and attention to detail, which is why each design is approached with the same care as if it were their own.
+            </motion.p>
+          </div>
 
           <motion.div
             initial={{ scaleX: 0 }}
             whileInView={{ scaleX: 1 }}
             transition={{ duration: 0.7, delay: 0.3 }}
             viewport={{ once: true }}
-            className="mx-auto my-8 h-px w-20 origin-center bg-gradient-to-r from-transparent via-[#EC7446]/40 to-transparent"
+            className="mx-auto my-12 h-px w-20 origin-center bg-gradient-to-r from-transparent via-[#EC7446]/40 to-transparent"
           />
 
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, delay: 0.4 }}
             viewport={{ once: true }}
-            className="text-base font-medium italic leading-relaxed md:text-lg"
-            style={{ color: "var(--color-heading-main)" }}
+            className="text-center"
           >
-            "The AI helps us move at the speed you need. The human behind it ensures the result is
-            worth living in."
-          </motion.p>
+            <h4 className="text-xl font-bold md:text-2xl mb-2" style={{ color: "var(--color-heading-main)" }}>
+              AI gives you speed. Designers make it worth living in.
+            </h4>
+            <p className="text-base md:text-lg italic" style={{ color: "var(--color-description)" }}>
+              Technology helps us move faster. <br className="hidden md:block" />
+              Real designers ensure every home still feels personal, thoughtful, and human.
+            </p>
+          </motion.div>
         </motion.div>
 
       </div>

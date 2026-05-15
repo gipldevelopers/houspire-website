@@ -8,7 +8,7 @@ import { ArrowRight, Sparkles } from "lucide-react";
 export default function AboutHero() {
   return (
     <section
-      className="relative overflow-hidden mt-16"
+      className="relative flex min-h-[85vh] items-center overflow-hidden pt-16"
       style={{ backgroundColor: "var(--color-primary-1)" }}
     >
       {/* Background blobs */}
@@ -22,7 +22,7 @@ export default function AboutHero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, delay: 0.5 }}
-        className="pointer-events-none absolute -bottom-8 -left-8 z-0 h-40 w-40 overflow-hidden rounded-full border border-[var(--color-border)] opacity-25 md:h-52 md:w-52"
+        className="pointer-events-none absolute -bottom-8 -left-12 z-0 h-56 w-56 overflow-hidden rounded-full border border-[var(--color-border)] opacity-25 md:h-72 md:w-72 lg:h-80 lg:w-80"
       >
         <Image src="/images/living-room.png" alt="" fill className="object-cover" />
         <div className="absolute inset-0" style={{ backgroundColor: "var(--color-primary-1)", opacity: 0.4 }} />
@@ -32,7 +32,7 @@ export default function AboutHero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, delay: 0.65 }}
-        className="pointer-events-none absolute -bottom-8 -right-8 z-0 h-40 w-40 overflow-hidden rounded-full border border-[var(--color-border)] opacity-25 md:h-52 md:w-52"
+        className="pointer-events-none absolute -bottom-8 -right-12 z-0 h-56 w-56 overflow-hidden rounded-full border border-[var(--color-border)] opacity-25 md:h-72 md:w-72 lg:h-80 lg:w-80"
       >
         <Image src="/images/exterior.png" alt="" fill className="object-cover" />
         <div className="absolute inset-0" style={{ backgroundColor: "var(--color-primary-1)", opacity: 0.4 }} />
@@ -43,7 +43,7 @@ export default function AboutHero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, delay: 0.5 }}
-        className="pointer-events-none absolute -top-8 -left-8 z-0 h-40 w-40 overflow-hidden rounded-full border border-[var(--color-border)] opacity-25 md:h-52 md:w-52"
+        className="pointer-events-none absolute -top-12 -left-12 z-0 h-56 w-56 overflow-hidden rounded-full border border-[var(--color-border)] opacity-25 md:h-72 md:w-72 lg:h-80 lg:w-80"
       >
         <Image src="/images/living-room.png" alt="" fill className="object-cover" />
         <div className="absolute inset-0" style={{ backgroundColor: "var(--color-primary-1)", opacity: 0.4 }} />
@@ -53,14 +53,14 @@ export default function AboutHero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1.2, delay: 0.65 }}
-        className="pointer-events-none absolute -top-8 -right-8 z-0 h-40 w-40 overflow-hidden rounded-full border border-[var(--color-border)] opacity-25 md:h-52 md:w-52"
+        className="pointer-events-none absolute -top-12 -right-12 z-0 h-56 w-56 overflow-hidden rounded-full border border-[var(--color-border)] opacity-25 md:h-72 md:w-72 lg:h-80 lg:w-80"
       >
         <Image src="/images/exterior.png" alt="" fill className="object-cover" />
         <div className="absolute inset-0" style={{ backgroundColor: "var(--color-primary-1)", opacity: 0.4 }} />
       </motion.div>
 
       {/* Main content */}
-      <div className="relative z-10 mx-auto max-w-7xl px-4 py-10 md:px-8 md:py-14 ">
+      <div className="relative z-10 mx-auto max-w-7xl px-4 py-20 md:px-8 md:py-28 lg:py-32">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:gap-10">
 
           {/* Left — copy, takes all remaining space */}
@@ -86,9 +86,7 @@ export default function AboutHero() {
               className="text-3xl font-bold leading-[1.1] tracking-tight sm:text-4xl md:text-5xl"
               style={{ color: "var(--color-heading-main)" }}
             >
-              We make your dream home{" "}
-              <span style={{ color: "var(--color-heading-main-highlight)" }}>affordable</span>
-              {" "}— by giving you clarity before you spend a rupee on execution.
+              You spend <span style={{ color: "var(--color-heading-main-highlight)" }}>lakhs</span> on home interiors before you even know what your home will look like.
             </h1>
 
             {/* Sub-copy */}
@@ -96,10 +94,8 @@ export default function AboutHero() {
               className="mt-4 text-sm leading-relaxed md:text-base"
               style={{ color: "var(--color-description)" }}
             >
-              India's first and only interior design platform built entirely around your interests,
-              not the contractor's margins. We broke every unwritten rule of the interior design
-              industry — no hidden costs, no kickbacks, no pressure — and replaced it with one flat
-              price, one honest plan, and complete clarity before you commit to anything.
+              Houspire helps homeowners visualize, plan, and budget their entire home before
+              execution begins with no hidden designer commissions, contractor bias, or pricing games.
             </p>
 
             {/* CTAs */}

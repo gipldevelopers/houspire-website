@@ -6,27 +6,40 @@ import { Container } from '@/components/layout/Container';
 const problems = [
   {
     number: '01',
-    title: 'Quotes that change',
-    description:
-      "You're shown one number to get you hooked. Another appears after you've signed.",
+    title: 'Quotes that keep changing',
+    points: [
+      "You approve one number to get started.",
+      "Then new costs, upgrades, and “unexpected” expenses slowly start appearing once work begins.",
+    ], 
   },
   {
     number: '02',
-    title: "Costs you can't explain",
-    description:
-      "Hidden margins buried in vendor rates you never asked about — and were never told.",
+    title: "You’re forced to trust blindly",
+    description: "Most homeowners don’t really know:",
+    points: [
+      "if materials are overpriced",
+      "if the budget is realistic",
+      "or whether they’re being pushed toward choices that benefit someone else",
+    ],
+    afterText: "So you’re left depending entirely on the designer or vendor to guide every major decision",
   },
   {
     number: '03',
-    title: 'Decisions made blind',
-    description:
-      "You're asked to finalise colours, layouts, and materials before you've ever seen what they'll look like.",
+    title: 'Decisions made without clarity',
+    points: [
+      "You’re expected to finalise colours, layouts, finishes, and materials before you’ve actually seen your home come together realistically.",
+      "You spend lakhs based on imagination.",
+    ],
   },
   {
     number: '04',
-    title: 'Family fights, confusion',
-    description:
-      "Half the family wants one thing, the other half another — and nobody has a visual to align around.",
+    title: 'Everyone imagines the home differently',
+    points: [
+      "One person wants modern.",
+      "Another wants warmth.",
+      "Someone else is worried about budget.",
+    ],
+    afterText:"Without a clear visual plan, small disagreements quickly become stressful and emotional.",
   },
 ];
 
@@ -63,7 +76,19 @@ export function StatsSection() {
                 {item.number}
               </span>
               <h3 className="text-base font-semibold text-foreground mb-2">{item.title}</h3>
-              <p className="text-sm text-muted-foreground leading-relaxed">{item.description}</p>
+              <div className="text-sm text-muted-foreground leading-relaxed">
+                <p>{item.description}</p>
+                {item.points && (
+                  <ul className="mt-2 space-y-1 list-disc list-outside ml-4">
+                    {item.points.map((point, pIdx) => (
+                      <li key={pIdx}>{point}</li>
+                    ))}
+                  </ul>
+                )}
+                {item.afterText && (
+                  <p className="mt-2">{item.afterText}</p>
+                )}
+              </div>
             </motion.div>
           ))}
         </div>

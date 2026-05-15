@@ -6,30 +6,43 @@ import { AlertCircle, DollarSign, Eye, Users } from "lucide-react";
 const problems = [
   {
     number: "01",
-    title: "Quotes that change",
-    description:
-      "You're shown one number to get you hooked. Another appears after you've signed.",
+    title: "Quotes that keep changing",
+    points: [
+      "You approve one number to get started.",
+      "Then new costs, upgrades, and “unexpected” expenses slowly start appearing once work begins.",
+    ], 
     icon: DollarSign,
   },
   {
     number: "02",
-    title: "Costs you can't explain",
-    description:
-      "Hidden margins buried in vendor rates you never asked about — and were never told.",
+    title: "You’re forced to trust blindly",
+    description: "Most homeowners don’t really know:",
+    points: [
+      "if materials are overpriced",
+      "if the budget is realistic",
+      "or whether they’re being pushed toward choices that benefit someone else",
+    ],
+    afterText: "So you’re left depending entirely on the designer or vendor to guide every major decision",
     icon: AlertCircle,
   },
   {
     number: "03",
-    title: "Decisions made blind",
-    description:
-      "You're asked to finalise colours, layouts, and materials before you've ever seen what they'll look like.",
+    title: "Decisions made without clarity",
+    points: [
+      "You’re expected to finalise colours, layouts, finishes, and materials before you’ve actually seen your home come together realistically.",
+      "You spend lakhs based on imagination.",
+    ],
     icon: Eye,
   },
   {
     number: "04",
-    title: "Family fights, confusion",
-    description:
-      "Half the family wants one thing, the other half another — and nobody has a visual to align around.",
+    title: "Everyone imagines the home differently",
+    points: [
+      "One person wants modern.",
+      "Another wants warmth.",
+      "Someone else is worried about budget.",
+    ],
+    afterText:"Without a clear visual plan, small disagreements quickly become stressful and emotional.",
     icon: Users,
   },
 ];
@@ -112,19 +125,29 @@ export default function ProblemSolving() {
 
                 {/* Title */}
                 <h3
-                  className="text-xs font-semibold tracking-tight md:text-base lg:text-lg"
+                  className="text-sm font-semibold tracking-tight md:text-lg lg:text-xl"
                   style={{ color: "var(--color-heading-secondary)" }}
                 >
                   {problem.title}
                 </h3>
 
                 {/* Description */}
-                <p
-                  className="mt-1.5 text-[11px] leading-relaxed md:text-sm"
+                <div
+                  className="mt-2 text-xs leading-relaxed md:text-base"
                   style={{ color: "var(--color-description)" }}
                 >
-                  {problem.description}
-                </p>
+                  <p>{problem.description}</p>
+                  {problem.points && (
+                    <ul className="mt-2 space-y-1 list-disc list-outside ml-3">
+                      {problem.points.map((point, pIdx) => (
+                        <li key={pIdx}>{point}</li>
+                      ))}
+                    </ul>
+                  )}
+                  {problem.afterText && (
+                    <p className="mt-2">{problem.afterText}</p>
+                  )}
+                </div>
 
                 {/* Decorative line */}
                 <div className="mt-3 h-0.5 w-6 bg-[var(--color-primary)]/20 transition-all duration-300 group-hover:w-12 group-hover:bg-[var(--color-primary)]/40" />

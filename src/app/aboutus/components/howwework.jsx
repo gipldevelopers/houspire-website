@@ -81,10 +81,7 @@ export default function HowWeWork() {
             className="mx-auto mt-6 max-w-4xl text-3xl font-semibold tracking-tight md:text-4xl lg:text-5xl"
             style={{ color: "var(--color-heading-main)" }}
           >
-            Planning-first platform.
-            <span style={{ color: "var(--color-heading-main-highlight)" }}>
-              {" "}No execution. No bias.
-            </span>
+            We are <span style={{ color: "var(--color-heading-main-highlight)" }}>not</span> an interior execution company.
           </motion.h2>
         </div>
 
@@ -97,20 +94,52 @@ export default function HowWeWork() {
           className="mb-4 overflow-hidden rounded-2xl border border-[var(--color-border)] bg-white/50 backdrop-blur-sm shadow-lg lg:mb-6"
         >
           <div className="p-6 md:p-8 lg:p-10">
-            <p
-              className="text-base leading-relaxed md:text-lg lg:text-xl"
+            <div
+              className="text-base leading-relaxed md:text-lg lg:text-xl space-y-4"
               style={{ color: "var(--color-description)" }}
             >
-              Houspire is a planning-first platform. We don't execute your
-              renovation. We don't sign contractors. We don't earn a rupee in
-              referral commissions. What we do is give your entire family a
-              photorealistic 3D render of your actual home — your exact layout,
-              your chosen style — so everyone is looking at the same picture
-              before a single decision is made. No arguments about "what it'll
-              look like." No last-minute regrets. No middleman with a margin to
-              protect.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-2">
+              <div className="space-y-1">
+                <p>We don’t profit from contractor commissions.</p>
+                <p>We don’t push vendors.</p>
+                <p>We don’t inflate budgets to protect margins.</p>
+              </div>
+              
+              <div className="pt-4 border-t border-[var(--color-border)]/50">
+                <p className="font-semibold" style={{ color: "var(--color-heading-main)" }}>We exist for one reason:</p>
+                <p>to help homeowners make confident decisions before execution begins.</p>
+              </div>
+
+              {/* Comparison Table */}
+              <div className="mt-8 overflow-hidden rounded-xl border border-[var(--color-border)] bg-white/30 backdrop-blur-sm">
+                <div className="grid grid-cols-2 bg-[var(--color-primary)]/5">
+                  <div className="px-4 py-3 text-xs font-black uppercase tracking-wider md:px-6 md:text-sm" style={{ color: "var(--color-heading-main)" }}>
+                    Traditional Interior Firms
+                  </div>
+                  <div className="px-4 py-3 text-xs font-black uppercase tracking-wider md:px-6 md:text-sm" style={{ color: "var(--color-primary)" }}>
+                    Houspire
+                  </div>
+                </div>
+                <div className="divide-y divide-[var(--color-border)]/50">
+                  {[
+                    ["Earn from execution", "Earn from planning"],
+                    ["Hidden vendor margins", "Transparent pricing"],
+                    ["Push preferred vendors", "Homeowner chooses"],
+                    ["Design first, budget later", "Budget clarity upfront"],
+                    ["Locked ecosystem", "Flexible execution"]
+                  ].map(([trad, hous], i) => (
+                    <div key={i} className="grid grid-cols-2 transition-colors hover:bg-white/40">
+                      <div className="px-4 py-3 text-sm md:px-6 md:text-base" style={{ color: "var(--color-description)" }}>
+                        {trad}
+                      </div>
+                      <div className="px-4 py-3 text-sm font-semibold md:px-6 md:text-base" style={{ color: "var(--color-heading-main)" }}>
+                        {hous}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+            <div className="mt-8 flex flex-wrap gap-2">
               {["Choose from 20 curated Indian and global design styles", "Receive your complete plan within 72 hours", "Walk into every vendor conversation with full clarity — and never get taken advantage of again"].map((text, i) => (
                 <span
                   key={i}
@@ -125,34 +154,69 @@ export default function HowWeWork() {
           </div>
         </motion.div>
 
-        {/* Features Grid */}
-        <div className="grid gap-4 grid-cols-2 sm:grid-cols-3 lg:grid-cols-6">
-          {features.map((feature, index) => (
+        {/* Benefits and Deliverables Section */}
+        <div className="mt-12 lg:mt-16">
+          <div className="grid gap-12 lg:grid-cols-2 lg:items-start">
+            
+            {/* Left — Benefits */}
             <motion.div
-              key={feature.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-              viewport={{ once: true, margin: "-30px" }}
-              className="group relative"
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-6 md:pl-8 lg:pl-12"
             >
-              <div className="absolute -inset-px rounded-2xl bg-gradient-to-r from-[var(--color-primary)]/10 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-              <div className="relative flex flex-col items-start gap-3 rounded-xl border border-[var(--color-border)] bg-white p-4 transition-all duration-300 hover:shadow-md">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-primary)]/10 transition-all duration-300 group-hover:scale-110 group-hover:bg-[var(--color-primary)]/20">
-                  <feature.icon
-                    className="h-5 w-5"
-                    style={{ color: "var(--color-primary)" }}
-                  />
-                </div>
-                <h3
-                  className="text-sm font-semibold leading-snug tracking-tight"
-                  style={{ color: "var(--color-heading-secondary)" }}
-                >
-                  {feature.title}
-                </h3>
+              <h3 className="text-2xl font-bold tracking-tight md:text-3xl" style={{ color: "var(--color-heading-main)" }}>
+                What changes after Houspire
+              </h3>
+              <div className="space-y-4">
+                {[
+                  "Your family sees the same vision",
+                  "You know realistic budgets before execution",
+                  "You walk into vendor meetings informed",
+                  "You avoid expensive mid-project mistakes",
+                  "You compare contractors with confidence"
+                ].map((benefit, i) => (
+                  <div key={i} className="flex items-center gap-3">
+                    <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--color-primary)]/10">
+                      <CheckCircle className="h-4 w-4" style={{ color: "var(--color-primary)" }} />
+                    </div>
+                    <span className="text-base md:text-lg" style={{ color: "var(--color-description)" }}>{benefit}</span>
+                  </div>
+                ))}
               </div>
             </motion.div>
-          ))}
+
+            {/* Right — Deliverables Grid */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="space-y-6"
+            >
+              <p className="text-sm font-black uppercase tracking-[0.2em] opacity-60" style={{ color: "var(--color-primary)" }}>
+                Deliverables
+              </p>
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                {[
+                  { title: "renders", icon: Layout },
+                  { title: "layout planning", icon: Home },
+                  { title: "style selection", icon: Palette },
+                  { title: "budgeting", icon: Shield },
+                  { title: "vendor guidance", icon: Handshake }
+                ].map((item, i) => (
+                  <div key={i} className="flex flex-col items-center gap-3 rounded-xl border border-[var(--color-border)] bg-white p-4 text-center transition-all duration-300 hover:shadow-md">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--color-primary)]/10">
+                      <item.icon className="h-5 w-5" style={{ color: "var(--color-primary)" }} />
+                    </div>
+                    <span className="text-sm font-semibold capitalize" style={{ color: "var(--color-heading-secondary)" }}>
+                      {item.title}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+
+          </div>
         </div>
       </div>
     </section>
