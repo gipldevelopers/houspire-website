@@ -213,7 +213,7 @@ function SelectPackageContent() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="mb-16 space-y-6 text-center"
+            className="mb-8 md:mb-16 space-y-4 md:space-y-6 text-center"
           >
             {styleName && (
               <Badge
@@ -233,7 +233,7 @@ function SelectPackageContent() {
               Choose your <span style={{ color: 'var(--color-heading-main-highlight)' }}>package</span>
             </h1>
 
-            <p className="mx-auto max-w-2xl text-lg opacity-80" style={{ color: 'var(--color-description)' }}>
+            <p className="mx-auto max-w-2xl text-sm md:text-lg opacity-80 px-4 md:px-0" style={{ color: 'var(--color-description)' }}>
               Select the package that matches your room count and design needs.
               Every option is built around the same Houspire promise: visual
               clarity, transparent budgeting, and fast delivery.
@@ -263,7 +263,7 @@ function SelectPackageContent() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
             >
-              <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+              <div className="grid grid-cols-2 gap-3 md:gap-6 lg:grid-cols-4">
                 {packages.map((pkg, index) => (
                   <PackageCard
                     key={pkg.id}
@@ -374,32 +374,32 @@ function PackageCard({ pkg, index, selected, onSelect }) {
     switch (pkg.slug) {
       case 'trial':
         return (
-          <div className="rounded-2xl bg-[var(--color-primary)]/12 p-2.5">
-            <Sparkles className="h-5 w-5 text-[var(--color-primary)]" />
+          <div className="rounded-xl md:rounded-2xl bg-[var(--color-primary)]/12 p-2 md:p-2.5">
+            <Sparkles className="h-4 w-4 md:h-5 md:w-5 text-[var(--color-primary)]" />
           </div>
         );
       case 'smart':
         return (
-          <div className="rounded-2xl bg-[var(--color-secondary-2)]/18 p-2.5">
-            <Zap className="h-5 w-5 text-[var(--color-secondary-3)]" />
+          <div className="rounded-xl md:rounded-2xl bg-[var(--color-secondary-2)]/18 p-2 md:p-2.5">
+            <Zap className="h-4 w-4 md:h-5 md:w-5 text-[var(--color-secondary-3)]" />
           </div>
         );
       case 'premium':
         return (
-          <div className="rounded-2xl bg-[var(--color-secondary-4)]/12 p-2.5">
-            <TrendingUp className="h-5 w-5 text-[var(--color-secondary-4)]" />
+          <div className="rounded-xl md:rounded-2xl bg-[var(--color-secondary-4)]/12 p-2 md:p-2.5">
+            <TrendingUp className="h-4 w-4 md:h-5 md:w-5 text-[var(--color-secondary-4)]" />
           </div>
         );
       case 'luxury':
         return (
-          <div className="rounded-2xl bg-[var(--color-tertiary-1)]/18 p-2.5">
-            <Crown className="h-5 w-5 text-[#9a6a12]" />
+          <div className="rounded-xl md:rounded-2xl bg-[var(--color-tertiary-1)]/18 p-2 md:p-2.5">
+            <Crown className="h-4 w-4 md:h-5 md:w-5 text-[#9a6a12]" />
           </div>
         );
       default:
         return (
-          <div className="rounded-2xl bg-[var(--color-primary)]/12 p-2.5">
-            <Home className="h-5 w-5 text-[var(--color-primary)]" />
+          <div className="rounded-xl md:rounded-2xl bg-[var(--color-primary)]/12 p-2 md:p-2.5">
+            <Home className="h-4 w-4 md:h-5 md:w-5 text-[var(--color-primary)]" />
           </div>
         );
     }
@@ -413,56 +413,56 @@ function PackageCard({ pkg, index, selected, onSelect }) {
     >
       <Card
         onClick={() => onSelect(pkg)}
-        className={`relative flex h-full cursor-pointer flex-col rounded-[1.75rem] border bg-white/80 shadow-sm backdrop-blur-sm transition-all duration-300 ${
+        className={`relative flex h-full cursor-pointer flex-col rounded-2xl md:rounded-[1.75rem] border bg-white/80 shadow-sm backdrop-blur-sm transition-all duration-300 ${
           selected
-            ? 'border-[var(--color-primary)] shadow-[0_24px_60px_rgba(236,116,70,0.16)] ring-4 ring-[var(--color-primary)]/10'
+            ? 'border-[var(--color-primary)] shadow-[0_24px_60px_rgba(236,116,70,0.16)] ring-2 md:ring-4 ring-[var(--color-primary)]/10'
             : isPopular
             ? 'scale-[1.02] border-[var(--color-primary)]/35 shadow-lg'
             : 'border-[var(--color-border)] hover:-translate-y-1 hover:border-[var(--color-primary)]/25 hover:shadow-lg'
         }`}
       >
         {isPopular && (
-          <div className="absolute -top-4 left-1/2 z-10 -translate-x-1/2">
-            <Badge className="flex items-center gap-1 rounded-full border-none px-3 py-1 text-[10px] font-bold text-white shadow-lg" style={{ backgroundColor: 'var(--color-primary)' }}>
-              <Star className="h-3 w-3 fill-white" />
+          <div className="absolute -top-3 md:-top-4 left-1/2 z-10 -translate-x-1/2 w-max">
+            <Badge className="flex items-center gap-1 rounded-full border-none px-2 md:px-3 py-0.5 md:py-1 text-[8px] md:text-[10px] font-bold text-white shadow-lg" style={{ backgroundColor: 'var(--color-primary)' }}>
+              <Star className="h-2.5 w-2.5 md:h-3 md:w-3 fill-white" />
               MOST POPULAR
             </Badge>
           </div>
         )}
 
-        <div className="flex flex-1 flex-col p-6">
-          <div className="mb-4 flex items-center gap-3">
-            {getIcon()}
-            <h3 className="text-lg font-bold leading-tight" style={{ color: 'var(--color-heading-secondary)' }}>
+        <div className="flex flex-1 flex-col p-4 md:p-6">
+          <div className="mb-2 md:mb-4 flex flex-col md:flex-row md:items-center gap-2 md:gap-3">
+            <div className="w-fit">{getIcon()}</div>
+            <h3 className="text-sm md:text-lg font-bold leading-tight" style={{ color: 'var(--color-heading-secondary)' }}>
               {pkg.name}
             </h3>
           </div>
 
-          <p className="mb-4 text-xs opacity-60" style={{ color: 'var(--color-description)' }}>
+          <p className="mb-3 md:mb-4 text-[10px] md:text-xs opacity-60 line-clamp-2 md:line-clamp-none" style={{ color: 'var(--color-description)' }}>
             {pkg.tagline}
           </p>
 
-          <div className="mb-4">
-            <div className="mb-1 flex items-center gap-2">
-              <span className="text-xs line-through opacity-60" style={{ color: 'var(--color-description)' }}>
+          <div className="mb-3 md:mb-4">
+            <div className="mb-0.5 md:mb-1 flex items-center gap-1.5 md:gap-2">
+              <span className="text-[10px] md:text-xs line-through opacity-60" style={{ color: 'var(--color-description)' }}>
                 {'₹' + formatPrice(pkg.originalPrice || pkg.price * 2)}
               </span>
-              <span className="text-3xl font-bold" style={{ color: 'var(--color-heading-main)' }}>
+              <span className="text-xl md:text-3xl font-bold" style={{ color: 'var(--color-heading-main)' }}>
                 {'₹' + formatPrice(pkg.price)}
               </span>
             </div>
             {pkg.discount && (
-              <Badge variant="secondary" className="items-center gap-1 border-none bg-[var(--color-tertiary-2)]/20 px-2 py-0 text-[10px] text-[var(--color-secondary-3)] hover:bg-[var(--color-tertiary-2)]/20">
-                <TrendingUp className="h-3 w-3 text-[var(--color-secondary-3)]" />
+              <Badge variant="secondary" className="items-center gap-0.5 md:gap-1 border-none bg-[var(--color-tertiary-2)]/20 px-1.5 md:px-2 py-0 text-[8px] md:text-[10px] text-[var(--color-secondary-3)] hover:bg-[var(--color-tertiary-2)]/20">
+                <TrendingUp className="h-2.5 w-2.5 md:h-3 md:w-3 text-[var(--color-secondary-3)]" />
                 {pkg.discount}
               </Badge>
             )}
           </div>
 
-          <ul className="mb-8 flex-1 space-y-3">
+          <ul className="mb-4 md:mb-8 flex-1 space-y-1.5 md:space-y-3">
             {(pkg.features || []).map((feature, fIdx) => (
-              <li key={fIdx} className="flex items-start gap-2.5 text-xs leading-snug" style={{ color: 'var(--color-description)' }}>
-                <Check className="mt-0.5 h-3.5 w-3.5 shrink-0 text-[var(--color-secondary-3)]" />
+              <li key={fIdx} className="flex items-start gap-1.5 md:gap-2.5 text-[9px] md:text-xs leading-snug" style={{ color: 'var(--color-description)' }}>
+                <Check className="mt-0.5 h-2.5 w-2.5 md:h-3.5 md:w-3.5 shrink-0 text-[var(--color-secondary-3)]" />
                 <span>{feature}</span>
               </li>
             ))}
@@ -473,7 +473,7 @@ function PackageCard({ pkg, index, selected, onSelect }) {
               event.stopPropagation();
               onSelect(pkg);
             }}
-            className={`h-11 w-full rounded-full text-sm font-semibold transition-all ${
+            className={`min-h-[36px] md:min-h-[44px] h-auto py-2 md:py-0 px-2 md:px-4 w-full rounded-2xl md:rounded-full text-[9px] md:text-sm font-semibold transition-all whitespace-normal break-words leading-tight flex items-center justify-center text-center ${
               selected
                 ? 'border border-[var(--color-primary-2)] bg-[var(--color-primary-2)] text-white hover:bg-[var(--color-primary-2)]/92'
                 : 'border border-[var(--color-primary)] bg-[var(--color-primary)] text-white hover:bg-[#f08a5d] hover:border-[#f08a5d]'
@@ -511,35 +511,122 @@ function PackageCard({ pkg, index, selected, onSelect }) {
 }
 
 function PricingComparisonTable() {
+  const [selectedMobilePlanIndex, setSelectedMobilePlanIndex] = useState(1);
+
   return (
-    <section className="relative mt-20 mb-32">
-      <div className="mb-16 text-center">
-        <h2 className="mb-4 text-3xl font-semibold md:text-4xl" style={{ color: 'var(--color-heading-main)' }}>
+    <section className="relative mt-12 md:mt-20 mb-32">
+      <div className="mb-8 md:mb-16 text-center px-4 md:px-0">
+        <h2 className="mb-2 md:mb-4 text-2xl font-semibold md:text-4xl" style={{ color: 'var(--color-heading-main)' }}>
           Complete Feature Comparison
         </h2>
-        <p className="mx-auto max-w-xl text-sm opacity-60" style={{ color: 'var(--color-description)' }}>
+        <p className="mx-auto max-w-xl text-xs md:text-sm opacity-60" style={{ color: 'var(--color-description)' }}>
           Compare our plans to find the right fit for your vision.
         </p>
       </div>
 
-      <div className="overflow-x-auto px-4 md:mx-0 md:px-0">
-        <div className="mb-12 min-w-[900px] overflow-hidden rounded-[24px] border border-[var(--color-border)] bg-white/82 shadow-sm backdrop-blur-sm">
+      {/* Mobile View (Netflix style) */}
+      <div className="block md:hidden">
+        {/* Sticky Plan Selector */}
+        <div className="sticky top-[60px] z-30 bg-[var(--color-primary-1)]/95 backdrop-blur-md pt-1 pb-4 border-b border-[var(--color-border)] shadow-sm -mx-4 px-4">
+          <div className="flex gap-3 overflow-x-auto snap-x [&::-webkit-scrollbar]:hidden pt-3 pb-1">
+            {comparisonHeaders.map((header, index) => (
+              <div
+                key={header.name}
+                onClick={() => setSelectedMobilePlanIndex(index)}
+                className={`relative snap-center shrink-0 w-[110px] p-3 rounded-2xl flex flex-col items-center justify-center cursor-pointer transition-all duration-300 ${
+                  selectedMobilePlanIndex === index 
+                    ? 'border-2 border-[var(--color-primary)] bg-[var(--color-primary)] text-white shadow-md scale-105'
+                    : 'border border-[var(--color-border)] bg-white/80 text-[var(--color-heading-secondary)] opacity-80'
+                }`}
+              >
+                {header.highlighted && (
+                  <div className={`absolute -top-2.5 px-2 py-0.5 rounded-full text-[8px] font-bold shadow-sm border border-[var(--color-primary)] ${
+                    selectedMobilePlanIndex === index 
+                      ? 'bg-white text-[var(--color-primary)]' 
+                      : 'bg-[var(--color-primary)] text-white'
+                  }`}>
+                    MOST POPULAR
+                  </div>
+                )}
+                <div className={`text-[10px] font-bold mb-1 text-center leading-tight ${
+                  selectedMobilePlanIndex === index ? 'text-white' : 'text-[var(--color-heading-secondary)]'
+                }`}>
+                  {header.name}
+                </div>
+                <div className={`text-sm font-bold ${
+                  selectedMobilePlanIndex === index ? 'text-white' : 'text-[var(--color-heading-main)]'
+                }`}>
+                  {header.price}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Feature List for Selected Plan */}
+        <div className="mt-6 px-1">
+          {comparisonSections.map((section) => (
+            <div key={section.title} className="mb-6">
+              <h3 className="text-[13px] font-bold mb-2 pb-2 border-b border-[var(--color-border)]/80" style={{ color: 'var(--color-heading-secondary)' }}>
+                {section.title}
+              </h3>
+              <div className="space-y-0">
+                {section.rows.map((row) => (
+                  <div key={row.label} className="flex justify-between items-center py-3 border-b border-[var(--color-border)]/40">
+                    <span className="text-xs w-[55%] pr-2 leading-snug" style={{ color: 'var(--color-description)' }}>
+                      {row.label}
+                    </span>
+                    <span className="text-xs font-semibold text-right w-[45%] flex justify-end" style={{ color: 'var(--color-heading-main)' }}>
+                      {typeof row.values[selectedMobilePlanIndex] === 'boolean' ? (
+                        row.values[selectedMobilePlanIndex] ? (
+                          <div className="flex h-4 w-4 items-center justify-center rounded-full bg-[var(--color-secondary-3)]">
+                            <Check className="h-2.5 w-2.5 text-white stroke-[3px]" />
+                          </div>
+                        ) : (
+                          <span className="opacity-30">×</span>
+                        )
+                      ) : (
+                        <span className={selectedMobilePlanIndex === 1 ? 'text-[var(--color-secondary-3)]' : ''}>
+                          {row.values[selectedMobilePlanIndex]}
+                        </span>
+                      )}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Desktop View (Original Table) */}
+      <div className="hidden md:block overflow-x-auto px-4 md:mx-0 md:px-0 pt-4 pb-4">
+        <div className="mb-12 min-w-[900px] rounded-[24px] border border-[var(--color-border)] bg-white/82 shadow-sm backdrop-blur-sm">
           <table className="w-full border-collapse text-left">
             <thead>
               <tr>
-                <th className="w-[200px] border-b border-[var(--color-border)] p-6 text-sm font-bold" style={{ color: 'var(--color-heading-secondary)' }}>
+                <th className="w-[200px] border-b border-[var(--color-border)] p-6 text-sm font-bold rounded-tl-[24px]" style={{ color: 'var(--color-heading-secondary)' }}>
                   Feature
                 </th>
                 {comparisonHeaders.map((header) => (
                   <th
                     key={header.name}
-                    className={`w-[175px] border-b border-[var(--color-border)] p-6 text-center transition-all duration-300 ${
-                      header.highlighted ? 'text-white' : 'bg-white/80'
-                    }`}
-                    style={header.highlighted ? { backgroundColor: 'var(--color-primary)' } : { color: 'var(--color-heading-secondary)' }}
+                    className={`relative w-[175px] border-b p-6 text-center transition-all duration-300 ${
+                      header.highlighted 
+                        ? 'bg-white border-[var(--color-border)] border-x border-t-0 shadow-[0_-4px_10px_rgba(0,0,0,0.02)]' 
+                        : 'bg-white/80 border-[var(--color-border)]'
+                    } ${header.name === 'Luxury Home' ? 'rounded-tr-[24px]' : ''}`}
+                    style={{ color: 'var(--color-heading-secondary)' }}
                   >
-                    <div className="mb-1 text-[13px] font-bold opacity-90">{header.name}</div>
-                    <div className="text-xl font-bold">{header.price}</div>
+                    <div className="flex flex-col items-center justify-center h-full min-h-[48px]">
+                      {header.highlighted && (
+                        <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 rounded-full text-[10px] font-bold tracking-wider bg-[var(--color-primary)] text-white shadow-[0_2px_8px_rgba(236,116,70,0.3)] w-max z-10">
+                          MOST POPULAR
+                        </div>
+                      )}
+                      <div className={`mb-1 text-[13px] font-bold opacity-90 ${header.highlighted ? 'mt-2' : ''}`}>{header.name}</div>
+                      <div className="text-xl font-bold" style={header.highlighted ? { color: 'var(--color-heading-main)' } : {}}>{header.price}</div>
+                    </div>
                   </th>
                 ))}
               </tr>
