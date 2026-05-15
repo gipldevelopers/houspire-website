@@ -93,67 +93,82 @@ export default function ProblemSolving() {
           </p>
         </div>
 
-        {/* Problems Grid — 2 cols mobile, 4 cols desktop */}
-        <div className="grid gap-3 grid-cols-2 lg:grid-cols-4 lg:gap-4">
-          {problems.map((problem, index) => (
-            <motion.div
-              key={problem.number}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.08 }}
-              viewport={{ once: true, margin: "-30px" }}
-              className="group relative"
-            >
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-[var(--color-primary)]/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+        {/* Problems Grid — Slider on mobile, 4 cols desktop */}
+        <div className="relative group/slider">
+          <div className="flex gap-4 overflow-x-auto pb-10 snap-x snap-mandatory no-scrollbar lg:grid lg:grid-cols-4 lg:gap-4 lg:pb-0">
+            {problems.map((problem, index) => (
+              <motion.div
+                key={problem.number}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
+                viewport={{ once: true, margin: "-30px" }}
+                className="group relative min-w-[75vw] snap-center md:min-w-full"
+              >
+                <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-[var(--color-primary)]/5 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
 
-              <div className="relative flex h-full flex-col rounded-xl border border-[var(--color-border)] bg-[var(--color-primary-1)] p-3.5 md:p-5 transition-all duration-300 hover:shadow-lg">
-                {/* Number and Icon Row */}
-                <div className="mb-2 flex items-start justify-between">
-                  <span
-                    className="text-2xl font-black tracking-tighter opacity-20 md:text-3xl"
-                    style={{ color: "var(--color-primary)" }}
-                  >
-                    {problem.number}
-                  </span>
-                  <div className="rounded-full bg-white p-1.5 shadow-sm">
-                    <problem.icon
-                      className="h-3 w-3 md:h-4 md:w-4"
+                <div className="relative flex h-full flex-col rounded-xl border border-[var(--color-border)] bg-[var(--color-primary-1)] p-5 transition-all duration-300 hover:shadow-lg">
+                  {/* Number and Icon Row */}
+                  <div className="mb-2 flex items-start justify-between">
+                    <span
+                      className="text-2xl font-black tracking-tighter opacity-20 md:text-3xl"
                       style={{ color: "var(--color-primary)" }}
-                    />
+                    >
+                      {problem.number}
+                    </span>
+                    <div className="rounded-full bg-white p-2 shadow-sm">
+                      <problem.icon
+                        className="h-4 w-4"
+                        style={{ color: "var(--color-primary)" }}
+                      />
+                    </div>
                   </div>
+
+                  {/* Title */}
+                  <h3
+                    className="text-lg font-semibold tracking-tight md:text-lg lg:text-xl"
+                    style={{ color: "var(--color-heading-secondary)" }}
+                  >
+                    {problem.title}
+                  </h3>
+
+                  {/* Description */}
+                  <div
+                    className="mt-3 text-sm leading-relaxed md:text-base"
+                    style={{ color: "var(--color-description)" }}
+                  >
+                    <p>{problem.description}</p>
+                    {problem.points && (
+                      <ul className="mt-3 space-y-2 list-disc list-outside ml-4">
+                        {problem.points.map((point, pIdx) => (
+                          <li key={pIdx}>{point}</li>
+                        ))}
+                      </ul>
+                    )}
+                    {problem.afterText && (
+                      <p className="mt-3 font-medium" style={{ color: "var(--color-heading-main)" }}>{problem.afterText}</p>
+                    )}
+                  </div>
+
+                  {/* Decorative line */}
+                  <div className="mt-4 h-0.5 w-8 bg-[var(--color-primary)]/20 transition-all duration-300 group-hover:w-16 group-hover:bg-[var(--color-primary)]/40" />
                 </div>
+              </motion.div>
+            ))}
+          </div>
 
-                {/* Title */}
-                <h3
-                  className="text-sm font-semibold tracking-tight md:text-lg lg:text-xl"
-                  style={{ color: "var(--color-heading-secondary)" }}
-                >
-                  {problem.title}
-                </h3>
-
-                {/* Description */}
-                <div
-                  className="mt-2 text-xs leading-relaxed md:text-base"
-                  style={{ color: "var(--color-description)" }}
-                >
-                  <p>{problem.description}</p>
-                  {problem.points && (
-                    <ul className="mt-2 space-y-1 list-disc list-outside ml-3">
-                      {problem.points.map((point, pIdx) => (
-                        <li key={pIdx}>{point}</li>
-                      ))}
-                    </ul>
-                  )}
-                  {problem.afterText && (
-                    <p className="mt-2">{problem.afterText}</p>
-                  )}
-                </div>
-
-                {/* Decorative line */}
-                <div className="mt-3 h-0.5 w-6 bg-[var(--color-primary)]/20 transition-all duration-300 group-hover:w-12 group-hover:bg-[var(--color-primary)]/40" />
-              </div>
-            </motion.div>
-          ))}
+          {/* Scroll Progress Bar (Mobile Only) */}
+          <div className="mt-4 px-6 md:hidden">
+            <div className="h-0.5 w-full bg-[var(--color-primary)]/10 rounded-full overflow-hidden">
+              <motion.div 
+                className="h-full bg-[var(--color-primary)]"
+                initial={{ width: "25%" }}
+                whileInView={{ width: "100%" }}
+                transition={{ duration: 0.5 }}
+              />
+            </div>
+            <p className="mt-2 text-[10px] text-center uppercase tracking-widest opacity-40" style={{ color: 'var(--color-description)' }}>Swipe to see more</p>
+          </div>
         </div>
       </div>
     </section>

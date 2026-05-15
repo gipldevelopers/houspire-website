@@ -176,11 +176,11 @@ export default function HowItWorks() {
                   and get stunning designs delivered to your inbox.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link href="/style-quiz" className={pageButtonPrimary}>
+                  <Link href="/style-quiz" className={`${pageButtonPrimary} !h-12 md:!h-14 !px-8 md:!px-10 !text-base md:!text-lg`}>
                     <Sparkles className="h-5 w-5" />
                     Take the Style Quiz
                   </Link>
-                  <Link href="/discover" className={pageButtonSecondary}>
+                  <Link href="/discover" className={`${pageButtonSecondary} !h-12 md:!h-14 !px-8 md:!px-10 !text-base md:!text-lg`}>
                     View Gallery
                   </Link>
                 </div>
@@ -190,24 +190,24 @@ export default function HowItWorks() {
         </HeroHighlight>
 
         {/* Stats Bar (Dark) */}
-        <section className="py-12 border-y border-white/10 bg-[#0c0c0e]">
+        <section className="py-8 md:py-12 border-y border-white/10 bg-[#0c0c0e]">
           <div className="container mx-auto px-6">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-y-8 md:gap-8 text-center">
               <div>
-                <p className="text-3xl md:text-4xl font-bold text-white">~15</p>
-                <p className="text-sm mt-1 text-white/60">Minutes to Start</p>
+                <p className="text-2xl md:text-4xl font-bold text-white">~15</p>
+                <p className="text-xs md:text-sm mt-1 text-white/60">Minutes to Start</p>
               </div>
               <div>
-                <p className="text-3xl md:text-4xl font-bold text-primary">72</p>
-                <p className="text-sm mt-1 text-white/60">Hours to Delivery</p>
+                <p className="text-2xl md:text-4xl font-bold text-primary">72</p>
+                <p className="text-xs md:text-sm mt-1 text-white/60">Hours to Delivery</p>
               </div>
               <div>
-                <p className="text-3xl md:text-4xl font-bold text-white">₹499</p>
-                <p className="text-sm mt-1 text-white/60">Starting Price</p>
+                <p className="text-2xl md:text-4xl font-bold text-white">₹499</p>
+                <p className="text-xs md:text-sm mt-1 text-white/60">Starting Price</p>
               </div>
               <div>
-                <p className="text-3xl md:text-4xl font-bold text-white">100%</p>
-                <p className="text-sm mt-1 text-white/60">Money-Back Guarantee</p>
+                <p className="text-2xl md:text-4xl font-bold text-white">100%</p>
+                <p className="text-xs md:text-sm mt-1 text-white/60">Money-Back Guarantee</p>
               </div>
             </div>
           </div>
@@ -230,62 +230,73 @@ export default function HowItWorks() {
               </p>
             </motion.div>
 
-            <div className="max-w-4xl mx-auto space-y-6">
-              {steps.map((step, index) => (
-                <motion.div
-                  key={step.number}
-                  initial={{ opacity: 0, x: -20 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
-                  className="relative"
-                >
-                  {/* Connecting line */}
-                  {index < steps.length - 1 && (
-                    <div className="absolute left-7 top-20 bottom-0 w-0.5 bg-gradient-to-b from-border to-transparent hidden md:block" />
-                  )}
+            {/* Steps Section — Slider on mobile, vertical list on desktop */}
+            <div className="relative group/slider">
+              <div className="flex gap-4 overflow-x-auto pb-10 snap-x snap-mandatory no-scrollbar md:block md:max-w-5xl md:mx-auto md:space-y-6 md:pb-0">
+                {steps.map((step, index) => (
+                  <motion.div
+                    key={step.number}
+                    initial={{ opacity: 0, x: -20 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: index * 0.1 }}
+                    className="relative min-w-[75vw] snap-center md:min-w-full"
+                  >
+                    {/* Connecting line (Desktop Only) */}
+                    {index < steps.length - 1 && (
+                      <div className="absolute left-7 top-20 bottom-0 w-0.5 bg-gradient-to-b from-border to-transparent hidden md:block" />
+                    )}
 
-                  <Card className="p-6 border-2 border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg shadow-none">
-                    <div className="flex items-start gap-6">
-                      {/* Icon & Number */}
-                      <div className="relative flex-shrink-0">
-                        <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-heading-main-highlight)] flex items-center justify-center shadow-lg">
-                          <step.icon className="h-7 w-7 text-white" />
+                    <Card className="p-6 border-2 border-border/50 hover:border-primary/30 transition-all duration-300 hover:shadow-lg shadow-none h-full">
+                      <div className="flex flex-col md:flex-row items-start gap-6">
+                        {/* Icon & Number */}
+                        <div className="relative flex-shrink-0">
+                          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[var(--color-primary)] to-[var(--color-heading-main-highlight)] flex items-center justify-center shadow-lg">
+                            <step.icon className="h-7 w-7 text-white" />
+                          </div>
+                          <div
+                            className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center"
+                            style={{
+                              backgroundColor: 'var(--color-bg)',
+                              color: 'var(--color-primary)',
+                              border: '1.5px solid var(--color-border)',
+                            }}
+                          >
+                            {step.number}
+                          </div>
                         </div>
-                        <div
-                          className="absolute -bottom-2 -right-2 w-7 h-7 rounded-full text-xs font-bold flex items-center justify-center"
-                          style={{
-                            backgroundColor: 'var(--color-bg)',
-                            color: 'var(--color-primary)',
-                            border: '1.5px solid var(--color-border)',
-                          }}
-                        >
-                          {step.number}
+
+                        {/* Content */}
+                        <div className="flex-1">
+                          <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
+                            <h3 className="text-xl font-semibold" style={{ color: 'var(--color-heading-secondary)' }}>
+                              {step.title}
+                            </h3>
+                          </div>
+                          <p className="text-sm md:text-base opacity-60" style={{ color: 'var(--color-description)' }}>
+                            {step.description}
+                          </p>
                         </div>
+
+                        {/* Arrow (Desktop Only) */}
+                        {index < steps.length - 1 && (
+                          <div className="hidden lg:flex items-center justify-center w-10 h-10 rounded-full bg-secondary">
+                            <ArrowRight className="h-5 w-5 text-muted-foreground rotate-90 md:rotate-0" />
+                          </div>
+                        )}
                       </div>
+                    </Card>
+                  </motion.div>
+                ))}
+              </div>
 
-                      {/* Content */}
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between mb-2 flex-wrap gap-2">
-                          <h3 className="text-xl font-semibold" style={{ color: 'var(--color-heading-secondary)' }}>
-                            {step.title}
-                          </h3>
-                        </div>
-                        <p className="opacity-60" style={{ color: 'var(--color-description)' }}>
-                          {step.description}
-                        </p>
-                      </div>
-
-                      {/* Arrow */}
-                      {index < steps.length - 1 && (
-                        <div className="hidden lg:flex items-center justify-center w-10 h-10 rounded-full bg-secondary">
-                          <ArrowRight className="h-5 w-5 text-muted-foreground rotate-90" />
-                        </div>
-                      )}
-                    </div>
-                  </Card>
-                </motion.div>
-              ))}
+              {/* Scroll Progress Bar (Mobile Only) */}
+              <div className="mt-4 px-6 md:hidden">
+                <div className="h-0.5 w-full bg-primary/10 rounded-full overflow-hidden">
+                  <div className="h-full bg-primary w-1/4" />
+                </div>
+                <p className="mt-2 text-[10px] text-center uppercase tracking-widest opacity-40" style={{ color: 'var(--color-description)' }}>Swipe to see more</p>
+              </div>
             </div>
           </div>
         </section>
@@ -307,7 +318,8 @@ export default function HowItWorks() {
               </p>
             </motion.div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-5xl mx-auto">
+            {/* Deliverables Grid — Slider on mobile, grid on desktop */}
+            <div className="flex gap-6 overflow-x-auto pb-10 snap-x snap-mandatory no-scrollbar md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-8 md:pb-0 max-w-7xl mx-auto">
               {deliverables.map((item, index) => (
                 <motion.div
                   key={item.title}
@@ -315,16 +327,25 @@ export default function HowItWorks() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: index * 0.1 }}
+                  className="min-w-[75vw] snap-center md:min-w-0"
                 >
-                  <Card className="p-6 h-full text-center border-2 border-border/50 hover:border-accent/30 transition-all duration-300">
-                    <div className="w-12 h-12 rounded-2xl bg-accent/10 flex items-center justify-center mx-auto mb-4">
-                      <item.icon className="h-6 w-6 text-accent" />
+                  <Card className="p-8 h-full text-center border-2 border-border/50 hover:border-accent/30 transition-all duration-300">
+                    <div className="w-14 h-14 rounded-2xl bg-accent/10 flex items-center justify-center mx-auto mb-6">
+                      <item.icon className="h-7 w-7 text-accent" />
                     </div>
-                    <h3 className="font-semibold text-foreground mb-2">{item.title}</h3>
-                    <p className="text-sm text-muted-foreground">{item.description}</p>
+                    <h3 className="text-xl font-semibold text-foreground mb-3">{item.title}</h3>
+                    <p className="text-base text-muted-foreground">{item.description}</p>
                   </Card>
                 </motion.div>
               ))}
+            </div>
+
+            {/* Scroll Progress Bar (Mobile Only) */}
+            <div className="mt-4 px-6 md:hidden">
+              <div className="h-0.5 w-full bg-primary/10 rounded-full overflow-hidden">
+                <div className="h-full bg-primary w-1/4" />
+              </div>
+              <p className="mt-2 text-[10px] text-center uppercase tracking-widest opacity-40" style={{ color: 'var(--color-description)' }}>Swipe to see more</p>
             </div>
           </div>
         </section>
@@ -336,7 +357,7 @@ export default function HowItWorks() {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="max-w-4xl mx-auto"
+              className="max-w-5xl mx-auto"
             >
               <div className="text-center mb-6">
                 <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4" style={{ color: 'var(--color-heading-main)' }}>
@@ -348,8 +369,8 @@ export default function HowItWorks() {
               </div>
 
               <Card className="p-8 border-2 border-accent/30 bg-accent/5">
-                <div className="grid md:grid-cols-3 gap-8">
-                  <div className="text-center">
+                <div className="flex gap-8 overflow-x-auto pb-4 snap-x snap-mandatory no-scrollbar md:grid md:grid-cols-3 md:pb-0">
+                  <div className="text-center min-w-[75vw] snap-center md:min-w-0">
                     <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 20%, transparent)' }}>
                       <span className="text-2xl font-bold" style={{ color: 'var(--color-primary)' }}>0-24h</span>
                     </div>
@@ -358,7 +379,7 @@ export default function HowItWorks() {
                       Your project is matched with the perfect designer based on your style preferences
                     </p>
                   </div>
-                  <div className="text-center">
+                  <div className="text-center min-w-[75vw] snap-center md:min-w-0">
                     <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 20%, transparent)' }}>
                       <span className="text-2xl font-bold" style={{ color: 'var(--color-primary)' }}>24-48h</span>
                     </div>
@@ -367,7 +388,7 @@ export default function HowItWorks() {
                       Your designer creates concepts, sources products, and prepares photorealistic room designs
                     </p>
                   </div>
-                  <div className="text-center">
+                  <div className="text-center min-w-[75vw] snap-center md:min-w-0">
                     <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: 'color-mix(in srgb, var(--color-primary) 20%, transparent)' }}>
                       <span className="text-2xl font-bold" style={{ color: 'var(--color-primary)' }}>48-72h</span>
                     </div>
@@ -376,6 +397,14 @@ export default function HowItWorks() {
                       Final review, packaging, and delivery of your complete design package
                     </p>
                   </div>
+                </div>
+
+                {/* Scroll Progress Bar (Mobile Only) */}
+                <div className="mt-6 px-6 md:hidden">
+                  <div className="h-0.5 w-full bg-primary/10 rounded-full overflow-hidden">
+                    <div className="h-full bg-primary w-1/3" />
+                  </div>
+                  <p className="mt-2 text-[10px] text-center uppercase tracking-widest opacity-40" style={{ color: 'var(--color-description)' }}>Swipe to see more</p>
                 </div>
               </Card>
             </motion.div>
@@ -399,11 +428,11 @@ export default function HowItWorks() {
               </p>
             </motion.div>
 
-            {/* Package Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+            {/* Package Grid — 2x2 on mobile, 2/4 on desktop */}
+            <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6 max-w-6xl mx-auto">
               {loading ? (
                 Array.from({ length: 4 }).map((_, idx) => (
-                  <Card key={idx} className="p-6 animate-pulse">
+                  <Card key={idx} className="p-4 md:p-6 animate-pulse">
                     <div className="h-5 bg-muted rounded w-2/3 mb-2" />
                     <div className="h-4 bg-muted rounded w-1/2 mb-6" />
                     <div className="h-8 bg-muted rounded w-1/2 mb-4" />
@@ -424,7 +453,7 @@ export default function HowItWorks() {
                     transition={{ delay: idx * 0.1 }}
                   >
                     <Card
-                      className={`relative p-6 h-full flex flex-col border-2 transition-all duration-300 hover:shadow-lg cursor-pointer shadow-none ${
+                      className={`relative p-4 md:p-6 h-full flex flex-col border-2 transition-all duration-300 hover:shadow-lg cursor-pointer shadow-none ${
                         pkg.isPopular ? 'border-primary' : 'border-border/50 hover:border-primary/30'
                       }`}
                       onClick={() => router.push(`/select-package?package=${pkg.slug}`)}
@@ -432,7 +461,7 @@ export default function HowItWorks() {
                       {/* Badge */}
                       {(pkg.isPopular || pkg.badgeText) && (
                         <Badge 
-                          className={`absolute -top-3 left-1/2 -translate-x-1/2 ${
+                          className={`absolute -top-3 left-1/2 -translate-x-1/2 text-[8px] md:text-xs px-2 py-0.5 whitespace-nowrap ${
                             pkg.isPopular 
                               ? 'bg-accent text-accent-foreground' 
                               : 'bg-foreground text-background'
@@ -442,34 +471,34 @@ export default function HowItWorks() {
                         </Badge>
                       )}
 
-                      <h3 className="font-semibold" style={{ color: 'var(--color-heading-secondary)' }}>{pkg.name}</h3>
-                      <p className="text-sm mb-3 opacity-60" style={{ color: 'var(--color-description)' }}>{pkg.tagline}</p>
+                      <h3 className="text-sm md:text-base font-semibold" style={{ color: 'var(--color-heading-secondary)' }}>{pkg.name}</h3>
+                      <p className="text-[10px] md:text-sm mb-2 md:mb-3 opacity-60" style={{ color: 'var(--color-description)' }}>{pkg.tagline}</p>
 
-                      <div className="mb-3">
-                        <span className="text-3xl font-bold" style={{ color: 'var(--color-heading-main)' }}>₹{formatPrice(pkg.price)}</span>
-                        <p className="text-sm opacity-60" style={{ color: 'var(--color-description)' }}>{pkg.roomCountDisplay}</p>
+                      <div className="mb-2 md:mb-3">
+                        <span className="text-xl md:text-3xl font-bold" style={{ color: 'var(--color-heading-main)' }}>₹{formatPrice(pkg.price)}</span>
+                        <p className="text-[10px] md:text-sm opacity-60" style={{ color: 'var(--color-description)' }}>{pkg.roomCountDisplay}</p>
                       </div>
 
-                      <ul className="space-y-1.5 flex-1 mb-4">
-                        <li className="flex items-center gap-2 text-sm">
-                          <CheckCircle className="w-3.5 h-3.5 flex-shrink-0" style={{ color: 'var(--color-primary)' }} />
+                      <ul className="space-y-1 md:space-y-1.5 flex-1 mb-3 md:mb-4">
+                        <li className="flex items-center gap-1.5 md:gap-2 text-[10px] md:text-sm">
+                          <CheckCircle className="w-3 h-3 md:w-3.5 md:h-3.5 flex-shrink-0" style={{ color: 'var(--color-primary)' }} />
                           <span className="opacity-60" style={{ color: 'var(--color-description)' }}>
                             {pkg.revisionsDisplay || `${pkg.revisionsIncluded} revision${pkg.revisionsIncluded > 1 ? 's' : ''}`}
                           </span>
                         </li>
-                        <li className="flex items-center gap-2 text-sm">
-                          <CheckCircle className="w-3.5 h-3.5 flex-shrink-0" style={{ color: 'var(--color-primary)' }} />
+                        <li className="flex items-center gap-1.5 md:gap-2 text-[10px] md:text-sm">
+                          <CheckCircle className="w-3 h-3 md:w-3.5 md:h-3.5 flex-shrink-0" style={{ color: 'var(--color-primary)' }} />
                           <span className="opacity-60" style={{ color: 'var(--color-description)' }}>72-hour delivery</span>
                         </li>
-                        <li className="flex items-center gap-2 text-sm">
-                          <CheckCircle className="w-3.5 h-3.5 flex-shrink-0" style={{ color: 'var(--color-primary)' }} />
+                        <li className="flex items-center gap-1.5 md:gap-2 text-[10px] md:text-sm">
+                          <CheckCircle className="w-3 h-3 md:w-3.5 md:h-3.5 flex-shrink-0" style={{ color: 'var(--color-primary)' }} />
                           <span className="opacity-60" style={{ color: 'var(--color-description)' }}>{pkg.supportDays}-day support</span>
                         </li>
                       </ul>
 
                       <button
                         type="button"
-                        className={`w-full ${pkg.isPopular ? pageButtonPrimaryCompact : pageButtonSecondaryCompact}`}
+                        className={`w-full !h-9 md:!h-11 !px-3 !text-xs md:!text-sm ${pkg.isPopular ? pageButtonPrimaryCompact : pageButtonSecondaryCompact}`}
                         onClick={(e) => {
                           e.stopPropagation();
                           router.push(`/select-package?package=${pkg.slug}`);
@@ -497,32 +526,32 @@ export default function HowItWorks() {
         </section>
 
         {/* CTA Section */}
-        <section className="bg-[#0f0e0d] py-12 md:py-16 overflow-hidden min-h-[auto]">
+        <section className="bg-[#0f0e0d] py-10 md:py-16 overflow-hidden min-h-[auto]">
           <div className="container mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              className="relative text-center max-w-4xl mx-auto rounded-[2rem] border border-white/[0.08] bg-[radial-gradient(circle_at_top,_rgba(236,116,70,0.14),_transparent_38%),linear-gradient(180deg,_rgba(255,255,255,0.03),_rgba(255,255,255,0.01))] px-6 py-10 md:px-12 md:py-14 shadow-[0_28px_80px_rgba(0,0,0,0.32)]"
+              className="relative text-center max-w-4xl mx-auto rounded-[1.5rem] md:rounded-[2rem] border border-white/[0.08] bg-[radial-gradient(circle_at_top,_rgba(236,116,70,0.14),_transparent_38%),linear-gradient(180deg,_rgba(255,255,255,0.03),_rgba(255,255,255,0.01))] px-5 py-8 md:px-12 md:py-14 shadow-[0_28px_80px_rgba(0,0,0,0.32)]"
             >
-              <div className="mb-5 inline-flex items-center gap-3 rounded-full border border-[#f08a5d]/20 bg-[#f08a5d]/[0.08] px-4 py-2 text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-[#f08a5d]">
-                <span className="h-2 w-2 rounded-full bg-[#f08a5d]" />
+              <div className="mb-4 md:mb-5 inline-flex items-center gap-3 rounded-full border border-[#f08a5d]/20 bg-[#f08a5d]/[0.08] px-3 py-1.5 md:px-4 md:py-2 text-[0.6rem] md:text-[0.72rem] font-semibold uppercase tracking-[0.24em] text-[#f08a5d]">
+                <span className="h-1.5 w-1.5 md:h-2 md:w-2 rounded-full bg-[#f08a5d]" />
                 Delivered in 72 hours
               </div>
-              <h2 className="text-3xl md:text-4xl font-semibold tracking-tight mb-4 text-[#fffaf3]">
+              <h2 className="text-2xl md:text-4xl font-semibold tracking-tight mb-3 md:mb-4 text-[#fffaf3]">
                 Ready to Transform Your Space?
               </h2>
-              <p className="text-lg mb-8 text-[#c6beb4]">
+              <p className="text-base md:text-lg mb-6 md:mb-8 text-[#c6beb4]">
                 Take our 2-minute style quiz and discover your design personality
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link href="/style-quiz" className={pageButtonDarkPrimary}>
-                  <Sparkles className="h-5 w-5" />
+              <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
+                <Link href="/style-quiz" className={`${pageButtonDarkPrimary} !h-12 md:!h-14 !px-8 md:!px-10 !text-base md:!text-lg`}>
+                  <Sparkles className="h-4 w-4 md:h-5 md:w-5" />
                   Start the Style Quiz
                 </Link>
                 <Link
                   href="/faq"
-                  className={pageButtonDarkSecondary}
+                  className={`${pageButtonDarkSecondary} !h-12 md:!h-14 !px-8 md:!px-10 !text-base md:!text-lg`}
                 >
                   Have Questions? View FAQ
                 </Link>
