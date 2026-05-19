@@ -47,7 +47,7 @@ const plans = [
     features: [
       '7-10 3D design views',
       '12 premium style options',
-      '3 revisions',
+      '1 revision',
       'Premium materials + alternatives',
       '3 consultation calls',
       'Priority support',
@@ -64,7 +64,7 @@ const plans = [
     features: [
       '10-15 3D design views',
       '20+ exclusive styles',
-      '5 revisions',
+      '3 revisions',
       'Dedicated designer',
       '24/7 priority support',
       'Complete budget breakdown',
