@@ -45,7 +45,7 @@ const comparisonSections = [
   {
     title: 'Support and Services',
     rows: [
-      { label: 'Design Revisions', values: ['No', '1 revision', '3 revisions', '5 revisions'] },
+      { label: 'Design Revisions', values: ['No', '1 revision', '1 revision', '3 revisions'] },
       { label: 'Consultation Calls', values: ['1 call', '1 call', '2 calls', '3 calls'] },
       { label: 'Response Time', values: ['24-72 hours', '12-24 hours', '6-12 hours', '2-4 hours'] },
     ],

@@ -62,7 +62,7 @@ const MOCK_PACKAGES = [
     features: [
       '7-10 3D design views',
       '12 premium style options',
-      '3 revisions',
+      '1 revision',
       'Premium materials + alternatives',
       '3 consultation calls',
       'Priority support',
@@ -70,7 +70,7 @@ const MOCK_PACKAGES = [
       'Complete budget breakdown'
     ],
     roomCountDisplay: '7-10 Rooms',
-    revisionsDisplay: '3 Revisions',
+    revisionsDisplay: '1 Revision',
     buttonText: 'Choose Premium for ₹9,999'
   },
   {
@@ -84,14 +84,14 @@ const MOCK_PACKAGES = [
     features: [
       '10-15 3D design views',
       '20+ exclusive styles',
-      '5 revisions',
+      '3 revisions',
       'Dedicated designer',
       '24/7 priority support',
       'Complete budget breakdown',
       'Vendor recommendations'
     ],
     roomCountDisplay: '10-15 Rooms',
-    revisionsDisplay: '5 Revisions',
+    revisionsDisplay: '3 Revisions',
     buttonText: 'Get Luxury for ₹14,999'
   },
 ];
