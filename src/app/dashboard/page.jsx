@@ -9,7 +9,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { useAuth } from '@/contexts/AuthContext';
 import { useProjectStatus } from '@/hooks/useProjectStatus';
-import { useQuizResults } from '@/hooks/useQuizResults';
 import { DESIGNER_PERSONAS, ROOM_TYPES } from '@/lib/constants';
 import { dataGet } from '@/lib/frontend-data';
 import { motion } from 'framer-motion';
@@ -69,7 +68,6 @@ import { Suspense } from 'react';
 function DashboardContent() {
   const { user, loading: authLoading } = useAuth();
   const { projects, activeProject, loading: projectsLoading, setActiveProject, refetch } = useProjectStatus(user?.id);
-  const { quizResults } = useQuizResults();
   const router = useRouter();
   const searchParams = useSearchParams();
   const isMobile = useIsMobile();
@@ -184,7 +182,7 @@ function DashboardContent() {
                 My Boards
               </Button>
               <Button
-                onClick={() => router.push('/style-quiz')}
+                onClick={() => router.push('/select-package')}
                 size="sm"
                 className="bg-foreground hover:bg-foreground/90 text-background rounded-full px-4"
               >
@@ -418,29 +416,6 @@ function DashboardContent() {
               </CollapsibleTrigger>
               <CollapsibleContent>
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 pt-2">
-                  {/* Style Profile */}
-                  {quizResults && (
-                    <Card className="p-4 border-border/50">
-                      <div className="flex items-center justify-between mb-3">
-                        <h4 className="font-medium text-foreground text-sm">Your Style</h4>
-                        <Button variant="ghost" size="sm" onClick={() => router.push('/style-quiz')} className="h-7 px-2 text-xs">
-                          <Edit className="h-3 w-3 mr-1" />Edit
-                        </Button>
-                      </div>
-                      <div className="flex flex-wrap gap-1.5 mb-3">
-                        {(quizResults.styles?.slice(0, 3) || []).map((style) => (
-                          <Badge key={style} variant="secondary" className="capitalize text-xs">{style.replace('_', ' ')}</Badge>
-                        ))}
-                      </div>
-                      <button 
-                        onClick={() => router.push('/style-quiz')}
-                        className="text-xs text-accent hover:text-accent/80 flex items-center gap-1"
-                      >
-                        Retake quiz <ChevronRight className="h-3 w-3" />
-                      </button>
-                    </Card>
-                  )}
-
                   {/* Referral */}
                   <Card className="p-4 border-border/50 bg-gradient-to-br from-accent/5 to-purple-500/5">
                     <div className="flex items-center gap-3 mb-2">

@@ -15,7 +15,6 @@ const pages = [
     { title: 'Reviews', url: '/reviews', description: 'Customer reviews' },
     { title: 'FAQ', url: '/faq', description: 'Frequently asked questions' },
     { title: 'Gallery', url: '/discover', description: 'Browse designs' },
-    { title: 'Style Quiz', url: '/style-quiz', description: 'Find your style' },
     { title: 'Checkout', url: '/checkout', description: 'Pricing and packages' },
     { title: 'Wishlist', url: '/wishlist', description: 'Your saved items' },
     { title: 'Favorites', url: '/favorites', description: 'Favorite designs' },

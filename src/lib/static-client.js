@@ -17,7 +17,6 @@ const TABLE_DATA = {
   })),
   projects: MOCK_PROJECTS,
   project_content: [],
-  quiz_results: [],
   designers: [],
   profiles: [MOCK_USER],
   concept_products: [],
@@ -177,7 +176,6 @@ export const appDataClient = {
       mark_all_notifications_read: { success: true },
       mark_notification_read: { success: true },
       validate_promo_code: { valid: false, discountAmount: 0 },
-      get_quiz_analytics_summary: { totalResponses: 0 },
       check_budget_health: { health: 'healthy' },
       get_project_share_analytics: { views: 0, clicks: 0 },
     };

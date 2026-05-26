@@ -216,7 +216,7 @@ export function ChatList({ isAdmin = false, onSelectRoom, selectedRoomId, classN
             <FolderOpen className="h-12 w-12 mx-auto mb-4 opacity-50"/>
             <p className="font-medium mb-2">No active orders</p>
             <p className="text-sm mb-4">Complete a purchase to chat with your designer</p>
-            <Button variant="outline" size="sm" onClick={() => navigate('/style-quiz')}>
+            <Button variant="outline" size="sm" onClick={() => navigate('/select-package')}>
               <Plus className="h-4 w-4 mr-2"/>
               Start a project
             </Button>

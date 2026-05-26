@@ -226,7 +226,7 @@ export function HomeBudgetEstimator() {
           <div className="text-center mt-8">
             <Button
               size="lg"
-              onClick={() => router.push('/style-quiz')}
+              onClick={() => router.push('/select-package')}
               className="group px-8"
             >
               Get Your Detailed Room-by-Room Breakdown

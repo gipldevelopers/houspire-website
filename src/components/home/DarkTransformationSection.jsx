@@ -132,7 +132,7 @@ export function DarkTransformationSection() {
         <div className="mt-10 md:mt-12 text-center">
           <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
             <button 
-              onClick={() => router.push('/style-quiz')} 
+              onClick={() => router.push('/select-package')} 
               className="btn-primary w-full sm:w-auto sm:min-w-[200px] py-3 text-sm md:text-base"
             >
               Design my room

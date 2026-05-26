@@ -42,7 +42,7 @@
       "name": "Start New Project",
       "short_name": "New Project",
       "description": "Begin interior design",
-      "url": "/style-quiz",
+      "url": "/select-package",
       "icons": [{ "src": "/icons/icon-192x192.png", "sizes": "192x192" }]
     },
     {

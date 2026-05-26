@@ -32,7 +32,6 @@ export function preloadComponent(importFunc) {
 export const criticalRouteLoaders = {
     '/dashboard': () => import('@/pages/Dashboard'),
     '/checkout': () => import('@/pages/Checkout'),
-    '/style-quiz': () => import('@/pages/StyleQuiz'),
 };
 /**
  * Preload a route by path (call on link hover)

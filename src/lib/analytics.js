@@ -165,10 +165,7 @@ export const trackEvents = {
         analytics.track('logout_completed');
         analytics.reset();
     },
-    // Quiz Events
-    quizStarted: () => analytics.track('quiz_started'),
-    quizStepCompleted: (step) => analytics.track('quiz_step_completed', { step }),
-    quizCompleted: (designer, matchScore) => analytics.track('quiz_completed', { matched_designer: designer, match_score: matchScore }),
+
     // Pricing & Checkout
     viewedPricing: () => analytics.track('viewed_pricing'),
     selectedPackage: (packageName, price) => analytics.track('selected_package', { packageName, price }),

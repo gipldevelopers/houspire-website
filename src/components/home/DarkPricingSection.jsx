@@ -83,13 +83,8 @@ export function DarkPricingSection() {
   const [selectedPackage, setSelectedPackage] = useState(null);
 
   const handlePlanClick = (plan) => {
-    if (plan.price === 499 || plan.price === 4999 || plan.price === 9999 || plan.price === 14999) {
-      setSelectedPackage(plan.price);
-      setIsModalOpen(true);
-      return;
-    }
-
-    router.push('/style-quiz');
+    setSelectedPackage(plan.price);
+    setIsModalOpen(true);
   };
 
   return (

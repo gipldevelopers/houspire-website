@@ -6,7 +6,6 @@ const KNOWN_ROUTES = [
   '/login',
   '/signup',
   '/discover',
-  '/style-quiz',
   '/designer/:designerId',
   '/faq',
   '/reviews',
@@ -59,7 +58,6 @@ const KNOWN_ROUTES = [
 const EXPECTED_LINKS = [
   '/',
   '/discover',
-  '/style-quiz',
   '/faq',
   '/reviews',
   '/about',

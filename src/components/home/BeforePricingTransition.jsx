@@ -21,13 +21,13 @@ export function BeforePricingTransition() {
           className="text-center max-w-2xl mx-auto"
         >
           <p className="text-lg text-foreground/60 mb-6">
-            Not sure which plan fits? Take the free style quiz and we'll recommend the right one.
+            Not sure which plan fits? Choose a design package to get started today.
           </p>
           <Button
-            onClick={() => router.push('/style-quiz')}
+            onClick={() => router.push('/select-package')}
             className="group"
           >
-            Take the Free Style Quiz
+            Explore Design Packages
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Button>
         </motion.div>

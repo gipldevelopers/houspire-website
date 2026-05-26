@@ -59,7 +59,7 @@ export function DashboardHeader({
           ) : (
             <p className="text-muted-foreground mt-1">
               <Sparkles className="h-4 w-4 inline mr-1" />
-              Take 2 mins to discover your style
+              Choose a design package to get started
             </p>
           )}
           
@@ -78,7 +78,7 @@ export function DashboardHeader({
             <Settings className="h-4 w-4" />
           </Button>
           <Button
-            onClick={() => router.push('/style-quiz')}
+            onClick={() => router.push('/select-package')}
             className="h-10 px-5 rounded-full bg-foreground text-background hover:bg-foreground/90"
           >
             <Plus className="h-4 w-4 mr-2" />

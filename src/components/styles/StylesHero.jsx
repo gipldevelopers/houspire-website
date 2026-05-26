@@ -113,10 +113,10 @@ export function StylesHero({ stylesCount, totalDesigners, totalProjects }) {
         className="flex flex-wrap justify-center gap-4"
       >
         <button
-          onClick={() => router.push('/style-quiz')}
+          onClick={() => router.push('/select-package')}
           className="btn-primary rounded-xl px-8 h-14 text-base shadow-lg hover:shadow-xl transition-shadow flex items-center"
         >
-          Take Style Quiz
+          Choose Package
           <Sparkles className="ml-2 w-5 h-5" />
         </button>
         <button

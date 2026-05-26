@@ -25,10 +25,6 @@ export function useWhatsAppMessage() {
     return 'Hi! Can I request a specific designer for my project?'
   }
 
-  if (pathname.includes('/style-quiz')) {
-    return 'Hi! I need help with the style quiz and finding my design preferences.'
-  }
-
   if (pathname.includes('/referrals')) {
     return 'Hi! I have questions about the referral program.'
   }

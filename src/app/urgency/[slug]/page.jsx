@@ -127,14 +127,11 @@ export default async function UrgencyDetailPage({ params }) {
                 <p className="text-sm text-muted-foreground mt-2 leading-relaxed">
                   Get photorealistic designs, an itemized budget, and shopping links â€” delivered fast.
                 </p>
-                <div className="mt-4 flex flex-col sm:flex-row gap-3">
-                  <Button asChild size="lg" className="flex-1">
+                <div className="mt-4">
+                  <Button asChild size="lg" className="w-full">
                     <Link href="/select-package">
                       Start now <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
-                  </Button>
-                  <Button asChild size="lg" variant="outline" className="flex-1">
-                    <Link href="/style-quiz">Take style quiz</Link>
                   </Button>
                 </div>
               </div>

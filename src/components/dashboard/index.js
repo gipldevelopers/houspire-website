@@ -28,8 +28,6 @@ export { InspirationBoardsCard } from './InspirationBoardsCard';
 // Mobile Components
 export { DashboardFAB } from './DashboardFAB';
 export { LiveTrackingBanner } from './LiveTrackingBanner';
-// Existing Components (re-export for convenience)
-export { StyleProfileCard } from './StyleProfileCard';
 export { RevisionStatus } from './RevisionStatus';
 export { DashboardSearch } from './DashboardSearch';
 export { ProjectCard } from './ProjectCard';

@@ -374,10 +374,10 @@ export function ImageDetailModal({
                   <p className="text-sm font-semibold text-foreground mb-3">Want this style in your home?</p>
                   <div className="flex gap-2">
                     <Button
-                      onClick={() => router.push('/style-quiz')}
+                      onClick={() => router.push('/select-package')}
                       className="flex-1 rounded-xl"
                     >
-                      Take the Style Quiz
+                      Explore Design Packages
                     </Button>
                     <Button
                       variant="outline"

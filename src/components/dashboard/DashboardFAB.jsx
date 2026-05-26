@@ -23,7 +23,7 @@ export function DashboardFAB({ onNewProject, onContactSupport, onQuickChat }) {
       color: 'bg-accent',
       onClick: () => {
         onNewProject?.();
-        router.push('/style-quiz');
+        router.push('/select-package');
         setIsOpen(false);
       },
     },

@@ -26,7 +26,6 @@ export function usePageTracking() {
 function getPageName(pathname) {
   const routes = {
     '/': 'Home',
-    '/style-quiz': 'Style Quiz',
     '/checkout': 'Checkout',
     '/payment-success': 'Payment Success',
     '/payment-failed': 'Payment Failed',

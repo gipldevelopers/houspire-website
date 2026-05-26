@@ -178,10 +178,10 @@ export function DesignerShowcaseSection() {
           <Button
             variant="outline"
             size="lg"
-            onClick={() => router.push('/style-quiz')}
+            onClick={() => router.push('/select-package')}
             className="rounded-full h-12 px-8 group"
           >
-            Find your perfect match
+            Get started with our designers
             <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
           </Button>
         </motion.div>

@@ -263,7 +263,6 @@ function getResponse(endpoint) {
   }
 
   if (path === '/contact') return { success: true };
-  if (path === '/quiz-results') return { results: [] };
 
   return {};
 }

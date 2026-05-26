@@ -8,7 +8,7 @@ export const dashboardTour = [
     {
         target: '[data-tour="start-project"]',
         title: 'Start Your First Project',
-        content: 'Click here to begin your design journey. Take our style quiz to get matched with the perfect designer.',
+        content: 'Click here to begin your design journey. Choose a design package to get matched with the perfect designer.',
         placement: 'bottom',
     },
     {

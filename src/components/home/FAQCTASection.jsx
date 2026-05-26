@@ -124,10 +124,10 @@ export function FAQCTASection() {
             </p>
             <Button
               size="lg"
-              onClick={() => router.push('/style-quiz')}
+              onClick={() => router.push('/select-package')}
               className="h-14 px-10 text-lg font-medium bg-background text-foreground hover:bg-background/90 rounded-full transition-all duration-300 group shadow-xl shadow-background/20"
             >
-              Start Your Free Style Quiz
+              Choose Your Package
               <ArrowRight className="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
             </Button>
           </motion.div>

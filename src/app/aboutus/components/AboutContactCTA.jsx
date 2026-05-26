@@ -46,7 +46,7 @@ export default function AboutContactCTA() {
                 className="mt-10 flex flex-col gap-4 sm:flex-row"
               >
                 <Link
-                  href="/style-quiz"
+                  href="/select-package"
                   className="inline-flex h-14 items-center justify-center rounded-full border border-[var(--color-primary)] bg-[var(--color-primary)] px-9 text-base font-semibold text-white shadow-[0_20px_40px_rgba(236,116,70,0.28)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#f08a5d] hover:border-[#f08a5d]"
                 >
                   Design my home now

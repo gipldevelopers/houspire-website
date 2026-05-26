@@ -29,7 +29,7 @@ export function AboutCTA() {
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button
-              onClick={() => router.push('/style-quiz')}
+              onClick={() => router.push('/select-package')}
               className="btn-highlight btn-lg"
             >
               Start your plan

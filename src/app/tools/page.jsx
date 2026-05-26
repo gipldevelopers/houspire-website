@@ -15,11 +15,11 @@ import { SEOHead } from '@/components/SEOHead';
 
 const tools = [
   {
-    id: 'planning-journey',
-    title: 'Planning Journey',
-    description: 'Guided step-by-step flow to plan your dream space',
+    id: 'select-package',
+    title: 'Design Packages',
+    description: 'Explore our design packages starting at ₹499',
     icon: Compass,
-    href: '/style-quiz',
+    href: '/select-package',
     color: 'text-primary',
     bgColor: 'bg-primary/10',
   },
@@ -233,10 +233,10 @@ export default function Tools() {
               Use our planning tools to prepare, then connect with our designers for a professional consultation.
             </p>
             <Link 
-              href="/style-quiz"
+              href="/select-package"
               className="btn-primary"
             >
-              Take the Style Quiz
+              Choose Your Package
             </Link>
           </div>
         </section>

@@ -65,7 +65,7 @@ export function PricingSection() {
                 </div>))}
             </div>
 
-            <Button className="w-full h-14 text-base font-semibold bg-purple-600 hover:bg-purple-700 text-white rounded-xl" onClick={() => router.push('/style-quiz')}>
+            <Button className="w-full h-14 text-base font-semibold bg-purple-600 hover:bg-purple-700 text-white rounded-xl" onClick={() => router.push('/select-package')}>
               Get Started Now
             </Button>
 

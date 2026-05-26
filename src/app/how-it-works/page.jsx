@@ -51,36 +51,29 @@ export default function HowItWorks() {
 
   const steps = [
     {
-      icon: Wand2,
-      number: '01',
-      title: 'Take the Style Quiz',
-      description: 'Answer fun visual questions to discover your design personality and get matched with the perfect designer for your taste.',
-      time: '2 minutes',
-    },
-    {
       icon: CreditCard,
-      number: '02',
+      number: '01',
       title: 'Choose Your Package',
       description: 'Select from our plans starting at ₹499 or full home packages up to ₹14,999. Pay once—no subscriptions or hidden fees.',
       time: '2 minutes',
     },
     {
       icon: Home,
-      number: '03',
+      number: '02',
       title: 'Share Your Space',
       description: 'Upload photos of your room, share dimensions, and tell us your preferences. Let us know what you love and what to avoid.',
       time: '10 minutes',
     },
     {
       icon: Eye,
-      number: '04',
+      number: '03',
       title: 'Review Your Design',
       description: 'Receive photorealistic room designs, a detailed budget breakdown, and a complete shopping list within 72 hours. Share feedback and request changes.',
       time: '72 hours',
     },
     {
       icon: Download,
-      number: '05',
+      number: '04',
       title: 'Download & Execute',
       description: 'Get your complete design package, shop for products using our curated links, and transform your space with our step-by-step guides.',
       time: 'Your pace',
@@ -131,7 +124,7 @@ export default function HowItWorks() {
     <>
       <SEOHead 
         title="How It Works | Houspire"
-        description="From style quiz to dream room in 72 hours. Learn how Houspire delivers professional room designs, budgets, and contractor connections."
+        description="From choosing your package to a dream room in 72 hours. Learn how Houspire delivers professional room designs, budgets, and contractor connections."
       />
 
       <div className="min-h-screen bg-background">
@@ -168,17 +161,17 @@ export default function HowItWorks() {
                   Simple 5-Step Process
                 </Badge>
                 <h1 className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight mb-6" style={{ color: 'var(--color-heading-main)' }}>
-                  From Quiz to Dream Room
+                  From Package to Dream Room
                   <span className="block" style={{ color: 'var(--color-heading-main-highlight)' }}>in 72 Hours</span>
                 </h1>
                 <p className="text-xl max-w-2xl mx-auto mb-8 opacity-60" style={{ color: 'var(--color-description)' }}>
-                  Professional interior design made simple. Answer a few questions, share your space,
+                  Professional interior design made simple. Choose your package, share your space,
                   and get stunning designs delivered to your inbox.
                 </p>
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                  <Link href="/style-quiz" className={`${pageButtonPrimary} !h-12 md:!h-14 !px-8 md:!px-10 !text-base md:!text-lg`}>
+                  <Link href="/select-package" className={`${pageButtonPrimary} !h-12 md:!h-14 !px-8 md:!px-10 !text-base md:!text-lg`}>
                     <Sparkles className="h-5 w-5" />
-                    Take the Style Quiz
+                    Choose Your Package
                   </Link>
                   <Link href="/discover" className={`${pageButtonSecondary} !h-12 md:!h-14 !px-8 md:!px-10 !text-base md:!text-lg`}>
                     View Gallery
@@ -542,12 +535,12 @@ export default function HowItWorks() {
                 Ready to Transform Your Space?
               </h2>
               <p className="text-base md:text-lg mb-6 md:mb-8 text-[#c6beb4]">
-                Take our 2-minute style quiz and discover your design personality
+                Choose your perfect package and get professional designs in 72 hours
               </p>
               <div className="flex flex-col sm:flex-row gap-3 md:gap-4 justify-center">
-                <Link href="/style-quiz" className={`${pageButtonDarkPrimary} !h-12 md:!h-14 !px-8 md:!px-10 !text-base md:!text-lg`}>
+                <Link href="/select-package" className={`${pageButtonDarkPrimary} !h-12 md:!h-14 !px-8 md:!px-10 !text-base md:!text-lg`}>
                   <Sparkles className="h-4 w-4 md:h-5 md:w-5" />
-                  Start the Style Quiz
+                  Select Your Package
                 </Link>
                 <Link
                   href="/faq"
