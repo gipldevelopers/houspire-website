@@ -25,6 +25,8 @@ import {
   ArrowRight,
 } from 'lucide-react';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+
 export function ContactForm() {
   const { user } = useAuth();
   const { toast } = useToast();
@@ -51,13 +53,24 @@ export function ContactForm() {
 
   const onSubmit = async (data) => {
     try {
-      await dataPost('/contact', {
-        name: data.name,
-        email: data.email,
-        phone: data.phone || null,
-        subject: subjects.find(s => s.value === data.subject)?.label || data.subject,
-        message: data.message,
+      const response = await fetch(`${API_URL}/contact`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: data.name,
+          email: data.email,
+          phone: data.phone || null,
+          subject: subjects.find(s => s.value === data.subject)?.label || data.subject,
+          message: data.message,
+        }),
       });
+
+      if (!response.ok) {
+        const errData = await response.json().catch(() => ({}));
+        throw new Error(errData.message || 'Failed to send message');
+      }
 
       setSubmitted(true);
       toast({
