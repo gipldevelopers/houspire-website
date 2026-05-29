@@ -43,8 +43,15 @@ export function BentoCard({ design, index, onClick, isFocused = false, layout = 
       >
         {/* Image Container */}
         <div className={cn(
-          "relative overflow-hidden",
-          layout === 'masonry' ? "aspect-square md:aspect-auto" : "aspect-square md:aspect-[3/4]"
+          "relative overflow-hidden w-full",
+          layout === 'masonry' ? (
+            index % 6 === 0 ? "aspect-[3/4]" :
+            index % 6 === 1 ? "aspect-[4/3]" :
+            index % 6 === 2 ? "aspect-[1/1]" :
+            index % 6 === 3 ? "aspect-[2/3]" :
+            index % 6 === 4 ? "aspect-[4/5]" :
+            "aspect-[16/10]"
+          ) : "aspect-square md:aspect-[3/4]"
         )} style={{ backgroundColor: 'color-mix(in srgb, var(--color-secondary-1) 45%, white)' }}>
           {!imageLoaded && (
             <div

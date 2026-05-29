@@ -12,6 +12,18 @@ import { SEOHead } from '@/components/SEOHead';
 import { ArrowLeft, Share2, ChevronLeft, ChevronRight } from 'lucide-react';
 import { getStaticDesignById } from '@/lib/frontend-data';
 
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:5000';
+
+function getImageUrl(path) {
+  if (!path) return '';
+  if (path.startsWith('http://') || path.startsWith('https://')) return path;
+  if (path.startsWith('/uploads') || path.startsWith('/temp_uploads')) {
+    return `${SERVER_URL}${path}`;
+  }
+  return path;
+}
+
 function formatLabel(text) {
   return (text || '').replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
@@ -26,19 +38,44 @@ export default function DiscoverDesignPage() {
 
   useEffect(() => {
     if (!id) return;
-    try {
-      const data = getStaticDesignById(id);
-      setDesign(data);
-    } catch {
-      setDesign(null);
-    } finally {
-      setLoading(false);
+    async function fetchDesign() {
+      try {
+        const res = await fetch(`${API_URL}/gallery/${id}`);
+        if (!res.ok) throw new Error();
+        const json = await res.json();
+        if (json.success && json.data) {
+          const item = json.data;
+          setDesign({
+            ...item,
+            cover_image_url: getImageUrl(item.cover_image_url),
+            cloudinary_url: getImageUrl(item.cloudinary_url),
+            render_urls: (item.render_urls || []).map(getImageUrl),
+          });
+          
+          // Increment view count asynchronously
+          fetch(`${API_URL}/gallery/${id}/view`, { method: 'POST' }).catch(() => {});
+        } else {
+          throw new Error();
+        }
+      } catch (err) {
+        console.warn('Live API single design fetch failed. Using fallback static data.', err);
+        try {
+          const data = getStaticDesignById(id);
+          setDesign(data);
+        } catch {
+          setDesign(null);
+        }
+      } finally {
+        setLoading(false);
+      }
     }
+    fetchDesign();
   }, [id]);
 
   useEffect(() => {
     if (design) setImageIndex(0);
   }, [design?.id]);
+
 
   if (loading) {
     return (

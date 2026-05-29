@@ -1,7 +1,18 @@
 import { useState, useCallback, useEffect, useRef } from 'react'
-import { appDataClient } from '@/lib/static-client'
+import { FALLBACK_GALLERY_DESIGNS } from '@/lib/fallback-gallery'
 
 const PAGE_SIZE = 24
+const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
+const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:5000'
+
+function getImageUrl(path) {
+  if (!path) return ''
+  if (path.startsWith('http://') || path.startsWith('https://')) return path
+  if (path.startsWith('/uploads') || path.startsWith('/temp_uploads')) {
+    return `${SERVER_URL}${path}`
+  }
+  return path
+}
 
 export function useGalleryPagination(filters) {
   const [designs, setDesigns] = useState([])
@@ -11,172 +22,133 @@ export function useGalleryPagination(filters) {
   const [error, setError] = useState(null)
   const [totalCount, setTotalCount] = useState(0)
   
-  const cursorRef = useRef(null)
+  const pageRef = useRef(1)
   const filtersRef = useRef('')
 
-  const buildQuery = useCallback((cursor) => {
-    let query = appDataClient
-      .from('gallery_designs')
-      .select('*', { count: 'exact' })
-      .eq('is_published', true)
+  const fetchDesignsFromApi = useCallback(async (pageNumber) => {
+    const params = new URLSearchParams({
+      page: pageNumber,
+      limit: PAGE_SIZE,
+      room: filters.room || 'all',
+      style: filters.style || 'all',
+      budget: filters.budget || 'all',
+      search: filters.search || '',
+      sort: filters.sort || 'newest',
+    })
+
+    const res = await fetch(`${API_URL}/gallery?${params.toString()}`)
+    if (!res.ok) {
+      throw new Error(`API error: ${res.status} ${res.statusText}`)
+    }
+    const json = await res.json()
+    if (!json.success) {
+      throw new Error(json.message || 'Failed to fetch designs')
+    }
+
+    const mapped = (json.data || []).map(design => ({
+      ...design,
+      cover_image_url: getImageUrl(design.cover_image_url),
+      cloudinary_url: getImageUrl(design.cloudinary_url),
+      render_urls: (design.render_urls || []).map(getImageUrl),
+    }))
+
+    return {
+      designs: mapped,
+      total: json.pagination?.total || 0,
+      pages: json.pagination?.pages || 1,
+    }
+  }, [filters])
+
+  // Local fallback mock pagination logic
+  const fetchDesignsMock = useCallback((pageNumber) => {
+    let list = [...FALLBACK_GALLERY_DESIGNS]
 
     if (filters.room && filters.room !== 'all') {
-      query = query.eq('room_type', filters.room)
+      list = list.filter(d => d.room_type === filters.room)
     }
-    
     if (filters.style && filters.style !== 'all') {
-      query = query.eq('style_primary', filters.style)
+      list = list.filter(d => d.style_primary === filters.style)
     }
-    
     if (filters.budget && filters.budget !== 'all') {
-      query = query.eq('budget_range', filters.budget)
+      list = list.filter(d => d.budget_range === filters.budget)
     }
-    
     if (filters.search) {
-      query = query.or(
-        `design_title.ilike.%${filters.search}%,design_description.ilike.%${filters.search}%,room_type.ilike.%${filters.search}%,style_primary.ilike.%${filters.search}%`
+      const searchLower = filters.search.toLowerCase()
+      list = list.filter(d => 
+        (d.design_title || '').toLowerCase().includes(searchLower) ||
+        (d.design_description || '').toLowerCase().includes(searchLower)
       )
     }
 
-    switch (filters.sort) {
-      case 'random':
-        query = query.order('id', { ascending: false })
-        break
-      case 'popular':
-        query = query
-          .order('view_count', { ascending: false, nullsFirst: false })
-          .order('save_count', { ascending: false, nullsFirst: false })
-          .order('id', { ascending: false })
-        break
-      case 'most_viewed':
-        query = query
-          .order('view_count', { ascending: false, nullsFirst: false })
-          .order('created_at', { ascending: false })
-          .order('id', { ascending: false })
-        break
-      case 'most_liked':
-        query = query
-          .order('save_count', { ascending: false, nullsFirst: false })
-          .order('created_at', { ascending: false })
-          .order('id', { ascending: false })
-        break
-      case 'newest':
-      default:
-        query = query
-          .order('is_featured', { ascending: false })
-          .order('created_at', { ascending: false })
-          .order('id', { ascending: false })
-        break
+    if (filters.sort === 'random') {
+      list.sort(() => Math.random() - 0.5)
+    } else if (filters.sort === 'popular' || filters.sort === 'most_viewed') {
+      list.sort((a, b) => (b.view_count || 0) - (a.view_count || 0))
+    } else if (filters.sort === 'most_liked') {
+      list.sort((a, b) => (b.save_count || 0) - (a.save_count || 0))
     }
 
-    if (cursor && filters.sort !== 'random') {
-      switch (filters.sort) {
-        case 'most_viewed':
-          query = query.or(
-            `view_count.lt.${cursor.view_count ?? 0},and(view_count.eq.${cursor.view_count ?? 0},id.lt.${cursor.id})`
-          )
-          break
-        case 'most_liked':
-          query = query.or(
-            `save_count.lt.${cursor.save_count ?? 0},and(save_count.eq.${cursor.save_count ?? 0},id.lt.${cursor.id})`
-          )
-          break
-        case 'popular':
-          query = query.or(
-            `view_count.lt.${cursor.view_count ?? 0},and(view_count.eq.${cursor.view_count ?? 0},id.lt.${cursor.id})`
-          )
-          break
-        case 'newest':
-        default:
-          query = query.or(
-            `created_at.lt.${cursor.created_at},and(created_at.eq.${cursor.created_at},id.lt.${cursor.id})`
-          )
-          break
-      }
+    const startIndex = (pageNumber - 1) * PAGE_SIZE
+    const endIndex = startIndex + PAGE_SIZE
+    const sliced = list.slice(startIndex, endIndex)
+
+    return {
+      designs: sliced,
+      total: list.length,
+      pages: Math.ceil(list.length / PAGE_SIZE),
     }
-
-    query = query.limit(PAGE_SIZE)
-
-    return query
   }, [filters])
 
   const fetchInitial = useCallback(async () => {
     setLoading(true)
     setError(null)
-    cursorRef.current = null
-    
+    pageRef.current = 1
+
     try {
-      const [queryResult, totalResult] = await Promise.all([
-        buildQuery(null),
-        appDataClient
-          .from('gallery_designs')
-          .select('*', { count: 'exact', head: true })
-          .eq('is_published', true)
-      ])
-
-      const { data, error: fetchError, count: filteredCount } = queryResult
-      const { count: publishedCount, error: countError } = totalResult
-
-      if (fetchError) throw fetchError
-      if (countError) console.warn('Failed to fetch total count:', countError)
-
-      let resultData = data || []
-      if (filters.sort === 'random' && resultData.length > 0) {
-        resultData = [...resultData].sort(() => Math.random() - 0.5)
-      }
-
-      setDesigns(resultData)
-      setTotalCount(publishedCount || filteredCount || 0)
-      setHasMore((resultData.length) === PAGE_SIZE)
-
-      if (data && data.length > 0) {
-        const last = data[data.length - 1]
-        cursorRef.current = {
-          created_at: last.created_at,
-          id: last.id,
-          view_count: last.view_count,
-          save_count: last.save_count,
-        }
-      }
+      const result = await fetchDesignsFromApi(1)
+      setDesigns(result.designs)
+      setTotalCount(result.total)
+      setHasMore(result.designs.length === PAGE_SIZE && 1 < result.pages)
     } catch (err) {
-      setError(err.message || 'Failed to load designs')
-      setDesigns([])
+      console.warn('Backend API request failed. Falling back to local static mock data.', err)
+      const result = fetchDesignsMock(1)
+      setDesigns(result.designs)
+      setTotalCount(result.total)
+      setHasMore(result.designs.length === PAGE_SIZE && 1 < result.pages)
     } finally {
       setLoading(false)
     }
-  }, [buildQuery])
+  }, [fetchDesignsFromApi, fetchDesignsMock])
 
   const loadMore = useCallback(async () => {
-    if (loadingMore || !hasMore || !cursorRef.current) return
+    if (loadingMore || !hasMore) return
 
     setLoadingMore(true)
+    const nextPage = pageRef.current + 1
 
     try {
-      const query = buildQuery(cursorRef.current)
-      const { data, error: fetchError } = await query
-
-      if (fetchError) throw fetchError
-
-      if (data && data.length > 0) {
-        setDesigns(prev => [...prev, ...data])
-        setHasMore(data.length === PAGE_SIZE)
-
-        const last = data[data.length - 1]
-        cursorRef.current = {
-          created_at: last.created_at,
-          id: last.id,
-          view_count: last.view_count,
-          save_count: last.save_count,
-        }
+      const result = await fetchDesignsFromApi(nextPage)
+      if (result.designs.length > 0) {
+        setDesigns(prev => [...prev, ...result.designs])
+        pageRef.current = nextPage
+        setHasMore(result.designs.length === PAGE_SIZE && nextPage < result.pages)
       } else {
         setHasMore(false)
       }
     } catch (err) {
-      setError(err.message || 'Failed to load more designs')
+      console.warn('Backend API loadMore failed. Falling back to local static mock data.', err)
+      const result = fetchDesignsMock(nextPage)
+      if (result.designs.length > 0) {
+        setDesigns(prev => [...prev, ...result.designs])
+        pageRef.current = nextPage
+        setHasMore(result.designs.length === PAGE_SIZE && nextPage < result.pages)
+      } else {
+        setHasMore(false)
+      }
     } finally {
       setLoadingMore(false)
     }
-  }, [buildQuery, loadingMore, hasMore])
+  }, [fetchDesignsFromApi, fetchDesignsMock, loadingMore, hasMore])
 
   useEffect(() => {
     const filterKey = JSON.stringify(filters)
@@ -204,4 +176,3 @@ export function useGalleryPagination(filters) {
     refetch: fetchInitial,
   }
 }
-
