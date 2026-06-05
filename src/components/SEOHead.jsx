@@ -22,7 +22,7 @@ export function SEOHead({
   const fullTitle = title
     ? title.endsWith(`| ${SITE_NAME}`) ? title : `${title} | ${SITE_NAME}`
     : DEFAULT_TITLE;
-  const currentUrl = url || (typeof window !== 'undefined' ? window.location.href : 'http://localhost:3000');
+  const currentUrl = url || (typeof window !== 'undefined' ? window.location.href : 'http://localhost:3050');
   const canonicalUrl = canonical || currentUrl;
 
   useEffect(() => {
