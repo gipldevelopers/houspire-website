@@ -6,7 +6,7 @@ import { motion } from 'framer-motion';
 import { ArrowRight, CheckCircle2, Clock, Image as ImageIcon, IndianRupee, ShoppingBag, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { HeroHighlight } from '@/components/ui/hero-highlight';
-import { PlanningWizardModal } from '@/components/wizard/PlanningWizardModal';
+import { redirectToHouspireHome } from '@/lib/external-links';
 
 const ease = [0.25, 0.46, 0.45, 0.94];
 
@@ -52,8 +52,6 @@ function PreviewTile({ src, alt, label }) {
 }
 
 export function HeroSection() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPackage, setSelectedPackage] = useState(null);
 
   return (
     <>
@@ -183,7 +181,7 @@ export function HeroSection() {
                     transition={{ duration: 0.8, ease, delay: 0.35 }}
                   >
                     <button
-                      onClick={() => setIsModalOpen(true)}
+                      onClick={() => redirectToHouspireHome({ openWizard: true })}
                       className="btn-primary h-11 px-8 text-sm md:h-14 md:px-10 md:text-lg gap-2 w-full sm:w-auto shadow-xl shadow-primary/20"
                     >
                       Start your home plan
@@ -256,11 +254,6 @@ export function HeroSection() {
         </div>
       </section>
     </HeroHighlight>
-      <PlanningWizardModal
-        open={isModalOpen}
-        onOpenChange={setIsModalOpen}
-        selectedPackage={selectedPackage}
-      />
     </>
   );
 }

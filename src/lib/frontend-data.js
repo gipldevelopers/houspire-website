@@ -268,6 +268,37 @@ function getResponse(endpoint) {
 }
 
 export async function dataRequest(endpoint, options = {}) {
+  const path = normalizeEndpoint(endpoint);
+  
+  // Directly fetch packages from API
+  if (path === '/packages' || path.startsWith('/packages?')) {
+    try {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+      const res = await fetch(`${apiUrl}${path}`);
+      if (res.ok) {
+        const json = await res.json();
+        const packages = json.data?.packages || json.packages;
+        // Fallback safely if api data structure is unexpected
+        if (packages) {
+          // Map backend fields to frontend mock-like fields if missing
+          const mappedPackages = packages.map(pkg => ({
+            ...pkg,
+            tagline: pkg.description || 'Complete package',
+            discount: pkg.originalPrice ? `${Math.round((1 - pkg.price/pkg.originalPrice)*100)}% OFF` : null,
+            roomCountDisplay: pkg.name.includes('Single') ? '1 Room' : 'Complete Home',
+            revisionsDisplay: pkg.name.includes('Single') ? 'No revisions' : 'Included',
+            buttonText: `Get ${pkg.name} for ₹${pkg.price}`,
+            slug: pkg.name.toLowerCase().replace(/\s+/g, '-'),
+          }));
+          return { packages: mappedPackages };
+        }
+      }
+    } catch (err) {
+      console.error('Failed to fetch packages from API:', err);
+    }
+    // Falls through to mock data if API fails
+  }
+
   await wait();
   const mockData = getResponse(endpoint);
 

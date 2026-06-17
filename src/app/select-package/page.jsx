@@ -24,7 +24,7 @@ import { dataGet, getStaticStyleBySlug } from '@/lib/frontend-data';
 import { useToast } from '@/hooks/use-toast';
 import { formatPrice } from '@/lib/utils';
 import { SEOHead } from '@/components/SEOHead';
-import { PlanningWizardModal } from '@/components/wizard/PlanningWizardModal';
+import { redirectToHouspireHome } from '@/lib/external-links';
 
 const comparisonSections = [
   {
@@ -71,22 +71,9 @@ const comparisonHeaders = [
   { name: 'Luxury Home', price: '₹14,999' },
 ];
 
+// All packages now redirect to the software landing page
 const shouldOpenWizard = (pkg) => {
-  if (!pkg) return false;
-  const slug = pkg.slug?.toLowerCase() || '';
-  const name = pkg.name?.toLowerCase() || '';
-  const isTrial = pkg.isTrial || pkg.is_trial;
-  return (
-    isTrial || 
-    slug.includes('trial') || 
-    slug.includes('smart') || 
-    slug.includes('premium') || 
-    slug.includes('luxury') ||
-    name.includes('trial') ||
-    name.includes('smart') ||
-    name.includes('premium') ||
-    name.includes('luxury')
-  );
+  return true;
 };
 
 function SelectPackageContent() {
@@ -108,8 +95,6 @@ function SelectPackageContent() {
   const [loading, setLoading] = useState(true);
   const [selectedPackage, setSelectedPackage] = useState(null);
   const [styleName, setStyleName] = useState('');
-  const [isWizardOpen, setIsWizardOpen] = useState(false);
-  const [selectedPackagePrice, setSelectedPackagePrice] = useState(null);
 
   useEffect(() => {
     fetchPackages();
@@ -136,7 +121,7 @@ function SelectPackageContent() {
   const fetchPackages = async () => {
     try {
       setLoading(true);
-      const { packages: data } = await dataGet('/packages?limit=10');
+      const { packages: data } = await dataGet('/packages?limit=10&includeSingleRoom=true');
       setPackages(data || []);
     } catch (err) {
       console.error('Error fetching packages:', err);
@@ -154,10 +139,7 @@ function SelectPackageContent() {
 
   const handlePackageAction = (pkg) => {
     if (shouldOpenWizard(pkg)) {
-      setSelectedPackagePrice(pkg.price);
-      setIsWizardOpen(true);
-      // Don't "select" it in the UI (hides the bottom bar)
-      setSelectedPackage(null);
+      redirectToHouspireHome({ openWizard: true, package: pkg.price });
       return;
     }
 
@@ -342,12 +324,6 @@ function SelectPackageContent() {
         >
           <ArrowUp className="h-5 w-5" />
         </motion.button>
-
-        <PlanningWizardModal 
-          open={isWizardOpen} 
-          onOpenChange={setIsWizardOpen} 
-          selectedPackage={selectedPackagePrice} 
-        />
       </div>
     </>
   );

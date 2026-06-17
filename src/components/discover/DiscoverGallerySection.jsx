@@ -18,7 +18,7 @@ import { BackToTopButton } from '@/components/discover/BackToTopButton'
 import { cn } from '@/lib/utils'
 import { HeroHighlight } from '@/components/ui/hero-highlight'
 import { Search, Loader2, Keyboard, Sparkles, MessageCircle } from 'lucide-react'
-import { PlanningWizardModal } from '@/components/wizard/PlanningWizardModal'
+import { redirectToHouspireHome } from '@/lib/external-links'
 
 function GalleryCtaBanner({ onStartTrial }) {
   const router = useRouter()
@@ -152,8 +152,6 @@ export default function Discover() {
   const [currentIndex, setCurrentIndex] = useState(0)
   const [showFilters, setShowFilters] = useState(false)
   const [gridSize, setGridSize] = useState('default')
-  const [isModalOpen, setIsModalOpen] = useState(false)
-  const [selectedPackage, setSelectedPackage] = useState(null)
 
   // Liked designs persistence
   const { isLiked, toggleLike } = useLikedDesigns()
@@ -390,8 +388,7 @@ export default function Discover() {
               <div className="w-full max-w-[960px] mt-2">
                 <GalleryCtaBanner 
                   onStartTrial={() => {
-                    setSelectedPackage(499);
-                    setIsModalOpen(true);
+                    redirectToHouspireHome({ openWizard: true, package: 499 });
                   }} 
                 />
               </div>
@@ -576,12 +573,6 @@ export default function Discover() {
             setCurrentIndex(-1) // Not in current list
           }
         }}
-      />
-
-      <PlanningWizardModal 
-        open={isModalOpen} 
-        onOpenChange={setIsModalOpen} 
-        selectedPackage={selectedPackage} 
       />
     </div>
   )

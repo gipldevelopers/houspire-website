@@ -5,12 +5,11 @@ import Link from 'next/link';
 import { useRouter, usePathname } from 'next/navigation';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/contexts/AuthContext';
-import { redirectToHouspireSignIn } from '@/lib/external-links';
+import { redirectToHouspireSignIn, redirectToHouspireHome } from '@/lib/external-links';
 import { Menu, X, Shield, Settings, MessageCircle, Heart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import logoImg from '@/assets/logo.png';
 import Image from 'next/image';
-import { PlanningWizardModal } from '@/components/wizard/PlanningWizardModal';
 // Temporarily commented - will implement after converting these components
 // import { NotificationBell } from '@/components/NotificationBell';
 // import { useUnreadCount } from '@/hooks/useUnreadCount';
@@ -26,7 +25,6 @@ export function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isBannerVisible, setIsBannerVisible] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
   // const { unreadCount } = useUnreadCount();
   const unreadCount = 0; // Temporary placeholder
   
@@ -207,7 +205,7 @@ export function Header() {
                     Sign in
                   </Button>
                   <button
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={() => redirectToHouspireHome({ openWizard: true })}
                     className="btn-primary btn-sm"
                   >
                     Get started
@@ -353,7 +351,7 @@ export function Header() {
                   <>
                     <button
                       onClick={() => {
-                        setIsModalOpen(true);
+                        redirectToHouspireHome({ openWizard: true });
                         setIsMobileMenuOpen(false);
                       }}
                       className="btn-primary btn-lg w-full"
@@ -376,9 +374,6 @@ export function Header() {
           </motion.div>
         )}
       </AnimatePresence>
-
-      {/* Planning Wizard Modal */}
-      <PlanningWizardModal open={isModalOpen} onOpenChange={setIsModalOpen} />
     </>
   );
 }
