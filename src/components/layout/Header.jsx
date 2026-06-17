@@ -77,6 +77,8 @@ export function Header() {
   ];
 
   // Check if banner is visible (not dismissed this session)
+  if (pathname === '/access') return null;
+
   return (
     <>
       <motion.header

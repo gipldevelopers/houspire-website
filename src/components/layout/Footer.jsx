@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { ChevronDown, Instagram, MessageCircle } from 'lucide-react';
 import CookiePreferencesDialog from '@/components/CookiePreferencesDialog';
 import { HOUSPIRE_HOME_URL, redirectToHouspireHome } from '@/lib/external-links';
@@ -49,6 +50,9 @@ function MobileLinksSection({ title, links }) {
 
 export function Footer() {
   const [showCookiePreferences, setShowCookiePreferences] = useState(false);
+  const pathname = usePathname();
+
+  if (pathname === '/access') return null;
 
   const productLinks = [
     { name: 'How it works', path: '/how-it-works' },
