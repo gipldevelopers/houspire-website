@@ -280,8 +280,16 @@ export async function dataRequest(endpoint, options = {}) {
         const packages = json.data?.packages || json.packages;
         // Fallback safely if api data structure is unexpected
         if (packages) {
+          // Deduplicate by name — keep the first occurrence of each package name
+          const seenNames = new Set();
+          const uniquePackages = packages.filter(pkg => {
+            if (seenNames.has(pkg.name)) return false;
+            seenNames.add(pkg.name);
+            return true;
+          });
+
           // Map backend fields to frontend mock-like fields if missing
-          const mappedPackages = packages.map(pkg => ({
+          const mappedPackages = uniquePackages.map(pkg => ({
             ...pkg,
             tagline: pkg.description || 'Complete package',
             discount: pkg.originalPrice ? `${Math.round((1 - pkg.price/pkg.originalPrice)*100)}% OFF` : null,

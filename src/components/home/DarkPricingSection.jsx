@@ -91,7 +91,14 @@ export function DarkPricingSection() {
           const json = await res.json();
           const packages = json.data?.packages || json.packages;
           if (packages && packages.length > 0) {
-            const mappedPlans = packages.map(pkg => ({
+            // Deduplicate by name — keep the first occurrence
+            const seenNames = new Set();
+            const unique = packages.filter(pkg => {
+              if (seenNames.has(pkg.name)) return false;
+              seenNames.add(pkg.name);
+              return true;
+            });
+            const mappedPlans = unique.map(pkg => ({
               id: pkg.publicId || pkg.id,
               name: pkg.name,
               subtitle: pkg.description || pkg.tagline || 'Custom package',
