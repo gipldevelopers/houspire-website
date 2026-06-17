@@ -1,16 +1,16 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useRouter } from 'next/navigation';
 import { Check } from 'lucide-react';
 import { NumberTicker } from '@/components/ui/number-ticker';
 import { ShimmerButton } from '@/components/ui/shimmer-button';
-import { PlanningWizardModal } from '@/components/wizard/PlanningWizardModal';
+import { redirectToHouspireHome } from '@/lib/external-links';
 
 const ease = [0.25, 0.46, 0.45, 0.94];
 
-const plans = [
+const staticPlans = [
   {
     name: 'Single Room Trial',
     subtitle: 'Try before committing',
@@ -79,12 +79,45 @@ const plans = [
 
 export function DarkPricingSection() {
   const router = useRouter();
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedPackage, setSelectedPackage] = useState(null);
+  const [plans, setPlans] = useState(staticPlans);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchPackages = async () => {
+      try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
+        const res = await fetch(`${apiUrl}/packages?activeOnly=true&includeSingleRoom=true`);
+        if (res.ok) {
+          const json = await res.json();
+          const packages = json.data?.packages || json.packages;
+          if (packages && packages.length > 0) {
+            const mappedPlans = packages.map(pkg => ({
+              id: pkg.publicId || pkg.id,
+              name: pkg.name,
+              subtitle: pkg.description || pkg.tagline || 'Custom package',
+              price: pkg.price,
+              popular: pkg.isPopular,
+              features: pkg.features || [],
+              cta: pkg.buttonText || `Choose ${pkg.name}`,
+              primary: pkg.isPopular,
+            }));
+            // Sort by price
+            mappedPlans.sort((a, b) => a.price - b.price);
+            setPlans(mappedPlans);
+          }
+        }
+      } catch (err) {
+        console.error('Failed to fetch packages:', err);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    fetchPackages();
+  }, []);
 
   const handlePlanClick = (plan) => {
-    setSelectedPackage(plan.price);
-    setIsModalOpen(true);
+    redirectToHouspireHome({ openWizard: true, package: plan.price });
   };
 
   return (
@@ -224,11 +257,6 @@ export function DarkPricingSection() {
         </p>
         </div>
       </section>
-      <PlanningWizardModal 
-        open={isModalOpen} 
-        onOpenChange={setIsModalOpen} 
-        selectedPackage={selectedPackage} 
-      />
     </>
   );
 }

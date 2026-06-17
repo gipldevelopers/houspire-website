@@ -3,12 +3,11 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { TextGenerateEffect } from '@/components/ui/text-generate-effect';
-import { PlanningWizardModal } from '@/components/wizard/PlanningWizardModal';
+import { redirectToHouspireHome } from '@/lib/external-links';
 
 const ease = [0.25, 0.46, 0.45, 0.94];
 
 export function DarkFinalCTA() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <>
@@ -27,7 +26,7 @@ export function DarkFinalCTA() {
           Know exactly what your home will look like and cost—before you start.
         </p>
         <button
-          onClick={() => setIsModalOpen(true)}
+          onClick={() => redirectToHouspireHome({ openWizard: true })}
           className="mt-8 md:mt-12 px-8 py-4 text-base md:text-lg font-black text-white rounded-full transition-all duration-300 shadow-2xl btn-primary"
           style={{ boxShadow: '0 25px 50px -12px color-mix(in srgb, var(--color-primary) 20%, transparent)' }}
         >
@@ -35,7 +34,6 @@ export function DarkFinalCTA() {
         </button>
       </motion.div>
       </section>
-      <PlanningWizardModal open={isModalOpen} onOpenChange={setIsModalOpen} />
     </>
   );
 }
