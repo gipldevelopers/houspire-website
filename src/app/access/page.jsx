@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { motion } from 'framer-motion';
 import { Lock, ArrowRight, ShieldCheck } from 'lucide-react';
@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { verifyAccess } from './actions';
 import logoImg from '@/assets/logo.png';
 
-export default function AccessPage() {
+function AccessContent() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -129,5 +129,17 @@ export default function AccessPage() {
         </div>
       </motion.div>
     </div>
+  );
+}
+
+export default function AccessPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen w-full flex items-center justify-center bg-[#FAFAFA] text-[#1A1A1A]">
+        <div className="w-5 h-5 border-2 border-gray-300 border-t-[#E48B53] rounded-full animate-spin" />
+      </div>
+    }>
+      <AccessContent />
+    </Suspense>
   );
 }
