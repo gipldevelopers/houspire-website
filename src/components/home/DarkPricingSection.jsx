@@ -91,13 +91,10 @@ export function DarkPricingSection() {
           const json = await res.json();
           const packages = json.data?.packages || json.packages;
           if (packages && packages.length > 0) {
-            // Deduplicate by name — keep the first occurrence
-            const seenNames = new Set();
-            const unique = packages.filter(pkg => {
-              if (seenNames.has(pkg.name)) return false;
-              seenNames.add(pkg.name);
-              return true;
-            });
+            // Deduplicate by price — keep last entry per price (newest wins)
+            const priceMap = new Map();
+            packages.forEach(pkg => priceMap.set(pkg.price, pkg));
+            const unique = Array.from(priceMap.values());
             const mappedPlans = unique.map(pkg => ({
               id: pkg.publicId || pkg.id,
               name: pkg.name,
