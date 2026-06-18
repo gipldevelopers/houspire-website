@@ -5,7 +5,7 @@ import { SEOHead } from '@/components/SEOHead';
 
 import { Suspense } from 'react';
 
-export default function Discover() {
+export default function DiscoverPage() {
   return (
     <Suspense fallback={
       <div className="min-h-screen bg-background pt-24 flex items-center justify-center">

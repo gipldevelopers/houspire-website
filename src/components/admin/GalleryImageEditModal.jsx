@@ -54,7 +54,7 @@ export function GalleryImageEditModal({ image, isOpen, onClose, onSave, }) {
             });
         }
     }, [image]);
-    const generateAIDetails = async () => {
+    const handleGenerateAIDetails = async () => {
         if (!image)
             return;
         setGeneratingAI(true);
@@ -120,7 +120,7 @@ export function GalleryImageEditModal({ image, isOpen, onClose, onSave, }) {
             setGeneratingAI(false);
         }
     };
-    const handleSave = async () => {
+    const handleSaveImage = async () => {
         if (!image)
             return;
         setSaving(true);
@@ -184,7 +184,7 @@ export function GalleryImageEditModal({ image, isOpen, onClose, onSave, }) {
 
           {/* AI Generate Button */}
           <div className="flex justify-center">
-            <Button variant={aiGenerationFailed ? "destructive" : "outline"} onClick={generateAIDetails} disabled={generatingAI} className="gap-2">
+            <Button variant={aiGenerationFailed ? "destructive" : "outline"} onClick={handleGenerateAIDetails} disabled={generatingAI} className="gap-2">
               {generatingAI ? (<Loader2 className="h-4 w-4 animate-spin"/>) : aiGenerationFailed ? (<RotateCcw className="h-4 w-4"/>) : (<Wand2 className="h-4 w-4 text-purple-500"/>)}
               {generatingAI ? 'Generating...' : aiGenerationFailed ? 'Retry AI Generation' : 'Auto-Generate Details with AI'}
             </Button>
@@ -305,7 +305,7 @@ export function GalleryImageEditModal({ image, isOpen, onClose, onSave, }) {
           <Button variant="outline" onClick={onClose} disabled={saving}>
             Cancel
           </Button>
-          <Button onClick={handleSave} disabled={saving}>
+          <Button onClick={handleSaveImage} disabled={saving}>
             {saving ? (<>
                 <Loader2 className="h-4 w-4 mr-2 animate-spin"/>
                 Saving...

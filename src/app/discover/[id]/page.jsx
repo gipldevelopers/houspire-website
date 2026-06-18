@@ -15,7 +15,7 @@ import { getStaticDesignById } from '@/lib/frontend-data';
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 const SERVER_URL = process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:5000';
 
-function getImageUrl(path) {
+function resolveImageUrl(path) {
   if (!path) return '';
   if (path.startsWith('http://') || path.startsWith('https://')) return path;
   if (path.startsWith('/uploads') || path.startsWith('/temp_uploads')) {
@@ -24,7 +24,7 @@ function getImageUrl(path) {
   return path;
 }
 
-function formatLabel(text) {
+function formatDisplayLabel(text) {
   return (text || '').replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase());
 }
 
@@ -38,7 +38,7 @@ export default function DiscoverDesignPage() {
 
   useEffect(() => {
     if (!id) return;
-    async function fetchDesign() {
+    async function loadDesign() {
       try {
         const res = await fetch(`${API_URL}/gallery/${id}`);
         if (!res.ok) throw new Error();
@@ -47,9 +47,9 @@ export default function DiscoverDesignPage() {
           const item = json.data;
           setDesign({
             ...item,
-            cover_image_url: getImageUrl(item.cover_image_url),
-            cloudinary_url: getImageUrl(item.cloudinary_url),
-            render_urls: (item.render_urls || []).map(getImageUrl),
+            cover_image_url: resolveImageUrl(item.cover_image_url),
+            cloudinary_url: resolveImageUrl(item.cloudinary_url),
+            render_urls: (item.render_urls || []).map(resolveImageUrl),
           });
           
           // Increment view count asynchronously
@@ -69,7 +69,7 @@ export default function DiscoverDesignPage() {
         setLoading(false);
       }
     }
-    fetchDesign();
+    loadDesign();
   }, [id]);
 
   useEffect(() => {
@@ -102,7 +102,7 @@ export default function DiscoverDesignPage() {
 
   const currentImage = allImages[imageIndex] || allImages[0];
 
-  const handleShare = () => {
+  const shareDesign = () => {
     if (typeof navigator !== 'undefined' && navigator.share) {
       navigator.share({
         title: design.design_title,
@@ -191,14 +191,14 @@ export default function DiscoverDesignPage() {
                 </h1>
                 <div className="flex flex-wrap gap-2 mt-3">
                   <Badge variant="secondary">
-                    {formatLabel(design.room_type)}
+                    {formatDisplayLabel(design.room_type)}
                   </Badge>
                   <Badge variant="secondary">
-                    {formatLabel(design.style_primary)}
+                    {formatDisplayLabel(design.style_primary)}
                   </Badge>
                   {design.budget_range && (
                     <Badge variant="outline">
-                      {formatLabel(design.budget_range)}
+                      {formatDisplayLabel(design.budget_range)}
                     </Badge>
                   )}
                 </div>
@@ -219,7 +219,7 @@ export default function DiscoverDesignPage() {
                 <Button
                   variant="outline"
                   size="lg"
-                  onClick={handleShare}
+                  onClick={shareDesign}
                   className="flex-1 sm:flex-none"
                 >
                   <Share2 className="h-4 w-4 mr-2" />

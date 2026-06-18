@@ -35,7 +35,7 @@ export function GalleryPreviewSection() {
     const el = scrollRef.current;
     if (!el) return;
 
-    const handleScroll = () => {
+    const syncMobilePosition = () => {
       const track = el.children[0];
       if (!track) return;
       const items = Array.from(track.children);
@@ -53,15 +53,15 @@ export function GalleryPreviewSection() {
       setMobileCurrent(activeIndex + 1);
     };
 
-    el.addEventListener('scroll', handleScroll);
-    return () => el.removeEventListener('scroll', handleScroll);
+    el.addEventListener('scroll', syncMobilePosition);
+    return () => el.removeEventListener('scroll', syncMobilePosition);
   }, [loading, designs]);
 
   useEffect(() => {
-    fetchFeaturedDesigns();
+    loadFeaturedDesigns();
   }, []);
 
-  const fetchFeaturedDesigns = async () => {
+  const loadFeaturedDesigns = async () => {
     try {
       const data = await dataGet('/gallery?featured=true&limit=12');
       const normalized =
@@ -81,12 +81,12 @@ export function GalleryPreviewSection() {
     }
   };
 
-  const formatBudget = (min, max) => {
-    const formatNum = (n) => {
+  const formatBudgetRange = (min, max) => {
+    const formatAmount = (n) => {
       if (n >= 100000) return `₹${(n / 100000).toFixed(1)}L`;
       return `₹${(n / 1000).toFixed(0)}K`;
     };
-    return `${formatNum(min)} - ${formatNum(max)}`;
+    return `${formatAmount(min)} - ${formatAmount(max)}`;
   };
 
   // If no designs from DB, show placeholder designs with real images
@@ -302,7 +302,7 @@ export function GalleryPreviewSection() {
                     <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                       <h3 className="text-2xl font-semibold leading-tight">{activeDesign?.design_title}</h3>
                       <p className="mt-2 inline-block rounded-full bg-white/15 px-2.5 py-1 text-xs backdrop-blur">
-                        {formatBudget(activeDesign?.estimated_budget_min ?? 0, activeDesign?.estimated_budget_max ?? 0)}
+                        {formatBudgetRange(activeDesign?.estimated_budget_min ?? 0, activeDesign?.estimated_budget_max ?? 0)}
                       </p>
                     </div>
                   </div>
@@ -341,7 +341,7 @@ export function GalleryPreviewSection() {
                           <p className="truncate text-xs opacity-60" style={{ color: 'var(--color-primary)' }}>{design.style_primary}</p>
                           <p className="line-clamp-2 text-sm font-medium" style={{ color: 'var(--color-heading)' }}>{design.design_title}</p>
                           <p className="mt-1 text-[11px] font-bold" style={{ color: 'var(--color-primary)' }}>
-                            {formatBudget(design.estimated_budget_min ?? 0, design.estimated_budget_max ?? 0)}
+                            {formatBudgetRange(design.estimated_budget_min ?? 0, design.estimated_budget_max ?? 0)}
                           </p>
                         </div>
                       </div>
@@ -404,7 +404,7 @@ export function GalleryPreviewSection() {
                             </h3>
                             <div className="flex items-center justify-between">
                               <p className="inline-block rounded-full bg-muted px-2 py-0.5 text-[10px] font-bold text-foreground">
-                                {formatBudget(design.estimated_budget_min ?? 0, design.estimated_budget_max ?? 0)}
+                                {formatBudgetRange(design.estimated_budget_min ?? 0, design.estimated_budget_max ?? 0)}
                               </p>
                               <span className="text-[10px] font-semibold text-primary">
                                 View

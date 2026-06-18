@@ -20,7 +20,7 @@ import { HeroHighlight } from '@/components/ui/hero-highlight'
 import { Search, Loader2, Keyboard, Sparkles, MessageCircle } from 'lucide-react'
 import { redirectToHouspireHome } from '@/lib/external-links'
 
-function GalleryCtaBanner({ onStartTrial }) {
+function GalleryPromoBanner({ onStartTrial }) {
   const router = useRouter()
 
   return (
@@ -200,8 +200,8 @@ export default function Discover() {
   // Keyboard navigation
   const { focusedIndex } = useGalleryKeyboard({
     designs,
-    onDesignSelect: (index) => handleDesignClick(designs[index], index),
-    onSave: (designId) => handleLike(designId),
+    onDesignSelect: (index) => openDesignDetail(designs[index], index),
+    onSave: (designId) => toggleDesignLike(designId),
     isModalOpen: selectedDesign !== null,
     onCloseModal: () => setSelectedDesign(null),
   })
@@ -220,7 +220,7 @@ export default function Discover() {
   }, [shouldLoadMore, hasMore, loadingMore, loading, loadMore])
 
   // Update URL params
-  const updateParam = useCallback((key, value) => {
+  const updateFilterParam = useCallback((key, value) => {
     const newParams = new URLSearchParams(searchParams.toString())
     if (value && value !== 'all' && value !== 'newest') {
       newParams.set(key, value)
@@ -231,11 +231,11 @@ export default function Discover() {
   }, [searchParams, router])
 
   // Filter handlers
-  const setSearchQuery = (value) => updateParam('q', value)
-  const setSelectedRoom = (value) => updateParam('room', value)
-  const setSelectedStyle = (value) => updateParam('style', value)
-  const setSelectedBudget = (value) => updateParam('budget', value)
-  const setSortBy = (value) => updateParam('sort', value)
+  const setSearchQuery = (value) => updateFilterParam('q', value)
+  const setSelectedRoom = (value) => updateFilterParam('room', value)
+  const setSelectedStyle = (value) => updateFilterParam('style', value)
+  const setSelectedBudget = (value) => updateFilterParam('budget', value)
+  const setSortBy = (value) => updateFilterParam('sort', value)
 
   // Count active filters
   const activeFilterCount = useMemo(() => {
@@ -258,7 +258,7 @@ export default function Discover() {
     }
   }, [error, toast])
 
-  const handleDesignClick = async (design, index) => {
+  const openDesignDetail = async (design, index) => {
     setSelectedDesign(design)
     setCurrentIndex(index)
 
@@ -270,7 +270,7 @@ export default function Discover() {
       .then(() => { })
   }
 
-  const handleLike = async (designId, e) => {
+  const toggleDesignLike = async (designId, e) => {
     e?.stopPropagation()
 
     const wasLiked = isLiked(designId)
@@ -296,7 +296,7 @@ export default function Discover() {
     })
   }
 
-  const handleShare = async (design) => {
+  const shareDesign = async (design) => {
     const shareUrl = `${window.location.origin}/discover?design=${design.id}`
 
     // Try native share first (works on mobile and some desktop browsers)
@@ -338,7 +338,7 @@ export default function Discover() {
     }
   }
 
-  const handleNext = () => {
+  const showNextDesign = () => {
     if (currentIndex < designs.length - 1) {
       const nextIndex = currentIndex + 1
       setCurrentIndex(nextIndex)
@@ -346,7 +346,7 @@ export default function Discover() {
     }
   }
 
-  const handlePrevious = () => {
+  const showPreviousDesign = () => {
     if (currentIndex > 0) {
       const prevIndex = currentIndex - 1
       setCurrentIndex(prevIndex)
@@ -386,7 +386,7 @@ export default function Discover() {
               </motion.h1>
 
               <div className="w-full max-w-[960px] mt-2">
-                <GalleryCtaBanner 
+                <GalleryPromoBanner 
                   onStartTrial={() => {
                     redirectToHouspireHome({ openWizard: true, package: 499 });
                   }} 
@@ -475,7 +475,7 @@ export default function Discover() {
                       design={design}
                       index={index}
                       bentoSize={{ cols: 1, rows: 1 }} // Simplified for Masonry
-                      onClick={() => handleDesignClick(design, index)}
+                      onClick={() => openDesignDetail(design, index)}
                       isFocused={isFocused}
                       layout="masonry"
                     />
@@ -557,10 +557,10 @@ export default function Discover() {
         totalDesigns={designs.length}
         isLiked={selectedDesign ? isLiked(selectedDesign.id) : false}
         onClose={() => setSelectedDesign(null)}
-        onNext={handleNext}
-        onPrevious={handlePrevious}
-        onLike={() => selectedDesign && handleLike(selectedDesign.id)}
-        onShare={() => selectedDesign && handleShare(selectedDesign)}
+        onNext={showNextDesign}
+        onPrevious={showPreviousDesign}
+        onLike={() => selectedDesign && toggleDesignLike(selectedDesign.id)}
+        onShare={() => selectedDesign && shareDesign(selectedDesign)}
         onRelatedClick={(relatedDesign) => {
           // Find the index if it exists in current designs, otherwise just show it
           const idx = designs.findIndex(d => d.id === relatedDesign.id)
