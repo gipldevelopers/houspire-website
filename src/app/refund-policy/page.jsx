@@ -85,8 +85,8 @@ const RefundPolicyPage = () => {
                                 <p className="text-xl font-bold text-gray-900 dark:text-white">₹899</p>
                             </div>
                         </div>
-                        <p><strong>2.1 Eligibility:</strong> Request made within 7 days of design delivery if you are unsatisfied with the quality. No questions asked. 100% refund.</p>
-                        <p><strong>2.2 Conditions:</strong> Refund credited to original payment method. No deductions. One-time guarantee per customer. Processing time is 5-7 business days.</p>
+                        {/* <p><strong>2.1 Eligibility:</strong> Request made within 7 days of design delivery if you are unsatisfied with the quality. No questions asked. 100% refund.</p> */}
+                        {/* <p><strong>2.2 Conditions:</strong> Refund credited to original payment method. No deductions. One-time guarantee per customer. Processing time is 5-7 business days.</p> */}
 
                         <Subtitle>2.3 Full Home Packages - Tiered Refund Structure</Subtitle>
                         <div className="space-y-8 mt-6">
